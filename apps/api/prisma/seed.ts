@@ -150,25 +150,31 @@ async function main() {
     }
   }
 
-  // 6. Create Classroom for Verified Teacher with Crockford code KTR2QX79
-  const classObj = await prisma.classroom.create({
-    data: {
-      teacherId: teacherUser.id,
-      name: 'Toán 9A1 - Thầy Nguyễn Văn Nam',
-      grade: 9,
-      academicYear: '2026-2027',
-      isActive: true,
-      inviteCodes: {
-        create: {
-          codeHash: 'HMAC_HASH_KTR2QX79',
-          codePlainPrefix: 'KTR',
-          maxUses: 45,
-          usedCount: 0,
-          expiresAt: new Date(Date.now() + 30 * 24 * 3600 * 1000)
+  // 6. Create Classroom for Verified Teacher with Crockford code KTR2QX79 if not exists
+  const existingClass = await prisma.classroom.findFirst({
+    where: { name: 'Toán 9A1 - Thầy Nguyễn Văn Nam' }
+  });
+
+  if (!existingClass) {
+    await prisma.classroom.create({
+      data: {
+        teacherId: teacherUser.id,
+        name: 'Toán 9A1 - Thầy Nguyễn Văn Nam',
+        grade: 9,
+        academicYear: '2026-2027',
+        isActive: true,
+        inviteCodes: {
+          create: {
+            codeHash: 'HMAC_HASH_KTR2QX79',
+            codePlainPrefix: 'KTR',
+            maxUses: 45,
+            usedCount: 0,
+            expiresAt: new Date(Date.now() + 30 * 24 * 3600 * 1000)
+          }
         }
       }
-    }
-  });
+    });
+  }
 
   console.log('Database seeded successfully!');
   console.log('Sample Accounts created:');

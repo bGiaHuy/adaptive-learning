@@ -25,17 +25,23 @@ Tài liệu này đóng băng 4 quyết định mang tính kiến trúc then ch�
 
 ## 2. Danh mục Quyết định Gate 0
 
+> [!CAUTION]
+> **Tình trạng Phê duyệt Gate 0:**
+> - Toàn bộ các quyết định D-01 đến D-04 hiện ở trạng thái **PENDING DECISION** (Chờ người chịu trách nhiệm ký duyệt).
+> - Mọi phương án được gắn nhãn "Khuyến nghị (Recommendation)" chỉ là cơ sở kỹ thuật tạm thời, **KHÔNG PHẢI REQUIREMENT ĐÃ DUYỆT**.
+> - Tuyệt đối không biến `parentEmail`, `parentConsentStatus` hoặc bất kỳ lựa chọn pháp lý/privacy nào thành requirement đã duyệt cho đến khi có sign-off chính thức từ Legal & Privacy Officer.
+
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        GATE 0 DECISION ROADMAP                         │
-├────────┬───────────────────────────────────────┬────────────┬──────────┤
-│ ID     │ Nội dung quyết định                   │ Mức ưu tiên│ Thời hạn │
-├────────┼───────────────────────────────────────┼────────────┼──────────┤
-│ D-01   │ Khối lớp và Bộ sách triển khai Pilot  │ Critical   │ Tuần 1   │
-│ D-02   │ Mô hình định danh tài khoản Học sinh  │ Blocker    │ Tuần 1   │
-│ D-03   │ Tiêu chí và Quy trình duyệt Giáo viên │ High       │ Tuần 2   │
-│ D-04   │ Ranh giới dữ liệu Học sinh chia sẻ GV │ Blocker    │ Tuần 1   │
-└────────┴───────────────────────────────────────┴────────────┴──────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                                GATE 0 DECISION ROADMAP                                 │
+├──────┬───────────────────────────────────────┬────────────┬──────────┬─────────────────┤
+│ ID   │ Nội dung quyết định                   │ Mức ưu tiên│ Thời hạn │ Trạng thái      │
+├──────┼───────────────────────────────────────┼────────────┼──────────┼─────────────────┤
+│ D-01 │ Khối lớp và Bộ sách triển khai Pilot  │ Critical   │ Tuần 1   │ PENDING DECISION│
+│ D-02 │ Mô hình định danh tài khoản Học sinh  │ Blocker    │ Tuần 1   │ PENDING DECISION│
+│ D-03 │ Tiêu chí và Quy trình duyệt Giáo viên │ High       │ Tuần 2   │ PENDING DECISION│
+│ D-04 │ Ranh giới dữ liệu Học sinh chia sẻ GV │ Blocker    │ Tuần 1   │ PENDING DECISION│
+└──────┴───────────────────────────────────────┴────────────┴──────────┴─────────────────┘
 ```
 
 ---
@@ -87,7 +93,8 @@ Nếu không chốt sớm, đội Content sẽ phân tán nguồn lực soạn c
 ### 7. Phê duyệt Quyết định (Decision Record)
 - **Owner ký duyệt:** Head of Product & Academic Lead
 - **Hạn chót phê duyệt:** Hết Tuần 1 triển khai
-- **Trạng thái:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN A` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN B` | `[ ] KHÁC`
+- **Trạng thái phê duyệt:** `PENDING SIGN-OFF` (CHƯA PHÊ DUYỆT CHÍNH THỨC - Đang chờ Head of Product & Academic Lead ký)
+- **Lựa chọn:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN A` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN B` | `[ ] KHÁC`
 - **Ghi chú phê duyệt:** ............................................................................
 - **Chữ ký:** ..................................................... **Ngày:** .........................
 
@@ -144,7 +151,9 @@ Nếu OpenCode xây dựng cứng Schema `email` là khóa định danh duy nh�
 ### 7. Phê duyệt Quyết định (Decision Record)
 - **Owner ký duyệt:** Legal Officer & Product Owner
 - **Hạn chót phê duyệt:** Hết Tuần 1 triển khai
-- **Trạng thái:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN 1` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 2` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 3`
+- **Trạng thái phê duyệt:** `PENDING SIGN-OFF` (CHƯA PHÊ DUYỆT CHÍNH THỨC)
+- **Lưu ý Pháp lý/Privacy:** `parentEmail`, `parentConsentStatus` chỉ là đề xuất kỹ thuật tạm thời, KHÔNG coi là requirement đã duyệt cho đến khi có chữ ký chính thức.
+- **Lựa chọn:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN 1` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 2` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 3`
 - **Ghi chú phê duyệt:** ............................................................................
 - **Chữ ký:** ..................................................... **Ngày:** .........................
 
@@ -200,7 +209,8 @@ Nếu mở quyền tạo lớp tự do, nền tảng vi phạm chính sách bả
 ### 7. Phê duyệt Quyết định (Decision Record)
 - **Owner ký duyệt:** Lead Architect (Codex) & Operations Lead
 - **Hạn chót phê duyệt:** Hết Tuần 2 triển khai
-- **Trạng thái:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN A` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN B` | `[ ] KẾT HỢP B & C`
+- **Trạng thái phê duyệt:** `PENDING SIGN-OFF` (CHƯA PHÊ DUYỆT CHÍNH THỨC - Đang chờ Lead Architect & Operations Lead ký)
+- **Lựa chọn:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN A` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN B` | `[ ] KẾT HỢP B & C`
 - **Ghi chú phê duyệt:** ............................................................................
 - **Chữ ký:** ..................................................... **Ngày:** .........................
 
@@ -255,7 +265,8 @@ Nếu OpenCode viết các API Giáo viên trả về toàn bộ thực thể `S
 ### 7. Phê duyệt Quyết định (Decision Record)
 - **Owner ký duyệt:** Product Owner & Lead Architect
 - **Hạn chót phê duyệt:** Hết Tuần 1 triển khai
-- **Trạng thái:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN 1` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 2` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 3`
+- **Trạng thái phê duyệt:** `PENDING SIGN-OFF` (CHƯA PHÊ DUYỆT CHÍNH THỨC - Đang chờ Product Owner & Lead Architect ký)
+- **Lựa chọn:** `[ ] ĐÃ CHỌN PHƯƠNG ÁN 1` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 2` | `[ ] ĐÃ CHỌN PHƯƠNG ÁN 3`
 - **Ghi chú phê duyệt:** ............................................................................
 - **Chữ ký:** ..................................................... **Ngày:** .........................
 

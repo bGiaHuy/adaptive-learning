@@ -3,9 +3,9 @@
 **Tài liệu:** Academic Curriculum & Content Readiness Matrix for Controlled Pilot  
 **Phiên bản:** 1.0  
 **Tác giả:** Antigravity (Product Discovery & UX Lead)  
-**Phê duyệt:** Academic Content Lead & Quality Assurance Lead  
+**Phê duyệt:** Chờ kiểm kê thực tế & ký duyệt (Academic Content Lead & QA Lead - PENDING SIGN-OFF)  
 **Tài liệu liên quan:**
-- `docs/product/GATE-0-DECISION-PACK.md` (Quyết định D-01: Lớp 9 Kết nối tri thức)
+- `docs/product/GATE-0-DECISION-PACK.md` (Quyết định D-01: Lớp 9 Kết nối tri thức - PENDING)
 - `docs/PROJECT-VISION-AND-PM-ROADMAP.md` (Horizon 2: Thắng pilot lớp 9 ôn thi vào 10)
 - `docs/PRD-AdaptiveMath.md` (Mục 11: Content and Item Bank Management)
 
@@ -14,9 +14,10 @@
 ## 1. Tuyên Bố Trách Nhiệm Dữ Liệu (Data Integrity Statement)
 
 > [!WARNING]
-> **Loại bỏ con số Marketing không có căn cứ:**  
-> Con số *"1.472 câu hỏi và 92 bài học"* xuất hiện trong bản UI prototype trước đây chỉ là văn bản mẫu (mock copy) phục vụ thiết kế giao diện, **hoàn toàn chưa có cơ sở dữ liệu thực tế chứng minh**.  
-> Kế hoạch Content dưới đây thiết lập kho dữ liệu thực sự (Real Content Inventory) phục vụ cho đợt Pilot 6 tuần với **6–8 kỹ năng trọng tâm của Lớp 9**, đảm bảo 100% câu hỏi được kiểm duyệt độc lập, gắn nhãn nhận thức chuẩn xác và chạy mượt mà trên KaTeX.
+> **Loại bỏ con số Marketing & Phân biệt rõ Inventory thực tế:**  
+> 1. Con số *"1.472 câu hỏi và 92 bài học"* xuất hiện trong bản UI prototype trước đây chỉ là văn bản mẫu (mock copy) phục vụ thiết kế giao diện, **hoàn toàn chưa có cơ sở dữ liệu thực tế chứng minh**.  
+> 2. **Kiểm kê thực tế (Verified Inventory):** Tính đến thời điểm hiện tại, trong toàn bộ mã nguồn repo chỉ có **01 câu hỏi mẫu** tại `apps/api/prisma/seed.ts` (SKILL-02).  
+> 3. Các con số *"280 đã soạn / 233 đã duyệt / 72.8%"* trong bảng Ma trận dưới đây chỉ là **MỤC TIÊU KẾ HOẠCH & DỮ LIỆU GIẢ ĐỊNH (PLANNING TARGET / UNVERIFIED PLACEHOLDER)**, chưa có file dữ liệu nguồn trong workspace để đối chiếu. Cần Academic Content Lead nộp file kiểm kê nguồn trước khi tiến hành Gate 3.
 
 ---
 
@@ -68,21 +69,26 @@ Bám sát chương trình Toán 9 GDPT 2018 - SGK Kết nối tri thức với c
 
 ---
 
-## 4. Ma Trận Trạng Thái Sẵn Sàng Nội Dung (Content Readiness Matrix)
+## 4. Ma Trận Kế Hoạch & Trạng Thái Sẵn Sàng Nội Dung (Planning Matrix & Inventory Audit)
 
-*Mục tiêu tối thiểu cho Pilot: 40 câu hỏi / 1 Kỹ năng $\times$ 8 Kỹ năng = **320 câu hỏi chất lượng cao**.*
+> [!IMPORTANT]
+> **Kết Quả Kiểm Kê Kho Dữ Liệu Thực Tế (Workspace Evidence Audit):**  
+> - **Số câu hỏi đã xác minh trong repository:** **01 câu** (Mã `SKILL-02`, file `apps/api/prisma/seed.ts`).  
+> - **Tiến độ thực tế xác minh:** **0.3% (1/320)**.  
+> - Các số liệu "Đã soạn: 280 / Đã duyệt: 233 / 72.8%" dưới đây được phân loại là **MỤC TIÊU KẾ HOẠCH (PLANNING TARGET) / DỮ LIỆU CHƯA XÁC MINH (UNVERIFIED PLACEHOLDER)**.  
+> - **Người chịu trách nhiệm xác minh (Owner):** Academic Content Lead & QA Lead phải cung cấp file dữ liệu nguồn (JSON/CSV hoặc migration seed đầy đủ) trước khi đề xuất mở **Gate 3 (Content & Assessment Algorithm)**.
 
-| Mã Kỹ Năng (Skill ID) | Tên Kỹ Năng | Cần thiết (Target) | Đã soạn (Draft) | Đã duyệt (Published) | Còn thiếu (Gap) | Tác giả (Author) | Thẩm định (Reviewer) | Trạng thái (Status) |
+| Mã Kỹ Năng (Skill ID) | Tên Kỹ Năng | Cần thiết (Target) | Xác minh Repo (Verified) | Kế hoạch Soạn (Draft Target) | Kế hoạch Duyệt (Review Target) | Tác giả dự kiến (Author) | Thẩm định dự kiến (Reviewer) | Phân loại Trạng thái |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- | :--- | :---: |
-| **SKILL-01** | Căn bậc hai cơ bản | 40 | 40 | 36 | **-4** | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `90% Ready` |
-| **SKILL-02** | Biến đổi & Rút gọn căn thức | 40 | 38 | 32 | **-8** | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `80% Ready` |
-| **SKILL-03** | Giải hệ phương trình | 40 | 40 | 40 | **0** | Cô Mai (Chuyên) | Thầy Nam (CVA) | `100% READY` |
-| **SKILL-04** | Toán lập hệ phương trình | 40 | 35 | 28 | **-12** | Cô Mai (Chuyên) | Thầy Nam (CVA) | `70% In Review` |
-| **SKILL-05** | Phương trình bậc hai | 40 | 32 | 24 | **-16** | Thầy Đức (KHTN) | Cô Lan (Sư Phạm) | `60% Drafting` |
-| **SKILL-06** | Định lý Viète & Ứng dụng | 40 | 30 | 20 | **-20** | Thầy Đức (KHTN) | Thầy Nam (CVA) | `50% Drafting` |
-| **SKILL-07** | Tỉ số lượng giác góc nhọn | 40 | 40 | 35 | **-5** | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `87% Ready` |
-| **SKILL-08** | Đường tròn & Góc nội tiếp | 40 | 25 | 18 | **-22** | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `45% Blocker` |
-| **TỔNG CỘNG** | **8 Kỹ năng Pilot** | **320** | **280** | **233** | **-87** | *5 Tác giả* | *3 Reviewers* | **72.8% OVERALL**|
+| **SKILL-01** | Căn bậc hai cơ bản | 40 | 0 | 40 | 36 | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `TARGET / PLACEHOLDER` |
+| **SKILL-02** | Biến đổi & Rút gọn căn thức | 40 | 1 | 38 | 32 | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `1 VERIFIED (seed.ts) / TARGET` |
+| **SKILL-03** | Giải hệ phương trình | 40 | 0 | 40 | 40 | Cô Mai (Chuyên) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
+| **SKILL-04** | Toán lập hệ phương trình | 40 | 0 | 35 | 28 | Cô Mai (Chuyên) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
+| **SKILL-05** | Phương trình bậc hai | 40 | 0 | 32 | 24 | Thầy Đức (KHTN) | Cô Lan (Sư Phạm) | `TARGET / PLACEHOLDER` |
+| **SKILL-06** | Định lý Viète & Ứng dụng | 40 | 0 | 30 | 20 | Thầy Đức (KHTN) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
+| **SKILL-07** | Tỉ số lượng giác góc nhọn | 40 | 0 | 40 | 35 | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `TARGET / PLACEHOLDER` |
+| **SKILL-08** | Đường tròn & Góc nội tiếp | 40 | 0 | 25 | 18 | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `TARGET / PLACEHOLDER` |
+| **TỔNG CỘNG** | **8 Kỹ năng Pilot** | **320** | **1** | **280 (Target)** | **233 (Target)** | *5 Tác giả* | *3 Reviewers* | **VERIFIED: 0.3% (1/320)** |
 
 ---
 
