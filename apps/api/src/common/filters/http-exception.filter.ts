@@ -6,7 +6,7 @@ import {
   HttpStatus
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -15,7 +15,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const requestId = (request.headers['x-request-id'] as string) || `req_${uuidv4()}`;
+    const requestId = (request.headers['x-request-id'] as string) || `req_${randomUUID()}`;
     const timestamp = new Date().toISOString();
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -47,7 +47,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
         }
       }
     } else if (exception instanceof Error) {
-      message = exception.message;
+      // Do not expose database, filesystem, or stack details to clients.
+      console.error(`[${requestId}] Unhandled API error`, exception);
     }
 
     response.status(status).json({

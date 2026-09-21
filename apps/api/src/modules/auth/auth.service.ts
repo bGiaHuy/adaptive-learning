@@ -188,6 +188,7 @@ export class AuthService {
       data: {
         userId: user.id,
         tokenHash,
+        permissionVersion: user.permissionVersion,
         userAgent: userAgent || 'Unknown',
         ipAddress: ipAddress || 'Unknown',
         expiresAt
@@ -229,7 +230,7 @@ export class AuthService {
       }
     });
 
-    if (!session) return null;
+    if (!session || session.revokedAt) return null;
 
     // Check expiration
     if (session.expiresAt.getTime() < Date.now()) {
@@ -242,6 +243,22 @@ export class AuthService {
       return null;
     }
 
+    // A role or permission change invalidates every session created with an older version.
+    if (session.permissionVersion !== session.user.permissionVersion) {
+      await this.prisma.session.update({
+        where: { id: session.id },
+        data: { revokedAt: new Date() }
+      }).catch(() => undefined);
+      return null;
+    }
+
+    if (Date.now() - session.lastSeenAt.getTime() > 5 * 60 * 1000) {
+      await this.prisma.session.update({
+        where: { id: session.id },
+        data: { lastSeenAt: new Date() }
+      }).catch(() => undefined);
+    }
+
     return this.sanitizeUser(session.user);
   }
 
@@ -249,24 +266,62 @@ export class AuthService {
   async logout(rawToken: string) {
     if (!rawToken) return;
     const tokenHash = this.hashSessionToken(rawToken);
-    await this.prisma.session.deleteMany({
-      where: { tokenHash }
+    await this.prisma.session.updateMany({
+      where: { tokenHash, revokedAt: null },
+      data: { revokedAt: new Date() }
     });
+  }
+
+  async listSessions(userId: string, currentRawToken?: string) {
+    const currentTokenHash = currentRawToken
+      ? this.hashSessionToken(currentRawToken)
+      : undefined;
+    const sessions = await this.prisma.session.findMany({
+      where: {
+        userId,
+        revokedAt: null,
+        expiresAt: { gt: new Date() }
+      },
+      orderBy: { lastSeenAt: 'desc' }
+    });
+
+    return sessions.map((session) => ({
+      id: session.id,
+      userAgent: session.userAgent,
+      ipAddress: session.ipAddress,
+      createdAt: session.createdAt,
+      lastSeenAt: session.lastSeenAt,
+      expiresAt: session.expiresAt,
+      isCurrent: session.tokenHash === currentTokenHash
+    }));
+  }
+
+  async revokeSession(userId: string, sessionId: string) {
+    const result = await this.prisma.session.updateMany({
+      where: { id: sessionId, userId, revokedAt: null },
+      data: { revokedAt: new Date() }
+    });
+
+    if (result.count === 0) {
+      throw new ForbiddenException({
+        code: 'SESSION_NOT_ACCESSIBLE',
+        message: 'Không thể thu hồi phiên đăng nhập này.'
+      });
+    }
   }
 
   // Logout all sessions of a user (e.g. on password reset or account compromise)
   async logoutAll(userId: string) {
-    await this.prisma.session.deleteMany({
-      where: { userId }
-    });
-
-    // Increment permissionVersion to invalidate any in-flight cached grants
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        permissionVersion: { increment: 1 }
-      }
-    });
+    await this.prisma.$transaction([
+      this.prisma.session.updateMany({
+        where: { userId, revokedAt: null },
+        data: { revokedAt: new Date() }
+      }),
+      this.prisma.user.update({
+        where: { id: userId },
+        data: { permissionVersion: { increment: 1 } }
+      })
+    ]);
   }
 
   // Strip password hash from returned user object

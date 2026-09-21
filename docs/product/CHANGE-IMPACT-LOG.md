@@ -2,7 +2,7 @@
 
 **Tài liệu:** Code vs PRD & Specification Discrepancy and Change Impact Log  
 **Vai trò sở hữu:** Antigravity (Product Release Controller)  
-**Phiên bản:** 1.1  
+**Phiên bản:** 1.2  
 **Ngày cập nhật:** 2026-09-21  
 **Quy tắc thẩm định:**
 1. **Phân loại độ nghiêm trọng:**
@@ -11,7 +11,7 @@
    - `P2 (Medium / Low)`: Thay đổi chi tiết kỹ thuật nội bộ hợp lý, tinh chỉnh nhỏ không ảnh hưởng hợp đồng API.
 2. **Nguyên tắc phê duyệt:**
    - Antigravity **KHÔNG tự ý chấp nhận** các thay đổi `P0` hoặc `P1`.
-   - Các đề xuất gồm: `ACCEPT`, `CHANGE_CODE`, `CHANGE_SPEC`, `NEED_DECISION`, `NEED_EXECUTION`.
+   - Các đề xuất gồm: `ACCEPT`, `CHANGE_CODE`, `CHANGE_SPEC`, `NEED_DECISION`, `NEED_EXECUTION`, `RESOLVED`.
    - Mọi thay đổi `P0`/`P1` cần được Product Owner / Lead Architect phê duyệt trước khi OpenCode sửa code hoặc trước khi cập nhật tài liệu chuẩn.
 
 ---
@@ -27,7 +27,8 @@
 | **CHG-005** | **P1** | API Architecture / Auth Module | Đã có `auth.controller.ts`, `main.ts`, `app.module.ts` | `RESOLVED` | OpenCode đã bàn giao |
 | **CHG-006** | **P1** | Database / Prisma Migrations | Có `schema.prisma` nhưng chưa sinh thư mục `prisma/migrations/` | `NEED_EXECUTION` | Chờ OpenCode chạy migrate |
 | **CHG-007** | **P2** | API Naming / Auth Endpoints | Endpoint đăng ký là `/register/student` và `/register/teacher` thay vì `/register-student` | `NEED_DECISION` | Chờ PM/PO thống nhất contract |
-| **CHG-008** | **P1** | Security / Token Leakage | Endpoint `POST /auth/login` trả về `sessionToken` trong JSON response body (vi phạm UAT-AUTH-01) | `CHANGE_CODE` | Báo PM yêu cầu OpenCode sửa |
+| **CHG-008** | **P1** | Security / Token Leakage | `POST /auth/login` trả về `sessionToken` trong JSON response body | `RESOLVED` | **OpenCode đã sửa: Chỉ trả về `{ message, user }`** |
+| **CHG-009** | **P2** | Tooling / Prisma Generate | Cần chạy `prisma generate` sau khi OpenCode cập nhật `Session.permissionVersion` | `NEED_EXECUTION` | Chờ tiến trình dev server nhả file lock |
 
 ---
 
@@ -43,7 +44,7 @@
 - **Mô tả chênh lệch:**
   - **PRD & Gate 0:** Quyết định D-02 (Mô hình định danh và cơ chế đồng thuận của cha mẹ) hiện đang ở trạng thái `PENDING DECISION`, chưa có ý kiến và chữ ký chính thức của Legal & Privacy Officer theo Nghị định 13/2023/NĐ-CP.
   - **Code hiện tại:** OpenCode đã chủ động triển khai theo Khuyến nghị Phương án 3 (đưa `parentEmail` và `parentConsentStatus: "NOT_REQUIRED"` vào Profile).
-- **Phân tích tác động (Impact Analysis):**
+- **Phân tích tác động:**
   - *Ưu điểm kỹ thuật:* Các trường này đều để dạng Nullable hoặc có giá trị mặc định an toàn, không gây crash schema nếu Legal yêu cầu chỉnh sửa.
   - *Rủi ro pháp lý:* Nếu coi đây là requirement đã chốt mà không có ý kiến Legal, có nguy cơ vi phạm quy trình thu thập dữ liệu trẻ em khi bước vào thử nghiệm pilot.
 - **Đề xuất của Release Controller:** `NEED_DECISION`
@@ -70,7 +71,7 @@
 - **Mô tả chênh lệch:**
   - **PRD & UX Spec (`TARGET-JOURNEYS.md` J-01 & `UX-STATE-SPEC.md` §2.2):** Luồng đăng ký tài khoản chỉ khởi tạo thông tin đăng nhập cơ bản (`fullName`, `username`, `password`). Việc chọn khối lớp (`grade`), mục tiêu học tập (`targetGoal`), thời gian học (`dailyMinutes`), và ngày thi (`examDate`) là các bước thuộc **Quy trình Khảo sát Hồ sơ 8 bước (Onboarding Wizard)** diễn ra sau khi đăng nhập.
   - **Code hiện tại:** OpenCode tự động tạo `StudentProfile` với các giá trị hard-code sẵn ngay khi gọi `registerStudent`.
-- **Phân tích tác động (Impact Analysis):**
+- **Phân tích tác động:**
   - Làm vô hiệu hóa khả năng lưu trữ động của API Onboarding Wizard ở Step 4.
   - Nếu học sinh lớp khác (hoặc sau pilot mở rộng lớp 6–8) đăng ký, hồ sơ bị gán cứng lớp 9 gây sai lệch dữ liệu phân phối câu hỏi.
 - **Đề xuất của Release Controller:** `CHANGE_CODE`
@@ -88,7 +89,7 @@
 - **Mô tả chênh lệch:**
   - **Tài liệu trước đây:** Ghi nhận đã có 280 câu hỏi nháp, 233 câu đã duyệt (đạt 72.8% mức độ sẵn sàng cho 8 kỹ năng lớp 9).
   - **Kiểm kê thực tế Workspace:** Toàn bộ repository chỉ có **duy nhất 01 câu hỏi mẫu** cho `SKILL-02` trong file `seed.ts`. Hoàn toàn không có file dữ liệu nguồn (JSON/CSV) cho 319 câu hỏi còn lại.
-- **Phân tích tác động (Impact Analysis):**
+- **Phân tích tác động:**
   - Rủi ro rỗng dữ liệu (Empty Content Risk). Nếu OpenCode hoàn thành engine thi thích ứng nhưng không có câu hỏi thật, Gate 3 và Gate 5 sẽ bị chặn hoàn toàn.
 - **Đề xuất của Release Controller:** `CHANGE_SPEC` (ĐÃ THỰC HIỆN)
   - Đã cập nhật `CONTENT-READINESS.md`: Đổi toàn bộ nhãn số liệu sang `MỤC TIÊU KẾ HOẠCH (PLANNING TARGET) / UNVERIFIED PLACEHOLDER`.
@@ -154,23 +155,29 @@
 
 ---
 
-### CHG-008: Lộ Session Token trong Response Body của API Login (Security Regression Risk)
+### CHG-008: Khắc phục Lộ Session Token trong Response Body của API Login
 - **Change ID:** `CHG-008`
-- **Mức độ:** `P1 (High Security Risk)`
+- **Mức độ:** `P1 (High Security Risk) — ĐÃ GIẢI QUYẾT`
 - **Vị trí trong mã nguồn:**
-  - `apps/api/src/modules/auth/auth.controller.ts` (Dòng 89–93):
+  - `apps/api/src/modules/auth/auth.controller.ts` (Dòng 81–86):
     ```typescript
     return {
       message: 'Đăng nhập thành công',
-      user: result.user,
-      sessionToken: result.sessionToken // <-- RỦI RO
+      user: result.user
     };
     ```
-- **Mô tả chênh lệch:**
-  - **PRD (§8.3), Prompt Guardrail (§4), và UAT Spec (`UAT-AUTH-01`):**
-    > *"Web dùng opaque server-side session ID trong cookie `__Host-am_session` với `HttpOnly`, `Secure`, `SameSite=Lax`. **Không có token/secret trả về trong JSON body.** Không lưu session ID trong `localStorage`."*
-  - **Code hiện tại:** Dù Controller đã set cookie an toàn qua `res.cookie`, nhưng đồng thời lại trả về `sessionToken` trong JSON response body.
-- **Phân tích tác động:**
-  - Nếu trả `sessionToken` trong response body, lập trình viên Frontend có thể vô tình lấy token này lưu vào `localStorage`, dẫn đến rủi ro bị tấn công XSS đánh cắp phiên đăng nhập, triệt tiêu hoàn toàn mục đích bảo vệ của cookie `HttpOnly`.
-- **Đề xuất của Release Controller:** `CHANGE_CODE`
-  - Báo PM yêu cầu OpenCode loại bỏ trường `sessionToken` khỏi JSON trả về của `POST /api/v1/auth/login`. Response chỉ trả về `{ message, user }`.
+- **Mô tả:**
+  - OpenCode đã loại bỏ trường `sessionToken` khỏi JSON body của phản hồi `POST /auth/login`, đồng thời cấu hình cookie name chuẩn `__Host-am_session` ở production.
+- **Trạng thái:** `RESOLVED` (Đã tuân thủ PRD §8.3 và `UAT-AUTH-01`).
+
+---
+
+### CHG-009: Cần biên dịch lại Prisma Client (`prisma generate`)
+- **Change ID:** `CHG-009`
+- **Mức độ:** `P2 (Tooling / Build)`
+- **Vị trí:** `apps/api/prisma/schema.prisma` & `apps/api/src/modules/auth/auth.service.ts`
+- **Mô tả:**
+  - OpenCode đã bổ sung các trường `permissionVersion`, `revokedAt`, `lastSeenAt` vào model `Session` và thêm model `EmailToken`.
+  - Do tiến trình server Node đang chạy giữ lock file DLL của query engine trên Windows, lệnh `prisma generate` chưa hoàn tất nên `npx tsc --noEmit` tạm thời báo thiếu thuộc tính trên Prisma client types.
+- **Đề xuất của Release Controller:** `NEED_EXECUTION`
+  - Chờ OpenCode khởi động lại tiến trình server hoặc chạy `npx prisma generate` khi dev server dừng.

@@ -63,6 +63,7 @@ model User {
   passwordHash      String
   role              UserRole    @default(STUDENT)
   status            UserStatus  @default(ACTIVE)
+  emailVerifiedAt   DateTime?
   permissionVersion Int         @default(1)
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
@@ -72,11 +73,14 @@ model User {
   studentProfile    StudentProfile?
   teacherProfile    TeacherProfile?
   auditLogs         AuditLog[]
+  emailTokens       EmailToken[]
   taughtClasses     Classroom[]
   classMemberships  ClassroomMembership[]
   diagnosticAttempts DiagnosticAttempt[]
   authoredQuestions Question[]  @relation("AuthoredQuestions")
   reviewedQuestions Question[]  @relation("ReviewedQuestions")
+  mistakeRecords    MistakeRecord[]
+  skillMasteries    SkillMastery[]
 
   @@index([username])
   @@index([email])
@@ -87,13 +91,35 @@ model Session {
   userId     String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   tokenHash  String   @unique
+  permissionVersion Int @default(1)
   userAgent  String?
   ipAddress  String?
   expiresAt  DateTime
+  lastSeenAt DateTime @default(now())
+  revokedAt  DateTime?
   createdAt  DateTime @default(now())
 
   @@index([userId])
   @@index([tokenHash])
+}
+
+enum EmailTokenPurpose {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
+model EmailToken {
+  id        String            @id @default(uuid())
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purpose   EmailTokenPurpose
+  tokenHash String            @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime          @default(now())
+
+  @@index([userId, purpose])
+  @@index([expiresAt])
 }
 
 // ==============================================================================
@@ -184,13 +210,14 @@ model ClassroomMembership {
 // ==============================================================================
 
 model SkillNode {
-  id         String     @id @default(uuid())
-  code       String     @unique
-  title      String
-  grade      Int        @default(9)
-  chapter    String
-  orderIndex Int        @default(1)
-  questions  Question[]
+  id             String         @id @default(uuid())
+  code           String         @unique
+  title          String
+  grade          Int            @default(9)
+  chapter        String
+  orderIndex     Int            @default(1)
+  questions      Question[]
+  skillMasteries SkillMastery[]
 }
 
 model Question {
@@ -214,6 +241,7 @@ model Question {
 
   options        QuestionOption[]
   attemptAnswers AttemptAnswer[]
+  mistakeRecords MistakeRecord[]
 
   @@index([skillId])
   @@index([status])
@@ -265,6 +293,7 @@ model AttemptAnswer {
 
   @@index([attemptId])
   @@index([questionId])
+  @@unique([attemptId, questionId])
 }
 
 // ==============================================================================
@@ -285,4 +314,43 @@ model AuditLog {
   @@index([actorUserId])
   @@index([action])
   @@index([createdAt])
+}
+
+// ==============================================================================
+// 7. Student Mastery & Mistake Notebook
+// ==============================================================================
+
+model SkillMastery {
+  id             String    @id @default(uuid())
+  studentId      String
+  student        User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  skillId        String
+  skill          SkillNode @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  masteryScore   Float     @default(0) // 0 - 100
+  attemptsCount  Int       @default(1)
+  lastAssessedAt DateTime  @default(now())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@unique([studentId, skillId])
+  @@index([studentId])
+  @@index([skillId])
+}
+
+model MistakeRecord {
+  id                String    @id @default(uuid())
+  studentId         String
+  student           User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  questionId        String
+  question          Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  attemptId         String?
+  selectedOptionKey String?
+  userNotes         String?
+  isMastered        Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@unique([studentId, questionId])
+  @@index([studentId])
+  @@index([questionId])
 }

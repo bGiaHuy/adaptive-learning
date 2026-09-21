@@ -7,9 +7,10 @@ import {
   Res,
   UseGuards,
   HttpCode,
-  HttpStatus
+  HttpStatus,
+  Param
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiCookieAuth } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterStudentDto } from './dto/register-student.dto';
@@ -17,13 +18,13 @@ import { RegisterTeacherDto } from './dto/register-teacher.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from './guards/auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { getSessionCookieName } from './session-cookie';
 
 @ApiTags('Authentication & Identity')
 @Controller('auth')
 export class AuthController {
   private readonly isProd = process.env.NODE_ENV === 'production';
-  private readonly cookieName = process.env.SESSION_COOKIE_NAME || 'am_session';
-  private readonly sessionTtlMs = (parseInt(process.env.SESSION_TTL_SECONDS || '604800', 10)) * 1000;
+  private readonly cookieName = getSessionCookieName();
 
   constructor(private readonly authService: AuthService) {}
 
@@ -37,9 +38,6 @@ export class AuthController {
     };
 
     res.cookie(this.cookieName, token, cookieOptions);
-    if (this.isProd) {
-      res.cookie(`__Host-${this.cookieName}`, token, cookieOptions);
-    }
   }
 
   private clearSessionCookie(res: Response) {
@@ -51,9 +49,6 @@ export class AuthController {
     };
 
     res.clearCookie(this.cookieName, clearOptions);
-    if (this.isProd) {
-      res.clearCookie(`__Host-${this.cookieName}`, clearOptions);
-    }
   }
 
   @Post('register/student')
@@ -88,14 +83,13 @@ export class AuthController {
 
     return {
       message: 'Đăng nhập thành công',
-      user: result.user,
-      sessionToken: result.sessionToken
+      user: result.user
     };
   }
 
   @Get('me')
   @UseGuards(AuthGuard)
-  @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({ summary: 'Lấy thông tin tài khoản và vai trò của phiên hiện tại' })
   @ApiResponse({ status: 200, description: 'Thông tin tài khoản' })
   async getCurrentUser(@CurrentUser() user: any) {
@@ -107,7 +101,7 @@ export class AuthController {
   @Post('logout')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({ summary: 'Đăng xuất phiên hiện tại' })
   @ApiResponse({ status: 200, description: 'Đăng xuất thành công' })
   async logout(
@@ -127,7 +121,7 @@ export class AuthController {
   @Post('logout-all')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
+  @ApiCookieAuth()
   @ApiOperation({ summary: 'Đăng xuất tất cả các phiên đăng nhập của người dùng' })
   @ApiResponse({ status: 200, description: 'Toàn bộ phiên đã bị thu hồi' })
   async logoutAll(
@@ -140,5 +134,36 @@ export class AuthController {
     return {
       message: 'Toàn bộ các phiên đăng nhập đã được hủy'
     };
+  }
+
+  @Get('sessions')
+  @UseGuards(AuthGuard)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'Liệt kê các phiên đăng nhập còn hiệu lực' })
+  async listSessions(
+    @CurrentUser('id') userId: string,
+    @Req() req: Request & { sessionToken?: string }
+  ) {
+    return {
+      sessions: await this.authService.listSessions(userId, req.sessionToken)
+    };
+  }
+
+  @Post('sessions/:sessionId/revoke')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'Thu hồi một phiên đăng nhập thuộc tài khoản hiện tại' })
+  async revokeSession(
+    @CurrentUser('id') userId: string,
+    @Param('sessionId') sessionId: string,
+    @Req() req: Request & { sessionToken?: string },
+    @Res({ passthrough: true }) res: Response
+  ) {
+    const sessions = await this.authService.listSessions(userId, req.sessionToken);
+    const target = sessions.find((session) => session.id === sessionId);
+    await this.authService.revokeSession(userId, sessionId);
+    if (target?.isCurrent) this.clearSessionCookie(res);
+    return { message: 'Phiên đăng nhập đã được thu hồi.' };
   }
 }

@@ -3,11 +3,14 @@
 **Tài liệu:** Product Analytics, Measurement Framework, and Controlled Pilot Research Protocol  
 **Phiên bản:** 1.0  
 **Tác giả:** Antigravity (Product Discovery & UX Lead)  
-**Phê duyệt:** Head of Product, Data Protection Officer, Lead Architect (Codex)  
+**Trạng thái phê duyệt:** DRAFT FRAMEWORK — CHỜ KÝ DUYỆT (Pending Gate 0 & DPO Sign-off)  
 **Tài liệu liên quan:**
 - `docs/PROJECT-VISION-AND-PM-ROADMAP.md` (Mục 4: North-star & Hệ chỉ số, Mục 7: Kế hoạch Pilot)
 - `docs/PRD-AdaptiveMath.md` (Mục 13: Product Analytics)
-- `docs/product/GATE-0-DECISION-PACK.md`
+- `docs/product/GATE-0-DECISION-PACK.md` (Quyết định D-01 đến D-04 - PENDING)
+
+> [!NOTE]
+> **Tính chất Dữ liệu:** Toàn bộ các chỉ số benchmark mục tiêu (phễu Onboarding, tỷ lệ chuyển đổi, chỉ số WVSP kỳ vọng) là **GIẢ ĐỊNH KẾ HOẠCH (PLANNING ASSUMPTIONS)** phục vụ thiết lập khung đo lường, không phải số liệu đo lường lịch sử đã đạt được.
 
 ---
 

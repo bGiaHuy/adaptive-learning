@@ -5,6 +5,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { AuthService } from '../auth.service';
+import { getSessionCookieName } from '../session-cookie';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,10 +14,8 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    // Look for session token in cookies or Bearer Authorization header
-    let token =
-      request.cookies?.['am_session'] ||
-      request.cookies?.['__Host-am_session'];
+    const configuredCookie = getSessionCookieName();
+    let token = request.cookies?.[configuredCookie] || request.cookies?.['am_session'];
 
     if (!token && request.headers.authorization) {
       const parts = request.headers.authorization.split(' ');

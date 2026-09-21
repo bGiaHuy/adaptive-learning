@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import MathRenderer from './MathRenderer';
 import { DIAGNOSTIC_QUESTIONS } from '../data/questionBank';
+import { estimateTheta, itemParametersForQuestion } from '../lib/irt';
 
 export default function DiagnosticTest({
   onFinishTest,
@@ -48,12 +49,7 @@ export default function DiagnosticTest({
     if (!selectedOption) return;
 
     const isCorrect = selectedOption === currentQ.correctAnswer;
-    const newTheta = isCorrect
-      ? Number((theta + currentQ.thetaChange).toFixed(2))
-      : Number(Math.max(0.1, theta - 0.1).toFixed(2));
-
-    setTheta(newTheta);
-    setUserAnswers([
+    const nextAnswers = [
       ...userAnswers,
       {
         questionId: currentQ.id,
@@ -61,7 +57,16 @@ export default function DiagnosticTest({
         isCorrect,
         question: currentQ
       }
-    ]);
+    ];
+    const estimate = estimateTheta(
+      nextAnswers.map((answer) => itemParametersForQuestion(answer.question)),
+      nextAnswers.map((answer) => (answer.isCorrect ? 1 : 0)),
+      { startingTheta: theta }
+    );
+    const newTheta = Number(estimate.theta.toFixed(2));
+
+    setTheta(newTheta);
+    setUserAnswers(nextAnswers);
 
     if (currentQuestionIndex + 1 < DIAGNOSTIC_QUESTIONS.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -74,7 +79,8 @@ export default function DiagnosticTest({
         finalTheta: newTheta,
         totalAnswered: userAnswers.length + 1,
         completedTopics: 24,
-        answers: userAnswers
+        standardError: Number(estimate.standardError.toFixed(2)),
+        answers: nextAnswers
       });
     }
   };
