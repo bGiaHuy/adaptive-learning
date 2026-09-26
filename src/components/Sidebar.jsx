@@ -15,7 +15,8 @@ import {
   User,
   LogOut,
   ShieldAlert,
-  FileText
+  FileText,
+  Key
 } from 'lucide-react';
 
 export const STUDENT_MENU = [
