@@ -3,7 +3,7 @@
 **Phiên bản:** 0.1  
 **Vai trò tài liệu:** North-star và kế hoạch điều hành sau PRD  
 **Nguồn yêu cầu chi tiết:** `docs/PRD-AdaptiveMath.md`  
-**Nguồn triển khai kỹ thuật:** `docs/IMPLEMENTATION-AGENT-PROMPT.md`
+**Nguồn triển khai kỹ thuật:** `docs/IMPLEMENTATION-PLAN.md`
 
 ---
 
@@ -309,7 +309,7 @@ PM phải theo dõi content burn-up riêng với engineering burn-up.
 
 ### OpenCode — Coding/Implementation Agent
 
-- Tiếp tục chạy `docs/IMPLEMENTATION-AGENT-PROMPT.md` hiện tại.
+- Đối chiếu tiến độ với `docs/IMPLEMENTATION-PLAN.md` và code hiện tại.
 - Báo cáo theo milestone và bằng chứng build/test/migration.
 - Không nhận thêm nhánh PM/UX trong khi đang triển khai để tránh context switching.
 - Escalate các quyết định Product/Security/Privacy; không âm thầm lựa chọn.

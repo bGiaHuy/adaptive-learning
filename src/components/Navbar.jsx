@@ -1,26 +1,55 @@
 import React from 'react';
-import { LogOut, User } from 'lucide-react';
+import { LogOut, User, ShieldAlert, FileText } from 'lucide-react';
 
 export default function Navbar({
   pageTitle,
   currentUser,
   onNavigate,
   onLogout,
+  onOpenSessions,
+  onOpenLegal,
   showFullNav = false,
-  progress = null // e.g. { step: 1, total: 8 }
+  progress = null
 }) {
+  const formatRoleName = (role) => {
+    switch (role) {
+      case 'STUDENT':
+        return 'HỌC SINH';
+      case 'TEACHER':
+        return 'GIÁO VIÊN';
+      case 'TEACHER_APPLICANT':
+        return 'GV CHỜ DUYỆT';
+      case 'ADMIN':
+        return 'QUẢN TRỊ VIÊN';
+      case 'CONTENT_AUTHOR':
+        return 'TÁC GIẢ NỘI DUNG';
+      case 'CONTENT_REVIEWER':
+        return 'THẨM ĐỊNH VIÊN';
+      default:
+        return 'THÀNH VIÊN';
+    }
+  };
+
   if (showFullNav) {
     // Landing page navbar
     return (
       <header className="landing-navbar">
         <div className="landing-nav-container">
-          <div className="brand-logo" onClick={() => onNavigate('landing')}>
+          <div className="brand-logo" onClick={() => onNavigate('landing')} role="button" tabIndex={0}>
             <div className="logo-icon-box">
               <span className="logo-symbol">∫</span>
             </div>
             <span className="logo-text">AdaptiveMath</span>
           </div>
           <div className="landing-nav-actions">
+            <button
+              type="button"
+              className="btn-nav-link"
+              onClick={onOpenLegal}
+              style={{ fontSize: '0.82rem', color: '#64748b' }}
+            >
+              Điều khoản & Bảo mật (Draft)
+            </button>
             <button
               className="btn-nav-link"
               onClick={() => onNavigate('register', { mode: 'login' })}
@@ -63,14 +92,42 @@ export default function Navbar({
             <div className="user-avatar-circle">
               <User size={16} />
             </div>
-            <span className="user-name">{currentUser.name || 'Nguyễn Minh Đức'}</span>
-            <span className="user-role-badge">
-              {currentUser.role === 'teacher' ? 'GIÁO VIÊN' : 'HỌC SINH'}
+            <span className="user-name">
+              {currentUser.fullName || currentUser.username}
             </span>
+            <span className="user-role-badge">
+              {formatRoleName(currentUser.role)}
+            </span>
+
+            {/* Legal / Privacy Trigger */}
+            <button
+              type="button"
+              className="btn-logout"
+              title="Quy định bảo mật (Draft)"
+              onClick={onOpenLegal}
+              style={{ color: '#64748b' }}
+              aria-label="Quy định bảo mật"
+            >
+              <FileText size={16} />
+            </button>
+
+            {/* Session Management Trigger */}
+            <button
+              className="btn-logout"
+              title="Quản lý phiên đăng nhập"
+              onClick={onOpenSessions}
+              style={{ color: '#0f766e' }}
+              aria-label="Quản lý phiên đăng nhập"
+            >
+              <ShieldAlert size={16} />
+            </button>
+
+            {/* Logout Trigger */}
             <button
               className="btn-logout"
               title="Đăng xuất"
               onClick={onLogout}
+              aria-label="Đăng xuất"
             >
               <LogOut size={16} />
             </button>
@@ -79,7 +136,7 @@ export default function Navbar({
           <div className="guest-actions">
             <button
               className="btn-nav-primary"
-              onClick={() => onNavigate('register')}
+              onClick={() => onNavigate('register', { mode: 'login' })}
             >
               Đăng nhập
             </button>

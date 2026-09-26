@@ -11,8 +11,14 @@ import { AttemptStatus, CognitiveLevel, QuestionStatus } from '@prisma/client';
 @Injectable()
 export class DiagnosticService {
   private readonly maxQuestions = Number(process.env.DIAGNOSTIC_MAX_QUESTIONS || 24);
+  private readonly questionSeconds = 90;
 
   constructor(private readonly prisma: PrismaService) {}
+
+  private remainingSeconds(startedAt: Date) {
+    const elapsed = Math.floor((Date.now() - startedAt.getTime()) / 1000);
+    return Math.max(0, this.questionSeconds - elapsed);
+  }
 
   // Format question safe for student (exclude isCorrect)
   private formatQuestionForStudent(question: any) {
@@ -70,6 +76,9 @@ export class DiagnosticService {
         answeredCount: existingAttempt.answers.length,
         totalQuestions: this.maxQuestions,
         isReadyToSubmit: isComplete || !nextQuestion,
+        questionTimeRemainingSeconds: this.remainingSeconds(
+          existingAttempt.answers.at(-1)?.answeredAt ?? existingAttempt.startedAt
+        ),
         currentQuestion: this.formatQuestionForStudent(nextQuestion)
       };
     }
@@ -100,6 +109,7 @@ export class DiagnosticService {
       answeredCount: 0,
       totalQuestions: this.maxQuestions,
       isReadyToSubmit: false,
+      questionTimeRemainingSeconds: this.questionSeconds,
       currentQuestion: this.formatQuestionForStudent(firstQuestion)
     };
   }
@@ -211,8 +221,14 @@ export class DiagnosticService {
 
     // Determine correctness
     const correctOption = question.options.find(o => o.isCorrect);
+    const lastAnswerAt = attempt.answers.reduce<Date | null>(
+      (latest, answer) => !latest || answer.answeredAt > latest ? answer.answeredAt : latest,
+      null
+    );
+    const expired = this.remainingSeconds(lastAnswerAt ?? attempt.startedAt) === 0;
+    const isTimeout = Boolean(dto.isTimeout || expired);
     const isCorrect =
-      !dto.isTimeout &&
+      !isTimeout &&
       !dto.isSkipped &&
       dto.selectedOptionKey === correctOption?.optionKey;
 
@@ -225,24 +241,36 @@ export class DiagnosticService {
       ? Math.min(1.0, Number((attempt.currentTheta + delta).toFixed(2)))
       : Math.max(0.1, Number((attempt.currentTheta - delta).toFixed(2)));
 
-    await this.prisma.$transaction([
-      this.prisma.attemptAnswer.create({
-        data: {
-          attemptId: attempt.id,
-          questionId: question.id,
-          selectedOptionKey: dto.selectedOptionKey || null,
-          isCorrect,
-          isTimeout: dto.isTimeout || false,
-          isSkipped: dto.isSkipped || false,
-          timeSpentSeconds: dto.timeSpentSeconds || 0,
-          thetaAfter: newTheta
-        }
-      }),
-      this.prisma.diagnosticAttempt.update({
-        where: { id: attempt.id },
-        data: { currentTheta: newTheta }
-      })
-    ]);
+    try {
+      await this.prisma.$transaction([
+        this.prisma.attemptAnswer.create({
+          data: {
+            attemptId: attempt.id,
+            questionId: question.id,
+            selectedOptionKey: isTimeout ? null : dto.selectedOptionKey || null,
+            isCorrect,
+            isTimeout,
+            isSkipped: isTimeout ? false : dto.isSkipped || false,
+            timeSpentSeconds: isTimeout ? this.questionSeconds : dto.timeSpentSeconds || 0,
+            thetaAfter: newTheta
+          }
+        }),
+        this.prisma.diagnosticAttempt.update({
+          where: { id: attempt.id },
+          data: { currentTheta: newTheta }
+        })
+      ]);
+    } catch (error) {
+      // Two requests can pass the initial lookup together. The unique answer
+      // constraint is the final idempotency guard; return the stored answer.
+      if ((error as { code?: string }).code === 'P2002') {
+        const stored = await this.prisma.attemptAnswer.findUnique({
+          where: { attemptId_questionId: { attemptId: attempt.id, questionId: question.id } }
+        });
+        if (stored) return this.answerQuestion(studentId, dto);
+      }
+      throw error;
+    }
 
     // Check if test reached max questions
     const answeredQIds = [

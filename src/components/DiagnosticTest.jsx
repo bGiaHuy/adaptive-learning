@@ -1,43 +1,270 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Clock,
   ChevronDown,
   ChevronRight,
   Info,
   CheckCircle,
+  AlertCircle,
+  Loader2,
   HelpCircle,
-  AlertCircle
+  Check,
+  X,
+  ArrowRight,
+  Pause
 } from 'lucide-react';
 import MathRenderer from './MathRenderer';
-import { DIAGNOSTIC_QUESTIONS } from '../data/questionBank';
-import { estimateTheta, itemParametersForQuestion } from '../lib/irt';
+import { diagnosticApi } from '../lib/apiClient';
 
 export default function DiagnosticTest({
   onFinishTest,
   onPauseTest
 }) {
   const [hasStarted, setHasStarted] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState('B'); // Preset or selectable
-  const [theta, setTheta] = useState(0.50);
-  const [timeLeft, setTimeLeft] = useState(90); // 1:30 countdown
-  const [isReasonOpen, setIsReasonOpen] = useState(false);
-  const [completedTopicsCount, setCompletedTopicsCount] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [attemptId, setAttemptId] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [selectedOptionKey, setSelectedOptionKey] = useState(null);
+  const [currentTheta, setCurrentTheta] = useState(0.50);
+  const [answeredCount, setAnsweredCount] = useState(0);
+  const [totalQuestions, setTotalQuestions] = useState(24);
+  const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
 
-  // Timer countdown
+  // Timing & states
+  const [timeLeft, setTimeLeft] = useState(90); // 90s countdown per question
+  const [isReasonOpen, setIsReasonOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmittingAnswer, setIsSubmittingAnswer] = useState(false);
+  const [isFinalizing, setIsFinalizing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [feedbackNotice, setFeedbackNotice] = useState('');
+  const [lastExplanation, setLastExplanation] = useState(null);
+
+  const timerRef = useRef(null);
+  const submissionLockRef = useRef(false);
+
+  // Start or resume diagnostic attempt
+  const handleStartAttempt = async () => {
+    setIsLoading(true);
+    setErrorMessage('');
+    try {
+      const data = await diagnosticApi.startAttempt();
+      setAttemptId(data.attemptId);
+      setCurrentTheta(data.currentTheta || 0.50);
+      setAnsweredCount(data.answeredCount || 0);
+      setTotalQuestions(data.totalQuestions || 24);
+      setIsReadyToSubmit(data.isReadyToSubmit || false);
+      setCurrentQuestion(data.currentQuestion || null);
+      setSelectedOptionKey(null);
+      setTimeLeft(data.questionTimeRemainingSeconds ?? 90);
+      setHasStarted(true);
+
+      if (data.isResumed) {
+        setFeedbackNotice('Đã khôi phục phiên làm bài dở dang trước đó của bạn.');
+      }
+    } catch (err) {
+      setErrorMessage(err.message || 'Không thể khởi tạo bài kiểm tra chẩn đoán.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Timer countdown: strictly no silent loop!
   useEffect(() => {
-    if (!hasStarted) return;
-    const timer = setInterval(() => {
+    if (!hasStarted || isReadyToSubmit || !currentQuestion || isSubmittingAnswer || isFinalizing) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev <= 1) return 90; // reset or loop for next question
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          return 0;
+        }
         return prev - 1;
       });
     }, 1000);
-    return () => clearInterval(timer);
-  }, [hasStarted, currentQuestionIndex]);
 
-  const currentQ = DIAGNOSTIC_QUESTIONS[currentQuestionIndex] || DIAGNOSTIC_QUESTIONS[0];
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [hasStarted, currentQuestion?.id, isReadyToSubmit, isSubmittingAnswer, isFinalizing]);
+
+  useEffect(() => {
+    if (timeLeft === 0 && currentQuestion && !submissionLockRef.current) {
+      handleTimeout();
+    }
+  }, [timeLeft, currentQuestion?.id]);
+
+  // Keyboard navigation: A, B, C, D to pick, Enter to submit
+  useEffect(() => {
+    if (!hasStarted || !currentQuestion || isSubmittingAnswer || isFinalizing) return;
+
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      let key = e.key.toUpperCase();
+      const numMap = { '1': 'A', '2': 'B', '3': 'C', '4': 'D' };
+      if (numMap[key]) {
+        key = numMap[key];
+      }
+      if (['A', 'B', 'C', 'D'].includes(key)) {
+        const optionExists = (currentQuestion.options || []).some((o) => o.key === key);
+        if (optionExists) {
+          setSelectedOptionKey(key);
+        }
+      } else if (e.key === 'Enter') {
+        if (selectedOptionKey) {
+          e.preventDefault();
+          handleAnswerSubmit();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [hasStarted, currentQuestion, selectedOptionKey, isSubmittingAnswer, isFinalizing]);
+
+  // Submit Answer (with double-submit prevention & idempotent API)
+  const handleAnswerSubmit = async () => {
+    if (!selectedOptionKey || !currentQuestion || !attemptId || submissionLockRef.current) return;
+
+    submissionLockRef.current = true;
+    setIsSubmittingAnswer(true);
+    setErrorMessage('');
+    setFeedbackNotice('');
+
+    const timeSpent = Math.max(1, 90 - timeLeft);
+
+    try {
+      const res = await diagnosticApi.answerQuestion({
+        attemptId,
+        questionId: currentQuestion.id,
+        selectedOptionKey,
+        timeSpentSeconds: timeSpent,
+        isSkipped: false,
+        isTimeout: false
+      });
+
+      setCurrentTheta(res.currentTheta);
+      setAnsweredCount(res.answeredCount);
+      setIsReadyToSubmit(res.isReadyToSubmit);
+
+      if (res.explanation) {
+        setLastExplanation({
+          isCorrect: res.isCorrect,
+          explanation: res.explanation
+        });
+      }
+
+      if (res.isReadyToSubmit || !res.nextQuestion) {
+        setIsReadyToSubmit(true);
+        setCurrentQuestion(null);
+      } else {
+        setCurrentQuestion(res.nextQuestion);
+        setSelectedOptionKey(null);
+        setTimeLeft(90);
+      }
+    } catch (err) {
+      setErrorMessage(err.message || 'Không thể gửi câu trả lời. Vui lòng thử lại.');
+    } finally {
+      submissionLockRef.current = false;
+      setIsSubmittingAnswer(false);
+    }
+  };
+
+  // Skip question
+  const handleSkip = async () => {
+    if (!currentQuestion || !attemptId || submissionLockRef.current) return;
+
+    submissionLockRef.current = true;
+    setIsSubmittingAnswer(true);
+    setErrorMessage('');
+
+    const timeSpent = Math.max(1, 90 - timeLeft);
+
+    try {
+      const res = await diagnosticApi.answerQuestion({
+        attemptId,
+        questionId: currentQuestion.id,
+        selectedOptionKey: null,
+        timeSpentSeconds: timeSpent,
+        isSkipped: true,
+        isTimeout: false
+      });
+
+      setCurrentTheta(res.currentTheta);
+      setAnsweredCount(res.answeredCount);
+      setIsReadyToSubmit(res.isReadyToSubmit);
+
+      if (res.isReadyToSubmit || !res.nextQuestion) {
+        setIsReadyToSubmit(true);
+        setCurrentQuestion(null);
+      } else {
+        setCurrentQuestion(res.nextQuestion);
+        setSelectedOptionKey(null);
+        setTimeLeft(90);
+      }
+    } catch (err) {
+      setErrorMessage(err.message || 'Không thể bỏ qua câu hỏi.');
+    } finally {
+      submissionLockRef.current = false;
+      setIsSubmittingAnswer(false);
+    }
+  };
+
+  // Timeout handler: records TIMEOUT in DB
+  const handleTimeout = async () => {
+    if (!currentQuestion || !attemptId || submissionLockRef.current) return;
+
+    submissionLockRef.current = true;
+    setIsSubmittingAnswer(true);
+    setFeedbackNotice('Đã hết 90 giây cho câu này. Hệ thống đã ghi nhận và chuyển câu kế tiếp.');
+
+    try {
+      const res = await diagnosticApi.answerQuestion({
+        attemptId,
+        questionId: currentQuestion.id,
+        selectedOptionKey: null,
+        timeSpentSeconds: 90,
+        isSkipped: false,
+        isTimeout: true
+      });
+
+      setCurrentTheta(res.currentTheta);
+      setAnsweredCount(res.answeredCount);
+      setIsReadyToSubmit(res.isReadyToSubmit);
+
+      if (res.isReadyToSubmit || !res.nextQuestion) {
+        setIsReadyToSubmit(true);
+        setCurrentQuestion(null);
+      } else {
+        setCurrentQuestion(res.nextQuestion);
+        setSelectedOptionKey(null);
+        setTimeLeft(90);
+      }
+    } catch (err) {
+      setErrorMessage(err.message || 'Lỗi ghi nhận hết giờ.');
+    } finally {
+      submissionLockRef.current = false;
+      setIsSubmittingAnswer(false);
+    }
+  };
+
+  // Final Submit Attempt
+  const handleFinalSubmit = async () => {
+    if (!attemptId || isFinalizing) return;
+    setIsFinalizing(true);
+    setErrorMessage('');
+
+    try {
+      await diagnosticApi.submitAttempt(attemptId);
+      const results = await diagnosticApi.getAttemptResult(attemptId);
+      onFinishTest(results);
+    } catch (err) {
+      setErrorMessage(err.message || 'Không thể nộp bài kiểm tra. Vui lòng thử lại.');
+      setIsFinalizing(false);
+    }
+  };
 
   const formatTimer = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -45,234 +272,393 @@ export default function DiagnosticTest({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleAnswerSubmit = () => {
-    if (!selectedOption) return;
-
-    const isCorrect = selectedOption === currentQ.correctAnswer;
-    const nextAnswers = [
-      ...userAnswers,
-      {
-        questionId: currentQ.id,
-        selected: selectedOption,
-        isCorrect,
-        question: currentQ
-      }
-    ];
-    const estimate = estimateTheta(
-      nextAnswers.map((answer) => itemParametersForQuestion(answer.question)),
-      nextAnswers.map((answer) => (answer.isCorrect ? 1 : 0)),
-      { startingTheta: theta }
-    );
-    const newTheta = Number(estimate.theta.toFixed(2));
-
-    setTheta(newTheta);
-    setUserAnswers(nextAnswers);
-
-    if (currentQuestionIndex + 1 < DIAGNOSTIC_QUESTIONS.length) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null);
-      setTimeLeft(90);
-      setCompletedTopicsCount(completedTopicsCount + 1);
-    } else {
-      // Completed all mock diagnostic questions
-      onFinishTest({
-        finalTheta: newTheta,
-        totalAnswered: userAnswers.length + 1,
-        completedTopics: 24,
-        standardError: Number(estimate.standardError.toFixed(2)),
-        answers: nextAnswers
-      });
+  const getCognitiveLevelLabel = (level) => {
+    switch (level) {
+      case 'REMEMBERING':
+        return 'Nhận biết';
+      case 'UNDERSTANDING':
+        return 'Thông hiểu';
+      case 'APPLYING':
+        return 'Vận dụng';
+      default:
+        return 'Thông hiểu';
     }
   };
 
-  const handleSkip = () => {
-    if (currentQuestionIndex + 1 < DIAGNOSTIC_QUESTIONS.length) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null);
-      setTimeLeft(90);
-    } else {
-      onFinishTest({
-        finalTheta: theta,
-        totalAnswered: userAnswers.length,
-        completedTopics: completedTopicsCount,
-        answers: userAnswers
-      });
-    }
-  };
-
+  // Intro Screen
   if (!hasStarted) {
-    // Intro Screen (Matching 01:27 - 01:33)
     return (
       <div className="diagnostic-landing-view animate-fade-in">
         <div className="diagnostic-intro-card">
-          <h1 className="intro-card-heading">Bài kiểm tra đầu vào</h1>
+          <h1 className="intro-card-heading">Bài kiểm tra đầu vào (CAT / IRT)</h1>
           <p className="intro-card-description">
-            Bài kiểm tra đi qua từng chủ đề theo thang nhận thức: Nhận biết – Thông hiểu – Vận dụng. Trả lời đúng thì lên mức khó hơn; trả lời sai thì có một câu xác minh trước khi chuyển chủ đề. Không có điểm số — mục tiêu là vẽ đúng bản đồ năng lực của bạn.
+            Bài kiểm tra thích ứng theo mô hình Rasch/IRT. Trả lời đúng thì hệ thống chọn câu hỏi mức cao hơn; trả lời sai thì hạ mức để tìm vùng năng lực thực sự của bạn ($\theta$). Mọi câu hỏi đều bám sát SGK Kết nối tri thức và GDPT 2018.
           </p>
 
           <div className="diagnostic-metrics-row">
             <div className="metric-box">
               <div className="metric-number">24</div>
-              <div className="metric-sublabel">CHỦ ĐỀ SẼ QUÉT</div>
+              <div className="metric-sublabel">CHỦ ĐỀ QUÉT</div>
             </div>
 
             <div className="metric-box">
-              <div className="metric-number">≤ 50</div>
+              <div className="metric-number">≤ 24</div>
               <div className="metric-sublabel">CÂU HỎI TỐI ĐA</div>
             </div>
 
             <div className="metric-box">
-              <div className="metric-number">90–180s</div>
-              <div className="metric-sublabel">MỖI CÂU</div>
+              <div className="metric-number">90s</div>
+              <div className="metric-sublabel">THỜI GIAN / CÂU</div>
             </div>
           </div>
 
-          <div className="diagnostic-alert-banner">
-            <Info size={18} className="alert-banner-icon" />
-            <span className="alert-banner-text">
-              Bạn có thể dừng giữa chừng — tiến trình được lưu lại và có thể học tiếp sau.
-            </span>
-          </div>
+          {errorMessage && (
+            <div
+              style={{
+                padding: '12px',
+                backgroundColor: '#fef2f2',
+                border: '1px solid #fecaca',
+                borderRadius: '6px',
+                color: '#b91c1c',
+                fontSize: '0.88rem',
+                margin: '18px 0'
+              }}
+            >
+              {errorMessage}
+            </div>
+          )}
 
-          <button
-            className="btn-start-diagnostic"
-            onClick={() => setHasStarted(true)}
-          >
-            <span>Bắt đầu</span>
-            <ChevronRight size={18} />
-          </button>
+          <div className="intro-card-action">
+            <button
+              type="button"
+              className="btn-start-diagnostic"
+              onClick={handleStartAttempt}
+              disabled={isLoading}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  <span>Đang kết nối thuật toán...</span>
+                </>
+              ) : (
+                <span>Bắt đầu làm bài</span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Active Quiz Screen (Matching 01:34 - 01:45)
-  return (
-    <div className="diagnostic-quiz-view animate-fade-in">
-      <div className="quiz-main-card">
-        {/* Status Bar */}
-        <div className="quiz-status-bar">
-          <div className="quiz-status-left">
-            <div className="quiz-tag-pill tag-question-number">
-              <CheckCircle size={14} className="tag-icon-check" />
-              <span>Câu {currentQuestionIndex + 1}</span>
-            </div>
-
-            <div className="quiz-tag-pill tag-topics-count">
-              <span>Chủ đề xong: {completedTopicsCount}/24</span>
-            </div>
-
-            <div className="quiz-tag-pill tag-theta-value">
-              <span>θ = {theta.toFixed(2)}</span>
-            </div>
-          </div>
-
-          <div className="quiz-status-timer">
-            <Clock size={16} className="timer-clock-icon" />
-            <span className="timer-text">{formatTimer(timeLeft)}</span>
-          </div>
-        </div>
-
-        {/* Question Topic Path */}
-        <div className="question-topic-breadcrumb">
-          <span>{currentQ.chapter}</span>
-          <span className="breadcrumb-separator">&gt;</span>
-          <span className="breadcrumb-current">{currentQ.topic}</span>
-        </div>
-
-        {/* Cognitive Level & Meta Badges */}
-        <div className="question-meta-row">
-          <span className="cognitive-badge level-know">{currentQ.level}</span>
-          <span className="question-type-badge">{currentQ.type}</span>
-          <span className="question-source-text">{currentQ.source}</span>
-        </div>
-
-        {/* Question Content */}
-        <div className="question-content-box">
-          <h2 className="question-text">
-            <MathRenderer text={currentQ.content} />
+  // Ready to Submit Screen
+  if (isReadyToSubmit && !currentQuestion) {
+    return (
+      <div className="diagnostic-view-root animate-fade-in">
+        <div
+          style={{
+            maxWidth: '680px',
+            margin: '40px auto',
+            backgroundColor: '#fffdf7',
+            border: '2px solid #131a2a',
+            borderRadius: '8px',
+            padding: '36px 30px',
+            boxShadow: '10px 10px 0 rgba(19, 26, 42, 0.18)',
+            textAlign: 'center'
+          }}
+        >
+          <CheckCircle size={48} color="#10b981" style={{ margin: '0 auto 16px' }} />
+          <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
+            Bạn Đã Hoàn Thành Toàn Bộ Câu Hỏi Chẩn Đoán!
           </h2>
-        </div>
+          <p style={{ fontSize: '0.92rem', color: '#64748b', maxWidth: '480px', margin: '0 auto 20px', lineHeight: 1.5 }}>
+            Thuật toán CAT đã thu thập đủ dữ liệu để ước lượng năng lực $\theta = {currentTheta.toFixed(2)}$ và phân tích thành thạo các kỹ năng trọng tâm.
+          </p>
 
-        {/* Options List */}
-        <div className="options-choices-group">
-          {currentQ.options.map((opt) => {
-            const isSelected = selectedOption === opt.id;
-            return (
-              <div
-                key={opt.id}
-                className={`choice-option-row ${isSelected ? 'selected' : ''}`}
-                onClick={() => setSelectedOption(opt.id)}
-              >
-                <div className="choice-key-box">{opt.id}</div>
-                <div className="choice-math-content">
-                  <MathRenderer text={opt.text} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Footer Action Buttons */}
-        <div className="quiz-card-footer">
-          <button
-            type="button"
-            className="btn-pause-quiz"
-            onClick={onPauseTest}
+          <div
+            style={{
+              display: 'inline-flex',
+              gap: '24px',
+              padding: '14px 28px',
+              backgroundColor: '#ecfdf5',
+              border: '1px solid #a7f3d0',
+              borderRadius: '6px',
+              marginBottom: '28px'
+            }}
           >
-            Dừng bài
-          </button>
-
-          <div className="quiz-footer-right-actions">
-            <button
-              type="button"
-              className="btn-skip-quiz"
-              onClick={handleSkip}
-            >
-              Bỏ qua
-            </button>
-            <button
-              type="button"
-              className="btn-submit-quiz"
-              onClick={handleAnswerSubmit}
-              disabled={!selectedOption}
-            >
-              Trả lời
-            </button>
+            <div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#047857' }}>SỐ CÂU ĐÃ LÀM</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#065f46' }}>{answeredCount}</div>
+            </div>
+            <div style={{ width: '1px', backgroundColor: '#a7f3d0' }} />
+            <div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#047857' }}>NĂNG LỰC ƯỚC TÍNH</div>
+              <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#065f46' }}>θ = {currentTheta.toFixed(2)}</div>
+            </div>
           </div>
-        </div>
 
-        {/* Accordion: Vì sao câu này được chọn? */}
-        <div className="quiz-reason-accordion">
-          <button
-            type="button"
-            className="accordion-toggle-btn"
-            onClick={() => setIsReasonOpen(!isReasonOpen)}
-          >
-            {isReasonOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-            <span>Vì sao câu này được chọn?</span>
-          </button>
-
-          {isReasonOpen && (
-            <div className="accordion-content-panel animate-fade-in">
-              <p className="accordion-lead-title">{currentQ.selectionReason.title}</p>
-              <p className="accordion-desc">{currentQ.selectionReason.description}</p>
-
-              <div className="accordion-diagnostic-table">
-                {currentQ.selectionReason.table.map((row, idx) => (
-                  <div key={idx} className="diagnostic-table-row">
-                    <span className="row-topic-title">{row.topic}</span>
-                    <div className="row-meta-tags">
-                      <span className="row-badge-count">{row.count}</span>
-                      <span className="row-badge-level">{row.level}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {errorMessage && (
+            <div style={{ padding: '10px', backgroundColor: '#fef2f2', border: '1px solid #fecaca', borderRadius: '4px', color: '#b91c1c', fontSize: '0.85rem', marginBottom: '16px' }}>
+              {errorMessage}
             </div>
           )}
+
+          <div>
+            <button
+              type="button"
+              onClick={handleFinalSubmit}
+              disabled={isFinalizing}
+              style={{
+                padding: '12px 32px',
+                backgroundColor: '#10b981',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '6px',
+                fontWeight: 800,
+                fontSize: '1rem',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 6px rgba(16, 185, 129, 0.25)'
+              }}
+            >
+              {isFinalizing ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  <span>Đang tổng hợp báo cáo năng lực...</span>
+                </>
+              ) : (
+                <>
+                  <span>Xem Báo Cáo Năng Lực & Lộ Trình</span>
+                  <ArrowRight size={18} />
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
+    );
+  }
+
+  // Active Quiz View
+  return (
+    <div className="diagnostic-view-root animate-fade-in">
+      {/* Top Banner Status Bar */}
+      <div className="diagnostic-status-bar">
+        <div className="status-item-group">
+          <div className="status-label">TIẾN TRÌNH CÂU HỎI</div>
+          <div className="status-value highlight">
+            Câu {answeredCount + 1}
+            <span style={{ fontSize: '0.8rem', fontWeight: 400, color: '#64748b' }}>
+              {' '}/ tối đa {totalQuestions}
+            </span>
+          </div>
+        </div>
+
+        <div className="status-item-group">
+          <div className="status-label">NĂNG LỰC ƯỚC TÍNH (CAT)</div>
+          <div className="status-value highlight-orange">
+            θ = {currentTheta.toFixed(2)}
+          </div>
+        </div>
+
+        <div className="status-item-group timer-group">
+          <div className="status-label">THỜI GIAN CÒN LẠI</div>
+          <div className={`status-value timer-display ${timeLeft <= 15 ? 'timer-warning' : ''}`}>
+            <Clock size={16} />
+            <span>{formatTimer(timeLeft)}</span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={onPauseTest}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '6px 12px',
+            backgroundColor: '#f1f5f9',
+            border: '1px solid #cbd5e1',
+            borderRadius: '4px',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            marginLeft: 'auto'
+          }}
+          title="Tiến trình được lưu tự động trên máy chủ. Bạn có thể quay lại sau."
+        >
+          <Pause size={14} />
+          <span>Dừng bài</span>
+        </button>
+      </div>
+
+      {/* Notifications & Error Banners */}
+      {feedbackNotice && (
+        <div
+          style={{
+            padding: '10px 14px',
+            backgroundColor: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            borderRadius: '6px',
+            color: '#1e40af',
+            fontSize: '0.85rem',
+            margin: '12px 0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}
+        >
+          <span>{feedbackNotice}</span>
+          <button
+            type="button"
+            onClick={() => setFeedbackNotice('')}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit' }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div
+          style={{
+            padding: '10px 14px',
+            backgroundColor: '#fef2f2',
+            border: '1px solid #fecaca',
+            borderRadius: '6px',
+            color: '#b91c1c',
+            fontSize: '0.85rem',
+            margin: '12px 0',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <AlertCircle size={16} />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* Main Question Card */}
+      {currentQuestion && (
+        <div className="diagnostic-card-wrapper">
+          <div className="diagnostic-card">
+            {/* Question Meta Header */}
+            <div className="question-meta-row">
+              <span className="question-category-tag">
+                {currentQuestion.chapter || 'CĂN BẬC HAI VÀ CĂN BẬC BA'}
+              </span>
+              <span className="meta-separator">•</span>
+              <span className="question-subcategory-tag">
+                {currentQuestion.skillTitle || 'Biến đổi và phép tính với căn thức'}
+              </span>
+              <span className="question-type-badge">
+                [{getCognitiveLevelLabel(currentQuestion.cognitiveLevel)}]
+              </span>
+            </div>
+
+            {/* LaTeX Math Question Content */}
+            <div className="question-text-box question-content-box">
+              <MathRenderer content={currentQuestion.content} />
+            </div>
+
+            {/* Multiple Choice Options */}
+            <div className="options-selection-grid options-choices-group">
+              {(currentQuestion.options || []).map((option) => {
+                const isSelected = selectedOptionKey === option.key;
+                return (
+                  <div
+                    key={option.key}
+                    className={`quiz-option-card choice-option-row ${isSelected ? 'selected' : ''}`}
+                    onClick={() => !isSubmittingAnswer && setSelectedOptionKey(option.key)}
+                    role="button"
+                    tabIndex={0}
+                    data-testid={`option-${option.key}`}
+                    onKeyDown={(e) => {
+                      if (e.key === ' ' || e.key === 'Enter') {
+                        setSelectedOptionKey(option.key);
+                      }
+                    }}
+                  >
+                    <div className="option-label-circle choice-key-box">{option.key}</div>
+                    <div className="option-content-text choice-math-content">
+                      <MathRenderer content={option.content} />
+                    </div>
+                    <div className="option-select-radio">
+                      {isSelected && <div className="radio-dot" />}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Actions Bar */}
+            <div className="question-actions-bar">
+              <div className="left-meta-actions">
+                <button
+                  type="button"
+                  className="btn-why-selected"
+                  onClick={() => setIsReasonOpen(!isReasonOpen)}
+                >
+                  <ChevronRight
+                    size={15}
+                    className={`chevron-icon ${isReasonOpen ? 'open' : ''}`}
+                  />
+                  <span>Vì sao câu này được chọn?</span>
+                </button>
+              </div>
+
+              <div className="right-submit-actions">
+                <button
+                  type="button"
+                  className="btn-quiz-skip"
+                  onClick={handleSkip}
+                  disabled={isSubmittingAnswer}
+                >
+                  Bỏ qua
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-quiz-submit"
+                  disabled={!selectedOptionKey || isSubmittingAnswer}
+                  onClick={handleAnswerSubmit}
+                >
+                  {isSubmittingAnswer ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      <span>Đang nộp...</span>
+                    </>
+                  ) : (
+                    <span>Trả lời (Enter)</span>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Accordion: Explainability IRT / CAT reason */}
+            {isReasonOpen && (
+              <div className="selection-reason-accordion animate-fade-in">
+                <div className="reason-header">
+                  <Info size={16} className="reason-info-icon" />
+                  <span className="reason-title">
+                    Giai đoạn thích ứng CAT dựa trên ước lượng năng lực θ = {currentTheta.toFixed(2)}
+                  </span>
+                </div>
+                <p className="reason-description">
+                  Thuật toán CAT ước lượng năng lực hiện tại của bạn là θ = {currentTheta.toFixed(2)}. Câu hỏi mức [{getCognitiveLevelLabel(currentQuestion.cognitiveLevel)}] được lựa chọn nhằm tối đa hóa hàm thông tin Fisher quanh giá trị năng lực này.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

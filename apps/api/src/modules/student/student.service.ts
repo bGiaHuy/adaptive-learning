@@ -13,7 +13,16 @@ export class StudentService {
     const user = await this.prisma.user.findUnique({
       where: { id: studentId },
       include: {
-        studentProfile: true
+        studentProfile: true,
+        classMemberships: {
+          include: {
+            classroom: {
+              include: {
+                teacher: true
+              }
+            }
+          }
+        }
       }
     });
 
@@ -46,6 +55,14 @@ export class StudentService {
       email: user.email,
       role: user.role,
       profile: user.studentProfile,
+      joinedClassrooms: (user.classMemberships || []).map((m: any) => ({
+        id: m.classroom.id,
+        name: m.classroom.name,
+        grade: m.classroom.grade,
+        academicYear: m.classroom.academicYear,
+        teacherName: m.classroom.teacher?.fullName || 'Giáo viên',
+        joinedAt: m.joinedAt
+      })),
       stats: {
         completedAssessments: attemptsCount,
         masteredSkills: masteriesCount,
@@ -190,24 +207,44 @@ export class StudentService {
 
     return {
       total: mistakes.length,
-      mistakes: mistakes.map(m => ({
-        id: m.id,
-        questionId: m.questionId,
-        skillCode: m.question.skill.code,
-        skillTitle: m.question.skill.title,
-        chapter: m.question.skill.chapter,
-        content: m.question.content,
-        explanation: m.question.explanation,
-        selectedOptionKey: m.selectedOptionKey,
-        isMastered: m.isMastered,
-        userNotes: m.userNotes,
-        createdAt: m.createdAt,
-        options: m.question.options.map(o => ({
+      mistakes: mistakes.map(m => {
+        const correctOpt = m.question.options.find(o => o.isCorrect);
+        const correctKey = correctOpt?.optionKey || '';
+        const optionsList = m.question.options.map(o => ({
           key: o.optionKey,
           content: o.content,
           isCorrect: o.isCorrect
-        }))
-      }))
+        }));
+
+        return {
+          id: m.id,
+          questionId: m.questionId,
+          skillCode: m.question.skill.code,
+          skillTitle: m.question.skill.title,
+          chapter: m.question.skill.chapter,
+          content: m.question.content,
+          cognitiveLevel: m.question.cognitiveLevel,
+          explanation: m.question.explanation,
+          selectedOptionKey: m.selectedOptionKey,
+          correctOptionKey: correctKey,
+          isMastered: m.isMastered,
+          userNotes: m.userNotes,
+          createdAt: m.createdAt,
+          question: {
+            id: m.question.id,
+            content: m.question.content,
+            cognitiveLevel: m.question.cognitiveLevel,
+            explanation: m.question.explanation,
+            skillId: m.question.skillId,
+            skillCode: m.question.skill.code,
+            skillTitle: m.question.skill.title,
+            chapter: m.question.skill.chapter,
+            correctOptionKey: correctKey,
+            options: optionsList
+          },
+          options: optionsList
+        };
+      })
     };
   }
 

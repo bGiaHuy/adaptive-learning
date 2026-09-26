@@ -8,7 +8,7 @@
 **Tài liệu tham chiếu:**
 - `docs/PRD-AdaptiveMath.md` (Mục 20: Các quyết định mở)
 - `docs/PROJECT-VISION-AND-PM-ROADMAP.md` (Horizon 1 & Horizon 2)
-- `docs/IMPLEMENTATION-AGENT-PROMPT.md` (Engineering Guardrails)
+- `docs/IMPLEMENTATION-PLAN.md` (Engineering Guardrails)
 
 ---
 

@@ -2,13 +2,17 @@ import React from 'react';
 import { ArrowRight, CheckCircle, GitBranch, School } from 'lucide-react';
 import Navbar from './Navbar';
 
-export default function LandingPage({ onStartRegistration, onLogin }) {
+export default function LandingPage({ onStartRegistration, onLogin, onOpenLegal }) {
   return (
     <div className="landing-page-root">
-      <Navbar showFullNav={true} onNavigate={(view, params) => {
-        if (params?.mode === 'login') onLogin();
-        else onStartRegistration();
-      }} />
+      <Navbar
+        showFullNav={true}
+        onOpenLegal={onOpenLegal}
+        onNavigate={(view, params) => {
+          if (params?.mode === 'login') onLogin();
+          else onStartRegistration();
+        }}
+      />
 
       {/* Hero Section */}
       <main className="landing-hero-section">
@@ -183,6 +187,23 @@ export default function LandingPage({ onStartRegistration, onLogin }) {
         <p className="footer-copyright">
           AdaptiveMath · Nền tảng học Toán THCS lớp 6, 7, 8, 9 theo Chương trình GDPT 2018
         </p>
+        <div style={{ marginTop: '8px' }}>
+          <button
+            type="button"
+            onClick={onOpenLegal}
+            style={{
+              color: '#0f766e',
+              fontSize: '0.82rem',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              background: 'none',
+              border: 'none',
+              fontWeight: 500
+            }}
+          >
+            Chính sách bảo mật & Điều khoản sử dụng (Dự thảo D-02)
+          </button>
+        </div>
       </footer>
     </div>
   );

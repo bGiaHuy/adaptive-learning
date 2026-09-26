@@ -15,7 +15,6 @@ export const DIAGNOSTIC_QUESTIONS = [
     ],
     correctAnswer: 'B',
     explanation: 'Ta có $245 = 49 \\times 5 = 7^2 \\times 5$. Do đó $\\sqrt{245} = \\sqrt{7^2 \\times 5} = 7\\sqrt{5}$.',
-    thetaChange: 0.15,
     selectionReason: {
       title: 'Giai đoạn phổ độ: vị trí tiêu chí để được chọn hỏi lần nào.',
       description: 'Thuật toán thích ứng CAT (Computerized Adaptive Testing) dựa trên mô hình IRT ước lượng năng lực θ. Câu hỏi nhận biết về căn thức được chọn làm câu thăm dò đầu tiên cho mục tiêu Ôn thi vào lớp 10.',
@@ -42,7 +41,6 @@ export const DIAGNOSTIC_QUESTIONS = [
     ],
     correctAnswer: 'A',
     explanation: 'Cộng hai vế ta được $(2x+y) + (x-y) = 5+1 \\implies 3x = 6 \\implies x = 2$. Thay vào phương trình thứ hai $2 - y = 1 \\implies y = 1$.',
-    thetaChange: 0.20,
     selectionReason: {
       title: 'Xác minh độ hiểu sau câu nhận biết căn thức thành công.',
       description: 'Học sinh đạt đúng ở mức Nhận biết, hệ thống nâng mức câu hỏi lên Thông hiểu trong chủ đề bạn đã đánh dấu quan tâm.',
@@ -68,7 +66,6 @@ export const DIAGNOSTIC_QUESTIONS = [
     ],
     correctAnswer: 'B',
     explanation: 'Áp dụng định lý Pythagoras: $BC = \\sqrt{AB^2 + AC^2} = \\sqrt{6^2 + 8^2} = 10\\text{ cm}$. Khi đó $\\sin B = \\frac{AC}{BC} = \\frac{8}{10} = \\frac{4}{5}$.',
-    thetaChange: 0.25,
     selectionReason: {
       title: 'Đánh giá độ sâu hình học mức Vận dụng.',
       description: 'Học sinh đã trả lời đúng 2 câu liên tiếp, hệ thống kiểm tra khả năng tích hợp định lý Pythagoras và tỉ số lượng giác.',

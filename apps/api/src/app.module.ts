@@ -7,6 +7,7 @@ import { CurriculumModule } from './modules/curriculum/curriculum.module';
 import { DiagnosticModule } from './modules/diagnostic/diagnostic.module';
 import { StudentModule } from './modules/student/student.module';
 import { ClassroomModule } from './modules/classroom/classroom.module';
+import { AssignmentModule } from './modules/assignment/assignment.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { validateEnvironment } from './config/environment';
 
@@ -24,6 +25,7 @@ import { validateEnvironment } from './config/environment';
     DiagnosticModule,
     StudentModule,
     ClassroomModule,
+    AssignmentModule,
     AdminModule
   ]
 })

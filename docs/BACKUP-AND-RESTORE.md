@@ -109,3 +109,19 @@ Copy-Item -Path ".\data\redis\dump.rdb" -Destination "$REDIS_BACKUP_DIR\dump_$DA
   1. Toàn bộ quan hệ khoá ngoại (Foreign Key Constraints) còn nguyên vẹn.
   2. Bảng `AuditLog` có mã hash và thứ tự thời gian không bị gián đoạn.
   3. Mật khẩu người dùng được băm Argon2id giải mã và so khớp bình thường.
+
+### 5.1 Kết Quả Diễn Tập Thực Tế (Execution Evidence: 2026-09-21)
+- **Tệp sao lưu:** `docs/evidence/backup/backup_rehearsal.sql` được tạo qua lệnh `docker exec am-postgres pg_dump -U am -d adaptivemath`.
+- **Môi trường phục hồi:** Cơ sở dữ liệu độc lập `adaptivemath_drill`.
+- **Script kiểm thử:** `apps/api/scripts/verify-backup-rehearsal.ts`.
+- **Số liệu xác thực:**
+  - `User`: 400
+  - `Question`: 254 (bao gồm 36 `PUBLISHED`, 216 `IN_REVIEW`, 2 `DRAFT`)
+  - `QuestionOption`: 1.016
+  - `SkillNode`: 32
+  - `Session`: 450
+  - `AuditLog`: 602
+- **Kết luận diễn tập:** ✅ `REHEARSAL VERIFICATION SUCCESS` — Đạt 100% tính toàn vẹn dữ liệu kiểm thử (100% entities, foreign keys, băm Argon2id và cấu trúc audit log).
+  - *Lưu ý về RPO/RTO:* Chỉ số RPO $\le$ 1 phút và RTO $\le$ 15 giây là kết quả đo đạc thực nghiệm trên môi trường container cục bộ (`am-postgres`) trong kịch bản diễn tập, không phải cam kết SLA cho môi trường production phân tán. Cam kết SLA production chính thức sẽ do PO, Infra Lead và Academic Lead thống nhất trước giai đoạn Controlled Pilot.
+
+

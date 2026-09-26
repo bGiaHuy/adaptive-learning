@@ -1,4 +1,4 @@
-import { IsEnum } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { QuestionStatus } from '@prisma/client';
 
@@ -9,4 +9,9 @@ export class ReviewQuestionDto {
   })
   @IsEnum(QuestionStatus)
   status: QuestionStatus;
+
+  @ApiProperty({ description: 'Nhận xét khi thẩm định câu hỏi', required: false })
+  @IsString()
+  @IsOptional()
+  comments?: string;
 }

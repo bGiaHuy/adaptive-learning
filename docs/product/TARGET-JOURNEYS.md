@@ -7,7 +7,7 @@
 **Tài liệu liên quan:**
 - `docs/PRD-AdaptiveMath.md` (Mục 7: Trải nghiệm cốt lõi theo vai trò)
 - `docs/product/GATE-0-DECISION-PACK.md` (Quyết định D-01 đến D-04 - PENDING)
-- `docs/IMPLEMENTATION-AGENT-PROMPT.md` (Security & Guardrail constraints)
+- `docs/IMPLEMENTATION-PLAN.md` (Security & Guardrail constraints)
 
 > [!NOTE]
 > **Ranh giới Pháp lý & Quyết định Mở:** Các điểm chạm liên quan đến `parentEmail`, khối lớp mặc định Lớp 9, hoặc xác minh giáo viên trong các hành trình dưới đây dựa trên Recommendation của Gate 0. Chúng không phải là requirement đã duyệt cho đến khi có chữ ký chính thức tại `DECISION-LOG.md`.

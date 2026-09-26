@@ -10,10 +10,12 @@ import { CreateQuestionDto } from './dto/create-question.dto';
 import { ReviewQuestionDto } from './dto/review-question.dto';
 import {
   UserRole,
+  UserStatus,
   TeacherVerificationStatus,
   QuestionStatus,
   AttemptStatus
 } from '@prisma/client';
+import * as argon2 from '@node-rs/argon2';
 
 @Injectable()
 export class AdminService {
@@ -292,6 +294,230 @@ export class AdminService {
       questionsCount,
       completedAttempts,
       systemHealth: 'HEALTHY'
+    };
+  }
+
+  // 8. User Management: Get list of all users with search & filters
+  async getUsers(query: { role?: UserRole; status?: UserStatus; search?: string; page?: number; limit?: number }) {
+    const page = Math.max(1, query.page || 1);
+    const limit = Math.min(100, Math.max(1, query.limit || 20));
+    const skip = (page - 1) * limit;
+
+    const where: any = {};
+    if (query.role) where.role = query.role;
+    if (query.status) where.status = query.status;
+    if (query.search?.trim()) {
+      const s = query.search.trim();
+      where.OR = [
+        { username: { contains: s, mode: 'insensitive' } },
+        { fullName: { contains: s, mode: 'insensitive' } },
+        { email: { contains: s, mode: 'insensitive' } }
+      ];
+    }
+
+    const [total, users] = await Promise.all([
+      this.prisma.user.count({ where }),
+      this.prisma.user.findMany({
+        where,
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          fullName: true,
+          role: true,
+          status: true,
+          createdAt: true,
+          teacherProfile: {
+            select: {
+              schoolName: true,
+              city: true,
+              verificationStatus: true
+            }
+          },
+          studentProfile: {
+            select: {
+              grade: true,
+              targetGoal: true
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit
+      })
+    ]);
+
+    return {
+      users,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    };
+  }
+
+  // 9. Update user status (Active / Suspended)
+  async updateUserStatus(adminId: string, userId: string, newStatus: UserStatus) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException({
+        code: 'USER_NOT_FOUND',
+        message: 'Người dùng không tồn tại.'
+      });
+    }
+
+    if (user.id === adminId && newStatus === UserStatus.SUSPENDED) {
+      throw new BadRequestException({
+        code: 'CANNOT_SUSPEND_SELF',
+        message: 'Bạn không thể tự khóa tài khoản quản trị của chính mình.'
+      });
+    }
+
+    const updated = await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          status: newStatus,
+          permissionVersion: { increment: 1 } // Invalidate active session tokens
+        }
+      }),
+      this.prisma.auditLog.create({
+        data: {
+          actorUserId: adminId,
+          action: newStatus === UserStatus.SUSPENDED ? 'USER_SUSPENDED' : 'USER_ACTIVATED',
+          targetEntity: 'User',
+          targetEntityId: userId,
+          metadata: { previousStatus: user.status, newStatus }
+        }
+      })
+    ]);
+
+    return {
+      message: `Đã ${newStatus === UserStatus.SUSPENDED ? 'khóa' : 'mở khóa'} tài khoản ${user.username} thành công.`,
+      user: {
+        id: updated[0].id,
+        username: updated[0].username,
+        status: updated[0].status
+      }
+    };
+  }
+
+  // 10. Reset user password
+  async resetUserPassword(adminId: string, userId: string, newPassword?: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException({
+        code: 'USER_NOT_FOUND',
+        message: 'Người dùng không tồn tại.'
+      });
+    }
+
+    const passwordToSet = newPassword?.trim() || 'P@ssword123!';
+    const passwordHash = await argon2.hash(passwordToSet, {
+      memoryCost: 19456,
+      timeCost: 2,
+      outputLen: 32,
+      parallelism: 1
+    });
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          passwordHash,
+          permissionVersion: { increment: 1 }
+        }
+      }),
+      this.prisma.auditLog.create({
+        data: {
+          actorUserId: adminId,
+          action: 'PASSWORD_RESET_BY_ADMIN',
+          targetEntity: 'User',
+          targetEntityId: userId
+        }
+      })
+    ]);
+
+    return {
+      message: `Đã đặt lại mật khẩu cho tài khoản ${user.username} thành công.`,
+      tempPassword: passwordToSet
+    };
+  }
+
+  // 11. Get all classrooms across system
+  async getAllClassrooms() {
+    const classrooms = await this.prisma.classroom.findMany({
+      include: {
+        teacher: {
+          select: {
+            id: true,
+            fullName: true,
+            email: true,
+            teacherProfile: { select: { schoolName: true, city: true } }
+          }
+        },
+        memberships: {
+          select: { id: true }
+        },
+        assignments: {
+          select: { id: true, title: true, status: true }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    return {
+      total: classrooms.length,
+      classrooms: classrooms.map(c => ({
+        id: c.id,
+        name: c.name,
+        grade: c.grade,
+        academicYear: c.academicYear,
+        isActive: c.isActive,
+        createdAt: c.createdAt,
+        teacher: {
+          id: c.teacher.id,
+          fullName: c.teacher.fullName,
+          email: c.teacher.email,
+          schoolName: c.teacher.teacherProfile?.schoolName,
+          city: c.teacher.teacherProfile?.city
+        },
+        studentsCount: c.memberships.length,
+        assignmentsCount: c.assignments.length
+      }))
+    };
+  }
+
+  // 12. Curriculum Stats
+  async getCurriculumStats() {
+    const [byStatus, byLevel, skills] = await Promise.all([
+      this.prisma.question.groupBy({
+        by: ['status'],
+        _count: { id: true }
+      }),
+      this.prisma.question.groupBy({
+        by: ['cognitiveLevel'],
+        _count: { id: true }
+      }),
+      this.prisma.skillNode.findMany({
+        include: {
+          _count: {
+            select: { questions: true }
+          }
+        },
+        orderBy: { orderIndex: 'asc' }
+      })
+    ]);
+
+    return {
+      byStatus: byStatus.map(s => ({ status: s.status, count: s._count.id })),
+      byLevel: byLevel.map(l => ({ level: l.cognitiveLevel, count: l._count.id })),
+      bySkill: skills.map(sk => ({
+        id: sk.id,
+        code: sk.code,
+        title: sk.title,
+        chapter: sk.chapter,
+        questionCount: sk._count.questions
+      }))
     };
   }
 }

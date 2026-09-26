@@ -2,7 +2,7 @@
 
 **Trạng thái:** ĐANG TRIỂN KHAI — phê duyệt từng mốc (phase gate).
 **Ngày:** 2026-09-21
-**Nguồn yêu cầu:** `docs/PRD-AdaptiveMath.md` (chuẩn), `docs/IMPLEMENTATION-AGENT-PROMPT.md` (luật làm việc).
+**Nguồn yêu cầu:** `docs/PRD-AdaptiveMath.md` (nghiệp vụ); kế hoạch này ghi nhận phạm vi triển khai kỹ thuật.
 
 > Luật bất biến: Không tuyên bố hoàn tất một mốc khi còn acceptance criterion bắt buộc chưa chạy hoặc chưa đạt. Không `git reset --hard`/thao tác phá hoại. Mọi schema change qua Prisma migration.
 

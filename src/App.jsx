@@ -3,7 +3,6 @@ import LandingPage from './components/LandingPage';
 import RegisterPage from './components/RegisterPage';
 import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
 import DashboardView from './components/DashboardView';
 import OnboardingWizard from './components/OnboardingWizard';
 import DiagnosticTest from './components/DiagnosticTest';
@@ -12,68 +11,110 @@ import LearningPathView from './components/LearningPathView';
 import MistakeNotebookView from './components/MistakeNotebookView';
 import ClassroomView from './components/ClassroomView';
 import MissionsView from './components/MissionsView';
+import SessionManagementModal from './components/SessionManagementModal';
+import TeacherPendingView from './components/TeacherPendingView';
+import TeacherClassroomsView from './components/TeacherClassroomsView';
+import AdminPortalView from './components/AdminPortalView';
+import NotFoundView from './components/NotFoundView';
+import LegalNoticeModal from './components/LegalNoticeModal';
+import { authApi, studentApi } from './lib/apiClient';
 
 export default function App() {
+  const isUnknownUrl = () => {
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    return (path !== '/' && path !== '/index.html') || (hash && hash !== '#' && hash !== '#/');
+  };
+  const [unknownUrl, setUnknownUrl] = useState(isUnknownUrl);
+
+  useEffect(() => {
+    const syncUrl = () => setUnknownUrl(isUnknownUrl());
+    window.addEventListener('hashchange', syncUrl);
+    window.addEventListener('popstate', syncUrl);
+    return () => {
+      window.removeEventListener('hashchange', syncUrl);
+      window.removeEventListener('popstate', syncUrl);
+    };
+  }, []);
   // Navigation & User State
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'register' | 'loading' | 'app' | 'onboarding'
   const [activeTab, setActiveTab] = useState('dashboard');
   const [authMode, setAuthMode] = useState('signup');
-  
-  // User Profile
-  const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('adaptivemath_user');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [isBootstrapping, setIsBootstrapping] = useState(true);
+  const [showSessionModal, setShowSessionModal] = useState(false);
+  const [showLegalModal, setShowLegalModal] = useState(false);
 
-  // Setup Profile (configured in wizard)
-  const [userProfile, setUserProfile] = useState(() => {
-    const saved = localStorage.getItem('adaptivemath_profile');
-    return saved ? JSON.parse(saved) : null;
-  });
+  // Authenticated User State (Server-backed only)
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Diagnostic Test State
-  const [hasCompletedTest, setHasCompletedTest] = useState(() => {
-    return localStorage.getItem('adaptivemath_test_completed') === 'true';
-  });
-
-  const [testResults, setTestResults] = useState(() => {
-    const saved = localStorage.getItem('adaptivemath_test_results');
-    return saved ? JSON.parse(saved) : null;
-  });
-
-  const [mistakesList, setMistakesList] = useState(() => {
-    const saved = localStorage.getItem('adaptivemath_mistakes');
-    return saved ? JSON.parse(saved) : [];
-  });
-
+  // Student Data (fetched from API)
+  const [userProfile, setUserProfile] = useState(null);
+  const [hasCompletedTest, setHasCompletedTest] = useState(false);
+  const [testResults, setTestResults] = useState(null);
+  const [mistakesList, setMistakesList] = useState([]);
   const [wizardStep, setWizardStep] = useState(1);
 
-  // Sync to localStorage
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('adaptivemath_user', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('adaptivemath_user');
+  // Helper to determine starting tab by role
+  const getDefaultTabForRole = (role) => {
+    switch (role) {
+      case 'TEACHER_APPLICANT':
+        return 'teacher-pending';
+      case 'TEACHER':
+        return 'teacher-classes';
+      case 'ADMIN':
+      case 'CONTENT_AUTHOR':
+      case 'CONTENT_REVIEWER':
+        return 'admin-overview';
+      case 'STUDENT':
+      default:
+        return 'dashboard';
     }
-  }, [currentUser]);
+  };
 
+  // Bootstrap session on app mount via GET /auth/me
   useEffect(() => {
-    if (userProfile) {
-      localStorage.setItem('adaptivemath_profile', JSON.stringify(userProfile));
-    } else {
-      localStorage.removeItem('adaptivemath_profile');
-    }
-  }, [userProfile]);
+    let isMounted = true;
 
-  useEffect(() => {
-    localStorage.setItem('adaptivemath_test_completed', hasCompletedTest ? 'true' : 'false');
-  }, [hasCompletedTest]);
+    const bootstrapSession = async () => {
+      try {
+        const data = await authApi.getMe();
+        if (isMounted && data.user) {
+          setCurrentUser(data.user);
+          setCurrentView('app');
+          setActiveTab(getDefaultTabForRole(data.user.role));
 
-  useEffect(() => {
-    if (testResults) {
-      localStorage.setItem('adaptivemath_test_results', JSON.stringify(testResults));
-    }
-  }, [testResults]);
+          // If student, load student profile from server
+          if (data.user.role === 'STUDENT') {
+            try {
+              const profData = await studentApi.getProfile();
+              if (profData.profile) {
+                setUserProfile(profData.profile);
+              }
+              if (profData.stats?.completedAttemptsCount > 0) {
+                setHasCompletedTest(true);
+              }
+            } catch {
+              // Non-blocking if profile not yet completed
+            }
+          }
+        }
+      } catch {
+        // No active session or 401: stay on landing
+        if (isMounted) {
+          setCurrentUser(null);
+        }
+      } finally {
+        if (isMounted) {
+          setIsBootstrapping(false);
+        }
+      }
+    };
+
+    bootstrapSession();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Handler: Start Register or Login
   const handleStartAuth = (mode = 'signup') => {
@@ -81,16 +122,26 @@ export default function App() {
     setCurrentView('register');
   };
 
+  const leaveUnknownUrl = (destination) => {
+    window.history.replaceState(null, '', '/');
+    setUnknownUrl(false);
+    setCurrentView(destination);
+    if (destination === 'app') setActiveTab(getDefaultTabForRole(currentUser?.role));
+  };
+
   // Handler: Complete Auth (from Register/Login screen)
   const handleCompleteAuth = (userData) => {
     setCurrentUser(userData);
+    setActiveTab(getDefaultTabForRole(userData?.role));
     setCurrentView('loading');
   };
 
-  // Handler: Loading Screen Finished -> go to app dashboard
+  // Handler: Loading Screen Finished -> go to role home
   const handleLoadingFinished = () => {
     setCurrentView('app');
-    setActiveTab('dashboard');
+    if (currentUser?.role) {
+      setActiveTab(getDefaultTabForRole(currentUser.role));
+    }
   };
 
   // Handler: Start Onboarding Wizard
@@ -102,7 +153,6 @@ export default function App() {
   // Handler: Finish Onboarding Wizard
   const handleFinishOnboarding = (profileData) => {
     setUserProfile(profileData);
-    // As shown in video, after finishing wizard it enters the diagnostic test
     setActiveTab('diagnostic');
   };
 
@@ -118,14 +168,20 @@ export default function App() {
     setActiveTab('dashboard');
   };
 
-  // Handler: Logout
-  const handleLogout = () => {
+  // Handler: Logout (clears DB session and cookie)
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch {
+      // Ignore network errors during logout
+    }
     setCurrentUser(null);
     setUserProfile(null);
     setHasCompletedTest(false);
     setTestResults(null);
-    localStorage.clear();
+    setMistakesList([]);
     setCurrentView('landing');
+    setActiveTab('dashboard');
   };
 
   // Helper page title for top navbar
@@ -134,31 +190,87 @@ export default function App() {
       case 'onboarding':
         return 'Thiết lập hồ sơ';
       case 'dashboard':
-        return 'AdaptiveMath';
+        return 'Bảng điều khiển học tập';
       case 'profile':
         return 'Hồ sơ năng lực';
       case 'learning-path':
-        return 'Lộ trình học';
+        return 'Lộ trình học cá nhân';
       case 'diagnostic':
-        return 'Kiểm tra đầu vào';
+        return 'Kiểm tra chẩn đoán (CAT/IRT)';
       case 'missions':
         return 'Nhiệm vụ số';
       case 'mistakes':
         return 'Sổ tay lỗi sai';
       case 'classroom':
-        return 'Lớp học';
+        return 'Lớp học của em';
+      case 'teacher-pending':
+        return 'Hồ sơ giáo viên chờ duyệt';
+      case 'teacher-classes':
+        return 'Quản lý lớp học';
+      case 'teacher-analytics':
+        return 'Báo cáo & Can thiệp sư phạm';
+      case 'admin-overview':
+        return 'Tổng quan hệ thống';
+      case 'admin-applicants':
+        return 'Duyệt giáo viên ứng tuyển';
+      case 'admin-questions':
+        return 'Ngân hàng câu hỏi (Maker-Checker)';
+      case 'admin-audit':
+        return 'Nhật ký kiểm toán hệ thống';
       default:
         return 'AdaptiveMath';
     }
   };
 
-  // Render Workflow Screen
+  // Bootstrapping Splash
+  if (isBootstrapping) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#f4f0e7',
+          color: '#0f172a',
+          fontFamily: 'serif'
+        }}
+      >
+        <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '12px' }}>
+          ∫ AdaptiveMath
+        </div>
+        <div style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'sans-serif' }}>
+          Đang khôi phục phiên bảo mật...
+        </div>
+      </div>
+    );
+  }
+
+  if (unknownUrl) {
+    return (
+      <NotFoundView
+        isLoggedIn={Boolean(currentUser)}
+        onNavigateHome={() => leaveUnknownUrl('landing')}
+        onNavigateDashboard={() => leaveUnknownUrl('app')}
+      />
+    );
+  }
+
+  // Render Public Screens
   if (currentView === 'landing') {
     return (
-      <LandingPage
-        onStartRegistration={() => handleStartAuth('signup')}
-        onLogin={() => handleStartAuth('login')}
-      />
+      <>
+        <LandingPage
+          onStartRegistration={() => handleStartAuth('signup')}
+          onLogin={() => handleStartAuth('login')}
+          onOpenLegal={() => setShowLegalModal(true)}
+        />
+        <LegalNoticeModal
+          isOpen={showLegalModal}
+          onClose={() => setShowLegalModal(false)}
+        />
+      </>
     );
   }
 
@@ -176,81 +288,147 @@ export default function App() {
     return <LoadingScreen onFinished={handleLoadingFinished} />;
   }
 
-  // Inside Main App with Sidebar
+  if (currentView !== 'app') {
+    return (
+      <NotFoundView
+        isLoggedIn={Boolean(currentUser)}
+        onNavigateHome={() => setCurrentView('landing')}
+        onNavigateDashboard={() => {
+          setCurrentView('app');
+          setActiveTab('dashboard');
+        }}
+      />
+    );
+  }
+
+  const role = currentUser?.role || 'STUDENT';
+
+  // Role Shell Guards
   return (
     <div className="app-container">
-      {/* Dark emerald sidebar matching video */}
       <Sidebar
         activeTab={activeTab === 'onboarding' ? 'dashboard' : activeTab}
         onSelectTab={(tabId) => setActiveTab(tabId)}
+        currentUser={currentUser}
+        onLogout={handleLogout}
+        onOpenSessions={() => setShowSessionModal(true)}
+        onOpenLegal={() => setShowLegalModal(true)}
+        progress={activeTab === 'onboarding' ? { step: wizardStep, total: 8 } : null}
       />
 
       <div className="main-content-area">
-        {/* Top bar with Breadcrumbs / Title & User Profile */}
-        <Navbar
-          pageTitle={getHeaderTitle()}
-          currentUser={currentUser}
-          onLogout={handleLogout}
-          progress={activeTab === 'onboarding' ? { step: wizardStep, total: 8 } : null}
-        />
-
         <main className="tab-viewport">
-          {activeTab === 'onboarding' && (
-            <OnboardingWizard
+          {/* TEACHER APPLICANT VIEW */}
+          {role === 'TEACHER_APPLICANT' && (
+            <TeacherPendingView
               currentUser={currentUser}
-              onComplete={handleFinishOnboarding}
-              onCancel={() => setActiveTab('dashboard')}
-              onStepChange={(step) => setWizardStep(step)}
+              onRefreshUser={(updated) => setCurrentUser(updated)}
             />
           )}
 
-          {activeTab === 'dashboard' && (
-            <DashboardView
-              userProfile={userProfile}
-              onStartSetup={handleStartOnboarding}
-              onStartDiagnostic={() => setActiveTab('diagnostic')}
+          {/* VERIFIED TEACHER VIEWS */}
+          {role === 'TEACHER' && (
+            <TeacherClassroomsView currentUser={currentUser} />
+          )}
+
+          {/* ADMIN & CONTENT VIEWS */}
+          {(role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') && (
+            <AdminPortalView
+              currentUser={currentUser}
+              defaultTab={
+                activeTab === 'admin-applicants'
+                  ? 'applicants'
+                  : activeTab === 'admin-questions'
+                  ? 'questions'
+                  : activeTab === 'admin-audit'
+                  ? 'audit'
+                  : 'overview'
+              }
             />
           )}
 
-          {activeTab === 'profile' && (
-            <ProfileCompetencyView
-              hasCompletedTest={hasCompletedTest}
-              testResults={testResults}
-              onStartDiagnostic={() => setActiveTab('diagnostic')}
-            />
-          )}
+          {/* STUDENT VIEWS */}
+          {role === 'STUDENT' && (
+            <>
+              {activeTab === 'onboarding' && (
+                <OnboardingWizard
+                  currentUser={currentUser}
+                  onComplete={handleFinishOnboarding}
+                  onCancel={() => setActiveTab('dashboard')}
+                  onStepChange={(step) => setWizardStep(step)}
+                />
+              )}
 
-          {activeTab === 'learning-path' && (
-            <LearningPathView
-              hasCompletedTest={hasCompletedTest}
-              userProfile={userProfile}
-              onStartDiagnostic={() => setActiveTab('diagnostic')}
-            />
-          )}
+              {activeTab === 'dashboard' && (
+                <DashboardView
+                  userProfile={userProfile}
+                  onStartSetup={handleStartOnboarding}
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                />
+              )}
 
-          {activeTab === 'diagnostic' && (
-            <DiagnosticTest
-              onFinishTest={handleFinishTest}
-              onPauseTest={handlePauseTest}
-            />
-          )}
+              {activeTab === 'profile' && (
+                <ProfileCompetencyView
+                  hasCompletedTest={hasCompletedTest}
+                  testResults={testResults}
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                />
+              )}
 
-          {activeTab === 'missions' && (
-            <MissionsView
-              onStartDiagnostic={() => setActiveTab('diagnostic')}
-            />
-          )}
+              {activeTab === 'learning-path' && (
+                <LearningPathView
+                  hasCompletedTest={hasCompletedTest}
+                  userProfile={userProfile}
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                />
+              )}
 
-          {activeTab === 'mistakes' && (
-            <MistakeNotebookView
-              mistakes={mistakesList}
-              onStartPractice={() => setActiveTab('diagnostic')}
-            />
-          )}
+              {activeTab === 'diagnostic' && (
+                <DiagnosticTest
+                  onFinishTest={handleFinishTest}
+                  onPauseTest={handlePauseTest}
+                />
+              )}
 
-          {activeTab === 'classroom' && <ClassroomView />}
+              {activeTab === 'missions' && (
+                <MissionsView
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                  onNavigateTab={(tab) => setActiveTab(tab)}
+                />
+              )}
+
+              {activeTab === 'mistakes' && (
+                <MistakeNotebookView
+                  mistakes={mistakesList}
+                  onStartPractice={() => setActiveTab('diagnostic')}
+                />
+              )}
+
+              {activeTab === 'classroom' && <ClassroomView />}
+
+              {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
+                <NotFoundView
+                  isLoggedIn={true}
+                  onNavigateDashboard={() => setActiveTab('dashboard')}
+                />
+              )}
+            </>
+          )}
         </main>
       </div>
+
+      {/* Session Management Modal */}
+      <SessionManagementModal
+        isOpen={showSessionModal}
+        onClose={() => setShowSessionModal(false)}
+        onSessionRevoked={handleLogout}
+      />
+
+      {/* Legal & Privacy Policy Modal (Draft Gate 0 D-02) */}
+      <LegalNoticeModal
+        isOpen={showLegalModal}
+        onClose={() => setShowLegalModal(false)}
+      />
     </div>
   );
 }

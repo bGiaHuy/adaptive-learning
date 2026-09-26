@@ -6,14 +6,17 @@ export default function DashboardView({
   onStartSetup,
   onStartDiagnostic
 }) {
-  const isProfileConfigured = Boolean(userProfile && userProfile.grade);
+  const isProfileConfigured = Boolean(userProfile && (userProfile.grade || userProfile.targetGoal));
+  const gradeLabel = userProfile?.grade ? `Khối ${userProfile.grade}` : 'Lớp 9';
+  const dailyTimeLabel = userProfile?.dailyMinutes ? `${userProfile.dailyMinutes} phút` : userProfile?.dailyTime || '45 phút';
+  const goalLabel = userProfile?.targetGoal || userProfile?.goal || 'Ôn thi vào lớp 10';
 
   // Generate days for a standard calendar month
   const daysOfWeek = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
   
-  // Create days 1..31 with realistic mock active streak
+  // Create days 1..30 with active streak
   const daysInMonth = Array.from({ length: 30 }, (_, i) => i + 1);
-  const currentDay = 16; // Highlighted day as seen in video
+  const currentDay = new Date().getDate();
 
   return (
     <div className="dashboard-content-page animate-fade-in">
@@ -21,12 +24,12 @@ export default function DashboardView({
       <div className="dashboard-header-block">
         <h1 className="dashboard-heading">
           {isProfileConfigured
-            ? `Xin chào, học sinh ${userProfile.grade}!`
+            ? `Xin chào, học sinh ${gradeLabel}!`
             : 'Chào mừng đến AdaptiveMath!'}
         </h1>
         <p className="dashboard-subheading">
           {isProfileConfigured
-            ? `Sẵn sàng cho ${userProfile.dailyTime || '45 phút'} học trung bình hôm nay để đến gần hơn tới mục tiêu ${userProfile.goal ? userProfile.goal.toLowerCase() : 'ôn thi vào lớp 10'} chứ?`
+            ? `Sẵn sàng cho ${dailyTimeLabel} học hôm nay để đến gần hơn tới mục tiêu ${goalLabel.toLowerCase()} chứ?`
             : 'Bắt đầu bằng cách nhập lớp, mục tiêu và thời gian học để hệ thống chuẩn bị bài kiểm tra đầu vào phù hợp.'}
         </p>
       </div>

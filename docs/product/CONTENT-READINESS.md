@@ -72,23 +72,31 @@ Bám sát chương trình Toán 9 GDPT 2018 - SGK Kết nối tri thức với c
 ## 4. Ma Trận Kế Hoạch & Trạng Thái Sẵn Sàng Nội Dung (Planning Matrix & Inventory Audit)
 
 > [!IMPORTANT]
-> **Kết Quả Kiểm Kê Kho Dữ Liệu Thực Tế (Workspace Evidence Audit):**  
-> - **Số câu hỏi đã xác minh trong repository:** **01 câu** (Mã `SKILL-02`, file `apps/api/prisma/seed.ts`).  
-> - **Tiến độ thực tế xác minh:** **0.3% (1/320)**.  
-> - Các số liệu "Đã soạn: 280 / Đã duyệt: 233 / 72.8%" dưới đây được phân loại là **MỤC TIÊU KẾ HOẠCH (PLANNING TARGET) / DỮ LIỆU CHƯA XÁC MINH (UNVERIFIED PLACEHOLDER)**.  
-> - **Người chịu trách nhiệm xác minh (Owner):** Academic Content Lead & QA Lead phải cung cấp file dữ liệu nguồn (JSON/CSV hoặc migration seed đầy đủ) trước khi đề xuất mở **Gate 3 (Content & Assessment Algorithm)**.
+> **Kết Quả Kiểm Kê Kho Dữ Liệu Thực Tế (Workspace & Database Evidence Audit - 21/09/2026):**
+> - **Legacy Bank:** Chưa xác minh được. Đường dẫn source cấu hình trong importer không tồn tại trên filesystem hiện tại.
+> - **Tool di chuyển tự động:** File `apps/api/scripts/migrate-legacy-questions.ts` tồn tại và có cờ `--dry-run`/`--apply`, nhưng dry-run bị dừng do thiếu `data/questions.js`.
+> - **Snapshot cơ sở dữ liệu PostgreSQL (`adaptivemath`):**
+>   - **Tổng số câu hỏi trong DB:** **254 câu**
+>   - **Trạng thái `PUBLISHED`:** **36 câu**
+>   - **Trạng thái `IN_REVIEW`:** **216 câu** (chưa đủ evidence để quy kết toàn bộ cho legacy source).
+>   - **Trạng thái `DRAFT`:** **2 câu** (Câu hỏi khởi tạo thử nghiệm từ Creator Tool).
+>   - **Số chủ đề / Kỹ năng (SkillNode):** **32 SkillNode Toán 9 GDPT 2018** (Bao phủ đầy đủ 10 chương: Căn thức, Hệ phương trình, Bất phương trình, Lượng giác, Đường tròn, Hàm số bậc hai & Viète, Thống kê xác suất, Hình khối).
+> - **Tuân thủ Maker-Checker & An toàn Học thuật:** 216 câu `IN_REVIEW` chưa được coi là đã kiểm định nội dung. Cần xác minh source, chạy migration report và có Academic Lead sign-off trước khi phát hành cho học sinh.
 
-| Mã Kỹ Năng (Skill ID) | Tên Kỹ Năng | Cần thiết (Target) | Xác minh Repo (Verified) | Kế hoạch Soạn (Draft Target) | Kế hoạch Duyệt (Review Target) | Tác giả dự kiến (Author) | Thẩm định dự kiến (Reviewer) | Phân loại Trạng thái |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- | :--- | :---: |
-| **SKILL-01** | Căn bậc hai cơ bản | 40 | 0 | 40 | 36 | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `TARGET / PLACEHOLDER` |
-| **SKILL-02** | Biến đổi & Rút gọn căn thức | 40 | 1 | 38 | 32 | Thầy Tuấn (HN) | Cô Lan (Sư Phạm) | `1 VERIFIED (seed.ts) / TARGET` |
-| **SKILL-03** | Giải hệ phương trình | 40 | 0 | 40 | 40 | Cô Mai (Chuyên) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
-| **SKILL-04** | Toán lập hệ phương trình | 40 | 0 | 35 | 28 | Cô Mai (Chuyên) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
-| **SKILL-05** | Phương trình bậc hai | 40 | 0 | 32 | 24 | Thầy Đức (KHTN) | Cô Lan (Sư Phạm) | `TARGET / PLACEHOLDER` |
-| **SKILL-06** | Định lý Viète & Ứng dụng | 40 | 0 | 30 | 20 | Thầy Đức (KHTN) | Thầy Nam (CVA) | `TARGET / PLACEHOLDER` |
-| **SKILL-07** | Tỉ số lượng giác góc nhọn | 40 | 0 | 40 | 35 | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `TARGET / PLACEHOLDER` |
-| **SKILL-08** | Đường tròn & Góc nội tiếp | 40 | 0 | 25 | 18 | Thầy Hùng (ĐHSP)| Cô Mai (Chuyên) | `TARGET / PLACEHOLDER` |
-| **TỔNG CỘNG** | **8 Kỹ năng Pilot** | **320** | **1** | **280 (Target)** | **233 (Target)** | *5 Tác giả* | *3 Reviewers* | **VERIFIED: 0.3% (1/320)** |
+| Nhóm Nội Dung / Kỹ Năng | Số chủ đề | Số câu trong DB | PUBLISHED | IN_REVIEW | Trạng thái Thẩm định |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **8 Kỹ năng Pilot Cốt lõi (Seed Pool)** | 8 | 24 | 24 | 0 | `VERIFIED (Seed DB)` |
+| **Chương 1: PT & Hệ 2 PT bậc nhất 2 ẩn** | 3 | 28 | 0 | 28 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 2: PT & BPT bậc nhất 1 ẩn** | 3 | 27 | 0 | 27 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 3: Căn bậc hai & Căn bậc ba** | 2 | 18 | 0 | 18 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 4: Hệ thức lượng tam giác vuông** | 2 | 19 | 0 | 19 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 5: Đường tròn** | 4 | 36 | 0 | 36 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 6: Hàm số y=ax² & PT bậc hai** | 3 | 27 | 0 | 27 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 7: Tần số & Tần số tương đối** | 1 | 9 | 0 | 9 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 8: Xác suất của biến cố** | 1 | 9 | 0 | 9 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 9: Tứ giác nội tiếp & Đa giác đều** | 2 | 18 | 0 | 18 | `IN_REVIEW (Maker-Checker)` |
+| **Chương 10: Một số hình khối thực tiễn** | 3 | 27 | 0 | 27 | `IN_REVIEW (Maker-Checker)` |
+| **TỔNG SNAPSHOT DB** | **32 SkillNode** | **254 câu** | **36 câu** | **216 câu** | **CONDITIONAL (Source/Academic evidence pending)** |
 
 ---
 

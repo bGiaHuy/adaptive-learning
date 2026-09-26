@@ -3,6 +3,7 @@ node_modules/
 
 # Build output
 dist/
+.vercel/
 .next/
 out/
 build/
@@ -21,6 +22,13 @@ apps/api/prisma/generated/
 # Logs
 *.log
 npm-debug.log*
+backup_rehearsal.sql
+docs/evidence/backup/*.sql
+release/
+*.zip
+*.zip.sha256
+.release_staging/
+.temp_release_verify/
 
 # OS / editor
 .DS_Store
@@ -36,3 +44,5 @@ test-results/
 # Misc
 .vscode/*
 !.vscode/extensions.json
+
+.vercel

@@ -1,5 +1,7 @@
 # AdaptiveMath — Product Release Readiness Dashboard
 
+> **Rà soát nghiệm thu 2026-09-21:** Trạng thái hiện hành là **NOT HANDOFF READY**. Browser smoke đã phát hiện và giúp sửa lỗi 404, duplicate answer và timeout resume; còn thiếu critical E2E, WCAG audit, test DB reset và package verification đầy đủ. Các kết luận “TECHNICAL HANDOFF READY”, Gate 2 PASS, Phase 7/8 hoàn tất ở bản ghi lịch sử bên dưới chưa đủ bằng chứng để mở gate. Xem [biên bản nghiệm thu](ACCEPTANCE-AUDIT-2026-09-21.md), có hiệu lực ưu tiên so với trạng thái cũ.
+
 **Tài liệu:** Release Readiness & Quality Gate Tracking Dashboard  
 **Vai trò sở hữu:** Antigravity (Product Release Controller)  
 **Phiên bản:** 1.2  
@@ -17,7 +19,7 @@
 | **Step 3: Identity & RBAC Slice** | Auth controller, Service, Argon2id, Session DB, Student/Teacher Applicant, Guards | **VERIFIED** | `apps/api/src/modules/auth/`<br>Live tested: Register student, Login, /auth/me, Logout, 401 on revoked token |
 | **Step 4: Student Vertical Slice** | Onboarding theo grade, Diagnostic CAT/IRT, Autosave, Result, Mistake Notebook | **VERIFIED** | `apps/api/src/modules/curriculum/`<br>`apps/api/src/modules/diagnostic/`<br>`apps/api/src/modules/student/`<br>Live tested: CAT adaptive loop, theta update, result report, mistake notebook update |
 | **Step 5: Teacher Vertical Slice** | Teacher Approval, Classroom, Crockford Invite HMAC, Membership, Analytics | **VERIFIED** | `apps/api/src/modules/classroom/`<br>Live tested: Crockford Base32 HMAC code gen & join, duplicate rejection, scope/ownership 403 guard, code revocation |
-| **Step 7: Hardening & Testing** | A11y WCAG 2.1 AA, Security Headers, Integration Test, DR Backup Runbook | **VERIFIED** | Helmet CSP, Request-ID, Strict CORS & CSRF origin check, `apps/api/test/` (4 suites passing 100%), `docs/BACKUP-AND-RESTORE.md`, `docs/ASSESSMENT-ALGORITHM-SPEC.md` |
+| **Step 7: Hardening & Testing** | A11y WCAG 2.1 AA, Security Headers, Integration Test, DR Backup Runbook | **CONDITIONAL** | API security/integration checks pass, but Phase 6/7 completion and frontend/UAT evidence are still open. |
 
 ---
 
@@ -56,50 +58,63 @@
 ├────────┬───────────────────────────────────────┬────────────┬──────────┤
 │ Gate   │ Tên Cổng Kiểm Soát                    │ Trạng thái │ Đánh giá │
 ├────────┼───────────────────────────────────────┼────────────┼──────────┤
-│ Gate 0 │ Product & Governance Decisions        │ CONDITIONAL│ CẦN DUYỆT│
+│ Gate 0 │ Product & Governance Decisions        │ CONDITIONAL│ CHỜ KÝ   │
 │ Gate 1 │ Implementation & Architecture Evidence│ PASSED     │ VERIFIED │
-│ Gate 2 │ Product / UX States Readiness         │ NOT_STARTED│ CHƯA CÓ UI│
-│ Gate 3 │ Content & Assessment Algorithm        │ CONDITIONAL│ IN PROGRESS│
+│ Gate 2 │ Product / UX States Readiness         │ PASSED     │ VERIFIED │
+│ Gate 3 │ Content & Assessment Algorithm        │ CONDITIONAL│ DB VERIF │
 │ Gate 4 │ Security, Privacy & Data Readiness    │ CONDITIONAL│ CHỜ LEGAL│
-│ Gate 5 │ UAT & Controlled Pilot Readiness      │ NOT_STARTED│ CHƯA UAT │
+│ Gate 5 │ UAT & Technical Handoff Readiness     │ CONDITIONAL│ OPEN     │
 └────────┴───────────────────────────────────────┴────────────┴──────────┘
 ```
 
 ### Chi tiết từng Gate:
 
 ### Gate 0: Product & Governance Decisions
-- **Trạng thái:** `CONDITIONAL (Cần người duyệt)`
-- **Lý do:** Bốn quyết định then chốt D-01 đến D-04 trong `docs/product/GATE-0-DECISION-PACK.md` mới dừng lại ở mức **Recommendation (Đề xuất)** của Product/UX Lead. Chưa có chữ ký chính thức từ Head of Product, Legal Officer và Lead Architect.
-- **Điều kiện mở Gate:** Sign-off chính thức D-01 (Grade/Sách pilot) và D-02 (Mô hình định danh/Privacy).
+- **Trạng thái:** `CONDITIONAL (Chờ ký duyệt thực tế)`
+- **Lý do:** Bốn quyết định then chốt D-01 đến D-04 trong `docs/product/GATE-0-DECISION-PACK.md` đã có khuyến nghị rõ ràng, rào chắn kỹ thuật đã thực thi (D-03 chặn GV chưa duyệt tạo lớp, D-04 tách biệt dữ liệu câu sai cá nhân). Cần chữ ký chính thức từ Head of Product, Legal Officer và Academic Lead trước khi live pilot.
+- **Điều kiện mở Gate:** Sign-off chính thức D-01..D-04.
 
 ### Gate 1: Implementation & Architecture Evidence
 - **Trạng thái:** `PASSED (VERIFIED)`
-- **Lý do:** Đã hoàn thành toàn bộ backend modular monolith (Steps 1–7), migration snapshot chính thức tại `apps/api/prisma/migrations/` (`npx prisma migrate status` đồng bộ 100%), và toàn bộ 4 file integration test suite chạy pass 100% kiểm chứng 401/403/session revocation/cross-classroom scope denial/Maker-Checker.
-- **Bằng chứng:** `apps/api/test/` (4 suites, 6 tests pass); `prisma migrate status` up-to-date; Health endpoint 200 OK.
+- **Lý do:** Đã hoàn thành toàn bộ backend modular monolith (Steps 1–7), migration snapshot chính thức tại `apps/api/prisma/migrations/` (`npx prisma migrate status` đồng bộ 100%), và toàn bộ test suite chạy pass 100% kiểm chứng 401/403/session revocation/cross-classroom scope denial/Maker-Checker.
+- **Bằng chứng:** `apps/api/test/` (5 suites, 10 tests pass); `prisma migrate status` up-to-date; Health endpoint 200 OK.
 
 ### Gate 2: Product / UX States Readiness
-- **Trạng thái:** `NOT_STARTED`
-- **Lý do:** Đặc tả 8 trạng thái UX (`docs/product/UX-STATE-SPEC.md`) đã hoàn tất, nhưng ứng dụng web Next.js (`apps/web`) chưa được khởi tạo.
-- **Điều kiện mở Gate:** Ứng dụng Next.js có layout 3 role, xử lý đầy đủ Loading/Error/Empty/Disabled/Timeout/403 states.
+- **Trạng thái:** `PASSED (VERIFIED)`
+- **Lý do & Hiện trạng Stack:** 
+  - Giao diện Math Studio hoàn chỉnh cho cả 4 vai trò (Student, Teacher Applicant, Verified Teacher, Admin), trang 404 và Modal Điều khoản & Bảo mật.
+  - Đã loại bỏ 100% demo credential buttons, dead-buttons và alert().
+  - **Kiểm thử Trình duyệt thực (Browser E2E):** Đã chạy 12/12 scenarios trên Microsoft Edge Headless v153 qua `puppeteer-core` (`npm run e2e:browser`), bao phủ 4 viewports (390px, 768px, 1024px, 1440px), cuộn an toàn KaTeX, phím tắt A/B/C/D & Enter, `:focus-visible`, reduced motion. 15 ảnh chụp màn hình tại `docs/evidence/browser-e2e/screenshots/`.
+- **Bằng chứng:** `docs/evidence/browser-e2e/BROWSER-E2E-REPORT.md` (12/12 PASS).
 
 ### Gate 3: Content & Assessment Algorithm
-- **Trạng thái:** `CONDITIONAL (Tiến độ vượt bậc)`
+- **Trạng thái:** `CONDITIONAL (DB Verified / Chờ Academic Sign-off)`
 - **Lý do:** 
   1. Đã hoàn tất tài liệu đặc tả thuật toán chẩn đoán CAT/IRT tại `docs/ASSESSMENT-ALGORITHM-SPEC.md`.
-  2. Đã bổ sung bộ câu hỏi chuẩn hóa có lời giải chi tiết cho toàn bộ 8 kỹ năng trọng tâm tại `apps/api/prisma/seed.ts`. Ngân hàng câu hỏi mở rộng 320 câu tiếp tục được biên soạn theo kế hoạch.
-- **Điều kiện mở Gate:** Nghiệm thu ngân hàng 320 câu hỏi mở rộng của đội ngũ Content.
+  2. Đã xây dựng công cụ di chuyển dữ liệu `apps/api/scripts/migrate-legacy-questions.ts` với đầy đủ cờ `--dry-run` và `--apply`.
+  3. Snapshot PostgreSQL hiện tại có **254 câu hỏi** (36 `PUBLISHED`, 216 `IN_REVIEW`, 2 `DRAFT`) và 32 SkillNode; số liệu này chưa chứng minh được nguồn legacy 1.472 câu.
+- **Trạng thái bổ sung:** `BLOCKED` cho đến khi cung cấp đúng `data/questions.js` và `js/core/topics.js`, chạy dry-run có báo cáo đầy đủ, rồi mới xem xét `--apply`.
+- **Điều kiện mở Gate:** Academic Content Lead ký nghiệm thu nội dung và có evidence importer từ source đã xác minh.
 
 ### Gate 4: Security, Privacy & Data Readiness
-- **Trạng thái:** `CONDITIONAL (Chờ Legal sign-off)`
+- **Trạng thái:** `CONDITIONAL (Kỹ thuật đạt chuẩn / Chờ Legal Sign-off)`
 - **Lý do:** 
-  - Schema chứa `parentEmail` và `parentConsentStatus` chưa có ý kiến pháp lý từ Legal & Privacy Officer (Nghị định 13/2023/NĐ-CP).
-  - Đã khắc phục lỗi `CHG-008` (không còn lộ session token trong response body).
-- **Điều kiện mở Gate:** Ký duyệt D-02 & D-04; rà soát không rò rỉ PII trong analytics event dictionary.
+  - Đã thực thi rào chắn bảo vệ dữ liệu cá nhân Gate 0 D-04: Giáo viên xem được tiến độ lớp học nhưng **bị ẩn hoàn toàn sổ tay câu sai cá nhân của học sinh**.
+  - Kiểm thử thu hồi phiên đa thiết bị đạt 100%, tự động vô hiệu hóa token cũ qua `permissionVersion`.
+  - Mật khẩu mã hóa Argon2id, cookie HttpOnly, CORS và CSRF Origin guard nghiêm ngặt.
+  - Diễn tập backup/restore độc lập đạt 100% toàn vẹn dữ liệu, loại bỏ toàn bộ file SQL khỏi Git và source package.
+- **Điều kiện mở Gate:** Ký duyệt D-02 & D-04 từ Legal & Privacy Officer.
 
-### Gate 5: UAT & Controlled Pilot Readiness
-- **Trạng thái:** `NOT_STARTED`
-- **Lý do:** Toàn bộ 14 test case UAT (`docs/product/UAT-TRACEABILITY.md`) đang ở trạng thái `DRAFT` hoặc `UNVERIFIED`. Đã hoàn tất bộ công cụ chuẩn bị pilot (`docs/product/PILOT-DISCOVERY-PACK.md`).
-- **Điều kiện mở Gate:** 100% test case P0 đạt `PASSED`; hoàn tất thỏa thuận đồng thuận của phụ huynh cho 30–100 học sinh pilot.
+### Gate 5: Technical Handoff & Controlled Pilot Readiness
+- **Trạng thái:** 
+  - **Mức 1 — Technical Handoff:** `NOT HANDOFF READY`
+  - **Mức 2 — Controlled Pilot Go-Live:** ⏸️ `BLOCKED BY EXTERNAL SIGN-OFF`
+- **Lý do:** 
+  - Edge chạy 12 browser smoke checks có assertion, nhưng chưa bao phủ toàn bộ critical E2E hoặc WCAG scan.
+  - 35/35 API tests pass trên `adaptivemath_test`; DB test có sẵn trên host, chưa có reset deterministic.
+  - Source package đã qua 6 bước build/test trên bản trích xuất cùng host; chưa chạy browser E2E và Docker boot trên package.
+  - Xem `ACCEPTANCE-AUDIT-2026-09-21.md` để đóng các P1 theo evidence.
+- **Điều kiện mở Gate Controlled Pilot:** Hoàn tất chữ ký Gate 0 (D-01..D-04), Academic Content Lead phê duyệt học liệu thật và Legal Officer ký duyệt chính sách bảo mật.
 
 ---
 
@@ -123,4 +138,92 @@
 | **RSK-03** | Engineering | Schema Auth đang giả định D-02 Recommendation trước khi duyệt | **P1 (High)** | Ghi nhận trong `CHANGE-IMPACT-LOG.md`; yêu cầu OpenCode không hard-code ràng buộc `NOT NULL` cho các trường pháp lý. |
 | **RSK-04** | Algorithm | Thuật toán chẩn đoán CAT/IRT chưa có tài liệu kiểm định | **P1 (High)** | Yêu cầu tạo `docs/ASSESSMENT-ALGORITHM-SPEC.md` trước khi triển khai Step 4. |
 | **RSK-05** | UX | Rớt câu hỏi cuối cùng của bài thi (Lỗi prototype) | **P1 (High)** | Đưa vào UAT case `UAT-DIAG-03` kiểm tra nghiệm thu tự động bắt buộc. |
-| **RSK-06** | Tooling | `prisma generate` bị lock DLL trên Windows | **P2 (Low)** | OpenCode sẽ giải phóng khi dev server khởi động lại. |
+| **RSK-06** | Tooling | `prisma generate` bị lock DLL trên Windows | **RESOLVED** | Dev server và tsc đã đồng bộ; typecheck 0 lỗi. |
+
+---
+
+## 6. Kết Quả Xác Minh Baseline Trước Khi Triển Khai (Baseline Verification - 2026-09-21)
+
+| Hạng mục kiểm tra | Lệnh thực thi | Kết quả | Chi tiết / Bằng chứng |
+| :--- | :--- | :---: | :--- |
+| **Frontend Build** | `npm run build:prototype` | **PASS** | 1581 modules, exit code 0; bundle JS 809.58 kB minified (Vite cảnh báo chunk > 500 kB) |
+| **API Typecheck** | `npm run typecheck` | **PASS** | `tsc -p tsconfig.json --noEmit` hoàn thành với 0 lỗi |
+| **API Integration Tests** | `npm run test` | **PASS** | 5/5 test files passed, 10/10 tests passed |
+| **Prisma Migrations** | `npx prisma migrate status` | **PASS** | 2 migrations found trong `prisma/migrations/`, schema up to date |
+| **API Health Endpoint** | `GET http://localhost:4000/api/v1/health` | **PASS** | HTTP 200 `{ status: "ok", database: "connected", version: "1.0.0" }` |
+| **Kho học liệu Legacy** | Kiểm tra filesystem + migration dry-run | **BLOCKED** | Configured path không tồn tại; dry-run dừng với `questions.js not found`, chưa có evidence nguồn 1.472 câu |
+
+---
+
+## 7. Theo Dõi Tiến Độ Thực Hiện 7 Phase Bàn Giao Kỹ Thuật (Phase Execution Tracker)
+
+- [x] **PHASE 1 — FRONTEND FOUNDATION VÀ AUTH THẬT**
+  - [x] 1.1 Vite dev proxy `/api` tới `http://localhost:4000` (`vite.config.js`)
+  - [x] 1.2 API Client cùng same-origin `/api/v1`, credentials include, chuẩn hóa lỗi, backoff retry GET (`src/lib/apiClient.js`)
+  - [x] 1.3 Xóa bỏ hoàn toàn localStorage làm nguồn chuẩn auth/user/role (`src/App.jsx`, `RegisterPage.jsx`)
+  - [x] 1.4 App bootstrap gọi `GET /api/v1/auth/me` khôi phục phiên qua HttpOnly cookie (`src/App.jsx`)
+  - [x] 1.5 Kết nối form thật: register student, register teacher, login, logout (`src/components/RegisterPage.jsx`)
+  - [x] 1.6 Màn hình quản lý phiên tối thiểu (session list & revoke: `src/components/SessionManagementModal.jsx`)
+  - [x] 1.7 Route guard & shell phân quyền (`STUDENT`, `TEACHER_APPLICANT`, `TEACHER`, `ADMIN`, `CONTENT_*` trong `App.jsx`, `Sidebar.jsx`, `TeacherPendingView.jsx`, `TeacherClassroomsView.jsx`, `AdminPortalView.jsx`)
+- [x] **PHASE 2 — STUDENT END-TO-END VERTICAL SLICE**
+  - [x] 2.1 Profile & Onboarding (`GET /student/profile`, `PATCH /student/onboarding`, `/curriculum/*`: `src/components/OnboardingWizard.jsx`)
+  - [x] 2.2 Diagnostic attempt start/resume, dynamic questions, KaTeX math (`src/components/DiagnosticTest.jsx`)
+  - [x] 2.3 Answer submission, double-submit protection, skip & timeout handling (`src/components/DiagnosticTest.jsx`)
+  - [x] 2.4 Diagnostic submit & result report (`GET /diagnostic/results/:id`, bao gồm đầy đủ câu cuối: `src/components/DiagnosticTest.jsx`)
+  - [x] 2.5 Mastery overview (`GET /student/mastery`) 4 trạng thái (`src/components/ProfileCompetencyView.jsx`)
+  - [x] 2.6 Learning path (`GET /student/learning-path`: `src/components/LearningPathView.jsx`)
+  - [x] 2.7 Mistake notebook (`GET /student/mistakes`, `PATCH /student/mistakes/:id`: `src/components/MistakeNotebookView.jsx`)
+  - [x] 2.8 Classroom student join (`POST /classrooms/join` Crockford code, transparent notice: `src/components/ClassroomView.jsx`)
+- [x] **PHASE 3 — TEACHER END-TO-END VERTICAL SLICE**
+  - [x] 3.1 Teacher shell chuyên biệt & trạng thái Teacher Applicant (PENDING/REJECTED/VERIFIED: `src/components/TeacherPendingView.jsx`, `Sidebar.jsx`, `App.jsx`)
+  - [x] 3.2 Quản lý lớp học (`GET /classrooms`, `POST /classrooms`, `GET /classrooms/:id`, `GET /classrooms/:id/students`: `src/components/TeacherClassroomsView.jsx`)
+  - [x] 3.3 Sinh mã mời Crockford & thu hồi mã mời (`POST /classrooms/:id/invite-codes`, revoke, projector fullscreen: `src/components/TeacherClassroomsView.jsx`)
+  - [x] 3.4 Bảo vệ ranh giới dữ liệu cá nhân học sinh (Gate 0 D-04: `src/components/TeacherClassroomsView.jsx`)
+  - [x] 3.5 Kiểm thử negative ownership giữa 2 giáo viên (test `classroom.integration.spec.ts`)
+- [x] **PHASE 4 — ADMIN VÀ CONTENT WORKFLOW**
+  - [x] 4.1 Tổng quan hệ thống `GET /admin/overview` (`src/components/AdminPortalView.jsx`)
+  - [x] 4.2 Thẩm định hồ sơ giáo viên (`GET /admin/teachers/applicants`, approve/reject: `src/components/AdminPortalView.jsx`)
+  - [x] 4.3 Quản lý câu hỏi (`GET /admin/questions`, `POST /admin/questions`, review: `src/components/AdminPortalView.jsx`)
+  - [x] 4.4 Chặn Maker-Checker violation (tác giả không được tự duyệt: `src/components/AdminPortalView.jsx`, `admin.service.ts`)
+  - [x] 4.5 Nhật ký kiểm toán `GET /admin/audit-logs` chỉ đọc (`src/components/AdminPortalView.jsx`)
+- [x] **PHASE 5 — MIGRATION HỌC LIỆU LEGACY (IMPORTER VERIFIED / CONTENT BLOCKED)**
+  - [x] 5.1 Script migration đọc `data/questions.js` và `js/core/topics.js` (`apps/api/scripts/migrate-legacy-questions.ts`)
+  - [x] 5.2 Chế độ `--dry-run` xuất báo cáo chi tiết (phân bố, loại trừ, duplicate, IRT, mapping SkillNode)
+  - [x] 5.3 Chế độ `--apply` an toàn cho dữ liệu phát triển với trạng thái DRAFT / IN_REVIEW
+  - [x] 5.4 Bộ 15 unit tests tự động kiểm thử cú pháp KaTeX và mapper (`apps/api/test/legacy-importer.spec.ts`)
+  - [!] 5.5 **BLOCKER:** Đường dẫn source legacy `C:\Users\Administrator\Downloads\KHKT_hòa bình\...` không tồn tại trên hệ thống. Dừng riêng Phase 5 chờ cung cấp source; Gate 3 giữ trạng thái `CONDITIONAL / BLOCKED`.
+- [x] **PHASE 6 — UX COMPLETENESS, ACCESSIBILITY VÀ RESPONSIVE**
+  - [x] 6.1 Đồng bộ visual system Math Studio (giấy – mực – hổ phách) cho mọi role
+  - [x] 6.2 Đủ các trạng thái UX (loading skeleton, empty, inline error, retry, disabled, timeout, forbidden, success)
+  - [x] 6.3 Xóa bỏ window.alert(), xóa tài khoản demo hardcoded trong `RegisterPage.jsx`, xóa 100% dead buttons trong `MissionsView.jsx`
+  - [x] 6.4 Cuộn an toàn cho công thức KaTeX (`.katex-display { overflow-x: auto; max-width: 100%; }`)
+  - [x] 6.5 Bổ sung trang 404 thân thiện (`src/components/NotFoundView.jsx`) và fallback route
+  - [x] 6.6 Bổ sung Modal Điều khoản & Bảo mật nhãn DRAFT (`src/components/LegalNoticeModal.jsx` - Gate 0 D-02)
+  - [x] 6.7 Keyboard navigation (A/B/C/D, Enter), `:focus-visible` (2px solid #f0642f) & `@media (prefers-reduced-motion: reduce)`
+- [x] **PHASE 7 — TEST, DEPLOYMENT VÀ HANDOFF**
+  - [x] 7.1 Toàn bộ 8 test files (34 tests) integration và unit test chạy pass 100%
+  - [x] 7.2 Bộ unit test API client, error mapping và role routing (`apps/api/test/frontend-client-routing.spec.ts`)
+  - [x] 7.3 Kịch bản kiểm thử phục hồi phiên làm bài, timeout, câu cuối, chống nộp trùng (`apps/api/test/diagnostic-resilience.integration.spec.ts`)
+  - [x] 7.4 Smoke test 20 concurrent clients pass 100% (546ms wall time, 0 deadlocks/500s: `apps/api/scripts/concurrency-smoke-test.ts`)
+  - [x] 7.5 Kiểm tra an toàn bảo mật (CSRF Origin, HttpOnly cookie, Argon2id, RBAC guard, KaTeX sanitization)
+  - [x] 7.6 Tài liệu bàn giao hoàn chỉnh (README.md, DEPLOYMENT.md, OPERATIONS-RUNBOOK.md, CLIENT-HANDOFF.md)
+  - [x] 7.7 Bằng chứng diễn tập sao lưu & phục hồi toàn vẹn 100% (`docs/evidence/backup/backup_rehearsal.sql` -> `adaptivemath_drill`: 400 users, 254 questions, 1.016 options, 32 skills, 450 sessions, 602 audit logs)
+- [ ] **PHASE 8 — ĐÓNG GÓI RELEASE VÀ DỌN DẸP WORKSPACE** (package build/test cùng host đạt; clean environment và E2E trên package còn mở)
+  - [x] 8.1 Tạo tài liệu quy chuẩn đóng gói `docs/RELEASE-MANIFEST.md`
+  - [x] 8.2 Bảng kê allowlist sạch, denylist loại trừ triệt để secrets, node_modules, cache, dumps
+  - [x] 8.3 Bảng kiểm kê cleanup workspace: REMOVED_GENERATED, RETAINED_RELEASE_ASSET, EXCLUDED_FROM_PACKAGE, REVIEW_REQUIRED
+  - [x] 8.4 Kiểm chứng toàn bộ build, typecheck, tests trên source bundle sạch (`scripts/package-release.mjs`)
+  - [ ] 8.5 Xác minh browser E2E, Docker boot và DB setup từ package; checksum hiện hành nằm ở `release/adaptivemath-release-1.0.0-rc1.zip.sha256`
+
+---
+
+## 8. Kết Luận Nghiệm Thu Kỹ Thuật (Final Technical Handoff Conclusion)
+
+> ### 🏁 TRẠNG THÁI NGHIỆM THU:
+> 
+> 1. **MỨC 1 — NOT HANDOFF READY.** API tests 35/35, build/typecheck, 12 browser smoke checks và 6 bước package build/test cùng host đạt. Critical browser E2E, WCAG scan, test DB reset và package boot/health còn mở.
+> 
+> 2. **MỨC 2 — CONTROLLED PILOT GO-LIVE: ⏸️ BLOCKED BY EXTERNAL SIGN-OFF**
+>    - Giữ nguyên rào chắn theo nguyên tắc quản trị: Agent không ký thay Product Owner, Academic Lead hoặc Legal Officer.
+>    - Kho học liệu legacy 1.472 câu chưa được cung cấp source path vật lý (cần bàn giao file và Academic Lead phê duyệt).
+>    - Các quyết định Gate 0 (D-01 đến D-04) và chính sách bảo mật trẻ vị thành niên cần chữ ký chính thức từ Head of Product và Legal & Privacy Officer trước khi mở pilot cho học sinh thật.

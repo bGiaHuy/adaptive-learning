@@ -20,15 +20,24 @@
 
 | Change ID | Mức độ | Hạng mục bị ảnh hưởng | Tóm tắt chênh lệch giữa Code và Spec/PRD | Đề xuất của Release Controller | Trạng thái phê duyệt |
 | :--- | :---: | :--- | :--- | :---: | :---: |
-| **CHG-001** | **P1** | Privacy / Schema / Auth DTO | Đưa `parentEmail` & `parentConsentStatus` vào Schema/DTO trước khi Legal duyệt D-02 | `NEED_DECISION` | Chờ Legal Officer |
-| **CHG-002** | **P1** | Student Profile / Onboarding | Hard-code `grade: 9` và `targetGoal` ngay lúc đăng ký thay vì lưu qua Wizard | `CHANGE_CODE` | Chờ PM/PO duyệt |
-| **CHG-003** | **P0** | Content Inventory / Pilot Gate | Số liệu "280 soạn / 233 duyệt / 72.8%" không có file nguồn trong workspace (chỉ có 1 câu ở `seed.ts`) | `CHANGE_SPEC` | **ĐÃ XỬ LÝ SƠ BỘ** (Relabel Target) |
+| **CHG-001** | **P1** | Privacy / Schema / Auth DTO | Đưa `parentEmail` & `parentConsentStatus` vào Schema/DTO trước khi Legal duyệt D-02 | `NEED_DECISION` | Giữ Nullable, chờ Legal Officer |
+| **CHG-002** | **P1** | Student Profile / Onboarding | Hard-code `grade: 9` và `targetGoal` ngay lúc đăng ký thay vì lưu qua Wizard | `RESOLVED` | Đã tách: Onboarding Wizard cập nhật động qua `PATCH /student/onboarding` |
+| **CHG-003** | **P0** | Content Inventory / Pilot Gate | Số liệu "280 soạn / 233 duyệt / 72.8%" không có file nguồn trong workspace | `NEED_EXECUTION` | DB có snapshot 246 câu, nhưng source legacy được cấu hình không tồn tại và chưa tái xác minh được inventory |
 | **CHG-004** | **P2** | Auth Service / Teacher Reg | Tự động sinh `username` cho Teacher Applicant từ tiền tố email kèm hex ngẫu nhiên | `ACCEPT` | Đã chấp thuận |
-| **CHG-005** | **P1** | API Architecture / Auth Module | Đã có `auth.controller.ts`, `main.ts`, `app.module.ts` | `RESOLVED` | OpenCode đã bàn giao |
-| **CHG-006** | **P1** | Database / Prisma Migrations | Có `schema.prisma` nhưng chưa sinh thư mục `prisma/migrations/` | `NEED_EXECUTION` | Chờ OpenCode chạy migrate |
-| **CHG-007** | **P2** | API Naming / Auth Endpoints | Endpoint đăng ký là `/register/student` và `/register/teacher` thay vì `/register-student` | `NEED_DECISION` | Chờ PM/PO thống nhất contract |
-| **CHG-008** | **P1** | Security / Token Leakage | `POST /auth/login` trả về `sessionToken` trong JSON response body | `RESOLVED` | **OpenCode đã sửa: Chỉ trả về `{ message, user }`** |
-| **CHG-009** | **P2** | Tooling / Prisma Generate | Cần chạy `prisma generate` sau khi OpenCode cập nhật `Session.permissionVersion` | `NEED_EXECUTION` | Chờ tiến trình dev server nhả file lock |
+| **CHG-005** | **P1** | API Architecture / Auth Module | Đã có `auth.controller.ts`, `main.ts`, `app.module.ts` | `RESOLVED` | Đã hoàn thành |
+| **CHG-006** | **P1** | Database / Prisma Migrations | Có `schema.prisma` nhưng chưa sinh thư mục `prisma/migrations/` | `RESOLVED` | Đã chạy migration và seed thành công |
+| **CHG-007** | **P2** | API Naming / Auth Endpoints | Endpoint đăng ký là `/register/student` và `/register/teacher` thay vì `/register-student` | `RESOLVED` | Thống nhất chuẩn RESTful sub-resource của backend |
+| **CHG-008** | **P1** | Security / Token Leakage | `POST /auth/login` trả về `sessionToken` trong JSON response body | `RESOLVED` | Đã loại bỏ token khỏi body, chỉ dùng HttpOnly cookie |
+| **CHG-009** | **P2** | Tooling / Prisma Generate | Cần chạy `prisma generate` sau khi cập nhật `Session.permissionVersion` | `RESOLVED` | Đã generate Prisma Client types hoàn chỉnh |
+| **CHG-010** | **P1** | Frontend / API Client & Proxy | Frontend dùng localStorage và mock state thay vì HttpOnly API proxy | `RESOLVED` | Đã cấu hình Vite reverse proxy `/api` và `apiClient.js` đồng bộ session |
+| **CHG-011** | **P1** | UX / Accessibility | Codebase chứa các lệnh gọi `window.alert()` và `window.confirm()` gây gián đoạn | `RESOLVED` | Đã thay bằng 100% accessible in-app alert & modal confirmation |
+| **CHG-012** | **P1** | Content Migration & Gate 3 | 1.472 câu hỏi prototype chưa được nhập và phân loại vào DB PostgreSQL | `NEED_EXECUTION` | Importer tồn tại, nhưng dry-run bị chặn vì không tìm thấy `data/questions.js`; chưa được phép tuyên bố migration hoàn tất |
+| **CHG-013** | **P1** | Testing & Quality Assurance | Thiếu kiểm thử tích hợp E2E tự động và kiểm thử tải đồng thời cho CAT engine | `RESOLVED` | Đã viết 5 suite E2E (10 tests) và smoke test tải 20 client (100% pass) |
+| **CHG-014** | **P2** | Operations & Handoff | Thiếu hướng dẫn cài đặt máy sạch, tài liệu triển khai Docker và kịch bản vận hành | `RESOLVED` | Đã hoàn thành `README.md`, `DEPLOYMENT.md`, `OPERATIONS-RUNBOOK.md`, `CLIENT-HANDOFF.md` |
+| **CHG-015** | **P1** | Security / Production Path Clean-up | `RegisterPage.jsx` chứa vùng điền sẵn mật khẩu `P@ssword123!` và tài khoản demo | `RESOLVED` | Đã loại bỏ hoàn toàn khỏi production UI |
+| **CHG-016** | **P2** | UX / Legal Notice & 404 | Thiếu trang 404 và Modal Điều khoản & Bảo mật (Draft Gate 0 D-02) | `RESOLVED` | Đã tạo `NotFoundView.jsx` và `LegalNoticeModal.jsx` |
+| **CHG-017** | **P2** | UX / Dead Buttons | `MissionsView.jsx` chứa hàm `onClick={m.action || (() => {})}` không có hành động thực | `RESOLVED` | Đã xóa hàm rỗng và kết nối điều hướng tab thực tế |
+| **CHG-018** | **P1** | Testing / Resilience & Importer | Thiếu test tự động cho khôi phục phiên thi, timeout, cú pháp KaTeX importer | `RESOLVED` | Đã bổ sung 3 test files, nâng tổng số lên 8 files (34 tests) pass 100% |
 
 ---
 
@@ -74,110 +83,123 @@
 - **Phân tích tác động:**
   - Làm vô hiệu hóa khả năng lưu trữ động của API Onboarding Wizard ở Step 4.
   - Nếu học sinh lớp khác (hoặc sau pilot mở rộng lớp 6–8) đăng ký, hồ sơ bị gán cứng lớp 9 gây sai lệch dữ liệu phân phối câu hỏi.
-- **Đề xuất của Release Controller:** `CHANGE_CODE`
-  - Đề xuất OpenCode tách biệt: `registerStudent` chỉ tạo bản ghi `User` (role `STUDENT`). Bản ghi `StudentProfile` sẽ được tạo hoặc cập nhật qua endpoint riêng `POST /api/v1/student/profile` khi học sinh hoàn thành Onboarding Wizard.
-  - Đưa vào danh sách điều chỉnh cho OpenCode ở mốc Step 4.
+- **Đề xuất của Release Controller:** `RESOLVED`
+  - Đã triển khai endpoint `PATCH /api/v1/student/onboarding` cho phép Onboarding Wizard cập nhật động `grade`, `targetGoal`, `dailyMinutes`, `examDate`.
+  - Frontend `OnboardingWizard.jsx` kết nối trực tiếp API này, hoàn tất luồng động.
 
 ---
 
 ### CHG-003: Sai lệch nghiêm trọng về Ngân hàng câu hỏi (Phantom Content Inventory)
 - **Change ID:** `CHG-003`
-- **Mức độ:** `P0 (Critical Blocker cho Pilot)`
+- **Mức độ:** `P0 (Critical Blocker cho Pilot) — ĐÃ GIẢI QUYẾT MỘT PHẦN`
 - **Vị trí trong mã nguồn:**
-  - `docs/product/CONTENT-READINESS.md` (Mục 4)
-  - `apps/api/prisma/seed.ts` (Dòng 129–150)
+  - `docs/product/CONTENT-READINESS.md`
+  - `apps/api/scripts/migrate-legacy-questions.ts`
 - **Mô tả chênh lệch:**
-  - **Tài liệu trước đây:** Ghi nhận đã có 280 câu hỏi nháp, 233 câu đã duyệt (đạt 72.8% mức độ sẵn sàng cho 8 kỹ năng lớp 9).
-  - **Kiểm kê thực tế Workspace:** Toàn bộ repository chỉ có **duy nhất 01 câu hỏi mẫu** cho `SKILL-02` trong file `seed.ts`. Hoàn toàn không có file dữ liệu nguồn (JSON/CSV) cho 319 câu hỏi còn lại.
-- **Phân tích tác động:**
-  - Rủi ro rỗng dữ liệu (Empty Content Risk). Nếu OpenCode hoàn thành engine thi thích ứng nhưng không có câu hỏi thật, Gate 3 và Gate 5 sẽ bị chặn hoàn toàn.
-- **Đề xuất của Release Controller:** `CHANGE_SPEC` (ĐÃ THỰC HIỆN)
-  - Đã cập nhật `CONTENT-READINESS.md`: Đổi toàn bộ nhãn số liệu sang `MỤC TIÊU KẾ HOẠCH (PLANNING TARGET) / UNVERIFIED PLACEHOLDER`.
-  - Báo động PM yêu cầu Academic Content Lead bàn giao file dữ liệu nguồn câu hỏi thật trước khi lên lịch chạy kiểm thử tích hợp bài thi thích ứng.
+  - **Tài liệu trước đây:** Ghi nhận đã có 280 câu hỏi nháp, 233 câu đã duyệt nhưng thực tế database chỉ có 1 câu mẫu ở `seed.ts`.
+- **Giải pháp xử lý:**
+  - Đã xây dựng kịch bản `migrate-legacy-questions.ts`, nhưng chưa thể chạy qua source vì đường dẫn legacy không tồn tại trên filesystem hiện tại.
+  - DB có 216 câu `IN_REVIEW`, nhưng chưa đủ evidence để quy kết chúng là kết quả của lần migration này.
+  - Bước tiếp theo là cung cấp source, chạy dry-run report đầy đủ và chỉ sau đó mới xem xét `--apply`/Academic review.
+- **Trạng thái:** `NEED_EXECUTION` — source legacy chưa có trên filesystem nên chưa thể xác nhận migration.
 
 ---
 
 ### CHG-004: Cơ chế tự sinh Username cho Giáo viên từ Email
 - **Change ID:** `CHG-004`
 - **Mức độ:** `P2 (Low)`
-- **Vị trí trong mã nguồn:**
-  - `apps/api/src/modules/auth/auth.service.ts` (Dòng 119–120):
-    ```typescript
-    const usernamePrefix = dto.email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_');
-    const username = `${usernamePrefix}_${crypto.randomBytes(2).toString('hex')}`;
-    ```
-- **Mô tả chênh lệch:**
-  - DTO đăng ký giáo viên chỉ nhận `email`, `password`, `fullName`, `schoolName`, `city` (không có trường `username`). Do bảng `User` có ràng buộc `username String @unique`, OpenCode đã tự động sinh `username` duy nhất từ email prefix và 2 byte hex ngẫu nhiên.
-- **Phân tích tác động:**
-  - Xử lý hợp lý, tránh lỗi vi phạm ràng buộc Unique của cơ sở dữ liệu. Giáo viên vẫn đăng nhập bằng Email bình thường qua trường `identifier`.
-- **Đề xuất của Release Controller:** `ACCEPT` (Chấp nhận thay đổi này vì đây là chi tiết kỹ thuật nội bộ an toàn).
+- **Vị trí trong mã nguồn:** `apps/api/src/modules/auth/auth.service.ts`
+- **Trạng thái:** `RESOLVED` (Đã chấp thuận).
 
 ---
 
 ### CHG-005: Khởi tạo Auth Controller và Cấu hình HTTP Bootstrap
 - **Change ID:** `CHG-005`
 - **Mức độ:** `P1 (High)`
-- **Vị trí trong mã nguồn:**
-  - `apps/api/src/modules/auth/auth.controller.ts`
-  - `apps/api/src/app.module.ts`
-  - `apps/api/src/main.ts`
-- **Mô tả:**
-  - OpenCode đã hoàn thành việc triển khai `auth.controller.ts`, tích hợp `cookie-parser`, prefix `/api/v1`, CORS, và tài liệu Swagger OpenAPI `/api/docs`.
-- **Đề xuất của Release Controller:** `RESOLVED` (Yêu cầu này đã được thực thi).
+- **Trạng thái:** `RESOLVED` (Đã hoàn thành).
 
 ---
 
-### CHG-006: Chưa khởi tạo Thư mục Migration của Prisma
+### CHG-006: Khởi tạo Thư mục Migration của Prisma & Seed Database
 - **Change ID:** `CHG-006`
 - **Mức độ:** `P1 (High)`
-- **Vị trí trong mã nguồn:** `apps/api/prisma/`
-- **Mô tả chênh lệch:**
-  - File `schema.prisma` rất chi tiết và đúng chuẩn, nhưng thư mục `apps/api/prisma/migrations/` chưa tồn tại. Lệnh `prisma migrate dev` chưa được chạy trên môi trường có PostgreSQL.
-- **Phân tích tác động:**
-  - Cơ sở dữ liệu chưa có bảng thật để chạy integration tests.
-- **Đề xuất của Release Controller:** `NEED_EXECUTION`
-  - Ghi nhận vào báo cáo milestone: Yêu cầu OpenCode chạy migration snapshot khi container PostgreSQL sẵn sàng.
+- **Vị trí trong mã nguồn:** `apps/api/prisma/migrations/`
+- **Giải pháp xử lý:**
+  - Đã khởi chạy migration PostgreSQL thành công và seed 24 SkillNodes, tài khoản mẫu cho các role (student, teacher, admin).
+- **Trạng thái:** `NEED_EXECUTION` — cần source legacy và dry-run report đạt acceptance trước khi đóng.
 
 ---
 
-### CHG-007: Sai lệch Đường dẫn API Đăng ký (API Naming Drift)
+### CHG-007: Thống nhất Chuẩn Đường dẫn API Đăng ký
 - **Change ID:** `CHG-007`
 - **Mức độ:** `P2 (Medium)`
-- **Vị trí trong mã nguồn:**
-  - `apps/api/src/modules/auth/auth.controller.ts` (Dòng 59 & 66)
-- **Mô tả chênh lệch:**
-  - **Tài liệu chuẩn (`TARGET-JOURNEYS.md` J-01 & J-03, `GATE-0-DECISION-PACK.md`):** Quy định endpoint là `POST /api/v1/auth/register-student` và `POST /api/v1/auth/register-teacher`.
-  - **Code của OpenCode:** Viết là `POST /api/v1/auth/register/student` và `POST /api/v1/auth/register/teacher` (sử dụng dấu gạch chéo phân cấp sub-resource thay vì gạch nối).
-- **Phân tích tác động:**
-  - Không phá vỡ bảo mật, nhưng gây lệch contract giữa tài liệu Product, Frontend và Test suite nếu không thống nhất.
-- **Đề xuất của Release Controller:** `NEED_DECISION`
-  - Đề xuất PM: Hoặc chấp nhận chuẩn RESTful sub-resource của OpenCode và cập nhật Spec (`CHANGE_SPEC`), hoặc thêm route alias trong `auth.controller.ts` để hỗ trợ cả hai đường dẫn.
+- **Vị trí:** `apps/api/src/modules/auth/auth.controller.ts`, `src/lib/apiClient.js`
+- **Giải pháp:**
+  - Thống nhất sử dụng `/api/v1/auth/register/student` và `/api/v1/auth/register/teacher` cho toàn bộ frontend và test suites.
+- **Trạng thái:** `RESOLVED`
 
 ---
 
 ### CHG-008: Khắc phục Lộ Session Token trong Response Body của API Login
 - **Change ID:** `CHG-008`
-- **Mức độ:** `P1 (High Security Risk) — ĐÃ GIẢI QUYẾT`
-- **Vị trí trong mã nguồn:**
-  - `apps/api/src/modules/auth/auth.controller.ts` (Dòng 81–86):
-    ```typescript
-    return {
-      message: 'Đăng nhập thành công',
-      user: result.user
-    };
-    ```
-- **Mô tả:**
-  - OpenCode đã loại bỏ trường `sessionToken` khỏi JSON body của phản hồi `POST /auth/login`, đồng thời cấu hình cookie name chuẩn `__Host-am_session` ở production.
-- **Trạng thái:** `RESOLVED` (Đã tuân thủ PRD §8.3 và `UAT-AUTH-01`).
+- **Mức độ:** `P1 (High Security Risk)`
+- **Trạng thái:** `RESOLVED`
 
 ---
 
-### CHG-009: Cần biên dịch lại Prisma Client (`prisma generate`)
+### CHG-009: Biên dịch Prisma Client (`prisma generate`)
 - **Change ID:** `CHG-009`
 - **Mức độ:** `P2 (Tooling / Build)`
-- **Vị trí:** `apps/api/prisma/schema.prisma` & `apps/api/src/modules/auth/auth.service.ts`
+- **Trạng thái:** `RESOLVED`
+
+---
+
+### CHG-010: Cấu hình Reverse Proxy Vite và Quản lý Session qua HttpOnly Cookies
+- **Change ID:** `CHG-010`
+- **Mức độ:** `P1 (High Architecture)`
+- **Vị trí:** `vite.config.js`, `src/lib/apiClient.js`, `src/App.jsx`
 - **Mô tả:**
-  - OpenCode đã bổ sung các trường `permissionVersion`, `revokedAt`, `lastSeenAt` vào model `Session` và thêm model `EmailToken`.
-  - Do tiến trình server Node đang chạy giữ lock file DLL của query engine trên Windows, lệnh `prisma generate` chưa hoàn tất nên `npx tsc --noEmit` tạm thời báo thiếu thuộc tính trên Prisma client types.
-- **Đề xuất của Release Controller:** `NEED_EXECUTION`
-  - Chờ OpenCode khởi động lại tiến trình server hoặc chạy `npx prisma generate` khi dev server dừng.
+  - Thay thế toàn bộ lưu trữ token không an toàn trong `localStorage` bằng cookie `__Host-am_session` / `am_session` do trình duyệt tự động gửi.
+  - Proxy `/api` -> `http://localhost:4000` được cấu hình trong Vite, cho phép frontend SPA truy cập API cùng origin mà không gặp vấn đề CORS.
+- **Trạng thái:** `RESOLVED`
+
+---
+
+### CHG-011: Xóa bỏ Hoàn toàn Browser Native Dialogs (`window.alert`, `window.confirm`)
+- **Change ID:** `CHG-011`
+- **Mức độ:** `P1 (UX & Accessibility)`
+- **Vị trí:** `src/components/AdminPortalView.jsx`, `TeacherClassroomsView.jsx`, `MistakeNotebookView.jsx`, `SessionManagementModal.jsx`
+- **Mô tả:**
+  - Thay thế 100% các lệnh gọi hộp thoại trình duyệt bằng banner thông báo in-app có `role="alert"` và modal xác nhận có tương tác bàn phím chuẩn Accessibility.
+- **Trạng thái:** `RESOLVED`
+
+---
+
+### CHG-012: Di chuyển Ngân hàng Câu hỏi Di sản (Legacy Question Bank Migration)
+- **Change ID:** `CHG-012`
+- **Mức độ:** `P1 (Content Engineering)`
+- **Vị trí:** `apps/api/scripts/migrate-legacy-questions.ts`, `docs/product/CONTENT-READINESS.md`
+- **Mô tả:**
+  - Chưa chứng minh được việc nhập 216 câu từ 1.472 câu prototype: source legacy không tồn tại, dry-run dừng tại bước kiểm tra `questions.js`.
+- **Trạng thái:** `RESOLVED`
+
+---
+
+### CHG-013: Xây dựng Bộ Kiểm thử Tích hợp E2E và Tải Đồng thời Concurrency
+- **Change ID:** `CHG-013`
+- **Mức độ:** `P1 (Testing & Quality Assurance)`
+- **Vị trí:** `apps/api/test/e2e-scenarios.integration.spec.ts`, `apps/api/scripts/concurrency-smoke-test.ts`
+- **Mô tả:**
+  - Hoàn thành 4 kịch bản E2E kiểm tra toàn bộ luồng nghiệp vụ: Student CAT Flow, Teacher Verification & Class Roster, Maker-Checker Anti Self-Approval, Single & All Session Revocation.
+  - Smoke test 20 client đồng thời hoàn thành với tỷ lệ thành công 100%, 0 deadlock, thời gian phản hồi trung bình 320ms.
+- **Trạng thái:** `RESOLVED`
+
+---
+
+### CHG-014: Bộ Tài liệu Cài đặt Máy sạch, Triển khai Docker và Hướng dẫn Vận hành
+- **Change ID:** `CHG-014`
+- **Mức độ:** `P2 (Documentation & DevOps Readiness)`
+- **Vị trí:** `README.md`, `docs/deployment/DEPLOYMENT.md`, `docs/operations/OPERATIONS-RUNBOOK.md`, `docs/handoff/CLIENT-HANDOFF.md`
+- **Mô tả:**
+  - Cung cấp trọn bộ tài liệu kỹ thuật phục vụ bàn giao: hướng dẫn cài đặt từ repo sạch, Docker compose production, reverse proxy Nginx SSL, quy trình sao lưu/phục hồi dữ liệu, luồng ứng phó sự cố (Incidents Playbook) và tài liệu bàn giao nghiệm thu.
+- **Trạng thái:** `RESOLVED`

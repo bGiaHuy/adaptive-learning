@@ -28,7 +28,6 @@ services:
 
 volumes:
   postgres_data:
-    external: true
     name: adaptivemath_postgres_data
   redis_data:
     driver: local

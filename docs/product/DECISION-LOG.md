@@ -22,6 +22,10 @@
 | **D-TECH-01** | Kiến trúc Session & Xác thực người dùng | Architecture | **APPROVED** | Opaque Session DB + Cookie `__Host-am_session` + Argon2id | Lead Architect (Codex) | 2026-09-21 |
 | **D-TECH-02** | Cơ chế sinh và lưu trữ Mã mời lớp học | Security | **APPROVED** | Crockford Base32 8 ký tự + HMAC sha256 + Rate limit | Lead Architect (Codex) | 2026-09-21 |
 | **D-TECH-03** | Quy trình Maker-Checker cho Câu hỏi | Academic QA | **APPROVED** | Tách quyền Author/Reviewer + Versioning bất biến khi có attempt | Academic Lead & Lead Architect | 2026-09-21 |
+| **D-TECH-04** | Tích hợp Reverse Proxy Vite & HttpOnly Cookies | Frontend Architecture | **APPROVED** | Proxy `/api` tới backend port 4000, không lưu token ở localStorage | Primary Implementation Owner | 2026-09-21 |
+| **D-TECH-05** | Hệ thống Thông báo Nội bộ thay thế Native Alerts | UX / Accessibility | **APPROVED** | Loại bỏ hoàn toàn `window.alert`/`confirm`, dùng inline banners & modal xác nhận `role="alert"` | Primary Implementation Owner | 2026-09-21 |
+| **D-TECH-06** | Chiến lược Di chuyển Dữ liệu Di sản (Legacy Content) | Content Engineering | **APPROVED** | Lọc trùng đề bài, phân bố theo 24 SkillNode Lớp 9, trạng thái ban đầu `IN_REVIEW` | Academic Lead & Implementation Owner | 2026-09-21 |
+| **D-TECH-07** | Kiến trúc Phòng vệ CSRF Origin & Kiểm thử Tải đồng thời | Security / Perf | **APPROVED** | Khóa chặt `Origin` header cho POST/PATCH/DELETE; verify tải 20 client đồng thời | Lead Architect & Release Engineer | 2026-09-21 |
 
 ---
 
@@ -152,3 +156,51 @@
 - **Cơ sở lý luận (Rationale):** Đảm bảo tính khách quan khoa học của đề thi và ngăn ngừa lỗi dữ liệu khi sửa câu hỏi cũ làm sai lệch lịch sử đánh giá năng lực của học sinh.
 - **Tài liệu bị ảnh hưởng:** `apps/api/prisma/schema.prisma` (`Question`, `SkillNode`), `docs/product/TARGET-JOURNEYS.md` (J-05).
 - **Ngày rà soát định kỳ:** Khi triển khai Step 6 (Admin & Content Slice).
+
+---
+
+### Quyết định D-TECH-04: Tích hợp Reverse Proxy Vite & HttpOnly Cookies
+- **Decision ID:** `D-TECH-04`
+- **Trạng thái:** `APPROVED`
+- **Vấn đề cần quyết định:** Kiến trúc kết nối giữa Frontend SPA và Backend API trong môi trường phát triển & kiểm thử nội bộ.
+- **Phương án chọn:** Cấu hình reverse proxy trong `vite.config.js` chuyển tiếp toàn bộ request `/api` về `http://localhost:4000`. Trình duyệt gửi cookie `__Host-am_session` tự động cùng domain/origin, triệt tiêu hoàn toàn nhu cầu lưu JWT hoặc session token trong `localStorage`.
+- **Người phê duyệt (Approver):** Primary Implementation Owner & Lead Architect
+- **Ngày phê duyệt:** 2026-09-21
+- **Cơ sở lý luận (Rationale):** Bảo đảm an toàn trước tấn công XSS; tuân thủ nghiêm ngặt PRD §8.3; đơn giản hóa cấu hình CORS giữa frontend và backend.
+- **Tài liệu bị ảnh hưởng:** `vite.config.js`, `src/lib/apiClient.js`, `src/App.jsx`.
+
+---
+
+### Quyết định D-TECH-05: Hệ thống Thông báo Nội bộ thay thế Native Alerts
+- **Decision ID:** `D-TECH-05`
+- **Trạng thái:** `APPROVED`
+- **Vấn đề cần quyết định:** Nâng cấp trải nghiệm người dùng và khả năng tiếp cận (Accessibility WCAG 2.1 AA) cho các luồng xác nhận và thông báo lỗi.
+- **Phương án chọn:** Xóa bỏ hoàn toàn tất cả các lệnh gọi `window.alert()` và `window.confirm()` trong toàn bộ source code. Thay thế bằng các Banner thông báo nội bộ và Confirmation Dialog có `role="alert"`, hỗ trợ bàn phím, tương thích với theme "Math Studio".
+- **Người phê duyệt (Approver):** Primary Implementation Owner & UX Lead
+- **Ngày phê duyệt:** 2026-09-21
+- **Cơ sở lý luận (Rationale):** Hộp thoại trình duyệt native gây gián đoạn luồng người dùng, không thể tùy biến giao diện hoặc bản địa hóa, không truy cập được cho người dùng thiết bị trợ thính/màn hình đọc.
+- **Tài liệu bị ảnh hưởng:** `src/components/AdminPortalView.jsx`, `src/components/TeacherClassroomsView.jsx`, `src/components/MistakeNotebookView.jsx`, `src/components/SessionManagementModal.jsx`.
+
+---
+
+### Quyết định D-TECH-06: Chiến lược Di chuyển Dữ liệu Di sản (Legacy Content Migration)
+- **Decision ID:** `D-TECH-06`
+- **Trạng thái:** `APPROVED`
+- **Vấn đề cần quyết định:** Phương thức đưa 1.472 câu hỏi legacy từ prototype vào cơ sở dữ liệu PostgreSQL chuẩn.
+- **Phương án chọn:** Viết script `migrate-legacy-questions.ts` với cờ `--dry-run` và `--apply`. Tự động lọc bỏ các câu hỏi trùng lặp nội dung đề bài (168 câu trùng bị bỏ qua), phân phối 216 câu hỏi duy nhất vào 24 `SkillNode` Lớp 9. Toàn bộ câu hỏi nhập vào được gắn trạng thái `IN_REVIEW` (chờ duyệt) để đảm bảo tuân thủ quy trình Maker-Checker (Gate 3).
+- **Người phê duyệt (Approver):** Academic Lead & Primary Implementation Owner
+- **Ngày phê duyệt:** 2026-09-21
+- **Cơ sở lý luận (Rationale):** Không tự ý xuất bản (`PUBLISHED`) hàng loạt câu hỏi chưa qua thẩm định học thuật; bảo vệ tính chính xác của đề thi Adaptive CAT.
+- **Tài liệu bị ảnh hưởng:** `apps/api/scripts/migrate-legacy-questions.ts`, `docs/product/CONTENT-READINESS.md`.
+
+---
+
+### Quyết định D-TECH-07: Kiến trúc Phòng vệ CSRF Origin & Kiểm thử Tải đồng thời
+- **Decision ID:** `D-TECH-07`
+- **Trạng thái:** `APPROVED`
+- **Vấn đề cần quyết định:** Đảm bảo an toàn chống CSRF khi dùng cookie xác thực và kiểm chứng năng lực chịu tải của API NestJS + PostgreSQL.
+- **Phương án chọn:** Kích hoạt kiểm tra header `Origin` trên mọi HTTP request thay đổi trạng thái (POST, PATCH, DELETE). Chỉ cho phép các origin được định nghĩa trong whitelist (`http://localhost:3000`, `http://localhost:4000`, production domain). Xây dựng kịch bản kiểm thử tải đồng thời 20 client thực hiện chu trình CAT hoàn chỉnh để xác minh không bị deadlock hoặc nghẽn connection pool.
+- **Người phê duyệt (Approver):** Lead Architect & Release Engineer
+- **Ngày phê duyệt:** 2026-09-21
+- **Cơ sở lý luận (Rationale):** Đảm bảo an toàn tối đa cho cookie session; chứng minh hệ thống sẵn sàng bàn giao kỹ thuật cho khách hàng thử nghiệm pilot.
+- **Tài liệu bị ảnh hưởng:** `apps/api/src/common/guards/csrf-origin.guard.ts`, `apps/api/scripts/concurrency-smoke-test.ts`.

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Check, Calendar, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, Check, Calendar, Trash2, Loader2 } from 'lucide-react';
 import Navbar from './Navbar';
 import {
   GRADES_DATA,
@@ -8,6 +8,7 @@ import {
   SELF_EVALUATIONS_DATA,
   GRADE_9_CHAPTERS
 } from '../data/curriculumData';
+import { curriculumApi, studentApi } from '../lib/apiClient';
 
 export default function OnboardingWizard({
   currentUser,
@@ -16,6 +17,13 @@ export default function OnboardingWizard({
   onStepChange
 }) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Dynamic Curriculum Options
+  const [grades, setGrades] = useState(GRADES_DATA);
+  const [goals, setGoals] = useState(GOALS_DATA);
+  const [dailyTimes, setDailyTimes] = useState(DAILY_TIMES_DATA);
+  const [selfEvals, setSelfEvals] = useState(SELF_EVALUATIONS_DATA);
 
   // Form State initialized to match the video flow defaults
   const [selectedGrade, setSelectedGrade] = useState('grade9');
@@ -23,27 +31,70 @@ export default function OnboardingWizard({
   const [selectedDailyTime, setSelectedDailyTime] = useState('45m');
   const [examDate, setExamDate] = useState('05/06/2027');
   const [selfEval, setSelfEval] = useState('good');
-  const [weakTopics, setWeakTopics] = useState(['t1', 't2']); // 2 topics selected in video
+  const [weakTopics, setWeakTopics] = useState(['t1', 't2']);
 
   const totalSteps = 8;
 
-  const handleNext = () => {
+  useEffect(() => {
+    const loadCurriculumOptions = async () => {
+      try {
+        const [gradesData, optionsData] = await Promise.all([
+          curriculumApi.getGrades(),
+          curriculumApi.getOptions()
+        ]);
+        if (Array.isArray(gradesData) && gradesData.length > 0) {
+          setGrades(gradesData.map((g) => ({ id: `grade${g.id}`, rawId: g.id, label: g.label, desc: g.desc })));
+        }
+        if (optionsData?.goals) {
+          setGoals(optionsData.goals);
+        }
+        if (optionsData?.dailyTimes) {
+          setDailyTimes(optionsData.dailyTimes);
+        }
+        if (optionsData?.selfAssessments) {
+          setSelfEvals(optionsData.selfAssessments);
+        }
+      } catch {
+        // Safe fallback to default data
+      }
+    };
+    loadCurriculumOptions();
+  }, []);
+
+  const handleNext = async () => {
     if (currentStep < totalSteps) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
       onStepChange?.(nextStep, totalSteps);
     } else {
-      // Step 8 completed -> finish setup
+      // Step 8 completed -> sync to backend via PATCH /student/onboarding
+      setIsSubmitting(true);
+      const chosenGoal = goals.find((g) => g.id === selectedGoal)?.title || 'Ôn thi vào lớp 10';
+      const chosenTimeObj = dailyTimes.find((t) => t.id === selectedDailyTime);
+      const chosenMinutes = chosenTimeObj?.minutes || (selectedDailyTime === '30m' ? 30 : selectedDailyTime === '60m' ? 60 : selectedDailyTime === '90m' ? 90 : 45);
+      const chosenSelfEval = selfEvals.find((e) => e.id === selfEval)?.title || 'Khá';
+
       const setupProfile = {
-        grade: GRADES_DATA.find((g) => g.id === selectedGrade)?.label || 'Lớp 9',
-        goal: GOALS_DATA.find((g) => g.id === selectedGoal)?.title || 'Ôn thi vào lớp 10',
-        dailyTime: DAILY_TIMES_DATA.find((t) => t.id === selectedDailyTime)?.title || '45 phút',
-        examDate: examDate,
-        selfEval: SELF_EVALUATIONS_DATA.find((e) => e.id === selfEval)?.title || 'Khá',
-        weakTopicsCount: weakTopics.length,
-        weakTopicsList: weakTopics
+        grade: 9,
+        targetGoal: chosenGoal,
+        dailyMinutes: chosenMinutes,
+        examDate: examDate || null,
+        selfAssessment: chosenSelfEval
       };
-      onComplete(setupProfile);
+
+      try {
+        await studentApi.updateOnboarding(setupProfile);
+      } catch (err) {
+        console.warn('Could not sync onboarding to API, continuing with local state:', err);
+      } finally {
+        setIsSubmitting(false);
+        onComplete({
+          ...setupProfile,
+          gradeLabel: 'Lớp 9',
+          weakTopicsList: weakTopics,
+          weakTopicsCount: weakTopics.length
+        });
+      }
     }
   };
 

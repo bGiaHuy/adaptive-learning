@@ -1,7 +1,7 @@
 import React from 'react';
 import { Target, CheckCircle2, Flame, Award, ArrowRight } from 'lucide-react';
 
-export default function MissionsView({ onStartDiagnostic }) {
+export default function MissionsView({ onStartDiagnostic, onNavigateTab }) {
   const missions = [
     {
       id: 1,
@@ -18,7 +18,8 @@ export default function MissionsView({ onStartDiagnostic }) {
       reward: '+20 XP',
       desc: 'Duy trì thói quen học tập đều đặn.',
       progress: '0/15 phút',
-      actionText: 'Vào bài học'
+      actionText: 'Vào bài học',
+      action: () => onNavigateTab?.('learning-path')
     },
     {
       id: 3,
@@ -26,7 +27,8 @@ export default function MissionsView({ onStartDiagnostic }) {
       reward: '+30 XP',
       desc: 'Chuyển lỗi sai thành điểm mạnh của bạn.',
       progress: '0/3',
-      actionText: 'Xem sổ tay'
+      actionText: 'Xem sổ tay',
+      action: () => onNavigateTab?.('mistakes')
     }
   ];
 
@@ -58,7 +60,7 @@ export default function MissionsView({ onStartDiagnostic }) {
               <span className="mission-progress-label">Tiến độ: {m.progress}</span>
               <button
                 className="btn-mission-action"
-                onClick={m.action || (() => {})}
+                onClick={m.action}
               >
                 <span>{m.actionText}</span>
                 <ArrowRight size={14} />

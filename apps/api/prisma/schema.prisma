@@ -81,6 +81,7 @@ model User {
   reviewedQuestions Question[]  @relation("ReviewedQuestions")
   mistakeRecords    MistakeRecord[]
   skillMasteries    SkillMastery[]
+  assignmentSubmissions AssignmentSubmission[]
 
   @@index([username])
   @@index([email])
@@ -172,6 +173,7 @@ model Classroom {
 
   inviteCodes  ClassroomInviteCode[]
   memberships  ClassroomMembership[]
+  assignments  ClassroomAssignment[]
 
   @@index([teacherId])
 }
@@ -203,6 +205,89 @@ model ClassroomMembership {
 
   @@unique([classId, studentId])
   @@index([studentId])
+}
+
+// ==============================================================================
+// 3b. Classroom Assignments & Exams
+// ==============================================================================
+
+enum AssignmentStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum SubmissionStatus {
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
+}
+
+model ClassroomAssignment {
+  id              String                 @id @default(uuid())
+  classId         String
+  classroom       Classroom              @relation(fields: [classId], references: [id], onDelete: Cascade)
+  title           String
+  description     String?
+  durationMinutes Int                    @default(45) // 0 for unlimited
+  dueDate         DateTime?
+  status          AssignmentStatus       @default(PUBLISHED)
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+
+  questions       AssignmentQuestion[]
+  submissions     AssignmentSubmission[]
+
+  @@index([classId])
+}
+
+model AssignmentQuestion {
+  id           String              @id @default(uuid())
+  assignmentId String
+  assignment   ClassroomAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  questionId   String
+  question     Question            @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  orderIndex   Int                 @default(1)
+  points       Float               @default(1.0)
+
+  @@unique([assignmentId, questionId])
+  @@index([assignmentId])
+  @@index([questionId])
+}
+
+model AssignmentSubmission {
+  id               String               @id @default(uuid())
+  assignmentId     String
+  assignment       ClassroomAssignment  @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  studentId        String
+  student          User                 @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  score            Float                @default(0) // Scale 10 e.g. 8.5
+  totalQuestions   Int                  @default(0)
+  correctCount     Int                  @default(0)
+  status           SubmissionStatus     @default(SUBMITTED)
+  startedAt        DateTime             @default(now())
+  submittedAt      DateTime?
+  timeSpentSeconds Int                  @default(0)
+
+  answers          SubmissionAnswer[]
+
+  @@unique([assignmentId, studentId])
+  @@index([assignmentId])
+  @@index([studentId])
+}
+
+model SubmissionAnswer {
+  id                String               @id @default(uuid())
+  submissionId      String
+  submission        AssignmentSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  questionId        String
+  question          Question             @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedOptionKey String?
+  isCorrect         Boolean              @default(false)
+  pointsAwarded     Float                @default(0)
+
+  @@unique([submissionId, questionId])
+  @@index([submissionId])
 }
 
 // ==============================================================================
@@ -242,6 +327,8 @@ model Question {
   options        QuestionOption[]
   attemptAnswers AttemptAnswer[]
   mistakeRecords MistakeRecord[]
+  assignmentQuestions AssignmentQuestion[]
+  submissionAnswers   SubmissionAnswer[]
 
   @@index([skillId])
   @@index([status])
