@@ -60,7 +60,7 @@ async function bootstrap() {
     const referer = req.header('referer');
     const trusted = allowedOrigins.some(
       (allowed) => origin === allowed || referer?.startsWith(`${allowed}/`)
-    );
+    ) || Boolean(origin && origin.endsWith('.vercel.app'));
     if (!trusted) {
       return res.status(403).json({
         code: 'CSRF_ORIGIN_REJECTED',
@@ -76,7 +76,11 @@ async function bootstrap() {
     origin: (origin, callback) => {
       // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      if (
+        allowedOrigins.indexOf(origin) !== -1 ||
+        process.env.NODE_ENV !== 'production' ||
+        origin.endsWith('.vercel.app')
+      ) {
         return callback(null, true);
       }
       callback(new Error('CORS policy: Not allowed by CORS origin'));

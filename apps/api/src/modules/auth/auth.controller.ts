@@ -32,7 +32,7 @@ export class AuthController {
     const cookieOptions = {
       httpOnly: true,
       secure: this.isProd,
-      sameSite: 'lax' as const,
+      sameSite: (this.isProd ? 'none' : 'lax') as 'none' | 'lax',
       expires: expiresAt,
       path: '/'
     };
@@ -44,7 +44,7 @@ export class AuthController {
     const clearOptions = {
       httpOnly: true,
       secure: this.isProd,
-      sameSite: 'lax' as const,
+      sameSite: (this.isProd ? 'none' : 'lax') as 'none' | 'lax',
       path: '/'
     };
 
