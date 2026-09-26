@@ -129,7 +129,8 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
     setIsLoadingQuestions(true);
     try {
       const data = await adminApi.getQuestions(questionStatusFilter || undefined);
-      setQuestions(data.questions || []);
+      const list = Array.isArray(data) ? data : (data?.questions || []);
+      setQuestions(list);
     } catch (err) {
       setFeedback({ type: 'error', message: err.message || 'Không thể tải danh sách câu hỏi.' });
     } finally {
@@ -141,7 +142,8 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
     setIsLoadingAudit(true);
     try {
       const data = await adminApi.getAuditLogs(50);
-      setAuditLogs(data.logs || []);
+      const list = Array.isArray(data) ? data : (data?.logs || data?.auditLogs || []);
+      setAuditLogs(list);
     } catch (err) {
       setFeedback({ type: 'error', message: err.message || 'Không thể tải nhật ký kiểm toán.' });
     } finally {
