@@ -50,6 +50,7 @@ export default function Sidebar({
   onLogout,
   onOpenSessions,
   onOpenLegal,
+  onOpenChangePassword,
   progress = null
 }) {
   const role = currentUser?.role || 'STUDENT';
@@ -167,6 +168,18 @@ export default function Sidebar({
             aria-label="Quản lý phiên đăng nhập"
           >
             <ShieldAlert size={15} />
+          </button>
+
+          {/* Change Password Trigger */}
+          <button
+            type="button"
+            className="btn-logout"
+            title="Đổi mật khẩu"
+            onClick={onOpenChangePassword}
+            style={{ color: '#fb923c' }}
+            aria-label="Đổi mật khẩu"
+          >
+            <Key size={15} />
           </button>
 
           {/* Logout Trigger */}

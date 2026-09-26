@@ -153,7 +153,9 @@ export const authApi = {
   logout: () => apiClient.post('/auth/logout'),
   logoutAll: () => apiClient.post('/auth/logout-all'),
   getSessions: () => apiClient.get('/auth/sessions'),
-  revokeSession: (sessionId) => apiClient.post(`/auth/sessions/${sessionId}/revoke`)
+  revokeSession: (sessionId) => apiClient.post(`/auth/sessions/${sessionId}/revoke`),
+  changePassword: (currentPassword, newPassword) =>
+    apiClient.post('/auth/change-password', { currentPassword, newPassword })
 };
 
 export const curriculumApi = {

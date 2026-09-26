@@ -2,7 +2,9 @@ import {
   Injectable,
   ConflictException,
   UnauthorizedException,
-  ForbiddenException
+  ForbiddenException,
+  NotFoundException,
+  BadRequestException
 } from '@nestjs/common';
 import * as crypto from 'crypto';
 import * as argon2 from '@node-rs/argon2';
@@ -322,6 +324,60 @@ export class AuthService {
         data: { permissionVersion: { increment: 1 } }
       })
     ]);
+  }
+
+  // Change user password
+  async changePassword(userId: string, dto: { currentPassword: string; newPassword: string }) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!user) {
+      throw new NotFoundException({
+        code: 'USER_NOT_FOUND',
+        message: 'Tài khoản không tồn tại trên hệ thống.'
+      });
+    }
+
+    const isCurrentValid = await this.verifyPassword(user.passwordHash, dto.currentPassword);
+    if (!isCurrentValid) {
+      throw new BadRequestException({
+        code: 'INVALID_CURRENT_PASSWORD',
+        message: 'Mật khẩu hiện tại không chính xác.'
+      });
+    }
+
+    if (dto.currentPassword === dto.newPassword) {
+      throw new BadRequestException({
+        code: 'PASSWORD_UNCHANGED',
+        message: 'Mật khẩu mới không được trùng với mật khẩu hiện tại.'
+      });
+    }
+
+    const newPasswordHash = await this.hashPassword(dto.newPassword);
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          passwordHash: newPasswordHash
+        }
+      }),
+      this.prisma.auditLog.create({
+        data: {
+          actorUserId: userId,
+          action: 'USER_PASSWORD_CHANGED',
+          targetEntity: 'User',
+          targetEntityId: userId,
+          metadata: { timestamp: new Date().toISOString() }
+        }
+      })
+    ]);
+
+    return {
+      success: true,
+      message: 'Đổi mật khẩu thành công.'
+    };
   }
 
   // Strip password hash from returned user object

@@ -16,6 +16,7 @@ import { AuthService } from './auth.service';
 import { RegisterStudentDto } from './dto/register-student.dto';
 import { RegisterTeacherDto } from './dto/register-teacher.dto';
 import { LoginDto } from './dto/login.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthGuard } from './guards/auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { getSessionCookieName } from './session-cookie';
@@ -165,5 +166,17 @@ export class AuthController {
     await this.authService.revokeSession(userId, sessionId);
     if (target?.isCurrent) this.clearSessionCookie(res);
     return { message: 'Phiên đăng nhập đã được thu hồi.' };
+  }
+
+  @Post('change-password')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'Đổi mật khẩu tài khoản hiện tại' })
+  async changePassword(
+    @CurrentUser('id') userId: string,
+    @Body() dto: ChangePasswordDto
+  ) {
+    return this.authService.changePassword(userId, dto);
   }
 }

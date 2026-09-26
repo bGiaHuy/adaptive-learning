@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogOut, User, ShieldAlert, FileText } from 'lucide-react';
+import { LogOut, User, ShieldAlert, FileText, Key } from 'lucide-react';
 
 export default function Navbar({
   pageTitle,
@@ -8,6 +8,7 @@ export default function Navbar({
   onLogout,
   onOpenSessions,
   onOpenLegal,
+  onOpenChangePassword,
   showFullNav = false,
   progress = null
 }) {
@@ -120,6 +121,17 @@ export default function Navbar({
               aria-label="Quản lý phiên đăng nhập"
             >
               <ShieldAlert size={16} />
+            </button>
+
+            {/* Change Password Trigger */}
+            <button
+              className="btn-logout"
+              title="Đổi mật khẩu"
+              onClick={onOpenChangePassword}
+              style={{ color: '#ea580c' }}
+              aria-label="Đổi mật khẩu"
+            >
+              <Key size={16} />
             </button>
 
             {/* Logout Trigger */}

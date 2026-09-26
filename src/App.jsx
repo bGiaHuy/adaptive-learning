@@ -17,6 +17,7 @@ import TeacherClassroomsView from './components/TeacherClassroomsView';
 import AdminPortalView from './components/AdminPortalView';
 import NotFoundView from './components/NotFoundView';
 import LegalNoticeModal from './components/LegalNoticeModal';
+import ChangePasswordModal from './components/ChangePasswordModal';
 import { authApi, studentApi } from './lib/apiClient';
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const [showSessionModal, setShowSessionModal] = useState(false);
   const [showLegalModal, setShowLegalModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   // Authenticated User State (Server-backed only)
   const [currentUser, setCurrentUser] = useState(null);
@@ -313,6 +315,7 @@ export default function App() {
         onLogout={handleLogout}
         onOpenSessions={() => setShowSessionModal(true)}
         onOpenLegal={() => setShowLegalModal(true)}
+        onOpenChangePassword={() => setShowPasswordModal(true)}
         progress={activeTab === 'onboarding' ? { step: wizardStep, total: 8 } : null}
       />
 
@@ -428,6 +431,12 @@ export default function App() {
       <LegalNoticeModal
         isOpen={showLegalModal}
         onClose={() => setShowLegalModal(false)}
+      />
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal
+        isOpen={showPasswordModal}
+        onClose={() => setShowPasswordModal(false)}
       />
     </div>
   );
