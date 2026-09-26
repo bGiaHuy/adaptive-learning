@@ -102,14 +102,22 @@ Dưới đây là danh sách chi tiết các điều kiện tiên quyết **bắ
 
 ---
 
-## 5. Tài Khoản Bàn Giao Dùng Thử (Demo Access Credentials)
+## 5. Tài Khoản Bàn Giao & Dữ Liệu Mẫu (Production & Mock Data Accounts)
 
-| Vai Trò | Tên Đăng Nhập | Mật Khẩu | Địa Chỉ Đăng Nhập |
-| :--- | :--- | :--- | :--- |
-| **Quản trị viên** | `admin` | `P@ssword123!` | Giao diện đăng nhập -> Chọn tab Quản trị |
-| **Giáo viên Đã duyệt** | `thaynam` | `P@ssword123!` | Giao diện đăng nhập -> Tab Giáo viên |
-| **Giáo viên Chờ duyệt** | `teacher_pending` | `P@ssword123!` | Giao diện đăng nhập -> Tab Giáo viên |
-| **Học sinh** | `duc_nguyen` | `P@ssword123!` | Giao diện đăng nhập -> Tab Học sinh |
+### Tài khoản Quản trị viên Chính thức (Production Admins)
+- `huy_admin` (Admin Gia Huy)
+- `tonghoanganh` (Admin Tống Hoàng Anh)
+
+### Tài khoản Dữ liệu Mẫu (Mock Data Accounts - Phục vụ Thử nghiệm)
+*Toàn bộ tài khoản dưới đây là dữ liệu mẫu (Mock Data) được gắn cờ hiển thị rõ ràng trên hệ thống:*
+
+| Vai Trò | Tên Đăng Nhập | Mật Khẩu | Địa Chỉ Đăng Nhập | Ghi chú |
+| :--- | :--- | :--- | :--- | :--- |
+| **Quản trị viên (Mock Data)** | `admin` | `P@ssword123!` | Giao diện đăng nhập | Tài khoản Super Admin mẫu |
+| **Giáo viên Đã duyệt (Mock Data)** | `thaynam` | `P@ssword123!` | Giao diện đăng nhập | Thầy Nguyễn Văn Nam (Lớp 9A1) |
+| **Hồ sơ xin duyệt (Mock Data)** | `co_thu_trang` | `P@ssword123!` | Giao diện đăng nhập | Cô Phạm Thu Trang (Duyệt ở Admin Portal) |
+| **Giáo viên Chờ duyệt (Mock Data)** | `teacher_pending` | `P@ssword123!` | Giao diện đăng nhập | Cô Lê Thị Mai |
+| **Học sinh (Mock Data)** | `duc_nguyen` | `P@ssword123!` | Giao diện đăng nhập | Nguyễn Minh Đức |
 
 ---
 

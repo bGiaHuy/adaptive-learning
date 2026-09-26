@@ -26,6 +26,18 @@ import {
 } from 'lucide-react';
 import { adminApi, curriculumApi } from '../lib/apiClient';
 
+export const isMockAccount = (user) => {
+  if (!user) return false;
+  const username = (user.username || '').toLowerCase();
+  const fullName = (user.fullName || '').toLowerCase();
+  const email = (user.email || '').toLowerCase();
+  const mockUsernames = ['admin', 'thaynam', 'duc_nguyen', 'teacher_pending', 'co_thu_trang', 'hocsinh_demo', 'student_demo'];
+  if (mockUsernames.includes(username)) return true;
+  if (fullName.includes('mock') || fullName.includes('mẫu')) return true;
+  if (email.includes('demo') || email.includes('mock') || email.includes('applicant')) return true;
+  return false;
+};
+
 export default function AdminPortalView({ currentUser, defaultTab = 'overview' }) {
   const [activeSubTab, setActiveSubTab] = useState(defaultTab); // 'overview' | 'applicants' | 'users' | 'classrooms' | 'questions' | 'audit'
 
@@ -581,10 +593,26 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
                   }}
                 >
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <span style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0f172a' }}>
                         {app.fullName || app.username}
                       </span>
+                      {isMockAccount(app) && (
+                        <span
+                          style={{
+                            padding: '2px 8px',
+                            borderRadius: '4px',
+                            fontSize: '0.68rem',
+                            fontWeight: 800,
+                            backgroundColor: '#fef3c7',
+                            color: '#92400e',
+                            border: '1px solid #fde68a',
+                            letterSpacing: '0.04em'
+                          }}
+                        >
+                          MOCK DATA
+                        </span>
+                      )}
                       <span style={{ padding: '2px 8px', borderRadius: '12px', fontSize: '0.72rem', fontWeight: 700, backgroundColor: '#fef3c7', color: '#92400e' }}>
                         CHỜ DUYỆT
                       </span>
@@ -1359,8 +1387,26 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
                     return (
                       <tr key={user.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '12px' }}>
-                          <div style={{ fontWeight: 700, color: '#0f172a' }}>
-                            {user.fullName || user.username}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ fontWeight: 700, color: '#0f172a' }}>
+                              {user.fullName || user.username}
+                            </span>
+                            {isMockAccount(user) && (
+                              <span
+                                style={{
+                                  padding: '1px 6px',
+                                  borderRadius: '4px',
+                                  fontSize: '0.66rem',
+                                  fontWeight: 800,
+                                  backgroundColor: '#fef3c7',
+                                  color: '#92400e',
+                                  border: '1px solid #fde68a',
+                                  letterSpacing: '0.03em'
+                                }}
+                              >
+                                MOCK DATA
+                              </span>
+                            )}
                           </div>
                           <div style={{ fontSize: '0.76rem', color: '#64748b' }}>
                             @{user.username}
@@ -1816,8 +1862,25 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
                         </td>
 
                         <td style={{ padding: '12px' }}>
-                          <div style={{ fontWeight: 600, color: '#1e293b' }}>
-                            {cls.teacher?.fullName || 'Chưa cập nhật'}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                            <span style={{ fontWeight: 600, color: '#1e293b' }}>
+                              {cls.teacher?.fullName || 'Chưa cập nhật'}
+                            </span>
+                            {isMockAccount(cls.teacher) && (
+                              <span
+                                style={{
+                                  padding: '1px 5px',
+                                  borderRadius: '4px',
+                                  fontSize: '0.64rem',
+                                  fontWeight: 800,
+                                  backgroundColor: '#fef3c7',
+                                  color: '#92400e',
+                                  border: '1px solid #fde68a'
+                                }}
+                              >
+                                MOCK DATA
+                              </span>
+                            )}
                           </div>
                           <div style={{ fontSize: '0.76rem', color: '#64748b' }}>
                             {cls.teacher?.email}

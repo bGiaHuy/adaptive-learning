@@ -15,14 +15,14 @@ async function main() {
     parallelism: 1
   });
 
-  // 1. Create Super Admin
+  // 1. Create Super Admin (Mock Data)
   const adminUser = await prisma.user.upsert({
     where: { username: 'admin' },
-    update: {},
+    update: { fullName: 'Hệ Thống Quản Trị (Mock Data)' },
     create: {
       username: 'admin',
       email: 'admin@adaptivemath.vn',
-      fullName: 'Hệ Thống Quản Trị',
+      fullName: 'Hệ Thống Quản Trị (Mock Data)',
       passwordHash,
       role: UserRole.ADMIN,
       status: UserStatus.ACTIVE,
@@ -30,14 +30,14 @@ async function main() {
     }
   });
 
-  // 2. Create Verified Teacher
+  // 2. Create Verified Teacher (Mock Data)
   const teacherUser = await prisma.user.upsert({
     where: { username: 'thaynam' },
-    update: {},
+    update: { fullName: 'Thầy Nguyễn Văn Nam (Mock Data)' },
     create: {
       username: 'thaynam',
       email: 'thaynam@adaptivemath.vn',
-      fullName: 'Thầy Nguyễn Văn Nam',
+      fullName: 'Thầy Nguyễn Văn Nam (Mock Data)',
       passwordHash,
       role: UserRole.TEACHER,
       status: UserStatus.ACTIVE,
@@ -54,14 +54,14 @@ async function main() {
     }
   });
 
-  // 3. Create Teacher Applicant (Pending Verification)
+  // 3. Create Teacher Applicant (Pending Verification - Mock Data)
   await prisma.user.upsert({
     where: { username: 'teacher_pending' },
-    update: {},
+    update: { fullName: 'Cô Lê Thị Mai (Mock Data)' },
     create: {
       username: 'teacher_pending',
       email: 'teacher.applicant@adaptivemath.vn',
-      fullName: 'Cô Lê Thị Mai',
+      fullName: 'Cô Lê Thị Mai (Mock Data)',
       passwordHash,
       role: UserRole.TEACHER_APPLICANT,
       status: UserStatus.ACTIVE,
@@ -76,14 +76,14 @@ async function main() {
     }
   });
 
-  // 4. Create Student
+  // 4. Create Student (Mock Data)
   const studentUser = await prisma.user.upsert({
     where: { username: 'duc_nguyen' },
-    update: {},
+    update: { fullName: 'Nguyễn Minh Đức (Mock Data)' },
     create: {
       username: 'duc_nguyen',
       email: 'hocsinh.demo4564@adaptivemath.vn',
-      fullName: 'Nguyễn Minh Đức',
+      fullName: 'Nguyễn Minh Đức (Mock Data)',
       passwordHash,
       role: UserRole.STUDENT,
       status: UserStatus.ACTIVE,

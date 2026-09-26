@@ -147,18 +147,26 @@ npm run dev:prototype
 
 ---
 
-## 4. Danh Sách Tài Khoản Mẫu Kiểm Thử (Default Test Accounts)
+## 4. Danh Sách Tài Khoản Hệ Thống & Dữ Liệu Mẫu (System & Mock Data Accounts)
 
-Toàn bộ tài khoản mẫu được kích hoạt sẵn qua `prisma:seed`:
+### A. Tài khoản Quản trị viên Thực tế (Production Admins)
+| Phân Quyền (Role) | Tên đăng nhập | Email | Ghi chú |
+| :--- | :--- | :--- | :--- |
+| **Quản trị viên (ADMIN)** | `huy_admin` | `huy.admin@adaptivemath.vn` | Admin chính thức (Gia Huy) |
+| **Quản trị viên (ADMIN)** | `tonghoanganh` | `tonghoanganh@adaptivemath.vn` | Admin chính thức (Tống Hoàng Anh) |
 
-| Phân Quyền (Role) | Tên đăng nhập (Username) | Email | Mật khẩu mặc định | Mục đích kiểm thử |
+### B. Tài khoản Dữ liệu Mẫu (Mock Data Accounts - Phục vụ Demo & Kiểm thử)
+Toàn bộ tài khoản mock data đều được gắn nhãn `(Mock Data)` trên toàn bộ hệ thống:
+
+| Phân Quyền (Role) | Tên đăng nhập (Username) | Email | Mật khẩu mặc định | Mục đích kiểm thử (Mock Data) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Quản trị viên (ADMIN)** | `admin` | `admin@adaptivemath.vn` | `P@ssword123!` | Toàn quyền kiểm soát, duyệt GV, duyệt câu hỏi |
-| **Giáo viên Đã duyệt (TEACHER)** | `thaynam` | `thaynam@adaptivemath.vn` | `P@ssword123!` | Quản lý lớp, tạo mã mời Crockford, xem tiến độ |
-| **Giáo viên Chờ duyệt (TEACHER_APPLICANT)** | `teacher_pending` | `teacher.applicant@adaptivemath.vn` | `P@ssword123!` | Kiểm thử rào chắn Gate 0 D-03 (Bị chặn tạo lớp) |
-| **Học sinh (STUDENT)** | `duc_nguyen` | `hocsinh.demo4564@adaptivemath.vn` | `P@ssword123!` | Làm bài CAT, xem lộ trình, sổ tay lỗi sai |
+| **Quản trị viên (ADMIN)** | `admin` | `admin@adaptivemath.vn` | `P@ssword123!` | [Mock Data] Super Admin mẫu |
+| **Giáo viên Đã duyệt (TEACHER)** | `thaynam` | `thaynam@adaptivemath.vn` | `P@ssword123!` | [Mock Data] Thầy Nguyễn Văn Nam (Lớp 9A1) |
+| **Hồ sơ xin duyệt (APPLICANT)** | `co_thu_trang` | `thu.trang@thcsthanglong.edu.vn` | `P@ssword123!` | [Mock Data] Cô Phạm Thu Trang (Chờ duyệt ở Admin Portal) |
+| **Giáo viên Chờ duyệt (APPLICANT)** | `teacher_pending` | `teacher.applicant@adaptivemath.vn` | `P@ssword123!` | [Mock Data] Cô Lê Thị Mai |
+| **Học sinh (STUDENT)** | `duc_nguyen` | `hocsinh.demo4564@adaptivemath.vn` | `P@ssword123!` | [Mock Data] Nguyễn Minh Đức (Làm bài CAT, lộ trình) |
 
-> **Mã mời lớp học mẫu (Crockford Base32):** `KTR2QX79` (Lớp 9A1 - Thầy Nguyễn Văn Nam)
+> **Mã mời lớp học mẫu (Crockford Base32):** `KTR2QX79` (Lớp 9A1 - Thầy Nguyễn Văn Nam [Mock Data])
 
 ---
 

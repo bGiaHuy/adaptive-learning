@@ -267,23 +267,13 @@ export class AdminService {
 
   // 7. System Analytics & Overview
   async getSystemOverview() {
-    const [
-      totalUsers,
-      studentsCount,
-      teachersCount,
-      pendingTeachersCount,
-      classroomsCount,
-      questionsCount,
-      completedAttempts
-    ] = await Promise.all([
-      this.prisma.user.count(),
-      this.prisma.user.count({ where: { role: UserRole.STUDENT } }),
-      this.prisma.user.count({ where: { role: UserRole.TEACHER } }),
-      this.prisma.user.count({ where: { role: UserRole.TEACHER_APPLICANT } }),
-      this.prisma.classroom.count(),
-      this.prisma.question.count(),
-      this.prisma.diagnosticAttempt.count({ where: { status: AttemptStatus.COMPLETED } })
-    ]);
+    const totalUsers = await this.prisma.user.count();
+    const studentsCount = await this.prisma.user.count({ where: { role: UserRole.STUDENT } });
+    const teachersCount = await this.prisma.user.count({ where: { role: UserRole.TEACHER } });
+    const pendingTeachersCount = await this.prisma.user.count({ where: { role: UserRole.TEACHER_APPLICANT } });
+    const classroomsCount = await this.prisma.classroom.count();
+    const questionsCount = await this.prisma.question.count();
+    const completedAttempts = await this.prisma.diagnosticAttempt.count({ where: { status: AttemptStatus.COMPLETED } });
 
     return {
       totalUsers,
