@@ -83,11 +83,13 @@ export class EnglishService {
     const questions = await this.prisma.englishExercise.findMany({
       where: { kind: EnglishExerciseKind.SINGLE_CHOICE, lesson: { published: true } },
       include: { lesson: { select: { level: true, kind: true } } },
-      orderBy: { id: 'asc' }, take: 120
+      orderBy: { id: 'asc' }
     });
-    const byLevel = ['A1', 'A2', 'B1'].map(level => questions.filter(item => item.lesson.level === level));
-    if (byLevel.some(group => group.length < 2)) {
-      throw new BadRequestException('Cần ít nhất 2 câu trắc nghiệm đã xuất bản cho mỗi mức A1, A2 và B1.');
+    const byLevel = ['A1', 'A2', 'B1']
+      .map(level => questions.filter(item => item.lesson.level === level))
+      .filter(group => group.length >= 2);
+    if (byLevel.length < 2 || byLevel.reduce((total, group) => total + group.length, 0) < 6) {
+      throw new BadRequestException('Cần ít nhất 6 câu trắc nghiệm ở 2 mức bài học để bắt đầu.');
     }
     const selected = [];
     while (selected.length < 12 && byLevel.some(group => group.length)) {
@@ -118,14 +120,23 @@ export class EnglishService {
     const correctCount = questions.filter(question =>
       typeof answers[question.id] === 'string' && normalize(answers[question.id] as string) === normalize(question.correctAnswer)
     ).length;
-    const accuracy = correctCount / questions.length;
-    const suggestedLevel = accuracy >= 0.75 ? 'B1' : accuracy >= 0.4 ? 'A2' : 'A1';
+    const assessedLevels = ['A1', 'A2', 'B1'].filter(level => questions.some(question => question.lesson.level === level));
+    let suggestedLevel = assessedLevels[0];
+    for (const level of assessedLevels) {
+      const atLevel = questions.filter(question => question.lesson.level === level);
+      const correctAtLevel = atLevel.filter(question =>
+        typeof answers[question.id] === 'string' && normalize(answers[question.id] as string) === normalize(question.correctAnswer)
+      ).length;
+      if (correctAtLevel / atLevel.length < 0.6) break;
+      suggestedLevel = level;
+    }
     const result = await this.prisma.englishPlacementResult.upsert({
       where: { studentId },
       create: { studentId, correctCount, totalCount: questions.length, suggestedLevel },
       update: { correctCount, totalCount: questions.length, suggestedLevel, completedAt: new Date() }
     });
-    return { correctCount: result.correctCount, totalCount: result.totalCount, suggestedLevel: result.suggestedLevel };
+    return { correctCount: result.correctCount, totalCount: result.totalCount,
+      suggestedLevel: result.suggestedLevel, assessedLevels };
   }
 
   async importBatch(body: unknown, role: UserRole = UserRole.ADMIN) {
@@ -203,5 +214,65 @@ export class EnglishService {
       }
     });
     return { topics: parsedTopics.length, lessons: parsedLessons.length, exercises: exerciseIds.size };
+  }
+
+  private async ownedClassroom(teacherId: string, classId: string) {
+    const classroom = await this.prisma.classroom.findFirst({ where: { id: classId, teacherId, isActive: true } });
+    if (!classroom) throw new NotFoundException('Không tìm thấy lớp học của giáo viên.');
+    return classroom;
+  }
+
+  async classAssignments(teacherId: string, classId: string) {
+    const classroom = await this.ownedClassroom(teacherId, classId);
+    const [memberships, assignments] = await Promise.all([
+      this.prisma.classroomMembership.findMany({ where: { classId, status: 'ACTIVE' }, select: { studentId: true } }),
+      this.prisma.englishClassAssignment.findMany({
+        where: { classId }, orderBy: { createdAt: 'desc' },
+        include: { lesson: { select: { id: true, title: true, level: true, kind: true, published: true } } }
+      })
+    ]);
+    const studentIds = memberships.map(item => item.studentId);
+    const progress = studentIds.length ? await this.prisma.englishLessonProgress.findMany({
+      where: { studentId: { in: studentIds }, lessonId: { in: assignments.map(item => item.lessonId) } },
+      select: { lessonId: true }
+    }) : [];
+    return { classId, className: classroom.name, studentCount: studentIds.length,
+      assignments: assignments.map(item => ({ id: item.id, lesson: item.lesson, createdAt: item.createdAt,
+        completedCount: progress.filter(entry => entry.lessonId === item.lessonId).length })) };
+  }
+
+  async assignLesson(teacherId: string, classId: string, body: unknown) {
+    await this.ownedClassroom(teacherId, classId);
+    if (!object(body)) throw new BadRequestException('Cần chọn bài học.');
+    const lessonId = required(body.lessonId, 'lessonId');
+    const lesson = await this.prisma.englishLesson.findFirst({ where: { id: lessonId, published: true } });
+    if (!lesson) throw new NotFoundException('Bài học chưa được xuất bản.');
+    return this.prisma.englishClassAssignment.upsert({
+      where: { classId_lessonId: { classId, lessonId } },
+      create: { classId, lessonId }, update: {}
+    });
+  }
+
+  async removeAssignment(teacherId: string, classId: string, assignmentId: string) {
+    await this.ownedClassroom(teacherId, classId);
+    const result = await this.prisma.englishClassAssignment.deleteMany({ where: { id: assignmentId, classId } });
+    if (!result.count) throw new NotFoundException('Không tìm thấy bài được giao.');
+    return { removed: true };
+  }
+
+  async myAssignments(studentId: string) {
+    const memberships = await this.prisma.classroomMembership.findMany({
+      where: { studentId, status: 'ACTIVE', classroom: { isActive: true } },
+      include: { classroom: { include: { englishAssignments: {
+        orderBy: { createdAt: 'desc' },
+        include: { lesson: { select: { id: true, title: true, summary: true, level: true, kind: true, published: true } } }
+      } } } }
+    });
+    const progress = await this.prisma.englishLessonProgress.findMany({ where: { studentId }, select: { lessonId: true } });
+    const completed = new Set(progress.map(item => item.lessonId));
+    return memberships.flatMap(membership => membership.classroom.englishAssignments
+      .filter(item => item.lesson.published)
+      .map(item => ({ id: item.id, classId: membership.classId, className: membership.classroom.name,
+        lesson: item.lesson, createdAt: item.createdAt, completed: completed.has(item.lessonId) })));
   }
 }

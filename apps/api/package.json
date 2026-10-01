@@ -12,7 +12,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:push": "prisma db push",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "content:import": "ts-node scripts/import-english-batch.ts"
   },
   "dependencies": {
     "@nestjs/common": "12.0.3",

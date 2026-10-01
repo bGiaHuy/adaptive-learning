@@ -40,7 +40,7 @@ export default function Navbar({
             <div className="logo-icon-box">
               <span className="logo-symbol">∫</span>
             </div>
-            <span className="logo-text">AdaptiveMath</span>
+            <span className="logo-text">Adaptive Learning</span>
           </div>
           <div className="landing-nav-actions">
             <button
@@ -73,7 +73,7 @@ export default function Navbar({
   return (
     <header className="app-top-header">
       <div className="header-left">
-        <span className="header-title">{pageTitle || 'AdaptiveMath'}</span>
+        <span className="header-title">{pageTitle || 'Adaptive Learning'}</span>
       </div>
 
       {progress && (

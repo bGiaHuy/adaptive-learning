@@ -244,5 +244,9 @@ export const englishApi = {
   placement: () => apiClient.get('/english/placement'),
   placementResult: () => apiClient.get('/english/placement/result'),
   submitPlacement: (answers) => apiClient.post('/english/placement', { answers }),
+  myAssignments: () => apiClient.get('/english/my-assignments'),
+  classAssignments: (classId) => apiClient.get(`/english/classes/${encodeURIComponent(classId)}/assignments`),
+  assignLesson: (classId, lessonId) => apiClient.post(`/english/classes/${encodeURIComponent(classId)}/assignments`, { lessonId }),
+  removeAssignment: (classId, assignmentId) => apiClient.delete(`/english/classes/${encodeURIComponent(classId)}/assignments/${encodeURIComponent(assignmentId)}`),
   importBatch: (batch) => apiClient.post('/english/import', batch)
 };

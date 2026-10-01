@@ -25,7 +25,7 @@ export default function DashboardView({
         <h1 className="dashboard-heading">
           {isProfileConfigured
             ? `Xin chào, học sinh ${gradeLabel}!`
-            : 'Chào mừng đến AdaptiveMath!'}
+            : 'Chào mừng đến Adaptive Learning!'}
         </h1>
         <p className="dashboard-subheading">
           {isProfileConfigured

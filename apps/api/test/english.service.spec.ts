@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { EnglishService } from '../src/modules/english/english.service';
 import { UserRole } from '@prisma/client';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 const sample = {
   id: 'lesson-1', published: true, topic: { id: 'topic-1', title: 'Daily life' },
@@ -70,7 +72,40 @@ describe('English lessons', () => {
     const publicQuestions = await service.placementQuestions();
     expect(JSON.stringify(publicQuestions)).not.toContain('correctAnswer');
     const result = await service.submitPlacement('student-1', { answers: Object.fromEntries(questions.map(item => [item.id, 'Yes'])) });
-    expect(result).toEqual({ correctCount: 6, totalCount: 6, suggestedLevel: 'B1' });
+    expect(result).toEqual({ correctCount: 6, totalCount: 6, suggestedLevel: 'B1', assessedLevels: ['A1', 'A2', 'B1'] });
     expect(upsert).toHaveBeenCalledWith(expect.objectContaining({ where: { studentId: 'student-1' } }));
+  });
+
+  it('assesses only available levels when A2 content has not arrived', async () => {
+    const questions = Array.from({ length: 8 }, (_, index) => ({
+      id: `s${index}`, prompt: `Question ${index}`, options: ['Yes', 'No'], correctAnswer: 'Yes',
+      lesson: { level: index < 4 ? 'A1' : 'B1', kind: 'READING' }
+    }));
+    const service = new EnglishService({
+      englishExercise: { findMany: vi.fn().mockResolvedValue(questions) },
+      englishPlacementResult: { upsert: vi.fn().mockImplementation(({ create }) => create) }
+    } as any);
+    const answers = Object.fromEntries(questions.map(item => [item.id, item.lesson.level === 'A1' ? 'Yes' : 'No']));
+    const result = await service.submitPlacement('student-1', { answers });
+    expect(result.assessedLevels).toEqual(['A1', 'B1']);
+    expect(result.suggestedLevel).toBe('A1');
+  });
+
+  it('accepts the checked batch_001 bundle with real lesson and audio paths', async () => {
+    const batch = JSON.parse(readFileSync(resolve('../../content/english/batch_001.json'), 'utf8'));
+    const lessonUpsert = vi.fn();
+    const exerciseCreateMany = vi.fn();
+    const service = new EnglishService({
+      $transaction: (callback: any) => callback({
+        englishTopic: { upsert: vi.fn() },
+        englishLesson: { upsert: lessonUpsert },
+        englishExercise: { deleteMany: vi.fn(), createMany: exerciseCreateMany }
+      })
+    } as any);
+    expect(await service.importBatch(batch, UserRole.ADMIN)).toEqual({ topics: 3, lessons: 5, exercises: 19 });
+    expect(lessonUpsert).toHaveBeenCalledTimes(5);
+    expect(exerciseCreateMany).toHaveBeenCalledTimes(5);
+    expect(batch.lessons.filter((item: any) => item.kind === 'LISTENING')).toHaveLength(2);
+    expect(batch.lessons.every((item: any) => item.published)).toBe(true);
   });
 });

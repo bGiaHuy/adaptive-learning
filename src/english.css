@@ -96,6 +96,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .english-reading { margin-top: 25px; padding-top: 24px; border-top: 1px solid #e4f0f3; white-space: pre-wrap; line-height: 1.85; }
 .english-transcript { margin-top: 22px; }
 .english-transcript > button { color: #087fa8; font-weight: 800; text-decoration: underline; }
+.english-transcript-note { margin-top: 14px; padding: 10px 13px; border-radius: 10px; background: #edf8fa; color: #557d8b; font-size: .78rem; }
+.english-question h3 { white-space: pre-wrap; }
 .english-segment { display: flex; gap: 10px; padding: 14px 0; border-bottom: 1px solid #edf4f6; }
 .english-segment button { color: #087fa8; align-self: start; }
 .english-segment p { color: #24485a; }
@@ -140,6 +142,32 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .english-placement-result h1 { font-size: clamp(2rem,4vw,3rem); margin: 13px 0; letter-spacing: -.05em; }
 .english-placement-result p { max-width: 54ch; color: #5e808d; line-height: 1.7; margin-bottom: 25px; }
 .english-placement-retry { color: #087fa8; text-decoration: underline; margin-top: 19px; font-weight: 800; }
+.english-class-grid { display: grid; grid-template-columns: minmax(290px,.8fr) minmax(0,1.2fr); gap: 20px; align-items: start; }
+.english-class-form, .english-class-assign { display: grid; gap: 12px; padding: 17px; border-radius: 15px; background: #edf8fa; margin-bottom: 23px; }
+.english-class-form label, .english-join-form label { display: grid; gap: 6px; color: #527787; font-size: .78rem; font-weight: 800; }
+.english-class-form input, .english-class-form select, .english-join-form input, .english-class-assign select { width: 100%; padding: 11px 12px; border: 1px solid #c8e3e9; border-radius: 10px; background: #fff; color: #254a5b; }
+.english-class-list { display: grid; gap: 8px; }
+.english-class-list button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border: 1px solid #dcebef; border-radius: 12px; text-align: left; color: #1e718b; }
+.english-class-list button.selected { border-color: #49b6cb; background: #e9f8fb; }
+.english-class-list button span { display: grid; gap: 2px; flex: 1; }
+.english-class-list button small { color: #71909b; }
+.english-class-code { display: grid; gap: 7px; padding: 17px; border-radius: 14px; background: #e5f8fb; margin: 12px 0; }
+.english-class-code span { font-size: .68rem; font-weight: 800; letter-spacing: .1em; color: #328ca3; }
+.english-class-code strong { color: #1b5267; }
+.english-class-code button { justify-self: start; color: #087fa8; font-weight: 800; text-decoration: underline; }
+.english-muted { color: #73919d; line-height: 1.6; font-size: .86rem; }
+.english-class-assign { margin-top: 28px; }
+.english-class-assign h3, .english-class-page .english-panel > h3 { color: #1d4658; font-size: 1.05rem; margin-bottom: 7px; }
+.english-assignment-list { display: grid; gap: 9px; margin-top: 13px; }
+.english-assignment-list > div { display: flex; gap: 12px; align-items: center; padding: 10px; border: 1px solid #e1edf1; border-radius: 12px; }
+.english-assignment-list > div > span:nth-child(2) { display: grid; flex: 1; gap: 4px; }
+.english-assignment-list small { color: #77939f; }
+.english-assignment-list button { color: #aa5454; font-size: .75rem; font-weight: 800; }
+.english-join-form { display: flex; gap: 12px; align-items: end; max-width: 580px; padding: 20px; border-radius: 16px; background: #e6f7fa; }
+.english-join-form label { flex: 1; }
+.english-class-chips { display: flex; flex-wrap: wrap; gap: 11px; }
+.english-class-chips > div { display: grid; gap: 5px; min-width: 190px; padding: 18px; border: 1px solid #d8eaf0; border-radius: 14px; background: white; }
+.english-class-chips svg { color: #0b8da9; }.english-class-chips small { color: #78949f; }
 .english-landing { min-height: 100dvh; background: #f6fbfc; color: #173d4f; }
 .english-public-nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1360px; margin: auto; padding: 23px 40px; }
 .english-public-brand { display: inline-flex; align-items: center; gap: 12px; font-size: 1.25rem; letter-spacing: -.05em; }
@@ -180,5 +208,5 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .english-public-feature-grid article p { color: #6a8793; line-height: 1.6; }
 .english-public-footer { display: flex; justify-content: space-between; gap: 20px; padding: 30px 40px; max-width: 1360px; margin: auto; color: #7c9ba6; font-size: .8rem; }
 .english-public-footer button { color: #087fa8; text-decoration: underline; }
-@media (max-width: 900px) { .english-topic-grid { grid-template-columns: repeat(2,1fr); } .english-lesson-grid { grid-template-columns: 1fr; } .english-toolbar { flex-direction: column; align-items: stretch; } .english-public-hero { grid-template-columns: 1fr; } .english-public-visual { min-height: 400px; } }
+@media (max-width: 900px) { .english-topic-grid { grid-template-columns: repeat(2,1fr); } .english-lesson-grid, .english-class-grid { grid-template-columns: 1fr; } .english-toolbar { flex-direction: column; align-items: stretch; } .english-public-hero { grid-template-columns: 1fr; } .english-public-visual { min-height: 400px; } }
 @media (max-width: 600px) { .english-shell { padding: 24px 17px 60px; } .english-topline { font-size: .59rem; } .english-hero { padding: 31px 25px; min-height: 280px; } .english-hero-mark { display: none; } .english-topic-grid { grid-auto-rows: 145px; gap: 9px; } .english-topic-card { border-radius: 16px; padding: 15px; } .english-topic-card:nth-child(5n+1) { padding: 18px; } .english-topic-bottom strong { font-size: 1rem; } .english-topic-card:nth-child(5n+1) .english-topic-bottom strong { font-size: 1.4rem; } .english-lesson-card { grid-template-columns: 42px 1fr; gap: 10px; padding: 12px; } .english-lesson-icon { width: 42px; height: 42px; } .english-lesson-end { grid-column: 2; } .english-public-nav { padding: 17px; } .english-public-nav nav { gap: 10px; } .english-public-nav nav a { display: none; } .english-public-brand strong { font-size: 1rem; } .english-public-hero { padding: 12px 20px 50px; } .english-public-visual { min-height: 330px; } .english-public-features { padding: 60px 20px; } .english-public-feature-grid { grid-template-columns: 1fr; } .english-public-footer { padding: 24px 20px; } .english-panel { padding: 19px; } }

@@ -19,6 +19,7 @@
     "prisma:generate": "npm run prisma:generate --workspace=@adaptivemath/api",
     "prisma:push": "npm run prisma:push --workspace=@adaptivemath/api",
     "prisma:seed": "npm run prisma:seed --workspace=@adaptivemath/api",
+    "content:import": "npm run content:import --workspace=@adaptivemath/api",
     "e2e:browser": "node scripts/run-browser-e2e.mjs",
     "package:release": "node scripts/package-release.mjs"
   },

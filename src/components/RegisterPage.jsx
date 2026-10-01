@@ -552,7 +552,7 @@ export default function RegisterPage({
         </div>
 
         <p className="auth-screen-bottom-note">
-          English Studio · Học tiếng Anh theo chủ đề, luyện nghe và theo dõi tiến độ
+          Adaptive Learning · Học tiếng Anh theo chủ đề, luyện nghe và theo dõi tiến độ
         </p>
       </div>
     </div>

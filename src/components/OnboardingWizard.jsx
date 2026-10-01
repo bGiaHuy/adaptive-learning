@@ -143,7 +143,7 @@ export default function OnboardingWizard({
             <div className="step-body">
               <h2 className="step-title">Chào bạn!</h2>
               <p className="step-desc-lead">
-                AdaptiveMath xây lộ trình học Toán riêng cho học sinh lớp 6, 7, 8, 9 theo Chương trình GDPT 2018 và SGK Kết nối tri thức với cuộc sống đang dùng thống nhất toàn quốc. Trả lời 6 câu hỏi ngắn, rồi làm bài kiểm tra đầu vào để hệ thống biết bạn đang ở đâu.
+                Phần thiết lập lộ trình Toán cũ đang được chuyển đổi sang tiếng Anh. Bạn có thể bắt đầu từ mục Khám phá và làm bài kiểm tra đầu vào tiếng Anh.
               </p>
 
               <div className="step-bullets-list">

@@ -5,7 +5,7 @@ import { englishApi } from '../lib/apiClient';
 const KINDS = { LISTENING: 'Luyện nghe', VOCABULARY: 'Từ vựng', GRAMMAR: 'Ngữ pháp', READING: 'Đọc hiểu' };
 const KIND_ICONS = { LISTENING: Headphones, VOCABULARY: Sparkles, GRAMMAR: BookOpen, READING: BookOpen };
 
-export default function EnglishHub({ view = 'explore', currentUser }) {
+export default function EnglishHub({ view = 'explore', currentUser, initialLessonId = null }) {
   const [topics, setTopics] = useState([]);
   const [progress, setProgress] = useState([]);
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -62,6 +62,7 @@ export default function EnglishHub({ view = 'explore', currentUser }) {
     try { setLesson(await englishApi.lesson(id)); }
     catch (err) { setError(err.message || 'Không thể mở bài học.'); }
   };
+  useEffect(() => { if (initialLessonId) openLesson(initialLessonId); }, [initialLessonId]);
 
   const submit = async () => {
     setError('');
@@ -84,7 +85,7 @@ export default function EnglishHub({ view = 'explore', currentUser }) {
   if (loading) return <div className="english-shell english-state"><RefreshCw className="animate-spin" size={28} /><p>Đang tải thư viện tiếng Anh…</p></div>;
 
   return <div className="english-shell">
-    <div className="english-topline"><span>ENGLISH STUDIO / {view === 'listening' ? 'LISTEN' : 'EXPLORE'}</span><span>{allLessons.length} bài học đã xuất bản</span></div>
+    <div className="english-topline"><span>ADAPTIVE LEARNING / {view === 'listening' ? 'LISTEN' : 'EXPLORE'}</span><span>{allLessons.length} bài học đã xuất bản</span></div>
     {view === 'progress' && !selectedLesson ? <>
       <header className="english-hero"><div><div className="english-eyebrow"><Sparkles size={16} /> YOUR LEARNING PATH</div><h1>Mỗi bài học,<br /><em>một bước tiến.</em></h1><p>Ôn lại bài đã học và chọn bài tiếp theo từ thư viện.</p></div><div className="english-hero-mark"><BookOpen size={90} strokeWidth={1.2} /></div></header>
       {error && <div className="english-error" role="alert">{error} <button onClick={refresh}>Thử lại</button></div>}
@@ -96,10 +97,10 @@ export default function EnglishHub({ view = 'explore', currentUser }) {
         <header className="english-lesson-head"><span>{KINDS[lesson.kind]} · {lesson.level} · {lesson.topic.title}</span><h1>{lesson.title}</h1><p>{lesson.summary}</p></header>
         <div className="english-lesson-grid">
           <section className="english-panel">
-            {lesson.audioUrl && <div className="english-audio"><div className="english-audio-icon"><Headphones size={28} /></div><div><strong>Nghe bài học</strong><p>Nghe lại từng đoạn theo nhịp của bạn.</p></div><audio ref={audioRef} controls preload="metadata" src={lesson.audioUrl} onError={() => setError('Tệp nghe hiện không phát được. Hãy thử lại sau.')} aria-label={`Audio: ${lesson.title}`} /><label>Tốc độ <select value={speed} onChange={e => { const value = Number(e.target.value); setSpeed(value); if (audioRef.current) audioRef.current.playbackRate = value; }}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option></select></label></div>}
+            {lesson.audioUrl && <div className="english-audio"><div className="english-audio-icon"><Headphones size={28} /></div><div><strong>Nghe bài học</strong><p>Phát toàn bài theo tốc độ phù hợp với bạn.</p></div><audio ref={audioRef} controls preload="metadata" src={lesson.audioUrl} onError={() => setError('Tệp nghe hiện không phát được. Hãy thử lại sau.')} aria-label={`Audio: ${lesson.title}`} /><label>Tốc độ <select value={speed} onChange={e => { const value = Number(e.target.value); setSpeed(value); if (audioRef.current) audioRef.current.playbackRate = value; }}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option></select></label></div>}
             {lesson.body && <div className="english-reading"><h2>Nội dung bài học</h2><p>{lesson.body}</p></div>}
-            {Array.isArray(lesson.transcript) && lesson.transcript.length > 0 && <div className="english-transcript"><button onClick={() => setShowTranscript(!showTranscript)}>{showTranscript ? 'Ẩn transcript' : 'Xem transcript'}</button>{showTranscript && <div>{lesson.transcript.map((segment, index) => <div key={segment.id || index} className="english-segment"><button onClick={() => replaySegment(segment)} title="Nghe lại đoạn" aria-label={`Nghe lại đoạn ${index + 1}`}><Volume2 size={16} /></button><div><p>{segment.textEn}</p>{segment.textVi && <small>{segment.textVi}</small>}</div></div>)}</div>}</div>}
-            {lesson.sourceAttribution && <small className="english-attribution">Nguồn: {lesson.sourceAttribution}</small>}
+            {Array.isArray(lesson.transcript) && lesson.transcript.length > 0 && <div className="english-transcript"><button onClick={() => setShowTranscript(!showTranscript)}>{showTranscript ? 'Ẩn transcript' : 'Xem transcript'}</button>{showTranscript && <div>{lesson.transcript.some(segment => segment.alignmentVerified === false) && <p className="english-transcript-note">Mốc thời gian đang được kiểm tra; hiện hãy nghe bằng trình phát toàn bài.</p>}{lesson.transcript.map((segment, index) => <div key={segment.id || index} className="english-segment">{segment.alignmentVerified !== false && <button onClick={() => replaySegment(segment)} title="Nghe lại đoạn" aria-label={`Nghe lại đoạn ${index + 1}`}><Volume2 size={16} /></button>}<div><p>{segment.textEn}</p>{segment.textVi && <small>{segment.textVi}</small>}</div></div>)}</div>}</div>}
+            {lesson.sourceAttribution && <small className="english-attribution">{lesson.sourceAttribution}</small>}
           </section>
           <section className="english-panel english-exercises"><h2>Luyện tập</h2>{lesson.exercises.length === 0 ? <p>Bài học này chưa có câu hỏi.</p> : lesson.exercises.map((exercise, index) => {
             const grade = result?.results?.find(item => item.id === exercise.id);

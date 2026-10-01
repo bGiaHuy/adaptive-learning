@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserRole } from '@prisma/client';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -51,4 +51,31 @@ export class EnglishController {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.CONTENT_AUTHOR)
   import(@Body() body: unknown, @CurrentUser('role') role: UserRole) { return this.english.importBatch(body, role); }
+
+  @Get('my-assignments')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.STUDENT)
+  myAssignments(@CurrentUser('id') studentId: string) { return this.english.myAssignments(studentId); }
+
+  @Get('classes/:classId/assignments')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.TEACHER)
+  classAssignments(@CurrentUser('id') teacherId: string, @Param('classId') classId: string) {
+    return this.english.classAssignments(teacherId, classId);
+  }
+
+  @Post('classes/:classId/assignments')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.TEACHER)
+  assignLesson(@CurrentUser('id') teacherId: string, @Param('classId') classId: string, @Body() body: unknown) {
+    return this.english.assignLesson(teacherId, classId, body);
+  }
+
+  @Delete('classes/:classId/assignments/:assignmentId')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.TEACHER)
+  removeAssignment(@CurrentUser('id') teacherId: string, @Param('classId') classId: string,
+    @Param('assignmentId') assignmentId: string) {
+    return this.english.removeAssignment(teacherId, classId, assignmentId);
+  }
 }

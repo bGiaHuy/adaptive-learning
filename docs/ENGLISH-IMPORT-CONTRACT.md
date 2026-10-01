@@ -1,4 +1,4 @@
-# English Studio: content import and rollout
+# Adaptive Learning: English content import and rollout
 
 The English experience uses separate `EnglishTopic`, `EnglishLesson`, `EnglishExercise`, and `EnglishLessonProgress` tables. Existing mathematics records are retained. Student navigation now opens the English catalogue, listening lessons, and English progress.
 
@@ -10,9 +10,17 @@ After setting `DATABASE_URL` for the target environment, run:
 npm run prisma:generate
 cd apps/api
 npx prisma migrate deploy
+cd ../..
+npm run content:import
 ```
 
 Back up the database before applying the migration in a shared environment. The migration adds tables and does not delete existing records.
+
+## Bundled `batch_001`
+
+The user-supplied sibling folder `../batch_001` was converted with `node scripts/prepare-english-batch.mjs ../batch_001`. The checked, app-ready result is [`content/english/batch_001.json`](../../content/english/batch_001.json) with two VOA MP3 files in `public/media/batch_001/`. Run `npm run content:import` after migrations to load the 3 populated topics, 5 lessons, and 19 exercises. The import is idempotent by lesson ID. It does not import `needs_review` records, LibriVox/BBC files, source dumps, ASR models, or unused audio.
+
+The manifest's hashes for all ready JSONL and included audio files match. The only mismatch is `needs_review/README.md`, which has an appended AI metadata footer and is not used for import. The two ready transcripts have machine-aligned timestamps marked `alignmentVerified: false`; the app shows their text but does not enable segment replay until those timestamps are checked. The batch contains A1 and B1 content but no A2 lesson, so the starting-point quiz only assesses the available levels and does not claim a calibrated CEFR result.
 
 ## Import format
 
@@ -57,13 +65,13 @@ The admin or content author uploads one UTF-8 JSON file in **Nội dung tiếng 
 
 `level` is `A1`, `A2`, or `B1`. `kind` is `LISTENING`, `VOCABULARY`, `GRAMMAR`, or `READING`. Exercise `kind` is `SINGLE_CHOICE`, `FILL_BLANK`, or `DICTATION`. For choice questions, `correctAnswer` must match one of the option strings exactly. Text answers are checked case insensitively after trimming and collapsing spaces; punctuation still matters, so put accepted variants in `acceptedAnswers`.
 
-For listening lessons, `audioUrl` is required and must begin with `https://` or `/media/`. `/media/` needs a separately configured static file host; this repository does not store or serve audio files. Transcript timestamps are milliseconds. The importer checks their shape, but the content team must verify audio playback, transcript alignment, source rights, and age suitability before setting `published` to `true`.
+For listening lessons, `audioUrl` is required and must begin with `https://` or `/media/`. Bundled audio under `public/media/` is copied into the frontend build and served from `/media/` by the web host. Transcript timestamps are milliseconds. The importer checks their shape; check alignment, source rights, and age suitability before publishing additional content.
 
 The earlier crawl brief uses separate JSONL files and more provenance fields. The crawl coordinator should retain those source files and produce this JSON bundle as the final import export. Store rights evidence, checksums, and QA reports alongside the bundle; the current app stores only `sourceAttribution` for display.
 
 ## Current limits
 
-- The English catalogue and progress work after content is imported. No sample lesson or third party media ships with the app.
-- The starting-point quiz needs at least two published multiple-choice exercises at each of A1, A2, and B1. It suggests an A1/A2/B1 *lesson starting level* from raw accuracy; it is not a calibrated CEFR assessment. Progress recommends unfinished lessons, prioritizing a skill type when the student's completed exercises in that type have lower accuracy.
-- Teacher assignment and legacy admin question bank still use the mathematics models. Keep those legacy screens out of the English pilot until they are converted.
+- The English catalogue and progress work after `npm run content:import`. The supplied batch ships with this repository.
+- The starting-point quiz needs at least six published multiple-choice exercises across two levels. It suggests a *lesson starting level* among the available levels; it is not a calibrated CEFR assessment. Progress recommends unfinished lessons, prioritizing a skill type when the student's completed exercises in that type have lower accuracy.
+- Verified teachers can create classes, issue invite codes, assign published English lessons, and see class completion counts. Students can join classes and open their assigned lessons. The legacy admin mathematics question bank remains separate.
 - The existing video demo still depicts AdaptiveMath and needs a new recording when approved content is present.

@@ -21,7 +21,7 @@ export class HealthController {
 
     return {
       status: dbStatus === 'connected' ? 'ok' : 'degraded',
-      service: 'AdaptiveMath Modular REST API',
+      service: 'Adaptive Learning REST API',
       version: '1.0.0',
       database: dbStatus,
       uptimeSeconds: Math.floor(process.uptime()),

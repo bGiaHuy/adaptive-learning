@@ -7,6 +7,8 @@ import DashboardView from './components/DashboardView';
 import EnglishHub from './components/EnglishHub';
 import EnglishImportView from './components/EnglishImportView';
 import EnglishPlacementView from './components/EnglishPlacementView';
+import EnglishTeacherView from './components/EnglishTeacherView';
+import EnglishStudentClassView from './components/EnglishStudentClassView';
 import OnboardingWizard from './components/OnboardingWizard';
 import DiagnosticTest from './components/DiagnosticTest';
 import ProfileCompetencyView from './components/ProfileCompetencyView';
@@ -43,6 +45,7 @@ export default function App() {
   // Navigation & User State
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'register' | 'loading' | 'app' | 'onboarding'
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedEnglishLessonId, setSelectedEnglishLessonId] = useState(null);
   const [authMode, setAuthMode] = useState('signup');
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const [showSessionModal, setShowSessionModal] = useState(false);
@@ -215,7 +218,7 @@ export default function App() {
       case 'teacher-pending':
         return 'Hồ sơ giáo viên chờ duyệt';
       case 'teacher-classes':
-        return 'Quản lý lớp học';
+        return 'Lớp học tiếng Anh';
       case 'teacher-analytics':
         return 'Báo cáo & Can thiệp sư phạm';
       case 'admin-overview':
@@ -227,7 +230,7 @@ export default function App() {
       case 'admin-audit':
         return 'Nhật ký kiểm toán hệ thống';
       default:
-        return 'AdaptiveMath';
+        return 'Adaptive Learning';
     }
   };
 
@@ -247,7 +250,7 @@ export default function App() {
         }}
       >
         <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '12px' }}>
-          ◉ English Studio
+          ◉ Adaptive Learning
         </div>
         <div style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'sans-serif' }}>
           Đang khôi phục phiên bảo mật...
@@ -317,7 +320,7 @@ export default function App() {
     <div className="app-container">
       <Sidebar
         activeTab={activeTab === 'onboarding' ? 'dashboard' : activeTab}
-        onSelectTab={(tabId) => setActiveTab(tabId)}
+        onSelectTab={(tabId) => { setSelectedEnglishLessonId(null); setActiveTab(tabId); }}
         currentUser={currentUser}
         onLogout={handleLogout}
         onOpenSessions={() => setShowSessionModal(true)}
@@ -338,7 +341,7 @@ export default function App() {
 
           {/* VERIFIED TEACHER VIEWS */}
           {role === 'TEACHER' && (
-            <TeacherClassroomsView currentUser={currentUser} />
+            <EnglishTeacherView currentUser={currentUser} />
           )}
 
           {/* ADMIN & CONTENT VIEWS */}
@@ -370,7 +373,7 @@ export default function App() {
               )}
 
               {activeTab === 'dashboard' && (
-                <EnglishHub view="explore" currentUser={currentUser} />
+                <EnglishHub view="explore" currentUser={currentUser} initialLessonId={selectedEnglishLessonId} />
               )}
 
               {activeTab === 'listening' && <EnglishHub view="listening" currentUser={currentUser} />}
@@ -405,7 +408,7 @@ export default function App() {
                 />
               )}
 
-              {activeTab === 'classroom' && <ClassroomView />}
+              {activeTab === 'classroom' && <EnglishStudentClassView onOpenLesson={(lessonId) => { setSelectedEnglishLessonId(lessonId); setActiveTab('dashboard'); }} />}
 
               {!['onboarding', 'dashboard', 'listening', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
                 <NotFoundView

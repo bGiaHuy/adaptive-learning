@@ -92,8 +92,8 @@ async function bootstrap() {
 
   // OpenAPI / Swagger Documentation
   const config = new DocumentBuilder()
-    .setTitle('AdaptiveMath API')
-    .setDescription('Hệ thống học tập Toán thích ứng chuẩn Bộ GD&ĐT (Lớp 9 & Ôn thi vào 10)')
+    .setTitle('Adaptive Learning API')
+    .setDescription('Nền tảng học tiếng Anh theo chủ đề, luyện nghe và theo dõi tiến độ.')
     .setVersion('1.0.0')
     .addCookieAuth(getSessionCookieName())
     .build();
@@ -104,7 +104,7 @@ async function bootstrap() {
   const port = process.env.PORT || 4000;
   await app.listen(port);
 
-  logger.log(`🚀 AdaptiveMath REST API running at: http://localhost:${port}/api/v1`);
+  logger.log(`🚀 Adaptive Learning REST API running at: http://localhost:${port}/api/v1`);
   logger.log(`📚 Swagger OpenAPI Documentation at: http://localhost:${port}/api/docs`);
 }
 

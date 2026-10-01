@@ -139,7 +139,7 @@ export default function LegalNoticeModal({ isOpen, onClose }) {
               1. Bảo Vệ Quyền Riêng Tư & Dữ Liệu Học Sinh (Gate 0 D-02)
             </h3>
             <p style={{ margin: '0 0 8px 0' }}>
-              English Studio thu thập thông tin tài khoản và tiến độ học tiếng Anh (họ tên, lớp, bài đã học và câu trả lời). Mật khẩu được băm một chiều bằng <strong>Argon2id</strong>.
+              Adaptive Learning thu thập thông tin tài khoản và tiến độ học tiếng Anh (họ tên, lớp, bài đã học và câu trả lời). Mật khẩu được băm một chiều bằng <strong>Argon2id</strong>.
             </p>
             <p style={{ margin: '0 0 8px 0' }}>
               Hệ thống không thu thập số điện thoại hoặc vị trí địa lý của học sinh. Đối với học sinh dưới 15 tuổi, cơ chế đồng thuận từ phụ huynh (Parent Consent) được phân loại theo từng mốc kiểm soát của Gate 4.

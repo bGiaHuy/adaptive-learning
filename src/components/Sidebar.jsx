@@ -25,7 +25,8 @@ export const STUDENT_MENU = [
   { id: 'dashboard', label: 'Khám phá', icon: Home },
   { id: 'listening', label: 'Luyện nghe', icon: Headphones },
   { id: 'diagnostic', label: 'Kiểm tra đầu vào', icon: CheckSquare },
-  { id: 'learning-path', label: 'Tiến độ của tôi', icon: Compass }
+  { id: 'learning-path', label: 'Tiến độ của tôi', icon: Compass },
+  { id: 'classroom', label: 'Lớp học', icon: Users }
 ];
 
 export const TEACHER_APPLICANT_MENU = [
@@ -33,15 +34,14 @@ export const TEACHER_APPLICANT_MENU = [
 ];
 
 export const TEACHER_MENU = [
-  { id: 'teacher-classes', label: 'Quản lý Lớp học', icon: Users },
-  { id: 'teacher-analytics', label: 'Can thiệp sư phạm', icon: BarChart3 }
+  { id: 'teacher-classes', label: 'Lớp học tiếng Anh', icon: Users }
 ];
 
 export const ADMIN_MENU = [
   { id: 'admin-overview', label: 'Tổng quan hệ thống', icon: ShieldCheck },
   { id: 'admin-english', label: 'Nội dung tiếng Anh', icon: Upload },
   { id: 'admin-applicants', label: 'Duyệt Giáo viên', icon: UserCheck },
-  { id: 'admin-questions', label: 'Ngân hàng câu hỏi', icon: FileQuestion },
+  { id: 'admin-questions', label: 'Ngân hàng Toán (cũ)', icon: FileQuestion },
   { id: 'admin-audit', label: 'Nhật ký kiểm toán', icon: History }
 ];
 
@@ -104,7 +104,7 @@ export default function Sidebar({
           <Headphones size={23} />
         </div>
         <div>
-          <span className="sidebar-logo-title">English Studio</span>
+          <span className="sidebar-logo-title">Adaptive Learning</span>
           <div style={{ fontSize: '0.65rem', color: '#bae6fd', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {role === 'TEACHER'
               ? 'Teacher Portal'

@@ -176,6 +176,7 @@ model Classroom {
   inviteCodes  ClassroomInviteCode[]
   memberships  ClassroomMembership[]
   assignments  ClassroomAssignment[]
+  englishAssignments EnglishClassAssignment[]
 
   @@index([teacherId])
 }
@@ -484,6 +485,7 @@ model EnglishLesson {
   updatedAt         DateTime                @updatedAt
   exercises         EnglishExercise[]
   progress          EnglishLessonProgress[]
+  classAssignments  EnglishClassAssignment[]
 
   @@index([topicId, published, orderIndex])
 }
@@ -527,4 +529,16 @@ model EnglishPlacementResult {
   totalCount     Int
   suggestedLevel String
   completedAt    DateTime @default(now())
+}
+
+model EnglishClassAssignment {
+  id        String        @id @default(uuid())
+  classId   String
+  classroom Classroom     @relation(fields: [classId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    EnglishLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+
+  @@unique([classId, lessonId])
+  @@index([classId, createdAt])
 }
