@@ -552,7 +552,7 @@ export default function RegisterPage({
         </div>
 
         <p className="auth-screen-bottom-note">
-          AdaptiveMath · Nền tảng học Toán THCS bám sát chương trình GDPT 2018
+          English Studio · Học tiếng Anh theo chủ đề, luyện nghe và theo dõi tiến độ
         </p>
       </div>
     </div>

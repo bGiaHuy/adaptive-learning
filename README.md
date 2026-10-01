@@ -1,5 +1,7 @@
 # AdaptiveMath — Nền Tảng Học Toán Thích Ứng THCS GDPT 2018
 
+> **English Studio transition (October 2026):** The student-facing app now has an English catalogue, listening lessons, exercises, and progress. English content is imported separately. This document describes the retained AdaptiveMath system and legacy features; see [English content import and rollout](docs/ENGLISH-IMPORT-CONTRACT.md) for the new module and its current limits.
+
 > **Trạng Thái Kỹ Thuật (Release Status):** `TECHNICAL HANDOFF READY — PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
 > **Phiên bản:** 1.0.0 (Tháng 09/2026)  
 > **Kiến trúc:** Monorepo (Vite + React 18 SPA, NestJS + Prisma REST API, PostgreSQL 16)  

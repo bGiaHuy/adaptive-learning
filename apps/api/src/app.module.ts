@@ -9,6 +9,7 @@ import { StudentModule } from './modules/student/student.module';
 import { ClassroomModule } from './modules/classroom/classroom.module';
 import { AssignmentModule } from './modules/assignment/assignment.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { EnglishModule } from './modules/english/english.module';
 import { validateEnvironment } from './config/environment';
 
 @Module({
@@ -26,7 +27,8 @@ import { validateEnvironment } from './config/environment';
     StudentModule,
     ClassroomModule,
     AssignmentModule,
-    AdminModule
+    AdminModule,
+    EnglishModule
   ]
 })
 export class AppModule {}

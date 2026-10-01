@@ -82,6 +82,8 @@ model User {
   mistakeRecords    MistakeRecord[]
   skillMasteries    SkillMastery[]
   assignmentSubmissions AssignmentSubmission[]
+  englishProgress EnglishLessonProgress[]
+  englishPlacement EnglishPlacementResult?
 
   @@index([username])
   @@index([email])
@@ -440,4 +442,89 @@ model MistakeRecord {
   @@unique([studentId, questionId])
   @@index([studentId])
   @@index([questionId])
+}
+
+// English content is isolated from legacy mathematics attempts and assignments.
+enum EnglishLessonKind {
+  LISTENING
+  VOCABULARY
+  GRAMMAR
+  READING
+}
+
+enum EnglishExerciseKind {
+  SINGLE_CHOICE
+  FILL_BLANK
+  DICTATION
+}
+
+model EnglishTopic {
+  id          String          @id
+  title       String
+  description String?
+  orderIndex  Int             @default(0)
+  lessons     EnglishLesson[]
+}
+
+model EnglishLesson {
+  id                String                  @id
+  topicId           String
+  topic             EnglishTopic            @relation(fields: [topicId], references: [id])
+  title             String
+  summary           String?
+  level             String
+  kind              EnglishLessonKind
+  body              String?
+  audioUrl          String?
+  transcript        Json?
+  sourceAttribution String?
+  published         Boolean                 @default(false)
+  orderIndex        Int                     @default(0)
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
+  exercises         EnglishExercise[]
+  progress          EnglishLessonProgress[]
+
+  @@index([topicId, published, orderIndex])
+}
+
+model EnglishExercise {
+  id              String              @id
+  lessonId        String
+  lesson          EnglishLesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  kind            EnglishExerciseKind
+  prompt          String
+  options         Json?
+  correctAnswer   String
+  acceptedAnswers Json?
+  explanation     String?
+  segmentId       String?
+  orderIndex      Int                 @default(0)
+
+  @@index([lessonId, orderIndex])
+}
+
+model EnglishLessonProgress {
+  id           String        @id @default(uuid())
+  lessonId     String
+  lesson       EnglishLesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  studentId    String
+  student      User          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  answers      Json
+  correctCount Int
+  totalCount   Int
+  completedAt  DateTime      @default(now())
+
+  @@unique([lessonId, studentId])
+  @@index([studentId, completedAt])
+}
+
+model EnglishPlacementResult {
+  id             String   @id @default(uuid())
+  studentId      String   @unique
+  student        User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  correctCount   Int
+  totalCount     Int
+  suggestedLevel String
+  completedAt    DateTime @default(now())
 }

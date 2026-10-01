@@ -235,3 +235,14 @@ export const adminApi = {
   getAllClassrooms: () => apiClient.get('/admin/classrooms'),
   getCurriculumStats: () => apiClient.get('/admin/curriculum-stats')
 };
+
+export const englishApi = {
+  topics: () => apiClient.get('/english/topics'),
+  lesson: (id) => apiClient.get(`/english/lessons/${encodeURIComponent(id)}`),
+  submit: (id, answers) => apiClient.post(`/english/lessons/${encodeURIComponent(id)}/submit`, { answers }),
+  progress: () => apiClient.get('/english/progress'),
+  placement: () => apiClient.get('/english/placement'),
+  placementResult: () => apiClient.get('/english/placement/result'),
+  submitPlacement: (answers) => apiClient.post('/english/placement', { answers }),
+  importBatch: (batch) => apiClient.post('/english/import', batch)
+};

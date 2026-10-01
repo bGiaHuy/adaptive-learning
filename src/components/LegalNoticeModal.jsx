@@ -139,7 +139,7 @@ export default function LegalNoticeModal({ isOpen, onClose }) {
               1. Bảo Vệ Quyền Riêng Tư & Dữ Liệu Học Sinh (Gate 0 D-02)
             </h3>
             <p style={{ margin: '0 0 8px 0' }}>
-              AdaptiveMath thu thập thông tin tối thiểu phục vụ chẩn đoán năng lực Toán THCS GDPT 2018 (họ tên, khối lớp, lịch sử làm bài chẩn đoán và câu sai). Mật khẩu được băm một chiều an toàn bằng thuật toán <strong>Argon2id</strong> chuẩn OWASP.
+              English Studio thu thập thông tin tài khoản và tiến độ học tiếng Anh (họ tên, lớp, bài đã học và câu trả lời). Mật khẩu được băm một chiều bằng <strong>Argon2id</strong>.
             </p>
             <p style={{ margin: '0 0 8px 0' }}>
               Hệ thống không thu thập số điện thoại hoặc vị trí địa lý của học sinh. Đối với học sinh dưới 15 tuổi, cơ chế đồng thuận từ phụ huynh (Parent Consent) được phân loại theo từng mốc kiểm soát của Gate 4.
@@ -156,7 +156,7 @@ export default function LegalNoticeModal({ isOpen, onClose }) {
             </p>
             <ul style={{ paddingLeft: '20px', margin: '0 0 8px 0' }}>
               <li style={{ marginBottom: '4px' }}>
-                <strong>Dữ liệu giáo viên được xem:</strong> Danh sách học sinh trong lớp, tỷ lệ tham gia làm bài chẩn đoán, độ thành thạo chung của các chủ đề toán học theo chuẩn KNTT.
+                <strong>Dữ liệu giáo viên được xem:</strong> Danh sách học sinh trong lớp và các thống kê học tập được cấp quyền trong hệ thống.
               </li>
               <li>
                 <strong>Dữ liệu riêng tư được bảo vệ:</strong> Sổ tay lỗi sai cá nhân, các ghi chú tự học và nhật ký luyện tập chi tiết của học sinh <em>hoàn toàn không hiển thị</em> cho giáo viên để tránh tạo áp lực tâm lý không cần thiết.

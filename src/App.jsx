@@ -4,6 +4,9 @@ import RegisterPage from './components/RegisterPage';
 import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
 import DashboardView from './components/DashboardView';
+import EnglishHub from './components/EnglishHub';
+import EnglishImportView from './components/EnglishImportView';
+import EnglishPlacementView from './components/EnglishPlacementView';
 import OnboardingWizard from './components/OnboardingWizard';
 import DiagnosticTest from './components/DiagnosticTest';
 import ProfileCompetencyView from './components/ProfileCompetencyView';
@@ -192,13 +195,17 @@ export default function App() {
       case 'onboarding':
         return 'Thiết lập hồ sơ';
       case 'dashboard':
-        return 'Bảng điều khiển học tập';
+        return 'Khám phá tiếng Anh';
+      case 'listening':
+        return 'Luyện nghe';
+      case 'admin-english':
+        return 'Nội dung tiếng Anh';
       case 'profile':
         return 'Hồ sơ năng lực';
       case 'learning-path':
         return 'Lộ trình học cá nhân';
       case 'diagnostic':
-        return 'Kiểm tra chẩn đoán (CAT/IRT)';
+        return 'Kiểm tra đầu vào tiếng Anh';
       case 'missions':
         return 'Nhiệm vụ số';
       case 'mistakes':
@@ -240,7 +247,7 @@ export default function App() {
         }}
       >
         <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '12px' }}>
-          ∫ AdaptiveMath
+          ◉ English Studio
         </div>
         <div style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'sans-serif' }}>
           Đang khôi phục phiên bảo mật...
@@ -336,7 +343,7 @@ export default function App() {
 
           {/* ADMIN & CONTENT VIEWS */}
           {(role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') && (
-            <AdminPortalView
+            activeTab === 'admin-english' ? <EnglishImportView currentUser={currentUser} /> : <AdminPortalView
               currentUser={currentUser}
               defaultTab={
                 activeTab === 'admin-applicants'
@@ -363,12 +370,10 @@ export default function App() {
               )}
 
               {activeTab === 'dashboard' && (
-                <DashboardView
-                  userProfile={userProfile}
-                  onStartSetup={handleStartOnboarding}
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                />
+                <EnglishHub view="explore" currentUser={currentUser} />
               )}
+
+              {activeTab === 'listening' && <EnglishHub view="listening" currentUser={currentUser} />}
 
               {activeTab === 'profile' && (
                 <ProfileCompetencyView
@@ -379,18 +384,11 @@ export default function App() {
               )}
 
               {activeTab === 'learning-path' && (
-                <LearningPathView
-                  hasCompletedTest={hasCompletedTest}
-                  userProfile={userProfile}
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                />
+                <EnglishHub view="progress" currentUser={currentUser} />
               )}
 
               {activeTab === 'diagnostic' && (
-                <DiagnosticTest
-                  onFinishTest={handleFinishTest}
-                  onPauseTest={handlePauseTest}
-                />
+                <EnglishPlacementView onExplore={() => setActiveTab('dashboard')} />
               )}
 
               {activeTab === 'missions' && (
@@ -409,7 +407,7 @@ export default function App() {
 
               {activeTab === 'classroom' && <ClassroomView />}
 
-              {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
+              {!['onboarding', 'dashboard', 'listening', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
                 <NotFoundView
                   isLoggedIn={true}
                   onNavigateDashboard={() => setActiveTab('dashboard')}

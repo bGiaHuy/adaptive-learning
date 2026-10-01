@@ -16,16 +16,16 @@ import {
   LogOut,
   ShieldAlert,
   FileText,
-  Key
+  Key,
+  Headphones,
+  Upload
 } from 'lucide-react';
 
 export const STUDENT_MENU = [
-  { id: 'dashboard', label: 'Trang chính', icon: Home },
-  { id: 'profile', label: 'Hồ sơ năng lực', icon: TrendingUp },
-  { id: 'learning-path', label: 'Lộ trình học', icon: Compass },
-  { id: 'diagnostic', label: 'Kiểm tra chẩn đoán', icon: CheckSquare },
-  { id: 'mistakes', label: 'Sổ tay lỗi sai', icon: BookX },
-  { id: 'classroom', label: 'Lớp học của em', icon: Users }
+  { id: 'dashboard', label: 'Khám phá', icon: Home },
+  { id: 'listening', label: 'Luyện nghe', icon: Headphones },
+  { id: 'diagnostic', label: 'Kiểm tra đầu vào', icon: CheckSquare },
+  { id: 'learning-path', label: 'Tiến độ của tôi', icon: Compass }
 ];
 
 export const TEACHER_APPLICANT_MENU = [
@@ -39,6 +39,7 @@ export const TEACHER_MENU = [
 
 export const ADMIN_MENU = [
   { id: 'admin-overview', label: 'Tổng quan hệ thống', icon: ShieldCheck },
+  { id: 'admin-english', label: 'Nội dung tiếng Anh', icon: Upload },
   { id: 'admin-applicants', label: 'Duyệt Giáo viên', icon: UserCheck },
   { id: 'admin-questions', label: 'Ngân hàng câu hỏi', icon: FileQuestion },
   { id: 'admin-audit', label: 'Nhật ký kiểm toán', icon: History }
@@ -90,7 +91,9 @@ export default function Sidebar({
   } else if (role === 'TEACHER') {
     menuItems = TEACHER_MENU;
   } else if (role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') {
-    menuItems = ADMIN_MENU;
+    menuItems = role === 'CONTENT_REVIEWER'
+      ? ADMIN_MENU.filter(item => item.id !== 'admin-english')
+      : ADMIN_MENU;
   }
 
   return (
@@ -98,11 +101,11 @@ export default function Sidebar({
       {/* Brand Header */}
       <div className="sidebar-brand">
         <div className="sidebar-logo-icon">
-          <span>∫</span>
+          <Headphones size={23} />
         </div>
         <div>
-          <span className="sidebar-logo-title">AdaptiveMath</span>
-          <div style={{ fontSize: '0.65rem', color: '#6ee7b7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span className="sidebar-logo-title">English Studio</span>
+          <div style={{ fontSize: '0.65rem', color: '#bae6fd', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {role === 'TEACHER'
               ? 'Teacher Portal'
               : role === 'TEACHER_APPLICANT'
