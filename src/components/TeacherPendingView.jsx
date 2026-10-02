@@ -83,7 +83,7 @@ export default function TeacherPendingView({ currentUser, onRefreshUser }) {
             <p style={{ fontSize: '0.92rem', color: '#475569', marginTop: '6px', lineHeight: 1.5 }}>
               {status === 'REJECTED'
                 ? 'Hồ sơ đăng ký của thầy/cô chưa đủ điều kiện xác thực. Vui lòng xem lý do bên dưới và liên hệ Ban Quản trị.'
-                : 'Cảm ơn thầy/cô đã đăng ký tham gia giảng dạy trên Adaptive Learning. Để đảm bảo an toàn thông tin và quyền riêng tư cho học sinh theo quy định, Ban Quản trị cần thẩm định hồ sơ công tác trước khi mở quyền tạo lớp.'}
+                : 'Cảm ơn thầy/cô đã đăng ký tham gia giảng dạy trên AdaptiveMath. Để đảm bảo an toàn thông tin và quyền riêng tư cho học sinh theo quy định, Ban Quản trị cần thẩm định hồ sơ công tác trước khi mở quyền tạo lớp.'}
             </p>
           </div>
         </div>

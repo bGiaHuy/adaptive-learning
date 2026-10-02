@@ -4,11 +4,6 @@ import RegisterPage from './components/RegisterPage';
 import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
 import DashboardView from './components/DashboardView';
-import EnglishHub from './components/EnglishHub';
-import EnglishImportView from './components/EnglishImportView';
-import EnglishPlacementView from './components/EnglishPlacementView';
-import EnglishTeacherView from './components/EnglishTeacherView';
-import EnglishStudentClassView from './components/EnglishStudentClassView';
 import OnboardingWizard from './components/OnboardingWizard';
 import DiagnosticTest from './components/DiagnosticTest';
 import ProfileCompetencyView from './components/ProfileCompetencyView';
@@ -45,7 +40,6 @@ export default function App() {
   // Navigation & User State
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'register' | 'loading' | 'app' | 'onboarding'
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [selectedEnglishLessonId, setSelectedEnglishLessonId] = useState(null);
   const [authMode, setAuthMode] = useState('signup');
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const [showSessionModal, setShowSessionModal] = useState(false);
@@ -198,17 +192,13 @@ export default function App() {
       case 'onboarding':
         return 'Thiết lập hồ sơ';
       case 'dashboard':
-        return 'Khám phá tiếng Anh';
-      case 'listening':
-        return 'Luyện nghe';
-      case 'admin-english':
-        return 'Nội dung tiếng Anh';
+        return 'Bảng điều khiển học tập';
       case 'profile':
         return 'Hồ sơ năng lực';
       case 'learning-path':
         return 'Lộ trình học cá nhân';
       case 'diagnostic':
-        return 'Kiểm tra đầu vào tiếng Anh';
+        return 'Kiểm tra chẩn đoán (CAT/IRT)';
       case 'missions':
         return 'Nhiệm vụ số';
       case 'mistakes':
@@ -218,7 +208,7 @@ export default function App() {
       case 'teacher-pending':
         return 'Hồ sơ giáo viên chờ duyệt';
       case 'teacher-classes':
-        return 'Lớp học tiếng Anh';
+        return 'Quản lý lớp học';
       case 'teacher-analytics':
         return 'Báo cáo & Can thiệp sư phạm';
       case 'admin-overview':
@@ -230,7 +220,7 @@ export default function App() {
       case 'admin-audit':
         return 'Nhật ký kiểm toán hệ thống';
       default:
-        return 'Adaptive Learning';
+        return 'AdaptiveMath';
     }
   };
 
@@ -250,7 +240,7 @@ export default function App() {
         }}
       >
         <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '12px' }}>
-          ◉ Adaptive Learning
+          ∫ AdaptiveMath
         </div>
         <div style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'sans-serif' }}>
           Đang khôi phục phiên bảo mật...
@@ -320,7 +310,7 @@ export default function App() {
     <div className="app-container">
       <Sidebar
         activeTab={activeTab === 'onboarding' ? 'dashboard' : activeTab}
-        onSelectTab={(tabId) => { setSelectedEnglishLessonId(null); setActiveTab(tabId); }}
+        onSelectTab={(tabId) => setActiveTab(tabId)}
         currentUser={currentUser}
         onLogout={handleLogout}
         onOpenSessions={() => setShowSessionModal(true)}
@@ -341,12 +331,12 @@ export default function App() {
 
           {/* VERIFIED TEACHER VIEWS */}
           {role === 'TEACHER' && (
-            <EnglishTeacherView currentUser={currentUser} />
+            <TeacherClassroomsView currentUser={currentUser} />
           )}
 
           {/* ADMIN & CONTENT VIEWS */}
           {(role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') && (
-            activeTab === 'admin-english' ? <EnglishImportView currentUser={currentUser} /> : <AdminPortalView
+            <AdminPortalView
               currentUser={currentUser}
               defaultTab={
                 activeTab === 'admin-applicants'
@@ -373,10 +363,12 @@ export default function App() {
               )}
 
               {activeTab === 'dashboard' && (
-                <EnglishHub view="explore" currentUser={currentUser} initialLessonId={selectedEnglishLessonId} />
+                <DashboardView
+                  userProfile={userProfile}
+                  onStartSetup={handleStartOnboarding}
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                />
               )}
-
-              {activeTab === 'listening' && <EnglishHub view="listening" currentUser={currentUser} />}
 
               {activeTab === 'profile' && (
                 <ProfileCompetencyView
@@ -387,11 +379,18 @@ export default function App() {
               )}
 
               {activeTab === 'learning-path' && (
-                <EnglishHub view="progress" currentUser={currentUser} />
+                <LearningPathView
+                  hasCompletedTest={hasCompletedTest}
+                  userProfile={userProfile}
+                  onStartDiagnostic={() => setActiveTab('diagnostic')}
+                />
               )}
 
               {activeTab === 'diagnostic' && (
-                <EnglishPlacementView onExplore={() => setActiveTab('dashboard')} />
+                <DiagnosticTest
+                  onFinishTest={handleFinishTest}
+                  onPauseTest={handlePauseTest}
+                />
               )}
 
               {activeTab === 'missions' && (
@@ -408,9 +407,9 @@ export default function App() {
                 />
               )}
 
-              {activeTab === 'classroom' && <EnglishStudentClassView onOpenLesson={(lessonId) => { setSelectedEnglishLessonId(lessonId); setActiveTab('dashboard'); }} />}
+              {activeTab === 'classroom' && <ClassroomView />}
 
-              {!['onboarding', 'dashboard', 'listening', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
+              {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
                 <NotFoundView
                   isLoggedIn={true}
                   onNavigateDashboard={() => setActiveTab('dashboard')}
