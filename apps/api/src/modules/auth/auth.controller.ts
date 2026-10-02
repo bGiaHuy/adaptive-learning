@@ -21,6 +21,14 @@ import { AuthGuard } from './guards/auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { getSessionCookieName } from './session-cookie';
 
+function extractClientIp(req: Request): string {
+  const xff = req.headers['x-forwarded-for'];
+  if (typeof xff === 'string' && xff.trim().length > 0) {
+    return xff.split(',')[0].trim();
+  }
+  return req.ip || 'Unknown';
+}
+
 @ApiTags('Authentication & Identity')
 @Controller('auth')
 export class AuthController {
@@ -76,7 +84,7 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response
   ) {
     const userAgent = req.headers['user-agent'] as string;
-    const ipAddress = (req.headers['x-forwarded-for'] as string) || req.ip;
+    const ipAddress = extractClientIp(req);
 
     const result = await this.authService.login(dto, userAgent, ipAddress);
 
@@ -106,11 +114,12 @@ export class AuthController {
   @ApiOperation({ summary: 'Đăng xuất phiên hiện tại' })
   @ApiResponse({ status: 200, description: 'Đăng xuất thành công' })
   async logout(
-    @Req() req: Request & { sessionToken?: string },
+    @Req() req: Request & { sessionToken?: string; user?: any },
     @Res({ passthrough: true }) res: Response
   ) {
+    const ipAddress = extractClientIp(req);
     if (req.sessionToken) {
-      await this.authService.logout(req.sessionToken);
+      await this.authService.logout(req.sessionToken, req.user?.id, ipAddress);
     }
     this.clearSessionCookie(res);
 
@@ -161,9 +170,10 @@ export class AuthController {
     @Req() req: Request & { sessionToken?: string },
     @Res({ passthrough: true }) res: Response
   ) {
+    const ipAddress = extractClientIp(req);
     const sessions = await this.authService.listSessions(userId, req.sessionToken);
     const target = sessions.find((session) => session.id === sessionId);
-    await this.authService.revokeSession(userId, sessionId);
+    await this.authService.revokeSession(userId, sessionId, ipAddress);
     if (target?.isCurrent) this.clearSessionCookie(res);
     return { message: 'Phiên đăng nhập đã được thu hồi.' };
   }
@@ -175,8 +185,18 @@ export class AuthController {
   @ApiOperation({ summary: 'Đổi mật khẩu tài khoản hiện tại' })
   async changePassword(
     @CurrentUser('id') userId: string,
-    @Body() dto: ChangePasswordDto
+    @Body() dto: ChangePasswordDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response
   ) {
-    return this.authService.changePassword(userId, dto);
+    const result = await this.authService.changePassword(userId, dto);
+    const userAgent = req.headers['user-agent'] as string;
+    const ipAddress = extractClientIp(req);
+    const newSession = await this.authService.createSessionForUser(userId, userAgent, ipAddress);
+    this.setSessionCookie(res, newSession.sessionToken, newSession.expiresAt);
+    return {
+      ...result,
+      message: 'Đổi mật khẩu thành công. Các phiên đăng nhập trên thiết bị khác đã được thu hồi an toàn.'
+    };
   }
 }

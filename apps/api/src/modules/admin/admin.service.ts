@@ -362,7 +362,7 @@ export class AdminService {
       });
     }
 
-    const updated = await this.prisma.$transaction([
+    const txOps: any[] = [
       this.prisma.user.update({
         where: { id: userId },
         data: {
@@ -379,7 +379,18 @@ export class AdminService {
           metadata: { previousStatus: user.status, newStatus }
         }
       })
-    ]);
+    ];
+
+    if (newStatus === UserStatus.SUSPENDED) {
+      txOps.push(
+        this.prisma.session.updateMany({
+          where: { userId, revokedAt: null },
+          data: { revokedAt: new Date() }
+        })
+      );
+    }
+
+    const updated = await this.prisma.$transaction(txOps);
 
     return {
       message: `Đã ${newStatus === UserStatus.SUSPENDED ? 'khóa' : 'mở khóa'} tài khoản ${user.username} thành công.`,
@@ -416,6 +427,10 @@ export class AdminService {
           passwordHash,
           permissionVersion: { increment: 1 }
         }
+      }),
+      this.prisma.session.updateMany({
+        where: { userId, revokedAt: null },
+        data: { revokedAt: new Date() }
       }),
       this.prisma.auditLog.create({
         data: {

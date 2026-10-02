@@ -2,6 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { X, ShieldAlert, Monitor, Smartphone, Globe, LogOut, CheckCircle, RefreshCw } from 'lucide-react';
 import { authApi } from '../lib/apiClient';
 
+function formatClientDevice(ua) {
+  if (!ua || ua === 'Unknown') return 'Thiết bị không xác định';
+  if (ua === 'node') return 'Công cụ tự động (Node.js Script)';
+
+  let browser = 'Trình duyệt web';
+  if (ua.includes('Edg/')) browser = 'Microsoft Edge';
+  else if (ua.includes('Chrome/') && !ua.includes('Edg/')) browser = 'Google Chrome';
+  else if (ua.includes('Safari/') && !ua.includes('Chrome')) browser = 'Apple Safari';
+  else if (ua.includes('Firefox/')) browser = 'Mozilla Firefox';
+
+  let os = '';
+  if (ua.includes('Windows NT 10.0')) os = 'Windows 10/11';
+  else if (ua.includes('Windows')) os = 'Windows';
+  else if (ua.includes('iPhone')) os = 'iPhone';
+  else if (ua.includes('iPad')) os = 'iPad';
+  else if (ua.includes('Android')) os = 'Android';
+  else if (ua.includes('Mac OS X')) os = 'macOS';
+  else if (ua.includes('Linux')) os = 'Linux';
+
+  return os ? `${browser} (${os})` : browser;
+}
+
+function formatClientIp(ip) {
+  if (!ip) return '127.0.0.1';
+  return ip.split(',')[0].trim();
+}
+
 export default function SessionManagementModal({ isOpen, onClose, onSessionRevoked }) {
   const [sessions, setSessions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -231,7 +258,7 @@ export default function SessionManagementModal({ isOpen, onClose, onSessionRevok
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {sessions.map((sess) => {
-              const isMobile = (sess.userAgent || '').toLowerCase().includes('mobile');
+              const isMobile = /mobile|iphone|ipad|android/i.test(sess.userAgent || '');
               return (
                 <div
                   key={sess.id}
@@ -266,7 +293,7 @@ export default function SessionManagementModal({ isOpen, onClose, onSessionRevok
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                         <span style={{ fontWeight: 600, fontSize: '0.88rem', color: '#0f172a' }}>
-                          {sess.userAgent ? sess.userAgent.substring(0, 48) + '...' : 'Trình duyệt không xác định'}
+                          {formatClientDevice(sess.userAgent)}
                         </span>
                         {sess.isCurrent && (
                           <span
@@ -289,7 +316,7 @@ export default function SessionManagementModal({ isOpen, onClose, onSessionRevok
                       </div>
 
                       <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '3px' }}>
-                        IP: {sess.ipAddress || '127.0.0.1'} · Hoạt động: {new Date(sess.lastSeenAt || sess.createdAt).toLocaleString('vi-VN')}
+                        IP: {formatClientIp(sess.ipAddress)} · Hoạt động: {new Date(sess.lastSeenAt || sess.createdAt).toLocaleString('vi-VN')}
                       </div>
                     </div>
                   </div>

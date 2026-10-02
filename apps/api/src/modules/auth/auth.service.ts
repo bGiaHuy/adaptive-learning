@@ -208,6 +208,9 @@ export class AuthService {
       }
     });
 
+    // Clean up expired sessions asynchronously in background
+    this.cleanupExpiredSessions().catch(() => undefined);
+
     return {
       user: this.sanitizeUser(user),
       sessionToken,
@@ -265,23 +268,60 @@ export class AuthService {
   }
 
   // Logout single session
-  async logout(rawToken: string) {
+  async logout(rawToken: string, userId?: string, ipAddress?: string) {
     if (!rawToken) return;
     const tokenHash = this.hashSessionToken(rawToken);
+    const session = await this.prisma.session.findUnique({
+      where: { tokenHash },
+      select: { id: true, userId: true }
+    });
+
     await this.prisma.session.updateMany({
       where: { tokenHash, revokedAt: null },
       data: { revokedAt: new Date() }
     });
+
+    const targetUserId = userId || session?.userId;
+    if (targetUserId) {
+      await this.prisma.auditLog.create({
+        data: {
+          actorUserId: targetUserId,
+          action: 'USER_LOGOUT',
+          targetEntity: 'Session',
+          targetEntityId: session?.id || targetUserId,
+          ipAddress: ipAddress || null
+        }
+      }).catch(() => undefined);
+    }
   }
 
   async listSessions(userId: string, currentRawToken?: string) {
     const currentTokenHash = currentRawToken
       ? this.hashSessionToken(currentRawToken)
       : undefined;
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { permissionVersion: true }
+    });
+
+    // Lazily mark any outdated permission version sessions as revoked
+    if (user) {
+      await this.prisma.session.updateMany({
+        where: {
+          userId,
+          revokedAt: null,
+          permissionVersion: { lt: user.permissionVersion }
+        },
+        data: { revokedAt: new Date() }
+      }).catch(() => undefined);
+    }
+
     const sessions = await this.prisma.session.findMany({
       where: {
         userId,
         revokedAt: null,
+        permissionVersion: user?.permissionVersion || 1,
         expiresAt: { gt: new Date() }
       },
       orderBy: { lastSeenAt: 'desc' }
@@ -298,7 +338,7 @@ export class AuthService {
     }));
   }
 
-  async revokeSession(userId: string, sessionId: string) {
+  async revokeSession(userId: string, sessionId: string, ipAddress?: string) {
     const result = await this.prisma.session.updateMany({
       where: { id: sessionId, userId, revokedAt: null },
       data: { revokedAt: new Date() }
@@ -310,6 +350,16 @@ export class AuthService {
         message: 'Không thể thu hồi phiên đăng nhập này.'
       });
     }
+
+    await this.prisma.auditLog.create({
+      data: {
+        actorUserId: userId,
+        action: 'SESSION_REVOKED',
+        targetEntity: 'Session',
+        targetEntityId: sessionId,
+        ipAddress: ipAddress || null
+      }
+    }).catch(() => undefined);
   }
 
   // Logout all sessions of a user (e.g. on password reset or account compromise)
@@ -360,8 +410,13 @@ export class AuthService {
       this.prisma.user.update({
         where: { id: userId },
         data: {
-          passwordHash: newPasswordHash
+          passwordHash: newPasswordHash,
+          permissionVersion: { increment: 1 }
         }
+      }),
+      this.prisma.session.updateMany({
+        where: { userId, revokedAt: null },
+        data: { revokedAt: new Date() }
       }),
       this.prisma.auditLog.create({
         data: {
@@ -378,6 +433,41 @@ export class AuthService {
       success: true,
       message: 'Đổi mật khẩu thành công.'
     };
+  }
+
+  // Create a fresh session for user (e.g. immediately after changing password)
+  async createSessionForUser(userId: string, userAgent?: string, ipAddress?: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+    const sessionToken = this.generateSessionToken();
+    const tokenHash = this.hashSessionToken(sessionToken);
+    const expiresAt = new Date(Date.now() + this.sessionTtlMs);
+
+    await this.prisma.session.create({
+      data: {
+        userId: user.id,
+        tokenHash,
+        permissionVersion: user.permissionVersion,
+        userAgent: userAgent || 'Unknown',
+        ipAddress: ipAddress || 'Unknown',
+        expiresAt
+      }
+    });
+
+    return { sessionToken, expiresAt };
+  }
+
+  // Periodically / asynchronously delete expired sessions
+  async cleanupExpiredSessions() {
+    const now = new Date();
+    await this.prisma.session.deleteMany({
+      where: {
+        OR: [
+          { expiresAt: { lt: now } },
+          { revokedAt: { lt: new Date(now.getTime() - 7 * 24 * 3600 * 1000) } }
+        ]
+      }
+    }).catch(() => undefined);
   }
 
   // Strip password hash from returned user object
