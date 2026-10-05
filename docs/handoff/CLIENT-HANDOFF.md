@@ -1,7 +1,7 @@
 # AdaptiveMath — Biên Bản Nghiệm Thu & Bàn Giao Kỹ Thuật (Client Handoff Report)
 
 > **Trạng Thái Bàn Giao (Release Status):**  
-> `TECHNICAL HANDOFF READY — PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
+> `PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
 > **Ngày lập:** 21/09/2026  
 > **Đơn vị bàn giao:** Primary Implementation Owner & Release Engineer (Antigravity)  
 > **Đơn vị tiếp nhận:** Khách hàng & Hội đồng Nghiệm thu Kỹ thuật (Technical Acceptance Board)  
@@ -13,7 +13,7 @@
 
 Toàn bộ hệ sinh thái phần mềm **AdaptiveMath** đã hoàn thành chuyển đổi toàn diện từ bản prototype sơ khởi thành một **hệ thống kỹ thuật end-to-end hoàn chỉnh, hoạt động 100% bằng API và cơ sở dữ liệu thật (PostgreSQL)**, vượt qua tất cả các bài kiểm tra tự động, kiểm chuẩn bảo mật và thử nghiệm tải đồng thời.
 
-Hệ thống đã đạt đầy đủ điều kiện kỹ thuật để **bàn giao cho khách hàng chạy demo thực tế và huấn luyện giáo viên**. Việc khởi chạy chính thức đợt thử nghiệm diện hẹp (Controlled Pilot) tại các trường THCS hiện đang ở trạng thái **tạm khóa (blocked)** theo đúng nguyên tắc quản trị cho đến khi các nhân sự giữ vai trò học thuật và pháp lý ký phê duyệt văn bản thực tế.
+Hệ thống đã đạt đầy đủ điều kiện kỹ thuật để chạy demo nội bộ và kiểm thử chức năng. Tuy nhiên, theo đúng quy chuẩn quản trị và chất lượng, hệ thống **tuyệt đối không tự tuyên bố bàn giao sẵn sàng (handoff ready) hoặc pilot ready**. Việc khởi chạy chính thức đợt thử nghiệm diện hẹp (Controlled Pilot) tại các trường THCS hiện ở trạng thái **tạm khóa (PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF)** cho đến khi các nhân sự giữ vai trò học thuật và pháp lý ký phê duyệt văn bản thực tế.
 
 ---
 
@@ -104,9 +104,10 @@ Dưới đây là danh sách chi tiết các điều kiện tiên quyết **bắ
 
 ## 5. Tài Khoản Bàn Giao & Dữ Liệu Mẫu (Production & Mock Data Accounts)
 
-### Tài khoản Quản trị viên Chính thức (Production Admins)
-- `huy_admin` (Admin Gia Huy)
-- `tonghoanganh` (Admin Tống Hoàng Anh)
+### Quản Trị Hệ Thống Trong Môi Trường Sản Xuất
+> [!IMPORTANT]
+> **Tuân thủ An toàn Thông tin:** Tài khoản quản trị viên sản xuất được cấp phát độc lập qua hệ thống quản lý bí mật nội bộ, không đính kèm thông tin danh tính cá nhân trong tài liệu bàn giao kỹ thuật. Khuyến nghị thực hiện rotation định kỳ cho các tài khoản đặc quyền.
+
 
 ### Tài khoản Dữ liệu Mẫu (Mock Data Accounts - Phục vụ Thử nghiệm)
 *Toàn bộ tài khoản dưới đây là dữ liệu mẫu (Mock Data) được gắn cờ hiển thị rõ ràng trên hệ thống:*

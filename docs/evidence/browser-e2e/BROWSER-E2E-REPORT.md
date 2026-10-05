@@ -1,10 +1,10 @@
 # Báo Cáo Kiểm Thử Trình Duyệt Thực Tế (Browser E2E & A11y Report)
 
 **Mã tài liệu:** `DOC-QA-E2E-01`  
-**Ngày thực hiện:** 2026-09-21T11:49:26.612Z  
-**Trình duyệt thực thi:** Microsoft Edge (Edg/153.0.4234.48)  
+**Ngày thực hiện:** 2026-10-05T01:28:14.789Z  
+**Trình duyệt thực thi:** Microsoft Edge (Edg/154.0.4258.53)  
 **Hệ điều hành:** Windows (x64)  
-**Môi trường:** Production Build (`vite preview` port 48839) & NestJS API (`apps/api` port 48838)  
+**Môi trường:** Production Build (`vite preview` port 43901) & NestJS API (`apps/api` port 43900)  
 **Cơ sở dữ liệu:** `adaptivemath_test` (PostgreSQL 17, cô lập 100%, 254 câu hỏi)  
 **Kết luận tổng thể:** 12 browser smoke checks có assertion; chưa chứng minh toàn bộ critical E2E, WCAG 2.2 AA hoặc UAT người dùng.
 
@@ -15,7 +15,7 @@
 | STT | Mã Test | Tên Kịch Bản Kiểm Thử | Viewport | Kết Quả | Chi Tiết Xác Minh |
 | :---: | :--- | :--- | :---: | :---: | :--- |
 | 1 | **TC-01** | Desktop Landing & Legal Notice Modal | Multi | **PASS** | Modal rendered with DRAFT D-02 badge |
-| 2 | **TC-02** | Student Registration & 8-Step Onboarding | Multi | **PASS** | Created user stu_e2e_mub6m0xk and completed wizard |
+| 2 | **TC-02** | Student Registration & 8-Step Onboarding | Multi | **PASS** | Created user stu_e2e_muukl3gu and completed wizard |
 | 3 | **TC-03** | Diagnostic completion and keyboard selection | Multi | **PASS** | Four-question test fixture completed; final result and mastery report rendered from API. |
 | 4 | **TC-04** | Student Learning Path & Mistake Notebook | Multi | **PASS** | Learning path rendered and wrong/skip answer appeared in server-backed mistake notebook |
 | 5 | **TC-05** | Teacher Applicant Verification State | Multi | **PASS** | Pending banner displayed, classroom creation forbidden |

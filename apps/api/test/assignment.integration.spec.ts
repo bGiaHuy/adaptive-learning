@@ -316,4 +316,145 @@ describe('Classroom Assignment & Admin Management Integration', () => {
 
     expect(classRes.body.total).toBeGreaterThan(0);
   });
+
+  it('Scenario 7: Sample template endpoint returns standard JSON schema for AI & teachers', async () => {
+    const res = await request(app.getHttpServer())
+      .get('/api/v1/assignments/sample-template')
+      .set('Cookie', teacherCookie)
+      .expect(200);
+
+    expect(res.body).toHaveProperty('title');
+    expect(res.body).toHaveProperty('description');
+    expect(res.body).toHaveProperty('questions');
+    expect(Array.isArray(res.body.questions)).toBe(true);
+    expect(res.body.questions.length).toBeGreaterThan(0);
+
+    const firstQ = res.body.questions[0];
+    expect(firstQ).toHaveProperty('content');
+    expect(firstQ).toHaveProperty('options');
+    expect(firstQ).toHaveProperty('explanation');
+    expect(firstQ.options.length).toBe(4);
+    expect(firstQ.options[0]).toHaveProperty('key');
+    expect(firstQ.options[0]).toHaveProperty('content');
+  });
+
+  it('Scenario 8: Teacher creates custom assignment with manual/AI questions', async () => {
+    // Re-authenticate student because Scenario 6 reset student's password
+    const sLogin = await request(app.getHttpServer())
+      .post('/api/v1/auth/login')
+      .send({ identifier: `student_${suffix}@test.adaptivemath.local`, password: 'NewSecurePassword123!' });
+    studentCookie = sLogin.headers['set-cookie'][0];
+
+    const customRes = await request(app.getHttpServer())
+      .post(`/api/v1/classrooms/${classId}/assignments`)
+      .set('Cookie', teacherCookie)
+      .send({
+        title: 'Đề Custom Tự Soạn - Hình học 9',
+        description: 'Đề thi giáo viên nhập trực tiếp kết hợp AI',
+        durationMinutes: 20,
+        dueDate: '2026-12-01T12:00:00.000Z',
+        customQuestions: [
+          {
+            content: 'Tam giác ABC vuông tại A có AB = 3cm, AC = 4cm. Độ dài cạnh BC là:',
+            options: [
+              { key: 'A', content: '5cm', isCorrect: true },
+              { key: 'B', content: '7cm', isCorrect: false },
+              { key: 'C', content: '6cm', isCorrect: false },
+              { key: 'D', content: '25cm', isCorrect: false }
+            ],
+            explanation: 'Áp dụng định lý Pythagoras: BC = \\sqrt{AB^2 + AC^2} = \\sqrt{9 + 16} = 5cm.',
+            cognitiveLevel: 'APPLY'
+          },
+          {
+            content: 'Giá trị của \\sin 30^\\circ bằng:',
+            options: [
+              { key: 'A', content: '1', isCorrect: false },
+              { key: 'B', content: '\\frac{1}{2}', isCorrect: true },
+              { key: 'C', content: '\\frac{\\sqrt{3}}{2}', isCorrect: false },
+              { key: 'D', content: '0', isCorrect: false }
+            ],
+            explanation: 'Theo bảng giá trị lượng giác cơ bản, \\sin 30^\\circ = 1/2.',
+            cognitiveLevel: 'RECOGNIZE'
+          }
+        ]
+      })
+      .expect(201);
+
+    expect(customRes.body.assignment.title).toBe('Đề Custom Tự Soạn - Hình học 9');
+    expect(customRes.body.assignment.questionCount).toBe(2);
+
+    const customAssignmentId = customRes.body.assignment.id;
+
+    // Student retrieves the custom assignment
+    const takeRes = await request(app.getHttpServer())
+      .get(`/api/v1/assignments/${customAssignmentId}/take`)
+      .set('Cookie', studentCookie)
+      .expect(200);
+
+    const qs = takeRes.body.assignment.questions;
+    expect(qs.length).toBe(2);
+    expect(qs[0].content).toContain('Tam giác ABC vuông tại A');
+    expect(qs[0].options.length).toBe(4);
+    // Ensure isCorrect is stripped for student
+    for (const opt of qs[0].options) {
+      expect(opt).not.toHaveProperty('isCorrect');
+    }
+
+    // Student submits answers using 'selectedOption' (the field that previously failed with 400 Bad Request)
+    const subRes = await request(app.getHttpServer())
+      .post(`/api/v1/assignments/${customAssignmentId}/submit`)
+      .set('Cookie', studentCookie)
+      .send({
+        timeSpentSeconds: 300,
+        answers: [
+          { questionId: qs[0].id, selectedOption: 'a' }, // Note lowercase 'a', must normalize to 'A' and match isCorrect: true
+          { questionId: qs[1].id, selectedOption: 'C' }  // Selected 'C', correct is 'B' -> incorrect
+        ]
+      })
+      .expect(200);
+
+    expect(subRes.body.correctCount).toBe(1);
+    expect(subRes.body.totalQuestions).toBe(2);
+    expect(subRes.body.score).toBe(5.0);
+
+    // Verify submission result
+    const resultRes = await request(app.getHttpServer())
+      .get(`/api/v1/assignments/${customAssignmentId}/result`)
+      .set('Cookie', studentCookie)
+      .expect(200);
+
+    expect(resultRes.body.result.score).toBe(5.0);
+    expect(resultRes.body.result.questions[0].isCorrect).toBe(true);
+    expect(resultRes.body.result.questions[1].isCorrect).toBe(false);
+    expect(resultRes.body.result.questions[1].correctOptionKey).toBe('B');
+  });
+
+  it('Scenario 9: Hybrid assignment creation with both bank questionIds and customQuestions', async () => {
+    const hybridRes = await request(app.getHttpServer())
+      .post(`/api/v1/classrooms/${classId}/assignments`)
+      .set('Cookie', teacherCookie)
+      .send({
+        title: 'Đề Hỗn Hợp (Ngân Hàng + AI/Custom)',
+        durationMinutes: 25,
+        dueDate: '2026-12-05T23:59:59.000Z',
+        questionIds: [question1Id],
+        customQuestions: [
+          {
+            content: 'Phương trình bậc nhất 2x - 4 = 0 có nghiệm là:',
+            options: [
+              { key: 'A', content: 'x = 2', isCorrect: true },
+              { key: 'B', content: 'x = -2', isCorrect: false },
+              { key: 'C', content: 'x = 4', isCorrect: false },
+              { key: 'D', content: 'x = 0', isCorrect: false }
+            ],
+            explanation: '2x - 4 = 0 <=> 2x = 4 <=> x = 2.',
+            cognitiveLevel: 'UNDERSTAND'
+          }
+        ]
+      })
+      .expect(201);
+
+    expect(hybridRes.body.assignment.questionCount).toBe(2);
+    expect(hybridRes.body.assignment.title).toBe('Đề Hỗn Hợp (Ngân Hàng + AI/Custom)');
+  });
 });

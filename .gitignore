@@ -38,6 +38,8 @@ Thumbs.db
 # Test / coverage
 coverage/
 playwright-report/
+.embedded-test-db/
+*.embedded-test-db/
 test-results/
 .ui-audit/
 
@@ -46,3 +48,7 @@ test-results/
 !.vscode/extensions.json
 
 .vercel
+.env*
+
+backups/
+*.sql

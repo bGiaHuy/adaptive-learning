@@ -195,4 +195,155 @@ describe('Admin and Content Maker-Checker Integration', () => {
     );
     expect(hasQuestionReview).toBe(true);
   });
+
+  it('handles teacher profile rejection, resubmission and re-approval workflow', async () => {
+    // 1. Create a teacher applicant
+    const reEmail = `rej_${suffix}@test.adaptivemath.local`;
+    const reReg = await request(app.getHttpServer())
+      .post('/api/v1/auth/register/teacher')
+      .send({
+        email: reEmail,
+        fullName: 'Giáo Viên Ứng Tuyển Lại',
+        password: 'P@ssword123!',
+        schoolName: 'THCS Tạm'
+      });
+    const rejId = reReg.body.id;
+
+    // Login as the applicant
+    const reLogin = await request(app.getHttpServer())
+      .post('/api/v1/auth/login')
+      .send({ identifier: reEmail, password: 'P@ssword123!' });
+    const rejCookie = reLogin.headers['set-cookie'][0].split(';')[0];
+
+    // 2. Admin rejects this applicant with reason
+    await request(app.getHttpServer())
+      .post(`/api/v1/admin/teachers/${rejId}/review`)
+      .set('Cookie', adminCookie)
+      .send({ status: 'REJECTED', rejectionReason: 'Cần bổ sung chính xác tên trường và tỉnh thành' })
+      .expect(200);
+
+    const profAfterReject = await prisma.teacherProfile.findUnique({ where: { userId: rejId } });
+    expect(profAfterReject?.verificationStatus).toBe('REJECTED');
+    expect(profAfterReject?.rejectionReason).toBe('Cần bổ sung chính xác tên trường và tỉnh thành');
+
+    // 3. Teacher updates profile and resubmits via PUT /auth/teacher-profile
+    const updateRes = await request(app.getHttpServer())
+      .put('/api/v1/auth/teacher-profile')
+      .set('Cookie', rejCookie)
+      .send({
+        schoolName: 'THPT Chu Văn An',
+        city: 'Hà Nội'
+      })
+      .expect(200);
+
+    expect(updateRes.body.user.teacherProfile.verificationStatus).toBe('PENDING_REVIEW');
+    expect(updateRes.body.user.teacherProfile.schoolName).toBe('THPT Chu Văn An');
+    expect(updateRes.body.user.teacherProfile.city).toBe('Hà Nội');
+    expect(updateRes.body.user.teacherProfile.rejectionReason).toBeNull();
+
+    // 4. Verify audit log contains TEACHER_APPLICATION_RESUBMITTED
+    const auditRes = await request(app.getHttpServer())
+      .get('/api/v1/admin/audit-logs')
+      .set('Cookie', adminCookie)
+      .expect(200);
+    const hasResubmitLog = auditRes.body.some(
+      (log: any) => log.action === 'TEACHER_APPLICATION_RESUBMITTED' && log.actorUserId === rejId
+    );
+    expect(hasResubmitLog).toBe(true);
+
+    // 5. Admin can now approve resubmitted profile
+    await request(app.getHttpServer())
+      .post(`/api/v1/admin/teachers/${rejId}/review`)
+      .set('Cookie', adminCookie)
+      .send({ status: 'VERIFIED' })
+      .expect(200);
+
+    const finalUser = await prisma.user.findUnique({ where: { id: rejId } });
+    expect(finalUser?.role).toBe('TEACHER');
+
+    // Cleanup
+    await prisma.user.delete({ where: { id: rejId } }).catch(() => undefined);
+  });
+
+  it('enforces Maker-Checker on English lesson import and review', async () => {
+    const topicId = `top_${suffix}`.slice(0, 30);
+    const lessonId = `les_${suffix}`.slice(0, 30);
+
+    // 1. Author imports an English batch
+    const importPayload = {
+      topics: [{ id: topicId, title: 'English Test Topic' }],
+      lessons: [{
+        id: lessonId,
+        topicId: topicId,
+        title: 'Present Perfect Tense',
+        level: 'B1',
+        kind: 'GRAMMAR',
+        published: true, // Attempt to publish on import
+        exercises: [{
+          id: `ex_${suffix}`.slice(0, 30),
+          kind: 'SINGLE_CHOICE',
+          prompt: 'I ___ here for three years.',
+          options: ['live', 'have lived', 'lived', 'living'],
+          correctAnswer: 'have lived',
+          explanation: 'Present perfect indicates action continuing to present.'
+        }]
+      }]
+    };
+
+    const importRes = await request(app.getHttpServer())
+      .post('/api/v1/english/import')
+      .set('Cookie', authorCookie)
+      .send(importPayload)
+      .expect(201);
+
+    expect(importRes.body.lessons).toBe(1);
+
+    // 2. Verify imported lesson is NOT published (forced to false) and authorId is tracked
+    const savedLesson = await prisma.englishLesson.findUnique({ where: { id: lessonId } });
+    expect(savedLesson).not.toBeNull();
+    expect(savedLesson?.published).toBe(false);
+    expect(savedLesson?.authorId).toBe(authorId);
+
+    // 3. Author attempts to self-approve the lesson -> 403 MAKER_CHECKER_VIOLATION
+    // (Temporarily promote author to ADMIN to test maker-checker even when user has review role)
+    await prisma.user.update({ where: { id: authorId }, data: { role: 'ADMIN' } });
+    // Re-login to refresh role in session
+    const autLogin = await request(app.getHttpServer())
+      .post('/api/v1/auth/login')
+      .send({ identifier: `aut_${suffix}`.slice(0, 30), password: 'P@ssword123!' });
+    const authorAdminCookie = autLogin.headers['set-cookie'][0].split(';')[0];
+
+    const violationRes = await request(app.getHttpServer())
+      .post(`/api/v1/english/lessons/${lessonId}/review`)
+      .set('Cookie', authorAdminCookie)
+      .send({ approve: true })
+      .expect(403);
+
+    expect(violationRes.body.code).toBe('MAKER_CHECKER_VIOLATION');
+
+    // 4. Independent Reviewer (or original Admin) reviews and approves -> 200 OK
+    const approveRes = await request(app.getHttpServer())
+      .post(`/api/v1/english/lessons/${lessonId}/review`)
+      .set('Cookie', adminCookie)
+      .send({ approve: true })
+      .expect(200);
+
+    expect(approveRes.body.lesson.published).toBe(true);
+    expect(approveRes.body.lesson.reviewerId).toBe(adminId);
+
+    // 5. Verify audit log entry
+    const auditRes = await request(app.getHttpServer())
+      .get('/api/v1/admin/audit-logs')
+      .set('Cookie', adminCookie)
+      .expect(200);
+
+    const hasEnglishReview = auditRes.body.some(
+      (log: any) => log.action === 'ENGLISH_LESSON_REVIEWED' && log.targetEntityId === lessonId
+    );
+    expect(hasEnglishReview).toBe(true);
+
+    // Cleanup
+    await prisma.englishLesson.deleteMany({ where: { id: lessonId } }).catch(() => undefined);
+    await prisma.englishTopic.deleteMany({ where: { id: topicId } }).catch(() => undefined);
+  });
 });

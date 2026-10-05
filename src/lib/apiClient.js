@@ -155,7 +155,8 @@ export const authApi = {
   getSessions: () => apiClient.get('/auth/sessions'),
   revokeSession: (sessionId) => apiClient.post(`/auth/sessions/${sessionId}/revoke`),
   changePassword: (currentPassword, newPassword) =>
-    apiClient.post('/auth/change-password', { currentPassword, newPassword })
+    apiClient.post('/auth/change-password', { currentPassword, newPassword }),
+  updateTeacherProfile: (data) => apiClient.put('/auth/teacher-profile', data)
 };
 
 export const curriculumApi = {
@@ -203,7 +204,8 @@ export const assignmentApi = {
     apiClient.delete(`/classrooms/${classId}/assignments/${assignmentId}`),
   getAssignmentForTaking: (assignmentId) => apiClient.get(`/assignments/${assignmentId}/take`),
   submitAssignment: (assignmentId, data) => apiClient.post(`/assignments/${assignmentId}/submit`, data),
-  getAssignmentResult: (assignmentId) => apiClient.get(`/assignments/${assignmentId}/result`)
+  getAssignmentResult: (assignmentId) => apiClient.get(`/assignments/${assignmentId}/result`),
+  getSampleExamTemplate: () => apiClient.get('/assignments/sample-template')
 };
 
 export const adminApi = {
@@ -248,5 +250,7 @@ export const englishApi = {
   classAssignments: (classId) => apiClient.get(`/english/classes/${encodeURIComponent(classId)}/assignments`),
   assignLesson: (classId, lessonId) => apiClient.post(`/english/classes/${encodeURIComponent(classId)}/assignments`, { lessonId }),
   removeAssignment: (classId, assignmentId) => apiClient.delete(`/english/classes/${encodeURIComponent(classId)}/assignments/${encodeURIComponent(assignmentId)}`),
-  importBatch: (batch) => apiClient.post('/english/import', batch)
+  importBatch: (batch) => apiClient.post('/english/import', batch),
+  adminLessons: (status) => apiClient.get(`/english/admin/lessons${status ? `?status=${encodeURIComponent(status)}` : ''}`),
+  reviewLesson: (id, data) => apiClient.post(`/english/lessons/${encodeURIComponent(id)}/review`, data)
 };

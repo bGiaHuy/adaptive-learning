@@ -79,6 +79,14 @@ export class AssignmentController {
     return this.assignmentService.deleteAssignment(teacherId, classId, assignmentId);
   }
 
+  @Get('assignments/sample-template')
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
+  @ApiOperation({ summary: 'Lấy định dạng đề thi mẫu chuẩn GDPT 2018 (JSON) để kết hợp cùng AI prompt' })
+  @ApiResponse({ status: 200, description: 'Cấu trúc đề thi mẫu' })
+  async getSampleExamTemplate() {
+    return this.assignmentService.getSampleExamTemplate();
+  }
+
   // ==========================================
   // STUDENT ROUTES
   // ==========================================

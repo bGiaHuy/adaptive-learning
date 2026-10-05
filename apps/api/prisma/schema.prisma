@@ -79,6 +79,8 @@ model User {
   diagnosticAttempts DiagnosticAttempt[]
   authoredQuestions Question[]  @relation("AuthoredQuestions")
   reviewedQuestions Question[]  @relation("ReviewedQuestions")
+  authoredEnglishLessons EnglishLesson[] @relation("AuthoredEnglishLessons")
+  reviewedEnglishLessons EnglishLesson[] @relation("ReviewedEnglishLessons")
   mistakeRecords    MistakeRecord[]
   skillMasteries    SkillMastery[]
   assignmentSubmissions AssignmentSubmission[]
@@ -481,6 +483,13 @@ model EnglishLesson {
   sourceAttribution String?
   published         Boolean                 @default(false)
   orderIndex        Int                     @default(0)
+
+  // Maker-Checker
+  authorId          String?
+  author            User?                   @relation("AuthoredEnglishLessons", fields: [authorId], references: [id])
+  reviewerId        String?
+  reviewer          User?                   @relation("ReviewedEnglishLessons", fields: [reviewerId], references: [id])
+
   createdAt         DateTime                @default(now())
   updatedAt         DateTime                @updatedAt
   exercises         EnglishExercise[]

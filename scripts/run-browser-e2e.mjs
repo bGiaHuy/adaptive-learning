@@ -126,6 +126,8 @@ async function run() {
         WEB_URL,
         NODE_ENV: 'test',
         DIAGNOSTIC_MAX_QUESTIONS: '4',
+        SESSION_SECRET: 'test_session_secret_with_more_than_32_characters_1234567890',
+        SESSION_COOKIE_NAME: 'am_session',
         DATABASE_URL: 'postgresql://am:am_dev_password@localhost:5432/adaptivemath_test?schema=public'
       },
       stdio: 'pipe'
@@ -610,6 +612,45 @@ async function run() {
     });
     await wait(1200);
     results.push({ id: 'TC-07b', name: 'Teacher Approval to Classroom Invite', status: 'PASS', details: 'Newly approved teacher created a class and received a one-time Crockford code.' });
+
+    // =========================================================================
+    // TEST 7c: Student Joins Classroom with Invite Code
+    // =========================================================================
+    console.log('\n--- Scenario 7c: Student Classroom Join via Crockford Code ---');
+    await page.evaluate(() => {
+      const button = document.querySelector('.btn-hero-secondary') || Array.from(document.querySelectorAll('button')).find((item) => item.textContent.includes('Đăng nhập'));
+      if (button) button.click();
+    });
+    await page.waitForSelector('.auth-form');
+    await page.type('input[placeholder*="tên đăng nhập hoặc email"]', studentUsername);
+    await page.type('input[placeholder*="mật khẩu của bạn"]', studentPassword);
+    await page.click('button[type="submit"]');
+    await page.waitForFunction(() => document.body.innerText.includes('Lộ trình ôn tập') || document.body.innerText.includes('Xin chào') || document.body.innerText.includes('Học sinh') || document.body.innerText.includes('Tổng quan'), { timeout: 12000 });
+
+    // Navigate to Classroom tab in sidebar
+    await page.waitForSelector('button[data-tab="classroom"]');
+    await page.click('button[data-tab="classroom"]');
+    await wait(1000);
+
+    // Join classroom using invite code
+    await page.waitForSelector('.class-code-input');
+    await page.type('.class-code-input', inviteCode);
+    await page.click('.btn-find-class');
+    await page.waitForFunction((code) => {
+      const text = document.body.innerText;
+      return text.includes('thành công') || text.includes(code) || text.includes('Lớp E2E');
+    }, { timeout: 10000 }, inviteCode);
+    console.log(`✓ Student joined classroom successfully with Crockford code: ${inviteCode}`);
+
+    await scanA11y(page, 'Student joined classroom 1440px');
+
+    // Logout student
+    await page.evaluate(() => {
+      const button = Array.from(document.querySelectorAll('button')).find((item) => item.textContent.includes('Đăng xuất') || item.title?.includes('Đăng xuất'));
+      if (button) button.click();
+    });
+    await wait(1200);
+    results.push({ id: 'TC-07c', name: 'Student Joins Classroom with Code', status: 'PASS', details: `Student joined class using Crockford invite code ${inviteCode}.` });
 
     // =========================================================================
     // TEST 8: 404 Not Found View

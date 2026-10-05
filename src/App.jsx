@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import LandingPage from './components/LandingPage';
 import RegisterPage from './components/RegisterPage';
 import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
 import DashboardView from './components/DashboardView';
 import OnboardingWizard from './components/OnboardingWizard';
-import DiagnosticTest from './components/DiagnosticTest';
-import ProfileCompetencyView from './components/ProfileCompetencyView';
-import LearningPathView from './components/LearningPathView';
-import MistakeNotebookView from './components/MistakeNotebookView';
-import ClassroomView from './components/ClassroomView';
-import MissionsView from './components/MissionsView';
-import SessionManagementModal from './components/SessionManagementModal';
-import TeacherPendingView from './components/TeacherPendingView';
-import TeacherClassroomsView from './components/TeacherClassroomsView';
-import AdminPortalView from './components/AdminPortalView';
 import NotFoundView from './components/NotFoundView';
-import LegalNoticeModal from './components/LegalNoticeModal';
-import ChangePasswordModal from './components/ChangePasswordModal';
 import { authApi, studentApi } from './lib/apiClient';
+
+// Code-split heavy role-specific and feature views
+const DiagnosticTest = lazy(() => import('./components/DiagnosticTest'));
+const ProfileCompetencyView = lazy(() => import('./components/ProfileCompetencyView'));
+const LearningPathView = lazy(() => import('./components/LearningPathView'));
+const MistakeNotebookView = lazy(() => import('./components/MistakeNotebookView'));
+const ClassroomView = lazy(() => import('./components/ClassroomView'));
+const MissionsView = lazy(() => import('./components/MissionsView'));
+const TeacherPendingView = lazy(() => import('./components/TeacherPendingView'));
+const TeacherClassroomsView = lazy(() => import('./components/TeacherClassroomsView'));
+const AdminPortalView = lazy(() => import('./components/AdminPortalView'));
+const SessionManagementModal = lazy(() => import('./components/SessionManagementModal'));
+const LegalNoticeModal = lazy(() => import('./components/LegalNoticeModal'));
+const ChangePasswordModal = lazy(() => import('./components/ChangePasswordModal'));
 
 export default function App() {
   const isUnknownUrl = () => {
@@ -321,123 +323,137 @@ export default function App() {
 
       <div className="main-content-area">
         <main className="tab-viewport">
-          {/* TEACHER APPLICANT VIEW */}
-          {role === 'TEACHER_APPLICANT' && (
-            <TeacherPendingView
-              currentUser={currentUser}
-              onRefreshUser={(updated) => setCurrentUser(updated)}
-            />
-          )}
+          <Suspense fallback={<div style={{ padding: '48px 24px', textAlign: 'center', color: '#64748b' }}>Đang tải giao diện...</div>}>
+            {/* TEACHER APPLICANT VIEW */}
+            {role === 'TEACHER_APPLICANT' && (
+              <TeacherPendingView
+                currentUser={currentUser}
+                onRefreshUser={(updated) => setCurrentUser(updated)}
+              />
+            )}
 
-          {/* VERIFIED TEACHER VIEWS */}
-          {role === 'TEACHER' && (
-            <TeacherClassroomsView currentUser={currentUser} />
-          )}
+            {/* VERIFIED TEACHER VIEWS */}
+            {role === 'TEACHER' && (
+              <TeacherClassroomsView currentUser={currentUser} />
+            )}
 
-          {/* ADMIN & CONTENT VIEWS */}
-          {(role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') && (
-            <AdminPortalView
-              currentUser={currentUser}
-              defaultTab={
-                activeTab === 'admin-applicants'
-                  ? 'applicants'
-                  : activeTab === 'admin-questions'
-                  ? 'questions'
-                  : activeTab === 'admin-audit'
-                  ? 'audit'
-                  : 'overview'
-              }
-            />
-          )}
+            {/* ADMIN & CONTENT VIEWS */}
+            {(role === 'ADMIN' || role === 'CONTENT_AUTHOR' || role === 'CONTENT_REVIEWER') && (
+              <AdminPortalView
+                currentUser={currentUser}
+                defaultTab={
+                  activeTab === 'admin-applicants'
+                    ? 'applicants'
+                    : activeTab === 'admin-questions'
+                    ? 'questions'
+                    : activeTab === 'admin-audit'
+                    ? 'audit'
+                    : 'overview'
+                }
+              />
+            )}
 
-          {/* STUDENT VIEWS */}
-          {role === 'STUDENT' && (
-            <>
-              {activeTab === 'onboarding' && (
-                <OnboardingWizard
-                  currentUser={currentUser}
-                  onComplete={handleFinishOnboarding}
-                  onCancel={() => setActiveTab('dashboard')}
-                  onStepChange={(step) => setWizardStep(step)}
-                />
-              )}
+            {/* STUDENT VIEWS */}
+            {role === 'STUDENT' && (
+              <>
+                {activeTab === 'onboarding' && (
+                  <OnboardingWizard
+                    currentUser={currentUser}
+                    onComplete={handleFinishOnboarding}
+                    onCancel={() => setActiveTab('dashboard')}
+                    onStepChange={(step) => setWizardStep(step)}
+                  />
+                )}
 
-              {activeTab === 'dashboard' && (
-                <DashboardView
-                  userProfile={userProfile}
-                  onStartSetup={handleStartOnboarding}
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                />
-              )}
+                {activeTab === 'dashboard' && (
+                  <DashboardView
+                    userProfile={userProfile}
+                    onStartSetup={handleStartOnboarding}
+                    onStartDiagnostic={() => setActiveTab('diagnostic')}
+                  />
+                )}
 
-              {activeTab === 'profile' && (
-                <ProfileCompetencyView
-                  hasCompletedTest={hasCompletedTest}
-                  testResults={testResults}
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                />
-              )}
+                {activeTab === 'profile' && (
+                  <ProfileCompetencyView
+                    hasCompletedTest={hasCompletedTest}
+                    testResults={testResults}
+                    onStartDiagnostic={() => setActiveTab('diagnostic')}
+                  />
+                )}
 
-              {activeTab === 'learning-path' && (
-                <LearningPathView
-                  hasCompletedTest={hasCompletedTest}
-                  userProfile={userProfile}
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                />
-              )}
+                {activeTab === 'learning-path' && (
+                  <LearningPathView
+                    hasCompletedTest={hasCompletedTest}
+                    userProfile={userProfile}
+                    onStartDiagnostic={() => setActiveTab('diagnostic')}
+                  />
+                )}
 
-              {activeTab === 'diagnostic' && (
-                <DiagnosticTest
-                  onFinishTest={handleFinishTest}
-                  onPauseTest={handlePauseTest}
-                />
-              )}
+                {activeTab === 'diagnostic' && (
+                  <DiagnosticTest
+                    onFinishTest={handleFinishTest}
+                    onPauseTest={handlePauseTest}
+                  />
+                )}
 
-              {activeTab === 'missions' && (
-                <MissionsView
-                  onStartDiagnostic={() => setActiveTab('diagnostic')}
-                  onNavigateTab={(tab) => setActiveTab(tab)}
-                />
-              )}
+                {activeTab === 'missions' && (
+                  <MissionsView
+                    onStartDiagnostic={() => setActiveTab('diagnostic')}
+                    onNavigateTab={(tab) => setActiveTab(tab)}
+                  />
+                )}
 
-              {activeTab === 'mistakes' && (
-                <MistakeNotebookView
-                  mistakes={mistakesList}
-                  onStartPractice={() => setActiveTab('diagnostic')}
-                />
-              )}
+                {activeTab === 'mistakes' && (
+                  <MistakeNotebookView
+                    mistakes={mistakesList}
+                    onStartPractice={() => setActiveTab('diagnostic')}
+                  />
+                )}
 
-              {activeTab === 'classroom' && <ClassroomView />}
+                {activeTab === 'classroom' && <ClassroomView />}
 
-              {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
-                <NotFoundView
-                  isLoggedIn={true}
-                  onNavigateDashboard={() => setActiveTab('dashboard')}
-                />
-              )}
-            </>
-          )}
+                {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
+                  <NotFoundView
+                    isLoggedIn={true}
+                    onNavigateDashboard={() => setActiveTab('dashboard')}
+                  />
+                )}
+              </>
+            )}
+          </Suspense>
         </main>
       </div>
 
       {/* Session Management Modal */}
-      <SessionManagementModal
-        isOpen={showSessionModal}
-        onClose={() => setShowSessionModal(false)}
-        onSessionRevoked={handleLogout}
-      />
+      {showSessionModal && (
+        <Suspense fallback={null}>
+          <SessionManagementModal
+            isOpen={showSessionModal}
+            onClose={() => setShowSessionModal(false)}
+            onSessionRevoked={handleLogout}
+          />
+        </Suspense>
+      )}
 
       {/* Legal & Privacy Policy Modal (Draft Gate 0 D-02) */}
-      <LegalNoticeModal
-        isOpen={showLegalModal}
-        onClose={() => setShowLegalModal(false)}
-      />
+      {showLegalModal && (
+        <Suspense fallback={null}>
+          <LegalNoticeModal
+            isOpen={showLegalModal}
+            onClose={() => setShowLegalModal(false)}
+          />
+        </Suspense>
+      )}
 
       {/* Change Password Modal */}
-      <ChangePasswordModal
-        isOpen={showPasswordModal}
-        onClose={() => setShowPasswordModal(false)}
-      />
+      {showPasswordModal && (
+        <Suspense fallback={null}>
+          <ChangePasswordModal
+            isOpen={showPasswordModal}
+            onClose={() => setShowPasswordModal(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

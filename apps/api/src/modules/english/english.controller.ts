@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserRole } from '@prisma/client';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -50,7 +50,32 @@ export class EnglishController {
   @Post('import')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.CONTENT_AUTHOR)
-  import(@Body() body: unknown, @CurrentUser('role') role: UserRole) { return this.english.importBatch(body, role); }
+  import(
+    @Body() body: unknown,
+    @CurrentUser('id') userId: string,
+    @CurrentUser('role') role: UserRole
+  ) {
+    return this.english.importBatch(body, role, userId);
+  }
+
+  @Get('admin/lessons')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  adminLessons(@Query('status') status?: 'all' | 'published' | 'draft') {
+    return this.english.adminLessons(status);
+  }
+
+  @Post('lessons/:id/review')
+  @HttpCode(200)
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  reviewLesson(
+    @Param('id') id: string,
+    @CurrentUser('id') reviewerId: string,
+    @Body() body: { published: boolean; note?: string }
+  ) {
+    return this.english.reviewLesson(id, reviewerId, body);
+  }
 
   @Get('my-assignments')
   @UseGuards(AuthGuard, RolesGuard)

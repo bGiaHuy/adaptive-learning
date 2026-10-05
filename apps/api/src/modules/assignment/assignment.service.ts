@@ -7,13 +7,14 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { SubmitAssignmentDto } from './dto/submit-assignment.dto';
-import { AssignmentStatus, SubmissionStatus, QuestionStatus } from '@prisma/client';
+import { AssignmentStatus, SubmissionStatus, QuestionStatus, CognitiveLevel } from '@prisma/client';
+import { CustomQuestionDto } from './dto/create-assignment.dto';
 
 @Injectable()
 export class AssignmentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // 1. Giáo viên tạo đề thi / bài tập cho lớp
+  // 1. Giáo viên tạo đề thi / bài tập cho lớp (hỗ trợ cả câu hỏi từ ngân hàng lẫn câu hỏi tự tạo / nhập từ AI)
   async createAssignment(teacherId: string, classId: string, dto: CreateAssignmentDto) {
     const classroom = await this.prisma.classroom.findUnique({
       where: { id: classId }
@@ -33,20 +34,116 @@ export class AssignmentService {
       });
     }
 
-    // Verify all questionIds exist and are PUBLISHED
-    const questions = await this.prisma.question.findMany({
-      where: {
-        id: { in: dto.questionIds },
-        status: QuestionStatus.PUBLISHED
-      }
-    });
+    const rawQuestionIds = Array.isArray(dto.questionIds) ? dto.questionIds.filter(Boolean) : [];
+    const customQuestions = Array.isArray(dto.customQuestions) ? dto.customQuestions : [];
 
-    if (questions.length !== dto.questionIds.length) {
+    if (rawQuestionIds.length === 0 && customQuestions.length === 0) {
       throw new BadRequestException({
-        code: 'INVALID_QUESTIONS',
-        message: 'Một số câu hỏi được chọn không tồn tại hoặc chưa được duyệt (PUBLISHED).'
+        code: 'NO_QUESTIONS_PROVIDED',
+        message: 'Đề thi phải có ít nhất 1 câu hỏi (chọn từ ngân hàng hoặc tự tạo).'
       });
     }
+
+    // Verify all questionIds exist and are PUBLISHED
+    if (rawQuestionIds.length > 0) {
+      const questions = await this.prisma.question.findMany({
+        where: {
+          id: { in: rawQuestionIds },
+          status: QuestionStatus.PUBLISHED
+        }
+      });
+
+      if (questions.length !== rawQuestionIds.length) {
+        throw new BadRequestException({
+          code: 'INVALID_QUESTIONS',
+          message: 'Một số câu hỏi được chọn không tồn tại hoặc chưa được duyệt (PUBLISHED).'
+        });
+      }
+    }
+
+    const createdCustomQuestionIds: string[] = [];
+
+    if (customQuestions.length > 0) {
+      // Find or establish default SkillNode for custom questions
+      let defaultSkillNode = classroom.grade
+        ? await this.prisma.skillNode.findFirst({ where: { grade: classroom.grade } })
+        : null;
+      if (!defaultSkillNode) {
+        defaultSkillNode = await this.prisma.skillNode.findFirst();
+      }
+      if (!defaultSkillNode) {
+        defaultSkillNode = await this.prisma.skillNode.upsert({
+          where: { code: 'CUSTOM_TEACHER_EXAM' },
+          update: {},
+          create: {
+            code: 'CUSTOM_TEACHER_EXAM',
+            title: 'Câu hỏi đề kiểm tra giáo viên',
+            grade: classroom.grade || 9,
+            chapter: 'Đề kiểm tra giáo viên',
+            orderIndex: 999
+          }
+        });
+      }
+
+      for (let i = 0; i < customQuestions.length; i++) {
+        const cq = customQuestions[i];
+        if (!cq.content || !cq.content.trim()) {
+          throw new BadRequestException({
+            code: 'INVALID_CUSTOM_QUESTION',
+            message: `Câu hỏi số ${i + 1} không có nội dung.`
+          });
+        }
+        if (!Array.isArray(cq.options) || cq.options.length < 2) {
+          throw new BadRequestException({
+            code: 'INVALID_CUSTOM_QUESTION',
+            message: `Câu hỏi số ${i + 1} phải có ít nhất 2 phương án lựa chọn.`
+          });
+        }
+        const matchedFromOption = cq.options.find(opt => (opt as any).isCorrect)?.key;
+        const correctKey = (cq.correctOption || matchedFromOption || '').trim().toUpperCase();
+        const hasMatchingOption = cq.options.some(
+          opt => opt.key.trim().toUpperCase() === correctKey
+        );
+        if (!hasMatchingOption) {
+          throw new BadRequestException({
+            code: 'INVALID_CUSTOM_QUESTION',
+            message: `Câu hỏi số ${i + 1}: Đáp án đúng "${cq.correctOption || matchedFromOption || ''}" không khớp với bất kỳ phương án nào (A, B, C, D).`
+          });
+        }
+
+        // Determine cognitive level
+        let level: CognitiveLevel = CognitiveLevel.REMEMBERING;
+        const rawLevel = (cq.cognitiveLevel || '').toUpperCase();
+        if (rawLevel.includes('THÔNG HIỂU') || rawLevel.includes('UNDERSTAND') || rawLevel.includes('COMPREHENSION')) {
+          level = CognitiveLevel.UNDERSTANDING;
+        } else if (rawLevel.includes('VẬN DỤNG') || rawLevel.includes('APPLY') || rawLevel.includes('APPLICATION')) {
+          level = CognitiveLevel.APPLYING;
+        }
+
+        const skillId = cq.skillId || defaultSkillNode.id;
+
+        const newQuestion = await this.prisma.question.create({
+          data: {
+            skillId,
+            authorId: teacherId,
+            cognitiveLevel: level,
+            content: cq.content.trim(),
+            explanation: cq.explanation?.trim() || null,
+            status: QuestionStatus.PUBLISHED,
+            options: {
+              create: cq.options.map(opt => ({
+                optionKey: opt.key.trim().toUpperCase(),
+                content: opt.content.trim(),
+                isCorrect: opt.key.trim().toUpperCase() === correctKey
+              }))
+            }
+          }
+        });
+        createdCustomQuestionIds.push(newQuestion.id);
+      }
+    }
+
+    const allQuestionIds = [...rawQuestionIds, ...createdCustomQuestionIds];
 
     const assignment = await this.prisma.classroomAssignment.create({
       data: {
@@ -57,7 +154,7 @@ export class AssignmentService {
         dueDate: dto.dueDate ? new Date(dto.dueDate) : null,
         status: dto.status || AssignmentStatus.PUBLISHED,
         questions: {
-          create: dto.questionIds.map((qid, idx) => ({
+          create: allQuestionIds.map((qid, idx) => ({
             questionId: qid,
             orderIndex: idx + 1,
             points: 1.0
@@ -244,8 +341,8 @@ export class AssignmentService {
           orderIndex: aq.orderIndex,
           content: aq.question.content,
           cognitiveLevel: aq.question.cognitiveLevel,
-          skillTitle: aq.question.skill.title,
-          chapter: aq.question.skill.chapter,
+          skillTitle: aq.question.skill?.title || 'Chủ đề bài tập',
+          chapter: aq.question.skill?.chapter || 'Lớp học',
           options: aq.question.options.map(opt => ({
             key: opt.optionKey,
             content: opt.content
@@ -305,7 +402,12 @@ export class AssignmentService {
       });
     }
 
-    const answersMap = new Map(dto.answers.map(a => [a.questionId, a.selectedOptionKey]));
+    const answersMap = new Map(
+      (dto.answers || []).map(a => [
+        a.questionId,
+        (a.selectedOptionKey || a.selectedOption || '').trim().toUpperCase() || null
+      ])
+    );
     const totalQuestions = assignment.questions.length;
     let correctCount = 0;
 
@@ -322,7 +424,7 @@ export class AssignmentService {
       const q = aq.question;
       const selectedKey = answersMap.get(q.id) || null;
       const correctOption = q.options.find(o => o.isCorrect);
-      const isCorrect = !!correctOption && selectedKey === correctOption.optionKey;
+      const isCorrect = !!correctOption && !!selectedKey && selectedKey === correctOption.optionKey.toUpperCase();
 
       if (isCorrect) {
         correctCount += 1;
@@ -459,8 +561,8 @@ export class AssignmentService {
             orderIndex: aq.orderIndex,
             content: q.content,
             cognitiveLevel: q.cognitiveLevel,
-            skillTitle: q.skill.title,
-            chapter: q.skill.chapter,
+            skillTitle: q.skill?.title || 'Chủ đề bài tập',
+            chapter: q.skill?.chapter || 'Lớp học',
             explanation: q.explanation,
             studentSelectedKey: ans?.selectedOptionKey || null,
             isCorrect: ans?.isCorrect || false,
@@ -640,5 +742,52 @@ export class AssignmentService {
     });
 
     return { message: 'Đã xóa đề thi thành công.' };
+  }
+
+  // 8. Cung cấp file đề thi mẫu theo chuẩn GDPT 2018
+  getSampleExamTemplate() {
+    return {
+      title: 'Đề kiểm tra 15 phút - Căn bậc hai và Hằng đẳng thức',
+      description: 'Kiểm tra kiến thức cơ bản về căn bậc hai, điều kiện xác định và rút gọn biểu thức chứa căn.',
+      durationMinutes: 15,
+      questions: [
+        {
+          content: 'Giá trị của biểu thức $\\sqrt{25} - \\sqrt{9}$ là:',
+          options: [
+            { key: 'A', content: '2' },
+            { key: 'B', content: '4' },
+            { key: 'C', content: '16' },
+            { key: 'D', content: '-2' }
+          ],
+          correctOption: 'A',
+          explanation: 'Ta có $\\sqrt{25} = 5$ và $\\sqrt{9} = 3$. Do đó $5 - 3 = 2$.',
+          cognitiveLevel: 'REMEMBERING'
+        },
+        {
+          content: 'Điều kiện xác định của biểu thức $\\sqrt{2x - 6}$ là:',
+          options: [
+            { key: 'A', content: '$x \\ge 3$' },
+            { key: 'B', content: '$x > 3$' },
+            { key: 'C', content: '$x \\le 3$' },
+            { key: 'D', content: '$x \\ge 6$' }
+          ],
+          correctOption: 'A',
+          explanation: 'Biểu thức $\\sqrt{2x - 6}$ có nghĩa khi và chỉ khi $2x - 6 \\ge 0 \\Leftrightarrow 2x \\ge 6 \\Leftrightarrow x \\ge 3$.',
+          cognitiveLevel: 'UNDERSTANDING'
+        },
+        {
+          content: 'Rút gọn biểu thức $P = \\sqrt{(2 - \\sqrt{5})^2} + \\sqrt{5}$ ta được kết quả là:',
+          options: [
+            { key: 'A', content: '$2$' },
+            { key: 'B', content: '$2\\sqrt{5} - 2$' },
+            { key: 'C', content: '$-2$' },
+            { key: 'D', content: '$2\\sqrt{5} + 2$' }
+          ],
+          correctOption: 'B',
+          explanation: 'Vì $2 < \\sqrt{5}$ nên $2 - \\sqrt{5} < 0$. Do đó $\\sqrt{(2-\\sqrt{5})^2} = |2-\\sqrt{5}| = \\sqrt{5} - 2$. Vậy $P = \\sqrt{5} - 2 + \\sqrt{5} = 2\\sqrt{5} - 2$.',
+          cognitiveLevel: 'APPLYING'
+        }
+      ]
+    };
   }
 }

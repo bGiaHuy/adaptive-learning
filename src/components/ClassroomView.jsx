@@ -194,10 +194,13 @@ export default function ClassroomView() {
     setIsSubmittingExam(true);
     if (timerRef.current) clearInterval(timerRef.current);
 
-    const answersPayload = Object.entries(userAnswers).map(([qId, key]) => ({
-      questionId: qId,
-      selectedOption: key
-    }));
+    const answersPayload = Object.entries(userAnswers)
+      .filter(([_, key]) => key && typeof key === 'string' && key.trim() !== '')
+      .map(([qId, key]) => ({
+        questionId: qId,
+        selectedOptionKey: key.trim().toUpperCase(),
+        selectedOption: key.trim().toUpperCase()
+      }));
 
     try {
       const res = await assignmentApi.submitAssignment(takingAssignmentId, {

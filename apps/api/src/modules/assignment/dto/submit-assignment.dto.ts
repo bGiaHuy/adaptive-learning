@@ -18,6 +18,11 @@ export class AnswerItemDto {
   @IsString()
   @IsOptional()
   selectedOptionKey?: string;
+
+  @ApiPropertyOptional({ description: 'Tương thích ngược: Đáp án học sinh chọn ("A", "B", "C", "D")' })
+  @IsString()
+  @IsOptional()
+  selectedOption?: string;
 }
 
 export class SubmitAssignmentDto {

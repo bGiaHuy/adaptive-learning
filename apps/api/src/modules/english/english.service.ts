@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { EnglishExerciseKind, EnglishLessonKind, Prisma, UserRole } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -139,7 +139,7 @@ export class EnglishService {
       suggestedLevel: result.suggestedLevel, assessedLevels };
   }
 
-  async importBatch(body: unknown, role: UserRole = UserRole.ADMIN) {
+  async importBatch(body: unknown, role: UserRole = UserRole.ADMIN, authorId?: string) {
     if (!object(body) || !Array.isArray(body.topics) || !Array.isArray(body.lessons)) {
       throw new BadRequestException('Cần topics và lessons dạng mảng.');
     }
@@ -201,8 +201,11 @@ export class EnglishService {
         summary: typeof item.summary === 'string' ? item.summary : null, level, kind,
         body: typeof item.body === 'string' ? item.body : null, audioUrl,
         transcript: transcript as Prisma.InputJsonValue,
-        sourceAttribution: typeof item.sourceAttribution === 'string' ? item.sourceAttribution : null,
-        published: role === UserRole.ADMIN && item.published === true, orderIndex: index, exercises };
+        published: false, // Maker-Checker: Always draft upon import until reviewed by another admin/checker
+        authorId: authorId || null,
+        orderIndex: index,
+        exercises
+      };
     });
     await this.prisma.$transaction(async tx => {
       for (const topic of parsedTopics) await tx.englishTopic.upsert({ where: { id: topic.id }, create: topic, update: topic });
@@ -214,6 +217,71 @@ export class EnglishService {
       }
     });
     return { topics: parsedTopics.length, lessons: parsedLessons.length, exercises: exerciseIds.size };
+  }
+
+  async reviewLesson(lessonId: string, reviewerId: string, body: { published: boolean; note?: string }) {
+    const lesson = await this.prisma.englishLesson.findUnique({
+      where: { id: lessonId }
+    });
+    if (!lesson) {
+      throw new NotFoundException({
+        code: 'LESSON_NOT_FOUND',
+        message: 'Không tìm thấy bài học.'
+      });
+    }
+
+    // STRICT MAKER-CHECKER ENFORCEMENT: Author cannot review or publish own lesson
+    if (lesson.authorId && lesson.authorId === reviewerId) {
+      throw new ForbiddenException({
+        code: 'MAKER_CHECKER_VIOLATION',
+        message: 'Quy tắc Maker-Checker: Tác giả bài học không được phép tự thẩm định hoặc xuất bản bài học của chính mình.'
+      });
+    }
+
+    const isPublishing = body.published !== undefined ? Boolean(body.published) : Boolean((body as any).approve);
+
+    const updated = await this.prisma.englishLesson.update({
+      where: { id: lessonId },
+      data: {
+        published: isPublishing,
+        reviewerId
+      }
+    });
+
+    await this.prisma.auditLog.create({
+      data: {
+        actorUserId: reviewerId,
+        action: 'ENGLISH_LESSON_REVIEWED',
+        targetEntity: 'EnglishLesson',
+        targetEntityId: lesson.id,
+        metadata: {
+          previousPublished: lesson.published,
+          newPublished: isPublishing,
+          note: body.note || (body as any).rejectionReason || null
+        }
+      }
+    });
+
+    return {
+      message: isPublishing ? 'Đã duyệt và xuất bản bài học thành công.' : 'Đã chuyển bài học về trạng thái bản nháp.',
+      lesson: updated
+    };
+  }
+
+  async adminLessons(status?: string) {
+    const normalized = (status || '').toLowerCase();
+    const where = normalized === 'published' ? { published: true } : (normalized === 'draft' || normalized === 'unpublished') ? { published: false } : {};
+    const lessons = await this.prisma.englishLesson.findMany({
+      where,
+      orderBy: [{ topicId: 'asc' }, { orderIndex: 'asc' }],
+      include: {
+        topic: { select: { id: true, title: true } },
+        author: { select: { id: true, fullName: true, username: true } },
+        reviewer: { select: { id: true, fullName: true, username: true } },
+        _count: { select: { exercises: true } }
+      }
+    });
+    return { lessons };
   }
 
   private async ownedClassroom(teacherId: string, classId: string) {

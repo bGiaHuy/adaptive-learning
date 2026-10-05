@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Get,
+  Put,
   Body,
   Req,
   Res,
@@ -15,6 +16,7 @@ import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterStudentDto } from './dto/register-student.dto';
 import { RegisterTeacherDto } from './dto/register-teacher.dto';
+import { UpdateTeacherProfileDto } from './dto/update-teacher-profile.dto';
 import { LoginDto } from './dto/login.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { AuthGuard } from './guards/auth.guard';
@@ -198,5 +200,18 @@ export class AuthController {
       ...result,
       message: 'Đổi mật khẩu thành công. Các phiên đăng nhập trên thiết bị khác đã được thu hồi an toàn.'
     };
+  }
+
+  @Put('teacher-profile')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiCookieAuth()
+  @ApiOperation({ summary: 'Cập nhật thông tin và nộp lại hồ sơ giáo viên để duyệt' })
+  @ApiResponse({ status: 200, description: 'Hồ sơ đã được nộp lại thành công' })
+  async updateTeacherProfile(
+    @CurrentUser('id') userId: string,
+    @Body() dto: UpdateTeacherProfileDto
+  ) {
+    return this.authService.updateTeacherProfile(userId, dto);
   }
 }

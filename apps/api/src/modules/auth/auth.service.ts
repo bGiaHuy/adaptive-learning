@@ -11,6 +11,7 @@ import * as argon2 from '@node-rs/argon2';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterStudentDto } from './dto/register-student.dto';
 import { RegisterTeacherDto } from './dto/register-teacher.dto';
+import { UpdateTeacherProfileDto } from './dto/update-teacher-profile.dto';
 import { LoginDto } from './dto/login.dto';
 import { UserRole, UserStatus, TeacherVerificationStatus } from '@prisma/client';
 
@@ -468,6 +469,64 @@ export class AuthService {
         ]
       }
     }).catch(() => undefined);
+  }
+
+  // Update and re-submit teacher application after review/rejection
+  async updateTeacherProfile(userId: string, dto: UpdateTeacherProfileDto) {
+    const profile = await this.prisma.teacherProfile.findUnique({
+      where: { userId }
+    });
+    if (!profile) {
+      throw new NotFoundException({
+        code: 'TEACHER_PROFILE_NOT_FOUND',
+        message: 'Không tìm thấy hồ sơ giáo viên.'
+      });
+    }
+
+    if (profile.verificationStatus === TeacherVerificationStatus.VERIFIED) {
+      throw new BadRequestException({
+        code: 'TEACHER_ALREADY_VERIFIED',
+        message: 'Hồ sơ giáo viên đã được phê duyệt chính thức, không cần nộp lại.'
+      });
+    }
+
+    await this.prisma.teacherProfile.update({
+      where: { userId },
+      data: {
+        schoolName: dto.schoolName.trim(),
+        city: dto.city ? dto.city.trim() : profile.city,
+        verificationStatus: TeacherVerificationStatus.PENDING_REVIEW,
+        rejectionReason: null,
+        updatedAt: new Date()
+      }
+    });
+
+    await this.prisma.auditLog.create({
+      data: {
+        actorUserId: userId,
+        action: 'TEACHER_APPLICATION_RESUBMITTED',
+        targetEntity: 'TeacherProfile',
+        targetEntityId: profile.id,
+        metadata: {
+          previousStatus: profile.verificationStatus,
+          previousReason: profile.rejectionReason,
+          newSchoolName: dto.schoolName
+        }
+      }
+    });
+
+    const refreshedUser = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        studentProfile: true,
+        teacherProfile: true
+      }
+    });
+
+    return {
+      message: 'Hồ sơ đã được cập nhật và gửi lại để Ban Quản trị phê duyệt.',
+      user: this.sanitizeUser(refreshedUser)
+    };
   }
 
   // Strip password hash from returned user object

@@ -2,7 +2,7 @@
 
 > **Adaptive Learning transition (October 2026):** The student-facing app now has an English catalogue, listening lessons, exercises, and progress. The supplied `batch_001` is bundled for import. This document describes the retained AdaptiveMath system and legacy features; see [English content import and rollout](docs/ENGLISH-IMPORT-CONTRACT.md) for the new module and its current limits.
 
-> **Trạng Thái Kỹ Thuật (Release Status):** `TECHNICAL HANDOFF READY — PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
+> **Trạng Thái Kỹ Thuật (Release Status):** `PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
 > **Phiên bản:** 1.0.0 (Tháng 09/2026)  
 > **Kiến trúc:** Monorepo (Vite + React 18 SPA, NestJS + Prisma REST API, PostgreSQL 16)  
 > **Ngôn ngữ thiết kế:** Math Studio ("Giấy kẻ - Mực tối - Điểm nhấn Hổ phách/Amber")
@@ -151,11 +151,13 @@ npm run dev:prototype
 
 ## 4. Danh Sách Tài Khoản Hệ Thống & Dữ Liệu Mẫu (System & Mock Data Accounts)
 
-### A. Tài khoản Quản trị viên Thực tế (Production Admins)
-| Phân Quyền (Role) | Tên đăng nhập | Email | Ghi chú |
-| :--- | :--- | :--- | :--- |
-| **Quản trị viên (ADMIN)** | `huy_admin` | `huy.admin@adaptivemath.vn` | Admin chính thức (Gia Huy) |
-| **Quản trị viên (ADMIN)** | `tonghoanganh` | `tonghoanganh@adaptivemath.vn` | Admin chính thức (Tống Hoàng Anh) |
+### A. Quản Trị Hệ Thống Trong Môi Trường Sản Xuất (Production Governance)
+> [!IMPORTANT]
+> **Tuân thủ An toàn & Bảo mật Thông tin:**
+> - Toàn bộ thông tin định danh và tài khoản quản trị thực tế (Production Admins) **tuyệt đối không được ghi trong tài liệu mã nguồn (README/Docs)** để tuân thủ tiêu chuẩn an toàn thông tin OWASP/ISO 27001.
+> - Tài khoản quản trị sản xuất được khởi tạo độc lập qua quy trình an toàn (Secret Manager / Internal CLI) trong môi trường staging/production.
+> - **Cảnh báo Rotation:** Nếu có bất kỳ tài khoản thực tế nào từng được ghi chép trong tài liệu hoặc dùng mật khẩu mặc định, đội ngũ vận hành cần thực hiện **đổi mật khẩu (Credential Rotation)** ngay lập tức trước khi triển khai chính thức.
+
 
 ### B. Tài khoản Dữ liệu Mẫu (Mock Data Accounts - Phục vụ Demo & Kiểm thử)
 Toàn bộ tài khoản mock data đều được gắn nhãn `(Mock Data)` trên toàn bộ hệ thống:
@@ -233,7 +235,7 @@ adaptivemath/
 ## 7. Tuyên Bố Trạng Thái Bàn Giao (Release Status)
 
 Dự án hiện đạt mức:  
-**TECHNICAL HANDOFF READY — PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF**
+**PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF**
 
-- **Phần Kỹ thuật (Engineering):** Hoàn thành 100% các tiêu chí bàn giao, kiểm thử tự động, di chuyển dữ liệu và tài liệu vận hành.
+- **Phần Kỹ thuật (Engineering):** Đã hoàn tất cài đặt các tính năng cốt lõi, kiểm thử tự động, tối ưu hóa bundle và tài liệu kỹ thuật. Hệ thống KHÔNG tự tuyên bố handoff ready hoặc pilot ready khi chưa có các phê duyệt bên ngoài bắt buộc.
 - **Phần Học thuật & Pháp lý (Academic & Legal):** Đang chờ chữ ký phê duyệt thực tế của Academic Content Lead (Gate 3) và Legal Officer (Gate 0 D-01..D-04) trước khi tiến hành Controlled Pilot trên học sinh thực tế.
