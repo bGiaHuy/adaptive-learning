@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowRight, Calendar as CalendarIcon, CheckCircle2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import PracticeCalendar from './PracticeCalendar';
 
 export default function DashboardView({
   userProfile,
@@ -10,13 +11,6 @@ export default function DashboardView({
   const gradeLabel = userProfile?.grade ? `Khối ${userProfile.grade}` : 'Lớp 9';
   const dailyTimeLabel = userProfile?.dailyMinutes ? `${userProfile.dailyMinutes} phút` : userProfile?.dailyTime || '45 phút';
   const goalLabel = userProfile?.targetGoal || userProfile?.goal || 'Ôn thi vào lớp 10';
-
-  // Generate days for a standard calendar month
-  const daysOfWeek = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
-  
-  // Create days 1..30 with active streak
-  const daysInMonth = Array.from({ length: 30 }, (_, i) => i + 1);
-  const currentDay = new Date().getDate();
 
   return (
     <div className="dashboard-content-page animate-fade-in">
@@ -72,45 +66,8 @@ export default function DashboardView({
           )}
         </div>
 
-        {/* Practice Calendar Widget */}
-        <div className="practice-calendar-card">
-          <div className="calendar-card-header">
-            <div className="calendar-title-row">
-              <CalendarIcon size={18} className="calendar-icon" />
-              <h3 className="calendar-title">Lịch luyện tập tháng này</h3>
-            </div>
-            <span className="calendar-status-text">
-              {isProfileConfigured ? 'Mục tiêu: 45 phút/ngày' : 'Đang lấy dữ liệu trong tháng'}
-            </span>
-          </div>
-
-          <div className="calendar-grid-container">
-            {/* Weekday headers */}
-            <div className="calendar-weekdays-row">
-              {daysOfWeek.map((day) => (
-                <div key={day} className="weekday-col">{day}</div>
-              ))}
-            </div>
-
-            {/* Day cells (starting from Tuesday offset by 1 blank) */}
-            <div className="calendar-days-grid">
-              <div className="calendar-day-empty"></div>
-              {daysInMonth.map((day) => {
-                const isToday = day === currentDay;
-                const isCompleted = isProfileConfigured && (day === 14 || day === 15);
-                return (
-                  <div
-                    key={day}
-                    className={`calendar-day-cell ${isToday ? 'today' : ''} ${isCompleted ? 'active-streak' : ''}`}
-                  >
-                    <span>{day}</span>
-                    {isCompleted && <div className="streak-dot"></div>}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        {/* Real-time Dynamic Practice Calendar */}
+        <PracticeCalendar userProfile={userProfile} />
       </div>
     </div>
   );

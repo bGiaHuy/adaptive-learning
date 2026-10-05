@@ -570,25 +570,27 @@ export default function DiagnosticTest({
 
             {/* Multiple Choice Options */}
             <div className="options-selection-grid options-choices-group">
-              {(currentQuestion.options || []).map((option) => {
-                const isSelected = selectedOptionKey === option.key;
+              {(currentQuestion.options || []).map((option, optIdx) => {
+                const optKey = option.key || option.id || option.optionKey || String.fromCharCode(65 + optIdx);
+                const optContent = option.content || option.text || '';
+                const isSelected = selectedOptionKey === optKey;
                 return (
                   <div
-                    key={option.key}
+                    key={optKey}
                     className={`quiz-option-card choice-option-row ${isSelected ? 'selected' : ''}`}
-                    onClick={() => !isSubmittingAnswer && setSelectedOptionKey(option.key)}
+                    onClick={() => !isSubmittingAnswer && setSelectedOptionKey(optKey)}
                     role="button"
                     tabIndex={0}
-                    data-testid={`option-${option.key}`}
+                    data-testid={`option-${optKey}`}
                     onKeyDown={(e) => {
                       if (e.key === ' ' || e.key === 'Enter') {
-                        setSelectedOptionKey(option.key);
+                        setSelectedOptionKey(optKey);
                       }
                     }}
                   >
-                    <div className="option-label-circle choice-key-box">{option.key}</div>
+                    <div className="option-label-circle choice-key-box">{optKey}</div>
                     <div className="option-content-text choice-math-content">
-                      <MathRenderer content={option.content} />
+                      <MathRenderer content={optContent} />
                     </div>
                     <div className="option-select-radio">
                       {isSelected && <div className="radio-dot" />}

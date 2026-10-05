@@ -24,6 +24,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { classroomApi, studentApi, assignmentApi } from '../lib/apiClient';
+import { recordStudyActivity } from '../lib/calendarSyncService';
 import MathRenderer from './MathRenderer';
 
 export default function ClassroomView() {
@@ -217,6 +218,12 @@ export default function ClassroomView() {
       if (selectedClassId) {
         fetchAssignmentsForClass(selectedClassId);
       }
+
+      // Record real-time study session
+      recordStudyActivity('default_student', {
+        minutes: Math.max(15, Math.round(totalTimeSpentSeconds / 60)),
+        activity: 'Nộp bài tập lớp học'
+      });
 
       // Automatically open results
       handleViewResult(finishedAssignmentId);

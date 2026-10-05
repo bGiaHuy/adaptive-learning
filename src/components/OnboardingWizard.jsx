@@ -124,13 +124,13 @@ export default function OnboardingWizard({
       const day = parseInt(parts[0], 10);
       const month = parseInt(parts[1], 10) - 1;
       const year = parseInt(parts[2], 10);
-      const target = new Date(year, month, day);
+      const target = new Date(year, month, day, 23, 59, 59);
       const now = new Date();
       const diffTime = target - now;
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays > 0 ? diffDays : 264; // fallback to 264 as shown in video
+      return diffDays >= 0 ? diffDays : 0;
     }
-    return 264;
+    return null;
   };
 
   return (

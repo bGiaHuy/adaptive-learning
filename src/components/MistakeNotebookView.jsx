@@ -281,9 +281,11 @@ export default function MistakeNotebookView({ onStartPractice }) {
                     marginBottom: '14px'
                   }}
                 >
-                  {options.map((opt) => {
-                    const isSelected = opt.key === item.selectedOptionKey;
-                    const isCorrect = opt.key === correctKey;
+                  {options.map((opt, optIdx) => {
+                    const optKey = opt.key || opt.optionKey || opt.id || String.fromCharCode(65 + optIdx);
+                    const optContent = opt.content || opt.text || '';
+                    const isSelected = optKey === item.selectedOptionKey;
+                    const isCorrect = optKey === correctKey || opt.isCorrect;
                     let border = '1px solid #e2e8f0';
                     let bg = '#ffffff';
                     let badgeBg = '#f1f5f9';
@@ -303,7 +305,7 @@ export default function MistakeNotebookView({ onStartPractice }) {
 
                     return (
                       <div
-                        key={opt.key}
+                        key={optKey}
                         style={{
                           padding: '8px 12px',
                           border,
@@ -330,10 +332,10 @@ export default function MistakeNotebookView({ onStartPractice }) {
                             flexShrink: 0
                           }}
                         >
-                          {opt.key}
+                          {optKey}
                         </span>
                         <div style={{ flex: 1 }}>
-                          <MathRenderer content={opt.content} />
+                          <MathRenderer content={optContent} />
                         </div>
                       </div>
                     );

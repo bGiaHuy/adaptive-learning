@@ -2,6 +2,8 @@
 // AdaptiveMath — Production-grade Unified API Client
 // ==============================================================================
 
+import { handleMockApi } from './mockApiFallback.js';
+
 export class ApiError extends Error {
   constructor({ status, code, message, requestId, details = null }) {
     super(message || 'Đã có lỗi xảy ra trong quá trình xử lý yêu cầu.');
@@ -64,6 +66,16 @@ async function request(endpoint, options = {}) {
   try {
     response = await fetch(url, config);
   } catch (err) {
+    // If backend server is offline or proxy failed, seamlessly fall back to offline mock database
+    try {
+      const mockData = handleMockApi(endpoint, options);
+      if (mockData !== undefined) {
+        return mockData;
+      }
+    } catch (mockErr) {
+      console.warn('Mock API fallback error:', mockErr);
+    }
+
     // Network failure (offline, DNS failure, ECONNREFUSED)
     if (retryCount < maxRetries) {
       const delayMs = 400 * Math.pow(2, retryCount);
@@ -106,6 +118,16 @@ async function request(endpoint, options = {}) {
   }
 
   if (!response.ok) {
+    // Fallback if proxy returned 404 / 502 / 504 because backend is stopped
+    if (response.status === 404 || response.status >= 500) {
+      try {
+        const mockData = handleMockApi(endpoint, options);
+        if (mockData !== undefined) {
+          return mockData;
+        }
+      } catch {}
+    }
+
     let errorCode = 'HTTP_ERROR_' + response.status;
     let errorMessage = 'Yêu cầu không thành công.';
     let details = null;

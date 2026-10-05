@@ -554,11 +554,13 @@ export default function TeacherClassroomsView({ currentUser }) {
     }
   };
 
+  const selectedClass = classrooms.find((c) => c.id === selectedClassId);
   const activeInviteCode = selectedClassDetails?.inviteCodes?.find(
     (c) => !c.isRevoked && new Date(c.expiresAt) > new Date()
-  );
+  ) || selectedClassDetails?.activeInviteCode || selectedClass?.activeInviteCode;
   const visibleInviteCode = (freshInvite && activeInviteCode && activeInviteCode.id === freshInvite.id &&
-    selectedClassDetails?.id === freshInvite.classId) ? freshInvite.code : null;
+    selectedClassDetails?.id === freshInvite.classId) ? freshInvite.code : (activeInviteCode?.code || null);
+  const currentDisplayCode = visibleInviteCode || activeInviteCode?.code || null;
 
   // Filtered question pool
   const filteredQuestions = availableQuestions.filter(q => {
@@ -740,11 +742,11 @@ export default function TeacherClassroomsView({ currentUser }) {
                     </div>
                   </div>
 
-                  {visibleInviteCode && (
+                  {currentDisplayCode && (
                     <div style={{ display: 'flex', gap: '8px' }}>
                       <button
                         type="button"
-                        onClick={() => setFullscreenCode(visibleInviteCode)}
+                        onClick={() => setFullscreenCode(currentDisplayCode)}
                         style={{
                           display: 'inline-flex',
                           alignItems: 'center',
@@ -803,11 +805,11 @@ export default function TeacherClassroomsView({ currentUser }) {
                       Mã mời học sinh (Crockford Base32)
                     </div>
                     <div className="teacher-invite-code" style={{ fontSize: '1.6rem', fontWeight: 900, fontFamily: 'monospace', letterSpacing: '0.15em', color: '#064e3b', marginTop: '2px' }}>
-                      {visibleInviteCode || (activeInviteCode ? `${activeInviteCode.codePrefix}•••••` : 'CHƯA CÓ MÃ')}
+                      {currentDisplayCode || (activeInviteCode ? `${activeInviteCode.codePrefix || 'CODE'}•••••` : 'CHƯA CÓ MÃ')}
                     </div>
                     <div style={{ fontSize: '0.76rem', color: '#064e3b', marginTop: '2px' }}>
                       {activeInviteCode
-                        ? `Hết hạn: ${new Date(activeInviteCode.expiresAt).toLocaleDateString('vi-VN')} · Đã dùng: ${activeInviteCode.usedCount}/${activeInviteCode.maxUses} lượt`
+                        ? `Hết hạn: ${new Date(activeInviteCode.expiresAt).toLocaleDateString('vi-VN')} · Đã dùng: ${activeInviteCode.usedCount || 0}/${activeInviteCode.maxUses || 50} lượt`
                         : 'Mã mời đã hết hạn hoặc chưa được tạo.'}
                     </div>
                   </div>
@@ -815,10 +817,10 @@ export default function TeacherClassroomsView({ currentUser }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {activeInviteCode ? (
                       <>
-                        {visibleInviteCode ? (
+                        {currentDisplayCode ? (
                           <button
                             type="button"
-                            onClick={() => copyToClipboard(visibleInviteCode)}
+                            onClick={() => copyToClipboard(currentDisplayCode)}
                             style={{
                               display: 'inline-flex',
                               alignItems: 'center',

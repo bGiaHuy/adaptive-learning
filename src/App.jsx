@@ -8,6 +8,7 @@ import OnboardingWizard from './components/OnboardingWizard';
 import NotFoundView from './components/NotFoundView';
 import ModernLoadingState from './components/ModernLoadingState';
 import { authApi, studentApi } from './lib/apiClient';
+import { recordStudyActivity } from './lib/calendarSyncService';
 
 // Code-split heavy role-specific and feature views
 const DiagnosticTest = lazy(() => import('./components/DiagnosticTest'));
@@ -165,6 +166,10 @@ export default function App() {
   const handleFinishTest = (results) => {
     setHasCompletedTest(true);
     setTestResults(results);
+    recordStudyActivity(currentUser?.id, {
+      minutes: 30,
+      activity: 'Hoàn thành bài kiểm tra chẩn đoán'
+    });
     setActiveTab('profile');
   };
 

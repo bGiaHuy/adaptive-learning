@@ -135,60 +135,60 @@ async function main() {
           options: [
             { optionKey: 'A', content: '-9', isCorrect: false },
             { optionKey: 'B', content: '9', isCorrect: true },
-            { optionKey: 'C', content: '\\pm 9', isCorrect: false },
+            { optionKey: 'C', content: '$\\pm 9$', isCorrect: false },
             { optionKey: 'D', content: '81', isCorrect: false }
           ]
         },
         {
-          content: 'Biểu thức \\sqrt{2x - 6} có nghĩa khi và chỉ khi:',
+          content: 'Biểu thức $\\sqrt{2x - 6}$ có nghĩa khi và chỉ khi:',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Căn thức \\sqrt{A} có nghĩa khi A \\ge 0. Ta có $2x - 6 \\ge 0 \\iff 2x \\ge 6 \\iff x \\ge 3$.',
           options: [
-            { optionKey: 'A', content: 'x \\ge 3', isCorrect: true },
-            { optionKey: 'B', content: 'x > 3', isCorrect: false },
-            { optionKey: 'C', content: 'x \\le 3', isCorrect: false },
-            { optionKey: 'D', content: 'x < 3', isCorrect: false }
+            { optionKey: 'A', content: '$x \\ge 3$', isCorrect: true },
+            { optionKey: 'B', content: '$x > 3$', isCorrect: false },
+            { optionKey: 'C', content: '$x \\le 3$', isCorrect: false },
+            { optionKey: 'D', content: '$x < 3$', isCorrect: false }
           ]
         }
       ],
       'SKILL-02': [
         {
-          content: 'Rút gọn \\sqrt{245} được kết quả là:',
+          content: 'Rút gọn $\\sqrt{245}$ được kết quả là:',
           cognitiveLevel: CognitiveLevel.REMEMBERING,
           explanation: 'Ta có $245 = 49 \\times 5 = 7^2 \\times 5$. Do đó $\\sqrt{245} = \\sqrt{7^2 \\times 5} = 7\\sqrt{5}$.',
           options: [
-            { optionKey: 'A', content: '\\sqrt{35}', isCorrect: false },
-            { optionKey: 'B', content: '7\\sqrt{5}', isCorrect: true },
-            { optionKey: 'C', content: '5\\sqrt{7}', isCorrect: false },
-            { optionKey: 'D', content: '49\\sqrt{5}', isCorrect: false }
+            { optionKey: 'A', content: '$\\sqrt{35}$', isCorrect: false },
+            { optionKey: 'B', content: '$7\\sqrt{5}$', isCorrect: true },
+            { optionKey: 'C', content: '$5\\sqrt{7}$', isCorrect: false },
+            { optionKey: 'D', content: '$49\\sqrt{5}$', isCorrect: false }
           ]
         },
         {
-          content: 'Trục căn thức ở mẫu của biểu thức \\frac{6}{\\sqrt{3}} ta được:',
+          content: 'Trục căn thức ở mẫu của biểu thức $\\frac{6}{\\sqrt{3}}$ ta được:',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Nhân cả tử và mẫu với $\\sqrt{3}$, ta có: $\\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$.',
           options: [
-            { optionKey: 'A', content: '2\\sqrt{3}', isCorrect: true },
-            { optionKey: 'B', content: '3\\sqrt{2}', isCorrect: false },
-            { optionKey: 'C', content: '\\sqrt{3}', isCorrect: false },
-            { optionKey: 'D', content: '6\\sqrt{3}', isCorrect: false }
+            { optionKey: 'A', content: '$2\\sqrt{3}$', isCorrect: true },
+            { optionKey: 'B', content: '$3\\sqrt{2}$', isCorrect: false },
+            { optionKey: 'C', content: '$\\sqrt{3}$', isCorrect: false },
+            { optionKey: 'D', content: '$6\\sqrt{3}$', isCorrect: false }
           ]
         }
       ],
       'SKILL-03': [
         {
-          content: 'Nghiệm của hệ phương trình \\begin{cases} 2x + y = 5 \\\\ x - y = 1 \\end{cases} là cặp số (x; y):',
+          content: 'Nghiệm của hệ phương trình $\\begin{cases} 2x + y = 5 \\\\ x - y = 1 \\end{cases}$ là cặp số $(x; y)$:',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Cộng hai vế ta được: $(2x+y) + (x-y) = 5+1 \\iff 3x = 6 \\iff x = 2$. Thay $x = 2$ vào $x - y = 1 \\implies y = 1$. Vậy nghiệm là $(2; 1)$.',
           options: [
-            { optionKey: 'A', content: '(2;\\, 1)', isCorrect: true },
-            { optionKey: 'B', content: '(1;\\, 2)', isCorrect: false },
-            { optionKey: 'C', content: '(3;\\, -1)', isCorrect: false },
-            { optionKey: 'D', content: '(2;\\, 3)', isCorrect: false }
+            { optionKey: 'A', content: '$(2;\\; 1)$', isCorrect: true },
+            { optionKey: 'B', content: '$(1;\\; 2)$', isCorrect: false },
+            { optionKey: 'C', content: '$(3;\\; -1)$', isCorrect: false },
+            { optionKey: 'D', content: '$(2;\\; 3)$', isCorrect: false }
           ]
         },
         {
-          content: 'Hệ phương trình \\begin{cases} x + 2y = 4 \\\\ 2x + 4y = 8 \\end{cases} có bao nhiêu nghiệm?',
+          content: 'Hệ phương trình $\\begin{cases} x + 2y = 4 \\\\ 2x + 4y = 8 \\end{cases}$ có bao nhiêu nghiệm?',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Ta thấy tỉ số các hệ số: $\\frac{1}{2} = \\frac{2}{4} = \\frac{4}{8}$, hai đường thẳng trùng nhau nên hệ có vô số nghiệm.',
           options: [
@@ -214,51 +214,51 @@ async function main() {
       ],
       'SKILL-05': [
         {
-          content: 'Tập nghiệm của phương trình bậc hai x^2 - 5x + 6 = 0 là:',
+          content: 'Tập nghiệm của phương trình bậc hai $x^2 - 5x + 6 = 0$ là:',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Ta có $\\Delta = (-5)^2 - 4(1)(6) = 25 - 24 = 1 > 0$. Nghiệm là $x_1 = \\frac{5 + 1}{2} = 3$ và $x_2 = \\frac{5 - 1}{2} = 2$.',
           options: [
-            { optionKey: 'A', content: 'S = \\{2;\\, 3\\}', isCorrect: true },
-            { optionKey: 'B', content: 'S = \\{-2;\\, -3\\}', isCorrect: false },
-            { optionKey: 'C', content: 'S = \\{1;\\, 6\\}', isCorrect: false },
-            { optionKey: 'D', content: 'S = \\{-1;\\, -6\\}', isCorrect: false }
+            { optionKey: 'A', content: '$S = \\{2;\\; 3\\}$', isCorrect: true },
+            { optionKey: 'B', content: '$S = \\{-2;\\; -3\\}$', isCorrect: false },
+            { optionKey: 'C', content: '$S = \\{1;\\; 6\\}$', isCorrect: false },
+            { optionKey: 'D', content: '$S = \\{-1;\\; -6\\}$', isCorrect: false }
           ]
         }
       ],
       'SKILL-06': [
         {
-          content: 'Cho phương trình x^2 - 7x + 10 = 0. Tổng và tích hai nghiệm S = x_1 + x_2 và P = x_1 x_2 là:',
+          content: 'Cho phương trình $x^2 - 7x + 10 = 0$. Tổng và tích hai nghiệm $S = x_1 + x_2$ và $P = x_1 \\cdot x_2$ là:',
           cognitiveLevel: CognitiveLevel.REMEMBERING,
           explanation: 'Theo định lý Viète: $S = x_1 + x_2 = -\\frac{b}{a} = -\\frac{-7}{1} = 7$ và $P = x_1 x_2 = \\frac{c}{a} = \\frac{10}{1} = 10$.',
           options: [
-            { optionKey: 'A', content: 'S = 7;\\, P = 10', isCorrect: true },
-            { optionKey: 'B', content: 'S = -7;\\, P = 10', isCorrect: false },
-            { optionKey: 'C', content: 'S = 7;\\, P = -10', isCorrect: false },
-            { optionKey: 'D', content: 'S = -7;\\, P = -10', isCorrect: false }
+            { optionKey: 'A', content: '$S = 7;\\; P = 10$', isCorrect: true },
+            { optionKey: 'B', content: '$S = -7;\\; P = 10$', isCorrect: false },
+            { optionKey: 'C', content: '$S = 7;\\; P = -10$', isCorrect: false },
+            { optionKey: 'D', content: '$S = -7;\\; P = -10$', isCorrect: false }
           ]
         }
       ],
       'SKILL-07': [
         {
-          content: 'Cho tam giác ABC vuông tại A có AB = 6\\text{ cm}, AC = 8\\text{ cm}. Giá trị \\sin B bằng:',
+          content: 'Cho tam giác $ABC$ vuông tại $A$ có $AB = 6$ cm, $AC = 8$ cm. Giá trị $\\sin B$ bằng:',
           cognitiveLevel: CognitiveLevel.APPLYING,
           explanation: 'Áp dụng định lý Pythagoras: $BC = \\sqrt{6^2 + 8^2} = 10\\text{ cm}$. Tỉ số $\\sin B = \\frac{\\text{đối}}{\\text{huyền}} = \\frac{AC}{BC} = \\frac{8}{10} = \\frac{4}{5}$.',
           options: [
-            { optionKey: 'A', content: '\\frac{3}{5}', isCorrect: false },
-            { optionKey: 'B', content: '\\frac{4}{5}', isCorrect: true },
-            { optionKey: 'C', content: '\\frac{3}{4}', isCorrect: false },
-            { optionKey: 'D', content: '\\frac{4}{3}', isCorrect: false }
+            { optionKey: 'A', content: '$\\frac{3}{5}$', isCorrect: false },
+            { optionKey: 'B', content: '$\\frac{4}{5}$', isCorrect: true },
+            { optionKey: 'C', content: '$\\frac{3}{4}$', isCorrect: false },
+            { optionKey: 'D', content: '$\\frac{4}{3}$', isCorrect: false }
           ]
         },
         {
-          content: 'Trong tam giác ABC vuông tại A có \\widehat{C} = 30^\\circ và cạnh huyền BC = 12\\text{ cm}. Độ dài cạnh AB là:',
+          content: 'Trong tam giác $ABC$ vuông tại $A$ có $\\widehat{C} = 30^\\circ$ và cạnh huyền $BC = 12$ cm. Độ dài cạnh $AB$ là:',
           cognitiveLevel: CognitiveLevel.UNDERSTANDING,
           explanation: 'Ta có $\\sin C = \\frac{AB}{BC} \\implies AB = BC \\times \\sin 30^\\circ = 12 \\times \\frac{1}{2} = 6\\text{ cm}$.',
           options: [
-            { optionKey: 'A', content: '6\\text{ cm}', isCorrect: true },
-            { optionKey: 'B', content: '6\\sqrt{3}\\text{ cm}', isCorrect: false },
-            { optionKey: 'C', content: '8\\text{ cm}', isCorrect: false },
-            { optionKey: 'D', content: '4\\text{ cm}', isCorrect: false }
+            { optionKey: 'A', content: '$6$ cm', isCorrect: true },
+            { optionKey: 'B', content: '$6\\sqrt{3}$ cm', isCorrect: false },
+            { optionKey: 'C', content: '$8$ cm', isCorrect: false },
+            { optionKey: 'D', content: '$4$ cm', isCorrect: false }
           ]
         }
       ],
@@ -268,10 +268,10 @@ async function main() {
           cognitiveLevel: CognitiveLevel.REMEMBERING,
           explanation: 'Theo định lý về góc nội tiếp trong hình học 9: Góc nội tiếp chắn nửa đường tròn là góc vuông ($90^\\circ$).',
           options: [
-            { optionKey: 'A', content: '90^\\circ', isCorrect: true },
-            { optionKey: 'B', content: '180^\\circ', isCorrect: false },
-            { optionKey: 'C', content: '60^\\circ', isCorrect: false },
-            { optionKey: 'D', content: '45^\\circ', isCorrect: false }
+            { optionKey: 'A', content: '$90^\\circ$', isCorrect: true },
+            { optionKey: 'B', content: '$180^\\circ$', isCorrect: false },
+            { optionKey: 'C', content: '$60^\\circ$', isCorrect: false },
+            { optionKey: 'D', content: '$45^\\circ$', isCorrect: false }
           ]
         }
       ]
