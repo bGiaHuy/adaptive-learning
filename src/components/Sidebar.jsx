@@ -1,4 +1,5 @@
 import React from 'react';
+import BrandLogo from './BrandLogo';
 import {
   Home,
   TrendingUp,
@@ -97,21 +98,19 @@ export default function Sidebar({
     <aside className="app-sidebar">
       {/* Brand Header */}
       <div className="sidebar-brand">
-        <div className="sidebar-logo-icon">
-          <span>∫</span>
-        </div>
-        <div>
-          <span className="sidebar-logo-title">AdaptiveMath</span>
-          <div style={{ fontSize: '0.65rem', color: '#6ee7b7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            {role === 'TEACHER'
+        <BrandLogo 
+          size={34} 
+          isDark={true}
+          subtitle={
+            role === 'TEACHER'
               ? 'Teacher Portal'
               : role === 'TEACHER_APPLICANT'
               ? 'Verification'
               : role === 'ADMIN'
               ? 'Admin Console'
-              : 'Student Studio'}
-          </div>
-        </div>
+              : 'Student Studio'
+          }
+        />
       </div>
 
       {/* Navigation List */}

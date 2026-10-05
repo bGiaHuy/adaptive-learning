@@ -1,5 +1,6 @@
 import React from 'react';
 import { LogOut, User, ShieldAlert, FileText, Key } from 'lucide-react';
+import BrandLogo from './BrandLogo';
 
 export default function Navbar({
   pageTitle,
@@ -36,11 +37,8 @@ export default function Navbar({
     return (
       <header className="landing-navbar">
         <div className="landing-nav-container">
-          <div className="brand-logo" onClick={() => onNavigate('landing')} role="button" tabIndex={0}>
-            <div className="logo-icon-box">
-              <span className="logo-symbol">∫</span>
-            </div>
-            <span className="logo-text">AdaptiveMath</span>
+          <div className="brand-logo" onClick={() => onNavigate('landing')} role="button" tabIndex={0} style={{ cursor: 'pointer' }}>
+            <BrandLogo size={36} />
           </div>
           <div className="landing-nav-actions">
             <button
