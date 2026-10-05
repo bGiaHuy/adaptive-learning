@@ -7,13 +7,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/katex')) {
+          const normalized = id.replace(/\\/g, '/');
+          if (normalized.includes('node_modules/katex')) {
             return 'vendor-katex';
           }
-          if (id.includes('node_modules/lucide-react')) {
+          if (normalized.includes('node_modules/lucide-react')) {
             return 'vendor-icons';
           }
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/scheduler')) {
+          if (normalized.includes('node_modules/react') || normalized.includes('node_modules/react-dom') || normalized.includes('node_modules/scheduler')) {
             return 'vendor-react';
           }
         }

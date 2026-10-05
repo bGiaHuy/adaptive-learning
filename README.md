@@ -237,5 +237,8 @@ adaptivemath/
 Dự án hiện đạt mức:  
 **PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF**
 
+> [!WARNING]
+> **Tuyệt đối KHÔNG được tự tuyên bố project là ready, handoff ready hoặc pilot ready nếu chưa có legal, privacy và academic sign-off chính thức.**
+
 - **Phần Kỹ thuật (Engineering):** Đã hoàn tất cài đặt các tính năng cốt lõi, kiểm thử tự động, tối ưu hóa bundle và tài liệu kỹ thuật. Hệ thống KHÔNG tự tuyên bố handoff ready hoặc pilot ready khi chưa có các phê duyệt bên ngoài bắt buộc.
 - **Phần Học thuật & Pháp lý (Academic & Legal):** Đang chờ chữ ký phê duyệt thực tế của Academic Content Lead (Gate 3) và Legal Officer (Gate 0 D-01..D-04) trước khi tiến hành Controlled Pilot trên học sinh thực tế.

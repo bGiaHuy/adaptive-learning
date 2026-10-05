@@ -1,6 +1,6 @@
 # AdaptiveMath — Product Release Readiness Dashboard
 
-> **Rà soát nghiệm thu 2026-09-21:** Trạng thái hiện hành là **NOT HANDOFF READY**. Browser smoke đã phát hiện và giúp sửa lỗi 404, duplicate answer và timeout resume; còn thiếu critical E2E, WCAG audit, test DB reset và package verification đầy đủ. Các kết luận “TECHNICAL HANDOFF READY”, Gate 2 PASS, Phase 7/8 hoàn tất ở bản ghi lịch sử bên dưới chưa đủ bằng chứng để mở gate. Xem [biên bản nghiệm thu](ACCEPTANCE-AUDIT-2026-09-21.md), có hiệu lực ưu tiên so với trạng thái cũ.
+> **Rà soát nghiệm thu (Tháng 10/2026):** Trạng thái chính thức: **PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF**. Tuyệt đối KHÔNG được tự tuyên bố project là ready, handoff ready hoặc pilot ready nếu chưa có legal, privacy và academic sign-off chính thức. Xem [biên bản nghiệm thu](ACCEPTANCE-AUDIT-2026-09-21.md) và [báo cáo bàn giao](../handoff/CLIENT-HANDOFF.md).
 
 **Tài liệu:** Release Readiness & Quality Gate Tracking Dashboard  
 **Vai trò sở hữu:** Antigravity (Product Release Controller)  

@@ -16,12 +16,21 @@ apps/api/prisma/generated/
 # Env & secrets (never commit)
 .env
 .env.*
+.env.local
 !.env.example
 *.pem
+*.key
+*.cert
+*.crt
+*.token
 
-# Logs
+# Backups, dumps & logs
 *.log
 npm-debug.log*
+backups/
+*.sql
+*.dump
+*.tar
 backup_rehearsal.sql
 docs/evidence/backup/*.sql
 release/
@@ -46,9 +55,3 @@ test-results/
 # Misc
 .vscode/*
 !.vscode/extensions.json
-
-.vercel
-.env*
-
-backups/
-*.sql

@@ -133,7 +133,11 @@ Dưới đây là danh sách chi tiết các điều kiện tiên quyết **bắ
 
 ## 7. Ký Tên Nghiệm Thu
 
+> [!CAUTION]
+> **Quy định Quản Trị Nghiêm Ngặt:**  
+> Tuyệt đối KHÔNG được tự tuyên bố dự án là Ready, Handoff Ready hoặc Pilot Ready nếu chưa có Legal, Privacy và Academic Sign-off chính thức bằng văn bản. Trạng thái hiện thời bị khóa tại: **PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF**.
+
 | Đại Diện Đơn Vị Phát Triển (Implementation Owner) | Đại Diện Khách Hàng (Client Acceptance Lead) |
 | :---: | :---: |
 | *Antigravity (Release Engineer)* | *(Chờ ký nhận bàn giao)* |
-| Ngày: 21/09/2026 | Ngày: ..... / ..... / 2026 |
+| Ngày: 05/10/2026 | Ngày: ..... / ..... / 2026 |
