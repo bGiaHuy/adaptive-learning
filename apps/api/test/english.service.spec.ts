@@ -108,4 +108,99 @@ describe('English lessons', () => {
     expect(batch.lessons.filter((item: any) => item.kind === 'LISTENING')).toHaveLength(2);
     expect(batch.lessons.every((item: any) => item.published)).toBe(true);
   });
+
+  it('rejects review when author attempts to self-review with MAKER_CHECKER_VIOLATION', async () => {
+    const prisma: any = {
+      englishLesson: {
+        findUnique: vi.fn().mockResolvedValue({
+          id: 'lesson-mc-1',
+          title: 'Author lesson',
+          authorId: 'author-user-123',
+          published: false
+        })
+      }
+    };
+    const service = new EnglishService(prisma);
+    await expect(
+      service.reviewLesson('lesson-mc-1', 'author-user-123', { published: true })
+    ).rejects.toThrow('Quy tắc Maker-Checker');
+  });
+
+  it('allows independent reviewer/admin to review and publish lesson, writing ENGLISH_LESSON_REVIEWED audit log', async () => {
+    const update = vi.fn().mockResolvedValue({ id: 'lesson-mc-2', published: true, reviewerId: 'reviewer-user-456' });
+    const auditCreate = vi.fn().mockResolvedValue({});
+    const prisma: any = {
+      englishLesson: {
+        findUnique: vi.fn().mockResolvedValue({
+          id: 'lesson-mc-2',
+          title: 'Draft lesson',
+          authorId: 'author-user-123',
+          published: false
+        }),
+        update
+      },
+      auditLog: {
+        create: auditCreate
+      }
+    };
+    const service = new EnglishService(prisma);
+    const result = await service.reviewLesson('lesson-mc-2', 'reviewer-user-456', { published: true });
+    expect(result.message).toContain('xuất bản bài học thành công');
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'lesson-mc-2' },
+      data: { published: true, reviewerId: 'reviewer-user-456' }
+    });
+    expect(auditCreate).toHaveBeenCalledWith({
+      data: {
+        actorUserId: 'reviewer-user-456',
+        action: 'ENGLISH_LESSON_REVIEWED',
+        targetEntity: 'EnglishLesson',
+        targetEntityId: 'lesson-mc-2',
+        metadata: {
+          previousPublished: false,
+          newPublished: true,
+          note: null
+        }
+      }
+    });
+  });
+
+  it('allows independent reviewer/admin to reject lesson, writing ENGLISH_LESSON_REVIEWED audit log', async () => {
+    const update = vi.fn().mockResolvedValue({ id: 'lesson-mc-3', published: false, reviewerId: 'admin-user-789' });
+    const auditCreate = vi.fn().mockResolvedValue({});
+    const prisma: any = {
+      englishLesson: {
+        findUnique: vi.fn().mockResolvedValue({
+          id: 'lesson-mc-3',
+          title: 'Published lesson',
+          authorId: 'author-user-123',
+          published: true
+        }),
+        update
+      },
+      auditLog: {
+        create: auditCreate
+      }
+    };
+    const service = new EnglishService(prisma);
+    const result = await service.reviewLesson('lesson-mc-3', 'admin-user-789', { published: false, note: 'Need revision' });
+    expect(result.message).toContain('bản nháp');
+    expect(update).toHaveBeenCalledWith({
+      where: { id: 'lesson-mc-3' },
+      data: { published: false, reviewerId: 'admin-user-789' }
+    });
+    expect(auditCreate).toHaveBeenCalledWith({
+      data: {
+        actorUserId: 'admin-user-789',
+        action: 'ENGLISH_LESSON_REVIEWED',
+        targetEntity: 'EnglishLesson',
+        targetEntityId: 'lesson-mc-3',
+        metadata: {
+          previousPublished: true,
+          newPublished: false,
+          note: 'Need revision'
+        }
+      }
+    });
+  });
 });

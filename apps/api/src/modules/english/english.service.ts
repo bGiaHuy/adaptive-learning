@@ -201,6 +201,7 @@ export class EnglishService {
         summary: typeof item.summary === 'string' ? item.summary : null, level, kind,
         body: typeof item.body === 'string' ? item.body : null, audioUrl,
         transcript: transcript as Prisma.InputJsonValue,
+        sourceAttribution: typeof item.sourceAttribution === 'string' ? item.sourceAttribution : null,
         published: false, // Maker-Checker: Always draft upon import until reviewed by another admin/checker
         authorId: authorId || null,
         orderIndex: index,
@@ -215,7 +216,7 @@ export class EnglishService {
         await tx.englishExercise.deleteMany({ where: { lessonId: lesson.id } });
         if (exercises.length) await tx.englishExercise.createMany({ data: exercises.map(exercise => ({ ...exercise, lessonId: lesson.id })) });
       }
-    });
+    }, { timeout: 60000, maxWait: 15000 });
     return { topics: parsedTopics.length, lessons: parsedLessons.length, exercises: exerciseIds.size };
   }
 

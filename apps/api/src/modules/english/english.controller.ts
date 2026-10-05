@@ -60,7 +60,7 @@ export class EnglishController {
 
   @Get('admin/lessons')
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.CONTENT_REVIEWER)
   adminLessons(@Query('status') status?: 'all' | 'published' | 'draft') {
     return this.english.adminLessons(status);
   }
@@ -68,7 +68,7 @@ export class EnglishController {
   @Post('lessons/:id/review')
   @HttpCode(200)
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.CONTENT_REVIEWER)
   reviewLesson(
     @Param('id') id: string,
     @CurrentUser('id') reviewerId: string,
