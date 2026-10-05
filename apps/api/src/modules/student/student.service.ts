@@ -129,7 +129,9 @@ export class StudentService {
         code: m.skill.code,
         title: m.skill.title,
         chapter: m.skill.chapter,
-        score: m.masteryScore,
+        score: Math.round(m.masteryScore),
+        masteryScore: Math.round(m.masteryScore),
+        attemptsCount: m.attemptsCount || 1,
         level: m.masteryScore >= 75 ? 'THÀNH THẠO' : (m.masteryScore >= 50 ? 'TRUNG BÌNH' : 'CẦN LUYỆN TẬP'),
         lastAssessedAt: m.lastAssessedAt
       }))

@@ -178,7 +178,9 @@ export default function ProfileCompetencyView({
       {/* Skills Grid */}
       <div className="competency-metrics-grid" style={{ marginTop: '20px' }}>
         {(masteryData.skills || []).map((skill) => {
-          const score = Math.round(skill.masteryScore);
+          const rawScore = skill.masteryScore ?? skill.score ?? 0;
+          const score = Number.isFinite(Number(rawScore)) ? Math.round(Number(rawScore)) : 0;
+          const attempts = skill.attemptsCount ?? skill.attempts ?? 1;
           const isStrong = score >= 75;
           const isMedium = score >= 50 && score < 75;
 
@@ -209,13 +211,13 @@ export default function ProfileCompetencyView({
               <div className="stat-progress-bar">
                 <div
                   className={`stat-fill ${isStrong ? 'fill-green' : isMedium ? 'fill-yellow' : 'fill-coral'}`}
-                  style={{ width: `${score}%` }}
+                  style={{ width: `${Math.min(100, Math.max(0, score))}%` }}
                 ></div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.78rem', color: '#64748b' }}>
                 <span>{score}% thành thạo</span>
-                <span>{skill.attemptsCount} lượt kiểm tra</span>
+                <span>{attempts} lượt kiểm tra</span>
               </div>
             </div>
           );
