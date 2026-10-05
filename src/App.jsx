@@ -227,29 +227,9 @@ export default function App() {
     }
   };
 
-  // Bootstrapping Splash
+  // Bootstrapping Splash with dynamic rotating circular spinner
   if (isBootstrapping) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#f4f0e7',
-          color: '#0f172a',
-          fontFamily: 'serif'
-        }}
-      >
-        <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '12px' }}>
-          ∫ AdaptiveMath
-        </div>
-        <div style={{ fontSize: '0.9rem', color: '#64748b', fontFamily: 'sans-serif' }}>
-          Đang khôi phục phiên bảo mật...
-        </div>
-      </div>
-    );
+    return <LoadingScreen onFinished={() => {}} duration={1200} />;
   }
 
   if (unknownUrl) {
