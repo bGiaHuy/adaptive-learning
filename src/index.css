@@ -737,122 +737,47 @@ a {
   width: min(100% - 32px, 420px);
 }
 
-.loading-spinner-wrapper {
-  position: relative;
-  width: 96px;
-  height: 96px;
+/* ==========================================================================
+   SPINNING LOADERS & CIRCLING ANIMATION ("LOADING XOAY XOAY")
+   ========================================================================== */
+
+.spinning-loader-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin: 0 auto;
 }
 
-.loading-orbit {
-  position: absolute;
-  display: grid;
-  place-items: start center;
-  border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent);
+.main-spinning-circle {
+  animation: spin 0.8s linear infinite !important;
+  transform-origin: center center !important;
+  will-change: transform;
+}
+
+.universal-spinning-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.universal-spinning-circle svg {
+  animation: spin 0.8s linear infinite !important;
+  transform-origin: center center !important;
+  will-change: transform;
+}
+
+.spinning-loader-ring {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  animation: loading-orbit 2.8s linear infinite;
-}
-
-.loading-orbit-outer {
-  width: 88px;
-  height: 88px;
-  animation-duration: 3.2s;
-}
-
-.loading-orbit-inner {
-  width: 64px;
-  height: 64px;
-  margin-top: 12px;
-  border-color: color-mix(in srgb, var(--primary) 36%, transparent);
-  animation-direction: reverse;
-  animation-duration: 2.2s;
-}
-
-.loading-orbit span {
-  width: 8px;
-  height: 8px;
-  margin-top: -4px;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 14%, transparent), 0 0 16px color-mix(in srgb, var(--primary) 46%, transparent);
-}
-
-.loading-orbit-inner span {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-dark);
-}
-
-.loading-core-mark {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--primary-border);
-  border-radius: 50%;
-  color: var(--primary-darker);
-  background: var(--primary-light);
-  font-size: 25px;
-  font-weight: 800;
-  line-height: 1;
-  animation: loading-core-breathe 1.8s ease-in-out infinite;
-}
-
-.loading-main-text {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #062e24;
-}
-
-.loading-sub-text {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
-
-.loading-progress-track {
-  width: 148px;
-  height: 3px;
-  margin-top: 9px;
-  overflow: hidden;
-  border-radius: 9999px;
-  background: var(--primary-light);
-}
-
-.loading-progress-track span {
+  border: 4px solid rgba(240, 100, 47, 0.18);
+  border-top-color: #f0642f;
+  border-right-color: #f59e0b;
+  animation: spin 0.8s linear infinite !important;
+  box-shadow: 0 0 16px rgba(240, 100, 47, 0.35);
+  margin: 0 auto 12px;
   display: block;
-  width: 42%;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--primary);
-  animation: loading-progress 1.25s ease-in-out infinite;
-}
-
-@keyframes loading-orbit {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes loading-core-breathe {
-  50% { transform: scale(0.88); box-shadow: 0 0 0 7px color-mix(in srgb, var(--primary) 10%, transparent); }
-}
-
-@keyframes loading-progress {
-  from { transform: translateX(-110%); }
-  to { transform: translateX(250%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loading-orbit,
-  .loading-core-mark,
-  .loading-progress-track span {
-    animation: none;
-  }
-
-  .loading-orbit-outer { transform: rotate(38deg); }
-  .loading-orbit-inner { transform: rotate(-42deg); }
-  .loading-progress-track span { width: 100%; transform: none; }
+  will-change: transform;
 }
 
 /* ==========================================================================
@@ -4296,14 +4221,25 @@ button:active:not(:disabled) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *:not(.animate-spin):not(.universal-spinning-circle):not(.main-spinning-circle):not(.spinning-loader-ring):not(.modern-dual-ring-spinner):not([class*="spin"]):not([class*="spinner"]) {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
+}
+
+/* Ensure ALL spinning loaders spin under all circumstances ("loading xoay xoay") */
+.animate-spin,
+.universal-spinning-circle,
+.main-spinning-circle,
+.spinning-loader-ring,
+.modern-dual-ring-spinner,
+[class*="spin"],
+[class*="spinner"] {
+  animation-name: spin !important;
+  animation-duration: 0.8s !important;
+  animation-iteration-count: infinite !important;
+  animation-timing-function: linear !important;
+  transform-origin: center center !important;
+  display: inline-block;
 }
 
 @media (max-width: 1080px) {
