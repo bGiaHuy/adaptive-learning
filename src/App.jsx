@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar';
 import DashboardView from './components/DashboardView';
 import OnboardingWizard from './components/OnboardingWizard';
 import NotFoundView from './components/NotFoundView';
+import ModernLoadingState from './components/ModernLoadingState';
 import { authApi, studentApi } from './lib/apiClient';
 
 // Code-split heavy role-specific and feature views
@@ -323,7 +324,7 @@ export default function App() {
 
       <div className="main-content-area">
         <main className="tab-viewport">
-          <Suspense fallback={<div style={{ padding: '48px 24px', textAlign: 'center', color: '#64748b' }}>Đang tải giao diện...</div>}>
+          <Suspense fallback={<ModernLoadingState message="Đang tải giao diện..." subMessage="Hệ thống đang chuẩn bị dữ liệu cho bạn" />}>
             {/* TEACHER APPLICANT VIEW */}
             {role === 'TEACHER_APPLICANT' && (
               <TeacherPendingView
