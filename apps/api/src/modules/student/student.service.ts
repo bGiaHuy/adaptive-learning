@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateOnboardingDto } from './dto/update-onboarding.dto';
 import { UpdateMistakeDto } from './dto/update-mistake.dto';
 import { AttemptStatus } from '@prisma/client';
+import { buildStudyPlan, studyDate, targetForGoal, examDay } from './math-adaptive';
 
 @Injectable()
 export class StudentService {
@@ -38,7 +39,7 @@ export class StudentService {
         where: { studentId, status: AttemptStatus.COMPLETED }
       }),
       this.prisma.skillMastery.count({
-        where: { studentId, masteryScore: { gte: 70 } }
+        where: { studentId, masteryScore: { gte: targetForGoal(user.studentProfile?.targetGoal) * 100 }, evidenceCount: { gte: 5 } }
       }),
       this.prisma.mistakeRecord.count({
         where: { studentId }
@@ -74,13 +75,14 @@ export class StudentService {
 
   // 2. Update Onboarding settings
   async updateOnboarding(studentId: string, dto: UpdateOnboardingDto) {
+    if (dto.examDate && !examDay(dto.examDate)) throw new BadRequestException('Ngày thi không hợp lệ. Dùng DD/MM/YYYY hoặc YYYY-MM-DD.');
     const updated = await this.prisma.studentProfile.upsert({
       where: { userId: studentId },
       update: {
         ...(dto.grade && { grade: dto.grade }),
         ...(dto.targetGoal && { targetGoal: dto.targetGoal }),
         ...(dto.dailyMinutes && { dailyMinutes: dto.dailyMinutes }),
-        ...(dto.examDate && { examDate: dto.examDate }),
+        ...(dto.examDate !== undefined && { examDate: dto.examDate || null }),
         ...(dto.selfAssessment && { selfAssessment: dto.selfAssessment })
       },
       create: {
@@ -101,8 +103,9 @@ export class StudentService {
 
   // 3. Get Student Mastery Overview
   async getMasteryOverview(studentId: string) {
+    const profile = await this.prisma.studentProfile.findUnique({ where: { userId: studentId } });
     const masteries = await this.prisma.skillMastery.findMany({
-      where: { studentId },
+      where: { studentId, skill: { grade: profile?.grade || 9 } },
       include: {
         skill: true
       },
@@ -114,16 +117,28 @@ export class StudentService {
       ? Math.round(masteries.reduce((acc, m) => acc + m.masteryScore, 0) / totalCount)
       : 0;
 
-    const strongSkills = masteries.filter(m => m.masteryScore >= 75);
-    const averageSkills = masteries.filter(m => m.masteryScore >= 50 && m.masteryScore < 75);
-    const weakSkills = masteries.filter(m => m.masteryScore < 50);
+    const allSkills = await this.prisma.skillNode.findMany({ where: { grade: profile?.grade || 9 }, orderBy: { orderIndex: 'asc' } });
+    const target = targetForGoal(profile?.targetGoal) * 100;
+    const strongSkills = masteries.filter(m => m.masteryScore >= target && m.evidenceCount >= 5);
+    const averageSkills = masteries.filter(m => m.evidenceCount >= 5 && m.masteryScore >= 50 && m.masteryScore < target);
+    const weakSkills = masteries.filter(m => m.evidenceCount >= 5 && m.masteryScore < 50);
 
     return {
       averageMasteryScore: avgScore,
       totalAssessedSkills: totalCount,
+      totalAvailableSkills: allSkills.length,
+      unassessedCount: allSkills.filter(s => !masteries.some(m => m.skillId === s.id)).length,
+      targetMastery: target,
       strongCount: strongSkills.length,
       averageCount: averageSkills.length,
       weakCount: weakSkills.length,
+      insufficientCount: masteries.filter(m => m.evidenceCount < 5).length,
+      catalog: allSkills.map(skill => {
+        const mastery = masteries.find(item => item.skillId === skill.id);
+        return { skillId: skill.id, title: skill.title, chapter: skill.chapter,
+          masteryScore: mastery ? Math.round(mastery.masteryScore) : null,
+          evidenceCount: mastery?.evidenceCount ?? 0, lastAssessedAt: mastery?.lastAssessedAt ?? null };
+      }),
       skills: masteries.map(m => ({
         skillId: m.skillId,
         code: m.skill.code,
@@ -132,10 +147,27 @@ export class StudentService {
         score: Math.round(m.masteryScore),
         masteryScore: Math.round(m.masteryScore),
         attemptsCount: m.attemptsCount || 1,
-        level: m.masteryScore >= 75 ? 'THÀNH THẠO' : (m.masteryScore >= 50 ? 'TRUNG BÌNH' : 'CẦN LUYỆN TẬP'),
+        evidenceCount: m.evidenceCount,
+        level: m.evidenceCount < 5 ? 'CHƯA ĐỦ DỮ LIỆU' : m.masteryScore >= target ? 'THÀNH THẠO' : (m.masteryScore >= 50 ? 'ĐANG CỦNG CỐ' : 'CẦN LUYỆN TẬP'),
         lastAssessedAt: m.lastAssessedAt
       }))
     };
+  }
+
+  async getActivity(studentId: string) {
+    const [diagnostics, sessions] = await Promise.all([
+      this.prisma.diagnosticAttempt.findMany({ where: { studentId, status: 'COMPLETED' }, include: { answers: { select: { timeSpentSeconds: true } } } }),
+      this.prisma.mathPracticeSession.findMany({ where: { studentId, status: 'COMPLETED' } })
+    ]);
+    const logs: Record<string, any> = {};
+    const add = (date: Date, seconds: number, activity: string) => {
+      if (!date) return;
+      const key = studyDate(date), row = logs[key] || { minutes: 0, sessions: 0, completed: true, activities: [] };
+      row.minutes += Math.max(1, Math.ceil(seconds / 60)); row.sessions++; row.activities.push(activity); logs[key] = row;
+    };
+    diagnostics.forEach(a => add(a.completedAt, a.answers.reduce((n, q) => n + q.timeSpentSeconds, 0), 'Kiểm tra chẩn đoán'));
+    sessions.forEach(s => add(s.completedAt, ((s.state as any).answers || []).reduce((n: number, a: any) => n + a.timeSpentSeconds, 0), 'Luyện tập theo chủ đề'));
+    return { logs };
   }
 
   // 4. Get Personalized Learning Path
@@ -147,24 +179,25 @@ export class StudentService {
 
     const allSkills = await this.prisma.skillNode.findMany({
       where: { grade },
-      orderBy: { orderIndex: 'asc' }
+      orderBy: { orderIndex: 'asc' },
+      include: { _count: { select: { questions: { where: { status: 'PUBLISHED' } } } } }
     });
 
     const masteries = await this.prisma.skillMastery.findMany({
       where: { studentId }
     });
-    const masteryMap = new Map(masteries.map(m => [m.skillId, m.masteryScore]));
+    const masteryMap = new Map(masteries.map(m => [m.skillId, m]));
+    const target = targetForGoal(userProfile?.targetGoal) * 100;
+    const completed = await this.prisma.mathPracticeSession.findMany({ where: { studentId, status: 'COMPLETED' }, select: { skillId: true, completedAt: true } });
+    const today = studyDate();
+    const published = await this.prisma.question.findMany({ where: { status: 'PUBLISHED' }, select: { id: true } });
+    const dueCount = await this.prisma.mathReviewCard.count({ where: { studentId, due: { lte: new Date() }, questionId: { in: published.map(q => q.id) } } });
 
     // Construct path modules
-    const modules = allSkills.map((s, idx) => {
-      const score = masteryMap.get(s.id) ?? 0;
-      let status: 'COMPLETED' | 'IN_PROGRESS' | 'LOCKED' = 'LOCKED';
-
-      if (score >= 75) {
-        status = 'COMPLETED';
-      } else if (idx === 0 || (masteryMap.get(allSkills[Math.max(0, idx - 1)].id) ?? 0) >= 50) {
-        status = 'IN_PROGRESS';
-      }
+    const modules = allSkills.map((s) => {
+      const mastery = masteryMap.get(s.id), score = mastery ? Math.round(mastery.masteryScore) : null;
+      const evidenceCount = mastery?.evidenceCount || 0;
+      const status = score !== null && score >= target && evidenceCount >= 5 ? 'COMPLETED' : 'IN_PROGRESS';
 
       return {
         id: s.id,
@@ -173,22 +206,31 @@ export class StudentService {
         chapter: s.chapter,
         orderIndex: s.orderIndex,
         masteryScore: score,
+        evidenceCount,
+        canPractice: s._count.questions >= 3,
+        publishedQuestions: s._count.questions,
+        completedToday: completed.some(c => c.skillId === s.id && c.completedAt && studyDate(c.completedAt) === today),
         status,
-        recommendedAction: score >= 75
-          ? 'Đã làm chủ kiến thức — Sẵn sàng làm bài thi tổng hợp'
-          : (score >= 50 ? 'Luyện thêm 5-10 câu vận dụng để đạt 85%+' : 'Luyện lại dạng bài cơ bản')
+        recommendedAction: score === null ? 'Chưa đánh giá; bắt đầu bằng kiến thức cơ bản.'
+          : evidenceCount < 5 ? 'Kết quả tạm tính; cần thêm câu mới để xác nhận.'
+          : status === 'COMPLETED' ? 'Đạt mục tiêu hiện tại; tiếp tục ôn các câu đến hạn.' : 'Ôn kiến thức và luyện câu mới để củng cố.'
       };
     });
 
     return {
       targetGoal: userProfile?.targetGoal || 'Ôn thi vào lớp 10',
       grade,
-      modules
+      modules,
+      dueCount,
+      plan: buildStudyPlan(modules, userProfile?.dailyMinutes, userProfile?.examDate, userProfile?.targetGoal, new Date(), dueCount)
     };
   }
 
   // 5. Get Mistake Notebook Records
   async getMistakes(studentId: string, isMastered?: boolean) {
+    if (await this.prisma.diagnosticAttempt.findFirst({ where: { studentId, status: 'IN_PROGRESS' } })) {
+      throw new ForbiddenException('Sổ lỗi tạm dừng trong bài kiểm tra. Hãy nộp bài trước.');
+    }
     const where: any = { studentId };
     if (typeof isMastered === 'boolean') {
       where.isMastered = isMastered;

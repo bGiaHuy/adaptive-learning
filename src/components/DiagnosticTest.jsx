@@ -24,7 +24,7 @@ export default function DiagnosticTest({
   const [attemptId, setAttemptId] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedOptionKey, setSelectedOptionKey] = useState(null);
-  const [currentTheta, setCurrentTheta] = useState(0.50);
+  const [currentTheta, setCurrentTheta] = useState(0);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(24);
   const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
@@ -49,7 +49,7 @@ export default function DiagnosticTest({
     try {
       const data = await diagnosticApi.startAttempt();
       setAttemptId(data.attemptId);
-      setCurrentTheta(data.currentTheta || 0.50);
+      setCurrentTheta(data.currentTheta ?? 0);
       setAnsweredCount(data.answeredCount || 0);
       setTotalQuestions(data.totalQuestions || 24);
       setIsReadyToSubmit(data.isReadyToSubmit || false);
@@ -280,6 +280,8 @@ export default function DiagnosticTest({
         return 'Thông hiểu';
       case 'APPLYING':
         return 'Vận dụng';
+      case 'ADVANCED_APPLYING':
+        return 'Vận dụng cao';
       default:
         return 'Thông hiểu';
     }
@@ -292,13 +294,13 @@ export default function DiagnosticTest({
         <div className="diagnostic-intro-card">
           <h1 className="intro-card-heading">Bài kiểm tra đầu vào (CAT / IRT)</h1>
           <p className="intro-card-description">
-            Bài kiểm tra thích ứng theo mô hình Rasch/IRT. Trả lời đúng thì hệ thống chọn câu hỏi mức cao hơn; trả lời sai thì hạ mức để tìm vùng năng lực thực sự của bạn ($\theta$). Mọi câu hỏi đều bám sát SGK Kết nối tri thức và GDPT 2018.
+            Mỗi chủ đề bắt đầu từ mức dễ nhất có học liệu đã duyệt. Khi trả lời sai, hệ thống tìm thêm câu cùng mức để xác minh. Năng lực được ước lượng bằng IRT 3PL/MAP; tham số hiện còn tạm tính, chưa hiệu chỉnh bằng dữ liệu học sinh thật.
           </p>
 
           <div className="diagnostic-metrics-row">
             <div className="metric-box">
-              <div className="metric-number">24</div>
-              <div className="metric-sublabel">CHỦ ĐỀ QUÉT</div>
+              <div className="metric-number">≤ 8</div>
+              <div className="metric-sublabel">CHỦ ĐỀ / PHIÊN</div>
             </div>
 
             <div className="metric-box">
@@ -376,7 +378,7 @@ export default function DiagnosticTest({
             Bạn Đã Hoàn Thành Toàn Bộ Câu Hỏi Chẩn Đoán!
           </h2>
           <p style={{ fontSize: '0.92rem', color: '#64748b', maxWidth: '480px', margin: '0 auto 20px', lineHeight: 1.5 }}>
-            Thuật toán CAT đã thu thập đủ dữ liệu để ước lượng năng lực $\theta = {currentTheta.toFixed(2)}$ và phân tích thành thạo các kỹ năng trọng tâm.
+            Phiên đã đạt giới hạn câu hoặc hết câu phù hợp. Hãy nộp bài để lưu hồ sơ; chủ đề ít câu vẫn được ghi là chưa đủ dữ liệu.
           </p>
 
           <div

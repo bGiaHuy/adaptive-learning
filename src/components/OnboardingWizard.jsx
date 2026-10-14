@@ -18,6 +18,7 @@ export default function OnboardingWizard({
 }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   // Dynamic Curriculum Options
   const [grades, setGrades] = useState(GRADES_DATA);
@@ -69,13 +70,14 @@ export default function OnboardingWizard({
     } else {
       // Step 8 completed -> sync to backend via PATCH /student/onboarding
       setIsSubmitting(true);
+      setSaveError('');
       const chosenGoal = goals.find((g) => g.id === selectedGoal)?.title || 'Ôn thi vào lớp 10';
       const chosenTimeObj = dailyTimes.find((t) => t.id === selectedDailyTime);
       const chosenMinutes = chosenTimeObj?.minutes || (selectedDailyTime === '30m' ? 30 : selectedDailyTime === '60m' ? 60 : selectedDailyTime === '90m' ? 90 : 45);
       const chosenSelfEval = selfEvals.find((e) => e.id === selfEval)?.title || 'Khá';
 
       const setupProfile = {
-        grade: 9,
+        grade: Number(selectedGrade.replace('grade', '')),
         targetGoal: chosenGoal,
         dailyMinutes: chosenMinutes,
         examDate: examDate || null,
@@ -83,18 +85,17 @@ export default function OnboardingWizard({
       };
 
       try {
-        await studentApi.updateOnboarding(setupProfile);
-      } catch (err) {
-        console.warn('Could not sync onboarding to API, continuing with local state:', err);
-      } finally {
-        setIsSubmitting(false);
+        const saved = await studentApi.updateOnboarding(setupProfile);
         onComplete({
+          ...saved.profile,
           ...setupProfile,
-          gradeLabel: 'Lớp 9',
+          userId: currentUser?.id,
+          gradeLabel: `Lớp ${setupProfile.grade}`,
           weakTopicsList: weakTopics,
           weakTopicsCount: weakTopics.length
         });
-      }
+      } catch (err) { setSaveError(err.message || 'Chưa lưu được hồ sơ. Hãy thử lại.'); }
+      finally { setIsSubmitting(false); }
     }
   };
 
@@ -416,6 +417,7 @@ export default function OnboardingWizard({
           )}
 
           {/* Action buttons footer */}
+          {saveError && <p role="alert" style={{ color: '#922a22', padding: '12px 24px' }}>{saveError}</p>}
           <div className="wizard-card-footer">
             <button
               type="button"
@@ -429,9 +431,10 @@ export default function OnboardingWizard({
             <button
               type="button"
               className="btn-wizard-next"
+              disabled={isSubmitting}
               onClick={handleNext}
             >
-              <span>{currentStep === 8 ? 'Bắt đầu kiểm tra' : 'Tiếp tục'}</span>
+              <span>{isSubmitting ? 'Đang lưu hồ sơ…' : currentStep === 8 ? 'Bắt đầu kiểm tra' : 'Tiếp tục'}</span>
               <ArrowRight size={16} />
             </button>
           </div>

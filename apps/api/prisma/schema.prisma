@@ -36,6 +36,7 @@ enum CognitiveLevel {
   REMEMBERING // Nhận biết
   UNDERSTANDING // Thông hiểu
   APPLYING // Vận dụng
+  ADVANCED_APPLYING // Vận dụng cao
 }
 
 enum QuestionStatus {
@@ -77,6 +78,7 @@ model User {
   taughtClasses     Classroom[]
   classMemberships  ClassroomMembership[]
   diagnosticAttempts DiagnosticAttempt[]
+  mathPracticeSessions MathPracticeSession[]
   authoredQuestions Question[]  @relation("AuthoredQuestions")
   reviewedQuestions Question[]  @relation("ReviewedQuestions")
   authoredEnglishLessons EnglishLesson[] @relation("AuthoredEnglishLessons")
@@ -84,6 +86,8 @@ model User {
   mistakeRecords    MistakeRecord[]
   skillMasteries    SkillMastery[]
   assignmentSubmissions AssignmentSubmission[]
+  mathReviewCards MathReviewCard[]
+  aiRequests AiRequest[]
   englishProgress EnglishLessonProgress[]
   englishPlacement EnglishPlacementResult?
 
@@ -308,6 +312,7 @@ model SkillNode {
   orderIndex     Int            @default(1)
   questions      Question[]
   skillMasteries SkillMastery[]
+  mathPracticeSessions MathPracticeSession[]
 }
 
 model Question {
@@ -316,6 +321,9 @@ model Question {
   skill          SkillNode      @relation(fields: [skillId], references: [id])
   versionNumber  Int            @default(1)
   cognitiveLevel CognitiveLevel @default(REMEMBERING)
+  irtA           Float?
+  irtB           Float?
+  irtC           Float?
   content        String         // LaTeX / Markdown
   explanation    String?        // Detailed step-by-step solution
   status         QuestionStatus @default(DRAFT)
@@ -359,14 +367,28 @@ model DiagnosticAttempt {
   studentId      String
   student        User            @relation(fields: [studentId], references: [id], onDelete: Cascade)
   status         AttemptStatus   @default(IN_PROGRESS)
-  currentTheta   Float           @default(0.50)
+  currentTheta   Float           @default(0)
   finalTheta     Float?
+  skillIds       String[]        @default([])
   startedAt      DateTime        @default(now())
   completedAt    DateTime?
 
   answers        AttemptAnswer[]
 
   @@index([studentId])
+}
+
+model MathPracticeSession {
+  id          String        @id @default(uuid())
+  studentId   String
+  student     User          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  skillId     String
+  skill       SkillNode     @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  status      AttemptStatus @default(IN_PROGRESS)
+  state       Json
+  startedAt   DateTime      @default(now())
+  completedAt DateTime?
+  @@index([studentId, status])
 }
 
 model AttemptAnswer {
@@ -419,6 +441,7 @@ model SkillMastery {
   skillId        String
   skill          SkillNode @relation(fields: [skillId], references: [id], onDelete: Cascade)
   masteryScore   Float     @default(0) // 0 - 100
+  evidenceCount  Int       @default(0)
   attemptsCount  Int       @default(1)
   lastAssessedAt DateTime  @default(now())
   createdAt      DateTime  @default(now())
@@ -550,4 +573,63 @@ model EnglishClassAssignment {
 
   @@unique([classId, lessonId])
   @@index([classId, createdAt])
+}
+
+// Durable usage ledger. Uncertain upstream requests retain their reservation.
+model AiRequest {
+  id                 String   @id @default(uuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+  ipHash             String
+  task               String
+  conversationId     String?
+  lessonId           String?
+  message            String?
+  model              String
+  status             String   @default("RESERVED")
+  reservedUsd        Float
+  costUsd            Float    @default(0)
+  inputTokens        Int      @default(0)
+  outputTokens       Int      @default(0)
+  result             Json?
+  practiceAnswers    Json?
+  practiceCorrect    Int?
+  practiceSubmittedAt DateTime?
+  draftLessonId      String?  @unique
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([ipHash, createdAt])
+  @@index([conversationId, userId, createdAt])
+  @@index([status, createdAt])
+}
+
+model MathReviewCard {
+ id String @id @default(uuid())
+ studentId String
+ student User @relation(fields: [studentId], references: [id], onDelete: Cascade)
+ questionId String
+ scheduler Json
+ due DateTime @default(now())
+ successes Int @default(0)
+ failures Int @default(0)
+ version Int @default(0)
+ reviews MathReviewLog[]
+ @@unique([studentId, questionId])
+ @@index([studentId, due])
+}
+
+model MathReviewLog {
+ id String @id @default(uuid())
+ cardId String
+ card MathReviewCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+ cardVersion Int
+ answer String
+ correct Boolean
+ rating Int?
+ schedulerLog Json?
+ createdAt DateTime @default(now())
+ completedAt DateTime?
+ @@index([cardId, completedAt])
 }

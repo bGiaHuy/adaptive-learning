@@ -26,6 +26,7 @@ export const STUDENT_MENU = [
   { id: 'learning-path', label: 'Lộ trình học', icon: Compass },
   { id: 'diagnostic', label: 'Kiểm tra chẩn đoán', icon: CheckSquare },
   { id: 'mistakes', label: 'Sổ tay lỗi sai', icon: BookX },
+  { id: 'review', label: 'Ôn kiến thức', icon: History },
   { id: 'classroom', label: 'Lớp học của em', icon: Users }
 ];
 

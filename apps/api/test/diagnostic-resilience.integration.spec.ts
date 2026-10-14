@@ -73,7 +73,7 @@ describe('Diagnostic CAT Resilience & Edge-Cases (Resume, Timeout, Last-Answer, 
     expect(startRes.body.attemptId).toBeDefined();
     expect(startRes.body.isResumed).toBe(false);
     expect(startRes.body.answeredCount).toBe(0);
-    expect(startRes.body.currentTheta).toBe(0.50);
+    expect(startRes.body.currentTheta).toBe(0);
     const attemptId = startRes.body.attemptId;
     const q1 = startRes.body.currentQuestion;
     expect(q1).toBeDefined();
@@ -100,7 +100,7 @@ describe('Diagnostic CAT Resilience & Edge-Cases (Resume, Timeout, Last-Answer, 
     expect(ans1Res.body.isCorrect).toBe(true);
     expect(ans1Res.body.answeredCount).toBe(1);
     const thetaAfterQ1 = ans1Res.body.currentTheta;
-    expect(thetaAfterQ1).toBeGreaterThan(0.50);
+    expect(thetaAfterQ1).toBeGreaterThan(0);
 
     // =========================================================================
     // 2. Simulate User Dropping Out & Resuming Attempt (POST /diagnostic/start)

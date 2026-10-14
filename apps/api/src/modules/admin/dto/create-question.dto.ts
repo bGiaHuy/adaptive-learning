@@ -5,7 +5,7 @@ import {
   IsArray,
   ValidateNested,
   IsBoolean,
-  ArrayMinSize
+  ArrayMinSize, IsOptional, IsNumber, Min, Max
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
@@ -28,6 +28,9 @@ export class QuestionOptionDto {
 }
 
 export class CreateQuestionDto {
+  @IsOptional() @IsNumber() @Min(0.05) @Max(5) irtA?: number;
+  @IsOptional() @IsNumber() @Min(-4) @Max(4) irtB?: number;
+  @IsOptional() @IsNumber() @Min(0) @Max(0.5) irtC?: number;
   @ApiProperty({ description: 'ID của SkillNode kỹ năng tương ứng' })
   @IsString()
   @IsNotEmpty()

@@ -56,8 +56,8 @@ describe('Legacy Question Importer & KaTeX Syntax Unit Tests (Phase 5)', () => {
       expect(mapCognitiveLevel('V')).toBe(CognitiveLevel.APPLYING);
     });
 
-    it('maps level "T" (Vận dụng cao) to APPLYING', () => {
-      expect(mapCognitiveLevel('T')).toBe(CognitiveLevel.APPLYING);
+    it('preserves level "T" (Vận dụng cao) independently of APPLYING', () => {
+      expect(mapCognitiveLevel('T')).toBe(CognitiveLevel.ADVANCED_APPLYING);
     });
 
     it('defaults unknown levels to REMEMBERING safely', () => {

@@ -29,6 +29,7 @@ apps/api/prisma/generated/
 npm-debug.log*
 backups/
 *.sql
+!apps/api/prisma/migrations/**/migration.sql
 *.dump
 *.tar
 backup_rehearsal.sql
@@ -51,6 +52,8 @@ playwright-report/
 *.embedded-test-db/
 test-results/
 .ui-audit/
+.math-adaptive-qa/
+supabase/.temp/
 
 # Misc
 .vscode/*

@@ -24,6 +24,8 @@ import { UserRole } from '@prisma/client';
 @ApiBearerAuth()
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
+  @Get('activity')
+  getActivity(@CurrentUser('id') studentId: string) { return this.studentService.getActivity(studentId); }
 
   @Get('profile')
   @ApiOperation({ summary: 'Lấy hồ sơ cá nhân và các chỉ số học tập của học sinh' })

@@ -9,6 +9,8 @@ import { randomUUID } from 'crypto';
 import { NextFunction, Request, Response } from 'express';
 import { getSessionCookieName } from './modules/auth/session-cookie';
 import helmet from 'helmet';
+import { webOrigins, trustedRequestOrigin } from './config/web-origins';
+import { aiConfig } from './modules/ai/ai.config';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -41,12 +43,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   // CORS configuration
-  const allowedOrigins = [
-    process.env.WEB_URL || 'http://localhost:3000',
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://127.0.0.1:3000'
-  ];
+  const allowedOrigins = webOrigins();
+  aiConfig();
 
   // Cookie-authenticated mutations must originate from a trusted web origin.
   app.use((req: Request, res: Response, next: NextFunction) => {
@@ -58,9 +56,7 @@ async function bootstrap() {
 
     const origin = req.header('origin');
     const referer = req.header('referer');
-    const trusted = allowedOrigins.some(
-      (allowed) => origin === allowed || referer?.startsWith(`${allowed}/`)
-    ) || Boolean(origin && origin.endsWith('.vercel.app'));
+    const trusted = trustedRequestOrigin(origin, referer, allowedOrigins);
     if (!trusted) {
       return res.status(403).json({
         code: 'CSRF_ORIGIN_REJECTED',
@@ -77,9 +73,7 @@ async function bootstrap() {
       // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
       if (!origin) return callback(null, true);
       if (
-        allowedOrigins.indexOf(origin) !== -1 ||
-        process.env.NODE_ENV !== 'production' ||
-        origin.endsWith('.vercel.app')
+        allowedOrigins.indexOf(origin) !== -1
       ) {
         return callback(null, true);
       }

@@ -17,10 +17,9 @@ import {
   formatLiveClock,
 } from '../lib/calendarEngine';
 import {
-  getStudyLogs,
-  ensureInitialStudyLogs,
   calculateRealTimeStreak,
 } from '../lib/calendarSyncService';
+import { studentApi } from '../lib/apiClient';
 
 export default function PracticeCalendar({ userProfile }) {
   const isProfileConfigured = Boolean(
@@ -35,9 +34,8 @@ export default function PracticeCalendar({ userProfile }) {
   const [viewDate, setViewDate] = useState(() => new Date());
 
   // Real-time study logs state
-  const [studyLogs, setStudyLogs] = useState(() =>
-    ensureInitialStudyLogs(userId, isProfileConfigured)
-  );
+  const [studyLogs, setStudyLogs] = useState({});
+  const [logsError, setLogsError] = useState('');
 
   // Tooltip state for interactive hover
   const [hoveredDayInfo, setHoveredDayInfo] = useState(null);
@@ -52,23 +50,24 @@ export default function PracticeCalendar({ userProfile }) {
 
   // 2. Multi-source event listener for instant real-time sync
   useEffect(() => {
-    const handleActivityLogged = () => {
-      setStudyLogs(getStudyLogs(userId));
+    let mounted = true;
+    const handleActivityLogged = async () => {
+      try { const data = await studentApi.getActivity(); if (mounted) { setStudyLogs(data.logs); setLogsError(''); } }
+      catch { if (mounted) setLogsError('Chưa tải được lịch sử học từ máy chủ.'); }
     };
+    handleActivityLogged();
 
     window.addEventListener('study-activity-logged', handleActivityLogged);
     window.addEventListener('storage', handleActivityLogged);
 
     return () => {
+      mounted = false;
       window.removeEventListener('study-activity-logged', handleActivityLogged);
       window.removeEventListener('storage', handleActivityLogged);
     };
   }, [userId]);
 
-  // Update logs when profile configuration changes
-  useEffect(() => {
-    setStudyLogs(ensureInitialStudyLogs(userId, isProfileConfigured));
-  }, [userId, isProfileConfigured]);
+  // Completed activities come from the authenticated student's server records.
 
   const viewYear = viewDate.getFullYear();
   const viewMonth = viewDate.getMonth(); // 0-indexed
@@ -117,6 +116,7 @@ export default function PracticeCalendar({ userProfile }) {
 
   return (
     <div className="practice-calendar-card modern-calendar">
+      {logsError && <p role="status" style={{ padding: '12px', color: '#922a22' }}>{logsError}</p>}
       {/* Real-time Status Bar (Clock & Live Sync indicator) */}
       <div className="calendar-live-bar">
         <div className="calendar-live-clock">
@@ -125,9 +125,9 @@ export default function PracticeCalendar({ userProfile }) {
             {formatLiveClock(currentDateTime)} · {formatVietnameseDate(currentDateTime)}
           </span>
         </div>
-        <div className="calendar-sync-indicator" title="Đồng bộ tự động thời gian thực">
+        <div className="calendar-sync-indicator" title="Lịch sử buổi học đã lưu trên máy chủ">
           <span className="sync-pulse-dot"></span>
-          <span className="sync-label">Real-time</span>
+          <span className="sync-label">{logsError ? 'Chưa kết nối' : 'Lịch sử đã lưu'}</span>
         </div>
       </div>
 

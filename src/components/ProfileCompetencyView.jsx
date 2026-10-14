@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, Award, BarChart3, RefreshCw, AlertCircle, CheckCircle, Clock, ArrowRight } from 'lucide-react';
 import { studentApi } from '../lib/apiClient';
+import CompetencyChart from './CompetencyChart';
 
 export default function ProfileCompetencyView({
   onStartDiagnostic
@@ -101,7 +102,7 @@ export default function ProfileCompetencyView({
   }
 
   // 4. Active / Partial Data State
-  const isPartialData = masteryData.totalAssessedSkills < 8;
+  const isPartialData = masteryData.unassessedCount > 0;
 
   return (
     <div className="profile-competency-page animate-fade-in" style={{ maxWidth: '960px', margin: '0 auto' }}>
@@ -125,7 +126,7 @@ export default function ProfileCompetencyView({
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Clock size={16} />
             <span>
-              <strong>Dữ liệu năng lực một phần:</strong> Bạn mới hoàn thành {masteryData.totalAssessedSkills}/8 kỹ năng trọng tâm. Hãy tiếp tục làm thêm bài tập để vẽ đầy đủ bản đồ năng lực.
+              <strong>Dữ liệu năng lực một phần:</strong> Đã đánh giá {masteryData.totalAssessedSkills}/{masteryData.totalAvailableSkills} kỹ năng. Còn {masteryData.unassessedCount} kỹ năng chưa đánh giá.
             </span>
           </div>
           <button
@@ -155,7 +156,7 @@ export default function ProfileCompetencyView({
             <Award size={24} />
           </div>
           <div>
-            <h2 className="competency-main-title">Hồ sơ năng lực toán học chuẩn hóa</h2>
+            <h2 className="competency-main-title">Hồ sơ năng lực toán học</h2>
             <p className="competency-sub-desc">
               Điểm thành thạo trung bình: <strong>{masteryData.averageMasteryScore}%</strong> · Đã đánh giá <strong>{masteryData.totalAssessedSkills} kỹ năng</strong>
             </p>
@@ -175,14 +176,16 @@ export default function ProfileCompetencyView({
         </div>
       </div>
 
+      <CompetencyChart data={masteryData} />
+
       {/* Skills Grid */}
       <div className="competency-metrics-grid" style={{ marginTop: '20px' }}>
         {(masteryData.skills || []).map((skill) => {
           const rawScore = skill.masteryScore ?? skill.score ?? 0;
           const score = Number.isFinite(Number(rawScore)) ? Math.round(Number(rawScore)) : 0;
           const attempts = skill.attemptsCount ?? skill.attempts ?? 1;
-          const isStrong = score >= 75;
-          const isMedium = score >= 50 && score < 75;
+          const isStrong = skill.evidenceCount >= 5 && score >= masteryData.targetMastery;
+          const isMedium = !isStrong && score >= 50;
 
           return (
             <div key={skill.skillId} className="competency-stat-card">
@@ -200,7 +203,7 @@ export default function ProfileCompetencyView({
                     color: isStrong ? '#15803d' : isMedium ? '#854d0e' : '#b91c1c'
                   }}
                 >
-                  {isStrong ? 'Vững vàng' : isMedium ? 'Khá' : 'Ưu tiên ôn'}
+                  {skill.level}
                 </span>
               </div>
 
@@ -216,8 +219,8 @@ export default function ProfileCompetencyView({
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '0.78rem', color: '#64748b' }}>
-                <span>{score}% thành thạo</span>
-                <span>{attempts} lượt kiểm tra</span>
+                <span>{score}% ước tính</span>
+                <span>{skill.evidenceCount} câu làm bằng chứng</span>
               </div>
             </div>
           );

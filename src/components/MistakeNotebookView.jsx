@@ -7,7 +7,7 @@ const COGNITIVE_LEVEL_MAP = {
   REMEMBERING: 'Nhận biết',
   UNDERSTANDING: 'Thông hiểu',
   APPLYING: 'Vận dụng',
-  ANALYZING: 'Vận dụng cao'
+  ADVANCED_APPLYING: 'Vận dụng cao'
 };
 
 export default function MistakeNotebookView({ onStartPractice }) {

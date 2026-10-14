@@ -136,11 +136,11 @@ export class AdminService {
     }
 
     // Ensure at least one correct option exists
-    const hasCorrect = dto.options.some(o => o.isCorrect);
+    const hasCorrect = dto.options.filter(o => o.isCorrect).length === 1;
     if (!hasCorrect) {
       throw new BadRequestException({
         code: 'MISSING_CORRECT_OPTION',
-        message: 'Câu hỏi bắt buộc phải có ít nhất 1 đáp án đúng.'
+        message: 'Câu hỏi phải có đúng 1 đáp án đúng.'
       });
     }
 
@@ -149,6 +149,9 @@ export class AdminService {
         skillId: dto.skillId,
         versionNumber: 1,
         cognitiveLevel: dto.cognitiveLevel,
+        irtA: dto.irtA,
+        irtB: dto.irtB,
+        irtC: dto.irtC,
         content: dto.content,
         explanation: dto.explanation,
         status: QuestionStatus.DRAFT,

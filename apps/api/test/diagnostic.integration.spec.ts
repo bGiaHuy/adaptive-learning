@@ -62,27 +62,31 @@ describe('Diagnostic CAT/IRT and Student Mastery Integration', () => {
       .expect(201);
 
     expect(startRes.body.attemptId).toBeDefined();
-    expect(startRes.body.currentTheta).toBe(0.5);
+    expect(startRes.body.currentTheta).toBe(0);
+    const skillItems = await prisma.question.findMany({ where: { skillId: startRes.body.currentQuestion.skillId, status: 'PUBLISHED' } });
+    const levels = ['REMEMBERING', 'UNDERSTANDING', 'APPLYING', 'ADVANCED_APPLYING'];
+    expect(startRes.body.currentQuestion.cognitiveLevel).toBe(levels.find(l => skillItems.some(q => q.cognitiveLevel === l)));
     expect(startRes.body.currentQuestion).toBeDefined();
 
     const attemptId = startRes.body.attemptId;
     const firstQ = startRes.body.currentQuestion;
 
     // 2. Submit wrong answer for first question
-    const wrongOption = firstQ.options.find((o: any) => o.optionKey === 'B') || firstQ.options[0];
+    const correct = await prisma.questionOption.findFirst({ where: { questionId: firstQ.id, isCorrect: true } });
+    const wrongOption = firstQ.options.find((o: any) => o.key !== correct!.optionKey);
     const answer1Res = await request(app.getHttpServer())
       .post('/api/v1/diagnostic/answer')
       .set('Cookie', studentCookie)
       .send({
         attemptId,
         questionId: firstQ.id,
-        selectedOptionKey: wrongOption.optionKey,
+        selectedOptionKey: wrongOption.key,
         timeSpentSeconds: 45
       })
       .expect(200);
 
     // Because it was incorrect, theta should have decreased
-    expect(answer1Res.body.currentTheta).toBeLessThan(0.5);
+    expect(answer1Res.body.currentTheta).toBeLessThan(0);
     expect(answer1Res.body.isCorrect).toBe(false);
 
     // 3. Finalize attempt

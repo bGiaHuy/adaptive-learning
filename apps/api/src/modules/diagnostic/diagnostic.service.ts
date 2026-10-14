@@ -1,501 +1,144 @@
-import {
-  Injectable,
-  NotFoundException,
-  ForbiddenException,
-  BadRequestException
-} from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AnswerQuestionDto } from './dto/answer-question.dto';
-import { AttemptStatus, CognitiveLevel, QuestionStatus } from '@prisma/client';
+import { estimateAbility, diagnosticMastery, selectStaircase } from '../student/math-adaptive';
 
+const answerInclude = { question: { include: { skill: true, options: true } } };
 @Injectable()
 export class DiagnosticService {
-  private readonly maxQuestions = Number(process.env.DIAGNOSTIC_MAX_QUESTIONS || 24);
-  private readonly questionSeconds = 90;
-
+  private readonly maxQuestions = Math.max(1, Math.min(64, Number(process.env.DIAGNOSTIC_MAX_QUESTIONS) || 24));
   constructor(private readonly prisma: PrismaService) {}
-
   private remainingSeconds(startedAt: Date) {
-    const elapsed = Math.floor((Date.now() - startedAt.getTime()) / 1000);
-    return Math.max(0, this.questionSeconds - elapsed);
+    return Math.max(0, 90 - Math.floor((Date.now() - startedAt.getTime()) / 1000));
   }
-
-  // Format question safe for student (exclude isCorrect)
-  private formatQuestionForStudent(question: any) {
-    if (!question) return null;
-    return {
-      id: question.id,
-      skillId: question.skillId,
-      skillTitle: question.skill?.title,
-      chapter: question.skill?.chapter,
-      cognitiveLevel: question.cognitiveLevel,
-      content: question.content,
-      options: question.options.map((opt: any) => ({
-        key: opt.optionKey,
-        content: opt.content
-      }))
-    };
+  private safeQuestion(q: any) {
+    return q ? { id: q.id, skillId: q.skillId, skillTitle: q.skill.title, chapter: q.skill.chapter,
+      cognitiveLevel: q.cognitiveLevel, content: q.content,
+      options: q.options.map((o: any) => ({ key: o.optionKey, content: o.content })) } : null;
   }
-
-  // Start or resume existing diagnostic attempt
+  private async lock(tx: any, studentId: string) {
+    await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${studentId}))::text`;
+  }
+  private async pool(tx: any, studentId: string, attempt?: any) {
+    if (attempt?.skillIds?.length) return tx.question.findMany({ where: { skillId: { in: attempt.skillIds }, status: 'PUBLISHED' },
+      include: { skill: true, options: true }, orderBy: { id: 'asc' } });
+    const profile = await tx.studentProfile.findUnique({ where: { userId: studentId } });
+    // Eight skills per diagnostic permit coverage and verification within 24 items.
+    const skills = await tx.skillNode.findMany({
+      where: { grade: profile?.grade || 9, questions: { some: { status: 'PUBLISHED' } } },
+      orderBy: [{ orderIndex: 'asc' }, { code: 'asc' }]
+    });
+    const assessed = await tx.skillMastery.findMany({ where: { studentId } });
+    skills.sort((a: any, b: any) => {
+      const ma = assessed.find((m: any) => m.skillId === a.id), mb = assessed.find((m: any) => m.skillId === b.id);
+      return Number(Boolean(ma)) - Number(Boolean(mb)) || (ma?.masteryScore || 0) - (mb?.masteryScore || 0) || a.orderIndex - b.orderIndex || a.code.localeCompare(b.code);
+    });
+    const skillIds = [...new Set([...skills.slice(0, 8).map((s: any) => s.id), ...(attempt?.answers || []).map((a: any) => a.question.skillId)])];
+    return tx.question.findMany({ where: { skillId: { in: skillIds }, status: 'PUBLISHED' },
+      include: { skill: true, options: true }, orderBy: { id: 'asc' } });
+  }
+  private next(pool: any[], attempt: any) {
+    return attempt.answers.length >= this.maxQuestions ? null : selectStaircase(pool, attempt.answers, attempt.id);
+  }
+  private answerResponse(attempt: any, q: any, answer: any, pool: any[], replayed = false) {
+    const next = this.next(pool, attempt);
+    return { replayed, isCorrect: answer.isCorrect, correctOptionKey: q.options.find((o: any) => o.isCorrect)?.optionKey,
+      explanation: q.explanation, currentTheta: attempt.currentTheta,
+      standardError: estimateAbility(attempt.answers).standardError, answeredCount: attempt.answers.length,
+      totalQuestions: this.maxQuestions, isReadyToSubmit: !next, nextQuestion: this.safeQuestion(next) };
+  }
   async startAttempt(studentId: string) {
-    // 1. Check if an attempt is currently IN_PROGRESS
-    const existingAttempt = await this.prisma.diagnosticAttempt.findFirst({
-      where: {
-        studentId,
-        status: AttemptStatus.IN_PROGRESS
-      },
-      include: {
-        answers: {
-          include: {
-            question: {
-              include: {
-                skill: true,
-                options: true
-              }
-            }
-          },
-          orderBy: { answeredAt: 'asc' }
-        }
+    return this.prisma.$transaction(async tx => {
+      await this.lock(tx, studentId);
+      if (await tx.mathPracticeSession.findFirst({ where: { studentId, status: 'IN_PROGRESS' } }))
+        throw new ConflictException('Hãy hoàn thành hoặc kết thúc buổi luyện trước khi kiểm tra.');
+      let attempt: any = await tx.diagnosticAttempt.findFirst({ where: { studentId, status: 'IN_PROGRESS' },
+        include: { answers: { include: answerInclude, orderBy: [{ answeredAt: 'asc' }, { id: 'asc' }] } } });
+      const isResumed = Boolean(attempt), pool = await this.pool(tx, studentId, attempt);
+      if (!pool.length) throw new BadRequestException({ code: 'QUESTION_POOL_EMPTY', message: 'Chưa có câu hỏi đã duyệt cho khối lớp của bạn.' });
+      const skillIds = [...new Set(pool.map((q: any) => q.skillId))] as string[];
+      if (!attempt) attempt = { ...await tx.diagnosticAttempt.create({ data: { studentId, currentTheta: 0, skillIds } }), answers: [] };
+      else {
+        attempt.currentTheta = estimateAbility(attempt.answers).theta;
+        await tx.diagnosticAttempt.update({ where: { id: attempt.id }, data: { currentTheta: attempt.currentTheta, skillIds } });
       }
+      const next = this.next(pool, attempt);
+      return { attemptId: attempt.id, isResumed, status: attempt.status, currentTheta: attempt.currentTheta,
+        standardError: estimateAbility(attempt.answers).standardError,
+        answeredCount: attempt.answers.length, totalQuestions: this.maxQuestions,
+        availableSkillCount: new Set(pool.map((q: any) => q.skillId)).size,
+        isReadyToSubmit: !next,
+        questionTimeRemainingSeconds: this.remainingSeconds(attempt.answers.at(-1)?.answeredAt ?? attempt.startedAt),
+        currentQuestion: this.safeQuestion(next), parameterStatus: 'PROVISIONAL' };
     });
-
-    if (existingAttempt) {
-      const answeredQIds = existingAttempt.answers.map(a => a.questionId);
-      const isComplete = existingAttempt.answers.length >= this.maxQuestions;
-
-      const nextQuestion = isComplete
-        ? null
-        : await this.selectNextQuestion(existingAttempt.currentTheta, answeredQIds);
-
-      return {
-        attemptId: existingAttempt.id,
-        isResumed: true,
-        status: existingAttempt.status,
-        currentTheta: existingAttempt.currentTheta,
-        answeredCount: existingAttempt.answers.length,
-        totalQuestions: this.maxQuestions,
-        isReadyToSubmit: isComplete || !nextQuestion,
-        questionTimeRemainingSeconds: this.remainingSeconds(
-          existingAttempt.answers.at(-1)?.answeredAt ?? existingAttempt.startedAt
-        ),
-        currentQuestion: this.formatQuestionForStudent(nextQuestion)
-      };
-    }
-
-    // 2. Create new attempt with initial Theta = 0.50
-    const newAttempt = await this.prisma.diagnosticAttempt.create({
-      data: {
-        studentId,
-        currentTheta: 0.50,
-        status: AttemptStatus.IN_PROGRESS
-      }
-    });
-
-    // 3. Pick first question (REMEMBERING level in SKILL-01 or SKILL-02)
-    const firstQuestion = await this.selectNextQuestion(0.50, []);
-    if (!firstQuestion) {
-      throw new BadRequestException({
-        code: 'QUESTION_POOL_EMPTY',
-        message: 'Ngân hàng câu hỏi chưa đủ để bắt đầu bài chẩn đoán.'
-      });
-    }
-
-    return {
-      attemptId: newAttempt.id,
-      isResumed: false,
-      status: newAttempt.status,
-      currentTheta: newAttempt.currentTheta,
-      answeredCount: 0,
-      totalQuestions: this.maxQuestions,
-      isReadyToSubmit: false,
-      questionTimeRemainingSeconds: this.questionSeconds,
-      currentQuestion: this.formatQuestionForStudent(firstQuestion)
-    };
   }
-
-  // Adaptive Next Question Selection Algorithm (CAT / IRT)
-  private async selectNextQuestion(theta: number, excludedQuestionIds: string[]) {
-    // Select cognitive level based on theta
-    let targetLevel: CognitiveLevel = CognitiveLevel.REMEMBERING;
-    if (theta >= 0.70) {
-      targetLevel = CognitiveLevel.APPLYING;
-    } else if (theta >= 0.40) {
-      targetLevel = CognitiveLevel.UNDERSTANDING;
-    }
-
-    // 1. Try matching target level
-    let question = await this.prisma.question.findFirst({
-      where: {
-        status: QuestionStatus.PUBLISHED,
-        id: { notIn: excludedQuestionIds },
-        cognitiveLevel: targetLevel
-      },
-      include: {
-        skill: true,
-        options: true
-      },
-      orderBy: { createdAt: 'asc' }
-    });
-
-    // 2. Fallback to any published question not yet answered
-    if (!question) {
-      question = await this.prisma.question.findFirst({
-        where: {
-          status: QuestionStatus.PUBLISHED,
-          id: { notIn: excludedQuestionIds }
-        },
-        include: {
-          skill: true,
-          options: true
-        }
-      });
-    }
-
-    return question;
-  }
-
-  // Answer a question within attempt
   async answerQuestion(studentId: string, dto: AnswerQuestionDto) {
-    const attempt = await this.prisma.diagnosticAttempt.findUnique({
-      where: { id: dto.attemptId },
-      include: {
-        answers: true
-      }
+    return this.prisma.$transaction(async tx => {
+      await this.lock(tx, studentId);
+      const attempt = await tx.diagnosticAttempt.findUnique({ where: { id: dto.attemptId },
+        include: { answers: { include: answerInclude, orderBy: [{ answeredAt: 'asc' }, { id: 'asc' }] } } });
+      if (!attempt) throw new NotFoundException('Không tìm thấy bài chẩn đoán.');
+      if (attempt.studentId !== studentId) throw new ForbiddenException('Bạn không có quyền truy cập bài kiểm tra này.');
+      if (attempt.status !== 'IN_PROGRESS') throw new BadRequestException('Bài kiểm tra đã kết thúc.');
+      const pool = await this.pool(tx, studentId, attempt), existing = attempt.answers.find(a => a.questionId === dto.questionId);
+      if (existing) return this.answerResponse(attempt, existing.question, existing, pool, true);
+      const q = this.next(pool, attempt);
+      if (!q || q.id !== dto.questionId) throw new ConflictException('Câu hỏi không thuộc lượt hiện tại. Hãy tải lại phiên làm bài.');
+      if (dto.selectedOptionKey && !q.options.some(o => o.optionKey === dto.selectedOptionKey)) throw new BadRequestException('Đáp án không hợp lệ.');
+      if (!dto.selectedOptionKey && !dto.isSkipped && !dto.isTimeout) throw new BadRequestException('Chọn đáp án hoặc bỏ qua câu hỏi.');
+      const isTimeout = Boolean(dto.isTimeout || this.remainingSeconds(attempt.answers.at(-1)?.answeredAt ?? attempt.startedAt) === 0);
+      const isCorrect = !isTimeout && !dto.isSkipped && dto.selectedOptionKey === q.options.find(o => o.isCorrect)?.optionKey;
+      const ability = estimateAbility([...attempt.answers, { question: q, isCorrect }]);
+      const answer = await tx.attemptAnswer.create({ data: { attemptId: attempt.id, questionId: q.id,
+        selectedOptionKey: isTimeout ? null : dto.selectedOptionKey || null, isCorrect, isTimeout,
+        isSkipped: !isTimeout && Boolean(dto.isSkipped), timeSpentSeconds: isTimeout ? 90 : dto.timeSpentSeconds || 0,
+        thetaAfter: ability.theta } });
+      await tx.diagnosticAttempt.update({ where: { id: attempt.id }, data: { currentTheta: ability.theta } });
+      return this.answerResponse({ ...attempt, currentTheta: ability.theta, answers: [...attempt.answers, { ...answer, question: q }] }, q, answer, pool);
     });
-
-    if (!attempt) {
-      throw new NotFoundException({
-        code: 'ATTEMPT_NOT_FOUND',
-        message: 'Không tìm thấy bài chẩn đoán này.'
-      });
-    }
-
-    if (attempt.studentId !== studentId) {
-      throw new ForbiddenException({
-        code: 'FORBIDDEN_ATTEMPT',
-        message: 'Bạn không có quyền truy cập bài kiểm tra này.'
-      });
-    }
-
-    if (attempt.status !== AttemptStatus.IN_PROGRESS) {
-      throw new BadRequestException({
-        code: 'ATTEMPT_ALREADY_COMPLETED',
-        message: 'Bài chẩn đoán này đã hoàn thành.'
-      });
-    }
-
-    const question = await this.prisma.question.findUnique({
-      where: { id: dto.questionId },
-      include: {
-        options: true,
-        skill: true
-      }
-    });
-
-    if (!question) {
-      throw new NotFoundException({
-        code: 'QUESTION_NOT_FOUND',
-        message: 'Không tìm thấy câu hỏi.'
-      });
-    }
-
-    const existingAnswer = attempt.answers.find(a => a.questionId === dto.questionId);
-    if (existingAnswer) {
-      const answeredQIds = attempt.answers.map(a => a.questionId);
-      const nextQuestion = answeredQIds.length >= this.maxQuestions
-        ? null
-        : await this.selectNextQuestion(attempt.currentTheta, answeredQIds);
-      return {
-        replayed: true,
-        isCorrect: existingAnswer.isCorrect,
-        correctOptionKey: question.options.find(o => o.isCorrect)?.optionKey,
-        explanation: question.explanation,
-        currentTheta: existingAnswer.thetaAfter,
-        answeredCount: answeredQIds.length,
-        totalQuestions: this.maxQuestions,
-        isReadyToSubmit: answeredQIds.length >= this.maxQuestions || !nextQuestion,
-        nextQuestion: this.formatQuestionForStudent(nextQuestion)
-      };
-    }
-
-    // Determine correctness
-    const correctOption = question.options.find(o => o.isCorrect);
-    const lastAnswerAt = attempt.answers.reduce<Date | null>(
-      (latest, answer) => !latest || answer.answeredAt > latest ? answer.answeredAt : latest,
-      null
-    );
-    const expired = this.remainingSeconds(lastAnswerAt ?? attempt.startedAt) === 0;
-    const isTimeout = Boolean(dto.isTimeout || expired);
-    const isCorrect =
-      !isTimeout &&
-      !dto.isSkipped &&
-      dto.selectedOptionKey === correctOption?.optionKey;
-
-    // Calculate Theta delta
-    let delta = 0.15;
-    if (question.cognitiveLevel === CognitiveLevel.UNDERSTANDING) delta = 0.20;
-    else if (question.cognitiveLevel === CognitiveLevel.APPLYING) delta = 0.25;
-
-    const newTheta = isCorrect
-      ? Math.min(1.0, Number((attempt.currentTheta + delta).toFixed(2)))
-      : Math.max(0.1, Number((attempt.currentTheta - delta).toFixed(2)));
-
-    try {
-      await this.prisma.$transaction([
-        this.prisma.attemptAnswer.create({
-          data: {
-            attemptId: attempt.id,
-            questionId: question.id,
-            selectedOptionKey: isTimeout ? null : dto.selectedOptionKey || null,
-            isCorrect,
-            isTimeout,
-            isSkipped: isTimeout ? false : dto.isSkipped || false,
-            timeSpentSeconds: isTimeout ? this.questionSeconds : dto.timeSpentSeconds || 0,
-            thetaAfter: newTheta
-          }
-        }),
-        this.prisma.diagnosticAttempt.update({
-          where: { id: attempt.id },
-          data: { currentTheta: newTheta }
-        })
-      ]);
-    } catch (error) {
-      // Two requests can pass the initial lookup together. The unique answer
-      // constraint is the final idempotency guard; return the stored answer.
-      if ((error as { code?: string }).code === 'P2002') {
-        const stored = await this.prisma.attemptAnswer.findUnique({
-          where: { attemptId_questionId: { attemptId: attempt.id, questionId: question.id } }
-        });
-        if (stored) return this.answerQuestion(studentId, dto);
-      }
-      throw error;
-    }
-
-    // Check if test reached max questions
-    const answeredQIds = [
-      ...attempt.answers.map(a => a.questionId),
-      question.id
-    ];
-    const nextQuestion = answeredQIds.length >= this.maxQuestions
-      ? null
-      : await this.selectNextQuestion(newTheta, answeredQIds);
-    const isReadyToSubmit = answeredQIds.length >= this.maxQuestions || !nextQuestion;
-
-    return {
-      isCorrect,
-      correctOptionKey: correctOption?.optionKey,
-      explanation: question.explanation,
-      currentTheta: newTheta,
-      answeredCount: answeredQIds.length,
-      totalQuestions: this.maxQuestions,
-      isReadyToSubmit,
-      nextQuestion: this.formatQuestionForStudent(nextQuestion)
-    };
   }
-
-  // Submit and finalize diagnostic attempt
   async submitAttempt(studentId: string, attemptId: string) {
-    const attempt = await this.prisma.diagnosticAttempt.findUnique({
-      where: { id: attemptId },
-      include: {
-        answers: {
-          include: {
-            question: {
-              include: {
-                skill: true,
-                options: true
-              }
-            }
-          }
+    return this.prisma.$transaction(async tx => {
+      await this.lock(tx, studentId);
+      const attempt = await tx.diagnosticAttempt.findUnique({ where: { id: attemptId },
+        include: { answers: { include: answerInclude, orderBy: { answeredAt: 'asc' } } } });
+      if (!attempt || attempt.studentId !== studentId) throw new NotFoundException('Không tìm thấy bài chẩn đoán.');
+      if (attempt.status === 'ABANDONED') throw new BadRequestException('Bài kiểm tra đã được kết thúc.');
+      if (!attempt.answers.length) throw new BadRequestException('Bài chẩn đoán chưa có câu trả lời để nộp.');
+      const ability = estimateAbility(attempt.answers), correctCount = attempt.answers.filter(a => a.isCorrect).length;
+      const skills = [...new Set(attempt.answers.map(a => a.question.skillId))], skillsEvaluated: any[] = [];
+      if (attempt.status !== 'COMPLETED') {
+        await tx.diagnosticAttempt.update({ where: { id: attemptId }, data: { status: 'COMPLETED', currentTheta: ability.theta, finalTheta: ability.theta, completedAt: new Date() } });
+        for (const a of attempt.answers.filter(a => !a.isCorrect)) await tx.mistakeRecord.upsert({
+          where: { studentId_questionId: { studentId, questionId: a.questionId } },
+          update: { selectedOptionKey: a.selectedOptionKey, attemptId, isMastered: false },
+          create: { studentId, questionId: a.questionId, selectedOptionKey: a.selectedOptionKey, attemptId } });
+        for (const skillId of skills) {
+          const answers = attempt.answers.filter(a => a.question.skillId === skillId), score = diagnosticMastery(answers, ability.theta) * 100;
+          await tx.skillMastery.upsert({ where: { studentId_skillId: { studentId, skillId } },
+            update: { masteryScore: score, evidenceCount: answers.length, attemptsCount: { increment: 1 }, lastAssessedAt: new Date() },
+            create: { studentId, skillId, masteryScore: score, evidenceCount: answers.length } });
+          skillsEvaluated.push({ skillId, title: answers[0].question.skill.title, masteryScore: score,
+            evidenceCount: answers.length, status: answers.length < 5 ? 'INSUFFICIENT_DATA' : score >= 85 ? 'STRONG' : 'NEEDS_PRACTICE' });
         }
       }
+      return { attemptId, status: 'COMPLETED', finalTheta: ability.theta, standardError: ability.standardError,
+        scorePercentage: Math.round(correctCount / attempt.answers.length * 100), correctCount,
+        totalAnswered: attempt.answers.length, skillsEvaluated, alreadySubmitted: attempt.status === 'COMPLETED', parameterStatus: 'PROVISIONAL' };
     });
-
-    if (!attempt || attempt.studentId !== studentId) {
-      throw new NotFoundException({
-        code: 'ATTEMPT_NOT_FOUND',
-        message: 'Không tìm thấy bài làm chẩn đoán.'
-      });
-    }
-
-    if (attempt.status === AttemptStatus.COMPLETED) {
-      const correctCount = attempt.answers.filter(a => a.isCorrect).length;
-      return {
-        attemptId: attempt.id,
-        status: attempt.status,
-        finalTheta: attempt.finalTheta ?? attempt.currentTheta,
-        scorePercentage: attempt.answers.length
-          ? Math.round((correctCount / attempt.answers.length) * 100)
-          : 0,
-        correctCount,
-        totalAnswered: attempt.answers.length,
-        alreadySubmitted: true
-      };
-    }
-
-    if (attempt.answers.length === 0) {
-      throw new BadRequestException({
-        code: 'ATTEMPT_HAS_NO_ANSWERS',
-        message: 'Bài chẩn đoán chưa có câu trả lời để nộp.'
-      });
-    }
-
-    const finalTheta = attempt.currentTheta;
-    const totalAnswered = attempt.answers.length;
-    const correctCount = attempt.answers.filter(a => a.isCorrect).length;
-    const scorePct = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
-
-    // 1. Update attempt status to COMPLETED
-    await this.prisma.diagnosticAttempt.update({
-      where: { id: attemptId },
-      data: {
-        status: AttemptStatus.COMPLETED,
-        finalTheta,
-        completedAt: new Date()
-      }
-    });
-
-    // 2. Populate Mistake Notebook for any incorrect answers
-    for (const ans of attempt.answers) {
-      if (!ans.isCorrect) {
-        await this.prisma.mistakeRecord.upsert({
-          where: {
-            studentId_questionId: {
-              studentId,
-              questionId: ans.questionId
-            }
-          },
-          update: {
-            selectedOptionKey: ans.selectedOptionKey,
-            attemptId: attempt.id,
-            isMastered: false
-          },
-          create: {
-            studentId,
-            questionId: ans.questionId,
-            attemptId: attempt.id,
-            selectedOptionKey: ans.selectedOptionKey,
-            isMastered: false
-          }
-        });
-      }
-    }
-
-    // 3. Update Skill Mastery for each skill assessed in this attempt
-    const skillsEvaluated: Record<string, { total: number; correct: number; skillId: string; title: string }> = {};
-    for (const ans of attempt.answers) {
-      const sId = ans.question.skillId;
-      if (!skillsEvaluated[sId]) {
-        skillsEvaluated[sId] = {
-          total: 0,
-          correct: 0,
-          skillId: sId,
-          title: ans.question.skill.title
-        };
-      }
-      skillsEvaluated[sId].total += 1;
-      if (ans.isCorrect) skillsEvaluated[sId].correct += 1;
-    }
-
-    const masteryResults: Array<{
-      skillId: string;
-      title: string;
-      masteryScore: number;
-      status: 'STRONG' | 'NEEDS_PRACTICE';
-    }> = [];
-    for (const [skillId, evalData] of Object.entries(skillsEvaluated)) {
-      const skillScore = Math.round((evalData.correct / evalData.total) * 100);
-      await this.prisma.skillMastery.upsert({
-        where: {
-          studentId_skillId: {
-            studentId,
-            skillId
-          }
-        },
-        update: {
-          masteryScore: skillScore,
-          attemptsCount: { increment: 1 },
-          lastAssessedAt: new Date()
-        },
-        create: {
-          studentId,
-          skillId,
-          masteryScore: skillScore,
-          attemptsCount: 1,
-          lastAssessedAt: new Date()
-        }
-      });
-
-      masteryResults.push({
-        skillId,
-        title: evalData.title,
-        masteryScore: skillScore,
-        status: skillScore >= 70 ? 'STRONG' : 'NEEDS_PRACTICE'
-      });
-    }
-
-    return {
-      attemptId: attempt.id,
-      status: AttemptStatus.COMPLETED,
-      finalTheta,
-      scorePercentage: scorePct,
-      correctCount,
-      totalAnswered,
-      skillsEvaluated: masteryResults
-    };
   }
-
-  // Get full diagnostic results report
   async getAttemptResult(studentId: string, attemptId: string) {
-    const attempt = await this.prisma.diagnosticAttempt.findUnique({
-      where: { id: attemptId },
-      include: {
-        answers: {
-          include: {
-            question: {
-              include: {
-                skill: true,
-                options: true
-              }
-            }
-          },
-          orderBy: { answeredAt: 'asc' }
-        }
-      }
-    });
-
-    if (!attempt || attempt.studentId !== studentId) {
-      throw new NotFoundException({
-        code: 'ATTEMPT_NOT_FOUND',
-        message: 'Không tìm thấy kết quả bài chẩn đoán.'
-      });
-    }
-
-    return {
-      attemptId: attempt.id,
-      status: attempt.status,
-      finalTheta: attempt.finalTheta || attempt.currentTheta,
-      startedAt: attempt.startedAt,
-      completedAt: attempt.completedAt,
-      totalAnswered: attempt.answers.length,
-      correctCount: attempt.answers.filter(a => a.isCorrect).length,
-      answers: attempt.answers.map(a => ({
-        questionId: a.questionId,
-        content: a.question.content,
-        explanation: a.question.explanation,
-        skillTitle: a.question.skill.title,
-        selectedOptionKey: a.selectedOptionKey,
-        isCorrect: a.isCorrect,
-        isTimeout: a.isTimeout,
-        timeSpentSeconds: a.timeSpentSeconds,
-        thetaAfter: a.thetaAfter,
-        options: a.question.options.map(opt => ({
-          key: opt.optionKey,
-          content: opt.content,
-          isCorrect: opt.isCorrect
-        }))
-      }))
-    };
+    const attempt = await this.prisma.diagnosticAttempt.findUnique({ where: { id: attemptId },
+      include: { answers: { include: answerInclude, orderBy: { answeredAt: 'asc' } } } });
+    if (!attempt || attempt.studentId !== studentId) throw new NotFoundException('Không tìm thấy kết quả.');
+    if (attempt.status !== 'COMPLETED') throw new ForbiddenException('Hãy nộp bài trước khi xem kết quả.');
+    const ability = estimateAbility(attempt.answers);
+    return { attemptId, status: attempt.status, finalTheta: ability.theta, standardError: ability.standardError,
+      startedAt: attempt.startedAt, completedAt: attempt.completedAt, totalAnswered: attempt.answers.length,
+      correctCount: attempt.answers.filter(a => a.isCorrect).length, parameterStatus: 'PROVISIONAL',
+      answers: attempt.answers.map(a => ({ questionId: a.questionId, content: a.question.content,
+        explanation: a.question.explanation, skillTitle: a.question.skill.title, selectedOptionKey: a.selectedOptionKey,
+        isCorrect: a.isCorrect, isTimeout: a.isTimeout, timeSpentSeconds: a.timeSpentSeconds, thetaAfter: a.thetaAfter,
+        options: a.question.options.map(o => ({ key: o.optionKey, content: o.content, isCorrect: o.isCorrect })) })) };
   }
 }

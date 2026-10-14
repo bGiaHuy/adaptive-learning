@@ -1041,6 +1041,7 @@ export default function AdminPortalView({ currentUser, defaultTab = 'overview' }
                         <option value="REMEMBERING">Nhận biết (REMEMBERING)</option>
                         <option value="UNDERSTANDING">Thông hiểu (UNDERSTANDING)</option>
                         <option value="APPLYING">Vận dụng (APPLYING)</option>
+                        <option value="ADVANCED_APPLYING">Vận dụng cao</option>
                       </select>
                     </div>
                   </div>

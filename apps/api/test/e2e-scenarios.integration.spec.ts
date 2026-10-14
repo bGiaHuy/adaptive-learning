@@ -109,7 +109,7 @@ describe('Comprehensive E2E Scenarios (Technical Handoff & Release Readiness)', 
 
     expect(startRes.body.attemptId).toBeDefined();
     expect(startRes.body.currentQuestion).toBeDefined();
-    expect(startRes.body.currentTheta).toBe(0.50);
+    expect(startRes.body.currentTheta).toBe(0);
     const attemptId = startRes.body.attemptId;
     const questionId = startRes.body.currentQuestion.id;
 

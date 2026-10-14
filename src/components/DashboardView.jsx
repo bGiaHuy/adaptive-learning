@@ -1,9 +1,14 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import PracticeCalendar from './PracticeCalendar';
+import TodayActivities from './TodayActivities';
 
 export default function DashboardView({
   userProfile,
+  hasCompletedTest,
+  onStartPractice,
+  onReview,
+  onNavigatePath,
   onStartSetup,
   onStartDiagnostic
 }) {
@@ -51,15 +56,15 @@ export default function DashboardView({
             </>
           ) : (
             <>
-              <h2 className="next-step-title">Làm bài kiểm tra đầu vào</h2>
+              <h2 className="next-step-title">{hasCompletedTest ? 'Tiếp tục kế hoạch học của bạn' : 'Làm bài kiểm tra đầu vào'}</h2>
               <p className="next-step-description">
-                Bài kiểm tra thích ứng sẽ qua từng chủ đề theo thang Nhận biết – Thông hiểu – Vận dụng để xác định chính xác bạn đang ở đâu và hổng ở đâu.
+                {hasCompletedTest ? 'Ôn kiến thức, luyện đúng chủ đề và quay lại các câu đến lịch ôn.' : 'Bắt đầu từ mức dễ nhất có học liệu; hệ thống xác minh câu sai và ghi rõ khi chưa đủ dữ liệu.'}
               </p>
               <button
                 className="btn-next-step-action"
-                onClick={onStartDiagnostic}
+                onClick={hasCompletedTest ? onNavigatePath : onStartDiagnostic}
               >
-                <span>Bắt đầu kiểm tra</span>
+                <span>{hasCompletedTest ? 'Mở lộ trình học' : 'Bắt đầu kiểm tra'}</span>
                 <ArrowRight size={16} />
               </button>
             </>
@@ -69,6 +74,7 @@ export default function DashboardView({
         {/* Real-time Dynamic Practice Calendar */}
         <PracticeCalendar userProfile={userProfile} />
       </div>
+      {isProfileConfigured && <TodayActivities onStartPractice={onStartPractice} onReview={onReview} onNavigatePath={onNavigatePath} />}
     </div>
   );
 }

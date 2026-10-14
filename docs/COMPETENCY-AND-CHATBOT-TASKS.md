@@ -1,0 +1,130 @@
+# Task biểu đồ năng lực, chatbot và dịch vụ đã nhắc
+
+Ngày rà soát: 14/10/2026. Nguồn: mã nguồn và tài liệu tại workspace hiện tại, gồm cả thay đổi chưa commit. Đây là kết quả rà soát local; chưa kiểm chứng môi trường production, tài khoản dịch vụ hoặc database đích. Không deploy, gửi email hoặc thay đổi database trong lần rà soát này.
+
+> Cập nhật: người dùng đã yêu cầu tự triển khai các task. Biểu đồ và chatbot đã được triển khai và kiểm chứng local; xem mục 5. Các bảng bên dưới mô tả trạng thái trước triển khai.
+
+## 1. Kết quả đối chiếu
+
+| Hạng mục | Bằng chứng hiện có | Kết luận |
+| --- | --- | --- |
+| Hồ sơ năng lực | `src/components/ProfileCompetencyView.jsx`; `getMasteryOverview` trong `apps/api/src/modules/student/student.service.ts`; PRD mục hồ sơ năng lực; `docs/product/RELEASE-READINESS.md` mục 2.5 | Có giao diện tổng quan, thanh phần trăm từng kỹ năng, số câu bằng chứng, mức thành thạo và trạng thái thiếu dữ liệu. Checklist cũ có đánh dấu hoàn thành mastery overview; không đồng nghĩa đã hoàn thành biểu đồ mới. |
+| Biểu đồ năng lực riêng | Giao diện hiện tại dùng thanh CSS theo kỹ năng. Không tìm thấy task ghi rõ radar trong tài liệu đã rà soát. | Đã có trực quan cơ bản; radar hoặc biểu đồ tổng hợp là phần đề xuất mới, chưa triển khai/chưa chốt dạng biểu đồ. |
+| Thông tin chất lượng ước lượng | API trả `evidenceCount`, `lastAssessedAt`, `insufficientCount`, `unassessedCount`, `targetMastery`; UI hiển thị số bằng chứng và phần dữ liệu chưa đánh giá. | Chưa hiển thị ngày cập nhật từng kỹ năng; API mastery chưa trả sai số/khoảng tin cậy. Số bằng chứng không thay thế khoảng tin cậy thống kê. |
+| AI hỗ trợ bài ôn | `src/components/MathReviewView.jsx`, `MathAiReply.jsx`; `apps/api/src/modules/student/math-review.controller.ts`, `math-review.service.ts`; module `apps/api/src/modules/ai/`; `docs/PERSONAL-STUDY.md` | Có ô nhập cách suy nghĩ và nút xin góp ý sau khi mở đáp án, gọi `/student/review/feedback`. Có kiểm tra dữ liệu thuộc học sinh và chặn khi diagnostic đang làm. |
+| Chatbot nhiều lượt | Luồng hiện tại nhận một phần cách suy nghĩ và trả một góp ý; chưa thấy màn hình hội thoại, API phiên chat hoặc lưu lịch sử hội thoại riêng trong phần rà soát. | Chưa có bằng chứng triển khai chatbot nhiều lượt. Không tìm thấy task chatbot độc lập được chốt trong tài liệu. |
+| Cấu hình AI | `apps/api/.env.example`, `apps/api/src/modules/ai/ai.config.ts` | Template mặc định `AI_ENABLED=false`, hỗ trợ Anthropic/MWAPI và các biến giới hạn ngân sách. Không suy ra AI production đang bật hoặc đã chạy thành công. |
+
+## 2. Backlog và tiêu chí hoàn thành
+
+Các mục dưới đây là task ghi nhận sau rà soát, chưa phải tính năng đã nghiệm thu. Không mặc định người dùng đã chọn radar, một nhà cung cấp AI mới, hoặc loại email cụ thể.
+
+### NL-01 — Chốt cách thể hiện biểu đồ năng lực (ưu tiên 1)
+
+- [ ] Chọn biểu đồ theo kỹ năng hoặc tổng hợp theo chương dựa trên câu hỏi cần trả lời: học sinh đang mạnh/yếu ở đâu và nên luyện gì tiếp.
+- [ ] Nếu tổng hợp theo chương, ghi rõ công thức, trọng số và cách xử lý kỹ năng chưa đánh giá; không lấy thiếu dữ liệu thành điểm 0.
+- [ ] Ghi quyết định về dạng biểu đồ trong decision log, kèm tiêu chí đọc được trên điện thoại và khi có nhiều kỹ năng. Radar là lựa chọn cần đánh giá, chưa phải yêu cầu cũ được xác nhận.
+
+### NL-02 — Hoàn thiện dữ liệu và giao diện năng lực (ưu tiên 2; sau NL-01)
+
+- [ ] Dùng dữ liệu mastery thật, lọc đúng khối lớp và học sinh; phân biệt chưa đánh giá, thiếu bằng chứng, đang củng cố, cần luyện và thành thạo.
+- [ ] Hiển thị ngày cập nhật, số bằng chứng, ngưỡng theo mục tiêu và giải thích điểm là ước tính. Chỉ trình bày sai số/khoảng tin cậy khi backend cung cấp và có định nghĩa được kiểm chứng.
+- [ ] Có bảng hoặc nhãn chữ tương đương biểu đồ; không chỉ dựa vào màu. Kiểm tra trạng thái tải, lỗi, trống, dữ liệu một phần và màn hình nhỏ.
+- [ ] Nghiệm thu bằng dữ liệu có kỹ năng chưa đánh giá/thiếu bằng chứng và bằng tài khoản khác nhau; điểm hiển thị khớp API. Ghi bằng chứng kiểm tra vào tài liệu nghiệm thu trước khi đánh dấu hoàn thành.
+
+### AI-01 — Kiểm chứng luồng AI góp ý đang có (ưu tiên 1)
+
+- [ ] Kiểm tra schema/migration, cấu hình provider và ngân sách của môi trường đích trước khi bật AI; khóa chỉ nằm ở backend.
+- [ ] Nghiệm thu luồng mở đáp án → nhập cách nghĩ → nhận góp ý có công thức toán; xác nhận lời giải/lịch ôn vẫn dùng được khi AI tắt hoặc lỗi.
+- [ ] Kiểm tra từ chối truy cập lượt ôn của người khác, chặn khi đang diagnostic, giới hạn yêu cầu/ngân sách và hành vi khi provider lỗi/hết thời gian.
+- [ ] Ghi rõ môi trường và kết quả thực chạy. Sự tồn tại của code/test không được coi là bằng chứng đã chạy production.
+
+### AI-02 — Xác định và triển khai chatbot nhiều lượt (ưu tiên 2; sau khi chốt phạm vi)
+
+- [ ] Chốt chatbot dùng để hỏi tiếp bài ôn, giải thích kiến thức hay hỗ trợ sử dụng web; quy định dữ liệu nào được đưa vào ngữ cảnh.
+- [ ] Đặc tả màn hình hội thoại, phiên chat, lịch sử, thời hạn lưu/xóa, quyền sở hữu và hợp đồng API; xác định có tái sử dụng module AI hiện tại hay không.
+- [ ] Thực hiện hội thoại nhiều lượt có ngữ cảnh đúng bài/học sinh, nút gửi, trạng thái chờ, lỗi và thử lại không tạo yêu cầu trùng.
+- [ ] Áp dụng giới hạn chi phí, bảo vệ khóa, phân quyền dữ liệu và quy tắc hỗ trợ khi có bài kiểm tra đang diễn ra. Ghi rõ giới hạn hiện tại: cơ chế chặn diagnostic chưa chứng minh chặn được mọi phiên bài lớp.
+- [ ] Nghiệm thu ít nhất hai lượt hỏi tiếp, hai học sinh không đọc được lịch sử của nhau, lỗi provider, AI tắt và vượt hạn mức. Lưu bằng chứng trước khi đánh dấu hoàn thành.
+
+## 3. Vercel, Supabase và Resend
+
+Người dùng xác nhận đã nhắc cả ba dịch vụ trong quá trình làm. Ghi nhận này là ngữ cảnh lựa chọn dịch vụ, không phải bằng chứng cả ba đã được kết nối thành công.
+
+| Dịch vụ | Cấu hình/bằng chứng local | Phần cần xác minh |
+| --- | --- | --- |
+| Vercel | Có `vercel.json`: framework Vite, build `npm run build`, output `dist`, chuyển `/api/:path*` sang `https://adaptivemath.onrender.com/api/:path*`, fallback SPA về `index.html`; có `.vercelignore`. | Project/domain/deployment đang phục vụ người dùng, biến môi trường, backend tương ứng và cookie/origin thực tế. File cấu hình không chứng minh lần deploy mới nhất đã thành công. |
+| Supabase | `docs/deployment/DEPLOYMENT.md` nhắc Supabase trong các lựa chọn PostgreSQL; backend dùng Prisma và `DATABASE_URL`. Template đang trỏ PostgreSQL local. | Project Supabase nào được chọn, database đích và migration tương ứng. Không có SDK Supabase không chứng minh chưa dùng database Supabase qua Prisma. Không đọc/in khóa hoặc chuỗi kết nối bí mật vào báo cáo. |
+| Resend | Không tìm thấy tên Resend trong mã nguồn, dependency hoặc tài liệu được rà soát. Có trường email tài khoản/phụ huynh nhưng đó chưa phải luồng gửi thư. | Tài khoản/domain gửi và mục đích email đã chọn; sau đó mới đối chiếu tích hợp backend, biến môi trường, xử lý lỗi và bằng chứng gửi thử được cho phép. Chưa kết luận Resend đã tích hợp. |
+
+### INF-01 — Đối chiếu môi trường đã kết nối (ưu tiên 1, trước triển khai)
+
+- [ ] Xác định project Vercel, backend Render, project/database Supabase và tài khoản/domain Resend từ bằng chứng cấu hình hoặc tài khoản được kết nối.
+- [ ] Lưu tên môi trường và tham chiếu bằng chứng đã che bí mật; phân biệt chưa cấu hình, đã cấu hình và đã kiểm chứng chạy thật cho từng dịch vụ.
+- [ ] Ghi kết quả đối chiếu vào tài liệu triển khai; mọi thay đổi production/database và gửi email nằm ngoài phạm vi lần rà soát này.
+
+Vercel CLI chưa được cài theo thông tin phiên làm việc. Khuyến nghị cài `npm i -g vercel` khi bắt đầu công việc triển khai để dùng các chức năng quản lý môi trường, deploy và xem log; không cần cài để hoàn thành tài liệu rà soát này.
+
+## 4. Thứ tự đề xuất và giới hạn nghiệm thu
+
+Thực hiện NL-01, AI-01 và INF-01 trước; sau đó NL-02 và AI-02 theo quyết định sản phẩm. Tài liệu này hoàn thành việc ghi nhận task và tiêu chí, không đánh dấu các task triển khai là đã xong. Chưa truy cập web đang chạy hoặc các tài khoản dịch vụ; chưa chạy lại test chức năng vì lần này chỉ sửa tài liệu.
+
+## 5. Kết quả triển khai 14/10/2026
+
+### Đã làm và kiểm chứng local
+
+- NL-01: chọn biểu đồ thanh ngang theo kỹ năng để đọc được nhiều kỹ năng trên điện thoại. Không tổng hợp điểm chương, không đặt trọng số hoặc coi phần chưa đánh giá là 0. Bộ lọc chương chỉ lọc dữ liệu.
+- NL-02: API trả catalog đúng khối lớp, điểm null khi chưa đánh giá. Biểu đồ có lọc chương, sắp xếp điểm thấp trước, ngưỡng mục tiêu, nhãn chữ, số bằng chứng và ngày cập nhật. Thanh gạch chéo chỉ kết quả chưa đủ bằng chứng; không dựng khoảng tin cậy giả.
+- AI-02: chatbot theo bài ôn đã mở đáp án, nhiều lượt, dùng ngữ cảnh server và 6 lượt gần nhất, tối đa 20 lượt. Có danh sách mở lại lịch sử, xóa nội dung nhưng giữ chi phí. Nội dung quá 30 ngày không xuất hiện trong lịch sử và được dọn khi học sinh mở hội thoại. Tái sử dụng `AiRequest` và `MathReviewLog`, không cần migration mới.
+- Chống gửi trùng bằng mã yêu cầu, ID ổn định theo người dùng/bài ôn/yêu cầu và kiểm tra trong khóa giao dịch ngân sách. Xóa hội thoại dùng cùng khóa và từ chối khi có yêu cầu đang xử lý.
+- AI-01 (local): đã kiểm tra bật/tắt, lỗi mạng, ngân sách, chủ sở hữu, diagnostic, gửi lại, lưu và xóa lịch sử. Chưa gọi provider thật.
+
+### Bằng chứng nghiệm thu
+
+- Build frontend, build API và typecheck đạt.
+- `node scripts/verify-math-adaptive.mjs`: 69 test đạt, 1 bỏ qua; database riêng, kiểm tra migration và bảo toàn bản ghi English.
+- `node scripts/verify-math-tutor.mjs`: giao diện thật + API thật + database riêng; hai lượt chat có ngữ cảnh, mở lại sau reload, gửi lại không tăng phí, học sinh khác nhận 404, diagnostic đang làm nhận 403, xóa nội dung vẫn giữ accounting. Không tràn ngang ở 390px, không lỗi JavaScript chưa xử lý.
+- Provider trong bài kiểm tra trình duyệt được kiểm soát và chỉ được nạp trong môi trường QA riêng. Không phải fallback sản phẩm và không chứng minh cấu hình/chất lượng AI thật.
+- Báo cáo, ảnh: `docs/evidence/math-tutor/VERIFICATION.md`.
+
+### Dịch vụ đã đối chiếu và phần còn lại
+
+- Vercel có project `adaptivemath`, domain `adaptivemath-blush.vercel.app`, deployment production gần nhất được API trả READY; chưa deploy bản sửa mới.
+- Render có service `Adaptivemath` tại `https://adaptivemath.onrender.com`, trong `My Workspace`. Nhưng service đang theo repo `bGiaHuy/english`, nhánh main, trong khi workspace local có remote `bGiaHuy/math`. Cần đối chiếu nguồn trước khi phát hành, tránh ghi đè sản phẩm khác.
+- Supabase: `adaptivestudy` ACTIVE_HEALTHY, `Adaptivemath2` INACTIVE. Catalog của dự án hoạt động có LeafChatMessage/StudentSkillProfile và cấu trúc khác Math local. Chưa xác nhận là database của repo này; chưa migrate vào đó. Catalog báo RLS tắt ở các bảng public; cần kiểm tra quyền Data API và mô hình truy cập trước khi sửa.
+- Resend: tài khoản kết nối trả không có domain. Chưa gửi thư; cần xác định domain và mục đích email trước khi bổ sung luồng thư, không tự tạo dịch vụ không liên quan đến hai tính năng học tập.
+- Local chưa có biến AI được cấu hình ngoài template. Chưa xác minh provider/backend/database thật hoặc deploy bản sửa mới. Goal vẫn active cho phần hoàn thiện trên môi trường thật.
+
+### Rà soát bổ sung trước phát hành
+
+- Đã sửa trường hợp gửi lại câu hỏi chứa thông tin bị che: đối chiếu cùng bản đã che để không từ chối nhầm mã yêu cầu. Kiểm tra hồi quy cho thấy không gửi lại provider hoặc tạo phí mới; 11 test chatbot đạt và typecheck đạt.
+- Render đang theo URL GitHub `bGiaHuy/english`; connector GitHub trả 404 khi đọc package.json ở URL đó, nhưng đọc được package.json của `bGiaHuy/math`. 404 có thể do quyền truy cập hoặc repo không còn ở URL cũ, chưa đủ căn cứ tự đổi liên kết production.
+- `.env` local chỉ trỏ database kiểm thử tại loopback; không thể dùng nó để suy ra database production. Đọc catalog của `Adaptivemath2` thất bại do timeout trong trạng thái tạm dừng.
+- Câu hỏi chọn đích triển khai đã gửi và đang chờ trả lời. Không coi phản hồi trước “hình như là vậy” là xác nhận đổi repo hoặc chọn một database có schema khác.
+
+### Trình tự phát hành khi xác định được đích
+
+1. Xác nhận repo/site/database của Math; đọc schema database đích và đối chiếu lịch sử migration trước khi thay đổi. Nếu chọn `Adaptivemath2`, khôi phục rồi kiểm tra trước, không reset/database push.
+2. Kiểm tra backend có schema Math review và adaptive loop. Biểu đồ/chatbot mới không thêm schema nhưng phụ thuộc những phần nền này đang chưa commit trong workspace.
+3. Kiểm tra cấu hình AI backend: provider, khóa chỉ phía server, model, đơn giá và ngân sách. Chưa bật AI trước khi đủ cấu hình.
+4. Chuẩn bị bản phát hành frontend/API cùng phiên bản; xác định các thay đổi nền đã có trong workspace, không ghi đè hoặc bỏ sót chúng khi đóng gói.
+5. Kiểm chứng cookie/origin trên domain Vercel và backend Render, dữ liệu năng lực thật, hai lượt chat với provider thật và ledger chi phí. Chỉ ghi hoàn tất production sau bằng chứng thực chạy.
+6. Resend được ghi nhận trong stack, nhưng chưa có domain/mục đích email xác nhận. Không tự gửi email thử hoặc dùng nó làm provider cho chatbot.
+
+## 6. Đích riêng đã được người dùng xác nhận
+
+- Người dùng yêu cầu Math dùng site riêng, được phép deploy mới nếu cần; phải tránh xung đột Adaptive English và đối chiếu database trước khi dùng. Người dùng chọn organization/tài khoản Supabase khác cho Math khi biết hạn mức hiện tại.
+- Render `Adaptivemath` (`srv-darv7grbc2fs738mev20`) có deployment live commit `61775c878995cf7cc4da1397db50bb79f6db3f8d` với thông điệp về vocabulary cards/callouts; deployment trước về AI tutor mock fallback. Đây là bằng chứng nguồn đang phục vụ luồng English, không phải bản Math mới. Không đổi repo, môi trường hoặc kích hoạt deploy service này.
+- Đã thử khôi phục `Adaptivemath2` để đọc schema theo yêu cầu người dùng. Supabase từ chối vì tài khoản quản trị đã đạt giới hạn 2 dự án miễn phí đang hoạt động trên các organization. Không tạm dừng/xóa/nâng cấp dự án khác để lấy chỗ.
+- Kết nối Supabase hiện chỉ liệt kê `bGiaHuy's Org` (`vmeqbceqcbsvtkjpdoox`); không có organization khác có thể chọn. Cần người dùng kết nối tài khoản khác hoặc cấp quyền organization đích trước khi tạo database riêng. Việc tạo organization mới bằng cùng tài khoản không chứng minh giải quyết hạn mức theo tài khoản quản trị.
+- Đã cập nhật Blueprint `render.yaml` cho backend riêng tên `adaptivemath-api`, repo `bGiaHuy/math`, region Singapore, gói free, build theo lockfile, Node 24, domain Vercel Math đã xác minh, cookie `__Host-am_math_session`, secret phiên và lời mời sinh riêng, health endpoint. Chưa tạo service mới vì chưa có database riêng hoạt động để cấu hình và kiểm chứng. AI mặc định tắt cho đến khi có thông tin provider phía server hợp lệ; không có mock fallback sản phẩm.
+- Chưa đổi rewrite Vercel: chỉ đổi sang URL backend Math mới sau khi service đó được tạo và kiểm chứng, tránh tự suy đoán hostname hoặc trỏ sang service English.
+- Đang chờ kết nối Supabase mới và tên organization đích. Sau đó xác nhận tên tổ chức, tạo project Math riêng, kiểm tra schema/migration, cấu hình backend mới và phát hành frontend/API đồng bộ. Không chia sẻ `DATABASE_URL`, khóa AI hoặc secret với English.
+
+### Kết nối CLI mới đã xác minh
+
+- Người dùng đăng nhập Supabase CLI bằng tài khoản khác ngày 14/10/2026; CLI xác nhận đăng nhập thành công. Không lưu mã xác minh hoặc access token trong tài liệu.
+- Organization khả dụng của CLI mới: `adaptivemath org` (`rehsadgpwweamkvxairh`). Project mới: `turjtcqkmjfkhqijjpdz`, region Tokyo, tạo ngày 14/10/2026.
+- Truy vấn chỉ đọc qua `supabase db query --linked --project-ref ...` xác nhận `public_table_count = 0`; chưa có bảng public để nhầm với schema Math/English cũ. Chưa áp dụng migration hoặc nạp dữ liệu.
+- Plugin Supabase và CLI có phiên đăng nhập độc lập. Các bước tiếp theo với project này phải dùng CLI đã xác minh; không dùng plugin cũ để suy ra quyền hoặc project đích.
+- Hạn mức của tài khoản cũ không còn là điều kiện chặn đích mới. Cần thiết lập schema/quyền, thông tin kết nối backend riêng, đối chiếu migration và triển khai service Math mới; AI thật vẫn cần khóa phía backend và kiểm chứng ngân sách.

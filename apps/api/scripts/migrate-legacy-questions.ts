@@ -58,7 +58,7 @@ interface LegacyTopicRaw {
 // N (Nhận biết) -> REMEMBERING
 // H (Thông hiểu) -> UNDERSTANDING
 // V (Vận dụng) -> APPLYING
-// T (Vận dụng cao) -> APPLYING (with difficulty metadata / b > 1.2)
+// T (Vận dụng cao) -> ADVANCED_APPLYING
 export function mapCognitiveLevel(level: string): CognitiveLevel {
   switch (level) {
     case 'N':
@@ -66,8 +66,9 @@ export function mapCognitiveLevel(level: string): CognitiveLevel {
     case 'H':
       return CognitiveLevel.UNDERSTANDING;
     case 'V':
-    case 'T':
       return CognitiveLevel.APPLYING;
+    case 'T':
+      return CognitiveLevel.ADVANCED_APPLYING;
     default:
       return CognitiveLevel.REMEMBERING;
   }
@@ -354,6 +355,9 @@ async function run() {
         skillId,
         versionNumber: 1,
         cognitiveLevel,
+        irtA: q.irt?.a ?? null,
+        irtB: q.irt?.b ?? null,
+        irtC: q.irt?.c ?? null,
         content: q.prompt,
         explanation: fullExplanation,
         status: QuestionStatus.IN_REVIEW, // Required by Maker-Checker: NOT PUBLISHED

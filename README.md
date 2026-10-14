@@ -1,6 +1,8 @@
 # AdaptiveMath — Nền Tảng Học Toán Thích Ứng THCS GDPT 2018
 
-> **Adaptive Learning transition (October 2026):** The student-facing app now has an English catalogue, listening lessons, exercises, and progress. The supplied `batch_001` is bundled for import. This document describes the retained AdaptiveMath system and legacy features; see [English content import and rollout](docs/ENGLISH-IMPORT-CONTRACT.md) for the new module and its current limits.
+> **Rà soát task 14/10/2026:** Xem [biểu đồ năng lực, chatbot/AI và đối chiếu Vercel–Supabase–Resend](docs/COMPETENCY-AND-CHATBOT-TASKS.md) để phân biệt phần đã có, backlog và tiêu chí nghiệm thu.
+
+> **Cập nhật Math 09/10/2026:** Đã bổ sung chẩn đoán 3PL/MAP, vòng luyện theo chủ đề, BKT và lộ trình theo ngày. Tham số còn tạm, chưa triển khai database đích; xem [bản sửa và giới hạn](docs/MATH-ADAPTIVE-UPDATE.md). Adaptive English được giữ nguyên.
 
 > **Trạng Thái Kỹ Thuật (Release Status):** `PILOT GO-LIVE BLOCKED BY EXTERNAL SIGN-OFF`  
 > **Phiên bản:** 1.0.0 (Tháng 09/2026)  

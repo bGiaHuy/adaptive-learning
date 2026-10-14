@@ -15,6 +15,8 @@ const DiagnosticTest = lazy(() => import('./components/DiagnosticTest'));
 const ProfileCompetencyView = lazy(() => import('./components/ProfileCompetencyView'));
 const LearningPathView = lazy(() => import('./components/LearningPathView'));
 const MistakeNotebookView = lazy(() => import('./components/MistakeNotebookView'));
+const MathReviewView = lazy(() => import('./components/MathReviewView'));
+const MathPracticeView = lazy(() => import('./components/MathPracticeView'));
 const ClassroomView = lazy(() => import('./components/ClassroomView'));
 const MissionsView = lazy(() => import('./components/MissionsView'));
 const TeacherPendingView = lazy(() => import('./components/TeacherPendingView'));
@@ -44,6 +46,8 @@ export default function App() {
   // Navigation & User State
   const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'register' | 'loading' | 'app' | 'onboarding'
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [practiceSkillId, setPracticeSkillId] = useState(null);
+  const startPractice = (skillId) => { setPracticeSkillId(skillId); setActiveTab('practice'); };
   const [authMode, setAuthMode] = useState('signup');
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const [showSessionModal, setShowSessionModal] = useState(false);
@@ -96,7 +100,7 @@ export default function App() {
               if (profData.profile) {
                 setUserProfile(profData.profile);
               }
-              if (profData.stats?.completedAttemptsCount > 0) {
+              if (profData.stats?.completedAssessments > 0) {
                 setHasCompletedTest(true);
               }
             } catch {
@@ -167,7 +171,7 @@ export default function App() {
     setHasCompletedTest(true);
     setTestResults(results);
     recordStudyActivity(currentUser?.id, {
-      minutes: 30,
+      minutes: Math.max(1, Math.ceil((results.answers || []).reduce((sum, a) => sum + (a.timeSpentSeconds || 0), 0) / 60)),
       activity: 'Hoàn thành bài kiểm tra chẩn đoán'
     });
     setActiveTab('profile');
@@ -211,6 +215,10 @@ export default function App() {
         return 'Nhiệm vụ số';
       case 'mistakes':
         return 'Sổ tay lỗi sai';
+      case 'review':
+        return 'Ôn kiến thức';
+      case 'practice':
+        return 'Luyện tập theo chủ đề';
       case 'classroom':
         return 'Lớp học của em';
       case 'teacher-pending':
@@ -354,6 +362,10 @@ export default function App() {
                 {activeTab === 'dashboard' && (
                   <DashboardView
                     userProfile={userProfile}
+                    hasCompletedTest={hasCompletedTest}
+                    onStartPractice={startPractice}
+                    onReview={() => setActiveTab('review')}
+                    onNavigatePath={() => setActiveTab('learning-path')}
                     onStartSetup={handleStartOnboarding}
                     onStartDiagnostic={() => setActiveTab('diagnostic')}
                   />
@@ -369,6 +381,8 @@ export default function App() {
 
                 {activeTab === 'learning-path' && (
                   <LearningPathView
+                    onStartPractice={startPractice}
+                    onReview={() => setActiveTab('review')}
                     hasCompletedTest={hasCompletedTest}
                     userProfile={userProfile}
                     onStartDiagnostic={() => setActiveTab('diagnostic')}
@@ -397,8 +411,14 @@ export default function App() {
                 )}
 
                 {activeTab === 'classroom' && <ClassroomView />}
+                {activeTab === 'review' && <MathReviewView />}
+                {activeTab === 'practice' && <MathPracticeView skillId={practiceSkillId} userId={currentUser.id}
+                  onExit={() => setActiveTab('learning-path')}
+                  onComplete={(result) => {
+                    recordStudyActivity(currentUser?.id, { minutes: result.minutes, activity: 'Hoàn thành luyện tập theo chủ đề' });
+                  }} />}
 
-                {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'classroom'].includes(activeTab) && (
+                {!['onboarding', 'dashboard', 'profile', 'learning-path', 'diagnostic', 'missions', 'mistakes', 'review', 'practice', 'classroom'].includes(activeTab) && (
                   <NotFoundView
                     isLoggedIn={true}
                     onNavigateDashboard={() => setActiveTab('dashboard')}

@@ -3,6 +3,10 @@
 // ==============================================================================
 
 import { handleMockApi } from './mockApiFallback.js';
+// Demo data is explicitly opt-in; production learning must never invent results.
+const allowMathDemo = import.meta.env?.DEV && import.meta.env?.VITE_MATH_DEMO === 'true';
+const demoFallback = (endpoint, options) => allowMathDemo && !endpoint.startsWith('/english')
+  ? handleMockApi(endpoint, options) : undefined;
 
 export class ApiError extends Error {
   constructor({ status, code, message, requestId, details = null }) {
@@ -68,7 +72,7 @@ async function request(endpoint, options = {}) {
   } catch (err) {
     // If backend server is offline or proxy failed, seamlessly fall back to offline mock database
     try {
-      const mockData = handleMockApi(endpoint, options);
+      const mockData = demoFallback(endpoint, options);
       if (mockData !== undefined) {
         return mockData;
       }
@@ -121,7 +125,7 @@ async function request(endpoint, options = {}) {
     // Fallback if proxy returned 404 / 502 / 504 because backend is stopped
     if (response.status === 404 || response.status >= 500) {
       try {
-        const mockData = handleMockApi(endpoint, options);
+        const mockData = demoFallback(endpoint, options);
         if (mockData !== undefined) {
           return mockData;
         }
@@ -188,6 +192,21 @@ export const curriculumApi = {
 };
 
 export const studentApi = {
+  getActivity: () => apiClient.get('/student/activity'),
+  practiceActive: async () => (await apiClient.get('/student/practice/active')).session,
+  practiceStart: (skillId) => apiClient.post(`/student/practice/start/${encodeURIComponent(skillId)}`, {}),
+  practiceAnswer: (sessionId, data) => apiClient.post(`/student/practice/${encodeURIComponent(sessionId)}/answer`, data),
+  practiceAbandon: (sessionId) => apiClient.post(`/student/practice/${encodeURIComponent(sessionId)}/abandon`, {}),
+  reviewSummary:()=>apiClient.get('/student/review/summary'),
+  reviewQueue:()=>apiClient.get('/student/review/queue'),
+  reviewEnroll:id=>apiClient.post(`/student/review/enroll/${encodeURIComponent(id)}`,{}),
+  reviewReveal:(id,answer)=>apiClient.post(`/student/review/cards/${encodeURIComponent(id)}/reveal`,{answer}),
+  reviewRate:(id,rating)=>apiClient.post(`/student/review/logs/${encodeURIComponent(id)}`,{rating}),
+  reviewFeedback:(reviewId,reason)=>apiClient.post('/student/review/feedback',{reviewId,reason}),
+  reviewChatHistory:reviewId=>apiClient.get(`/student/review/chat/${encodeURIComponent(reviewId)}`),
+  reviewConversations:()=>apiClient.get('/student/review/conversations'),
+  reviewChat:(reviewId,reason,requestId)=>apiClient.post('/student/review/chat',{reviewId,reason,requestId}),
+  reviewChatClear:reviewId=>apiClient.post(`/student/review/chat/${encodeURIComponent(reviewId)}/clear`,{}),
   getProfile: () => apiClient.get('/student/profile'),
   updateOnboarding: (data) => apiClient.patch('/student/onboarding', data),
   getMastery: () => apiClient.get('/student/mastery'),
