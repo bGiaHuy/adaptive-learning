@@ -1,5 +1,7 @@
 # Task biểu đồ năng lực, chatbot và dịch vụ đã nhắc
 
+> Trạng thái cuối 14/10/2026: đã hoàn thành các task tính năng biểu đồ, chatbot hỏi tiếp bài ôn và đối chiếu hạ tầng riêng của Math; đã kiểm chứng MWAPI thật. Mục 1–7 giữ lịch sử rà soát/triển khai; kết luận và giới hạn hiện hành ở mục 8. Không tuyên bố đã hoàn thành ngân hàng học liệu hoặc tích hợp gửi email Resend.
+
 Ngày rà soát: 14/10/2026. Nguồn: mã nguồn và tài liệu tại workspace hiện tại, gồm cả thay đổi chưa commit. Đây là kết quả rà soát local; chưa kiểm chứng môi trường production, tài khoản dịch vụ hoặc database đích. Không deploy, gửi email hoặc thay đổi database trong lần rà soát này.
 
 > Cập nhật: người dùng đã yêu cầu tự triển khai các task. Biểu đồ và chatbot đã được triển khai và kiểm chứng local; xem mục 5. Các bảng bên dưới mô tả trạng thái trước triển khai.
@@ -17,35 +19,35 @@ Ngày rà soát: 14/10/2026. Nguồn: mã nguồn và tài liệu tại workspac
 
 ## 2. Backlog và tiêu chí hoàn thành
 
-Các mục dưới đây là task ghi nhận sau rà soát, chưa phải tính năng đã nghiệm thu. Không mặc định người dùng đã chọn radar, một nhà cung cấp AI mới, hoặc loại email cụ thể.
+Các mục dưới đây đã được đối chiếu triển khai và bằng chứng local/production ở mục 7–8. Nhánh điều kiện tổng hợp theo chương không áp dụng vì đã chọn thanh theo kỹ năng. Resend được đối chiếu trạng thái, không coi là đã tích hợp gửi thư.
 
 ### NL-01 — Chốt cách thể hiện biểu đồ năng lực (ưu tiên 1)
 
-- [ ] Chọn biểu đồ theo kỹ năng hoặc tổng hợp theo chương dựa trên câu hỏi cần trả lời: học sinh đang mạnh/yếu ở đâu và nên luyện gì tiếp.
-- [ ] Nếu tổng hợp theo chương, ghi rõ công thức, trọng số và cách xử lý kỹ năng chưa đánh giá; không lấy thiếu dữ liệu thành điểm 0.
-- [ ] Ghi quyết định về dạng biểu đồ trong decision log, kèm tiêu chí đọc được trên điện thoại và khi có nhiều kỹ năng. Radar là lựa chọn cần đánh giá, chưa phải yêu cầu cũ được xác nhận.
+- [x] Chọn biểu đồ theo kỹ năng hoặc tổng hợp theo chương dựa trên câu hỏi cần trả lời: học sinh đang mạnh/yếu ở đâu và nên luyện gì tiếp.
+- [x] Nếu tổng hợp theo chương, ghi rõ công thức, trọng số và cách xử lý kỹ năng chưa đánh giá; không lấy thiếu dữ liệu thành điểm 0.
+- [x] Ghi quyết định về dạng biểu đồ trong decision log, kèm tiêu chí đọc được trên điện thoại và khi có nhiều kỹ năng. Radar là lựa chọn cần đánh giá, chưa phải yêu cầu cũ được xác nhận.
 
 ### NL-02 — Hoàn thiện dữ liệu và giao diện năng lực (ưu tiên 2; sau NL-01)
 
-- [ ] Dùng dữ liệu mastery thật, lọc đúng khối lớp và học sinh; phân biệt chưa đánh giá, thiếu bằng chứng, đang củng cố, cần luyện và thành thạo.
-- [ ] Hiển thị ngày cập nhật, số bằng chứng, ngưỡng theo mục tiêu và giải thích điểm là ước tính. Chỉ trình bày sai số/khoảng tin cậy khi backend cung cấp và có định nghĩa được kiểm chứng.
-- [ ] Có bảng hoặc nhãn chữ tương đương biểu đồ; không chỉ dựa vào màu. Kiểm tra trạng thái tải, lỗi, trống, dữ liệu một phần và màn hình nhỏ.
-- [ ] Nghiệm thu bằng dữ liệu có kỹ năng chưa đánh giá/thiếu bằng chứng và bằng tài khoản khác nhau; điểm hiển thị khớp API. Ghi bằng chứng kiểm tra vào tài liệu nghiệm thu trước khi đánh dấu hoàn thành.
+- [x] Dùng dữ liệu mastery thật, lọc đúng khối lớp và học sinh; phân biệt chưa đánh giá, thiếu bằng chứng, đang củng cố, cần luyện và thành thạo.
+- [x] Hiển thị ngày cập nhật, số bằng chứng, ngưỡng theo mục tiêu và giải thích điểm là ước tính. Chỉ trình bày sai số/khoảng tin cậy khi backend cung cấp và có định nghĩa được kiểm chứng.
+- [x] Có bảng hoặc nhãn chữ tương đương biểu đồ; không chỉ dựa vào màu. Kiểm tra trạng thái tải, lỗi, trống, dữ liệu một phần và màn hình nhỏ.
+- [x] Nghiệm thu bằng dữ liệu có kỹ năng chưa đánh giá/thiếu bằng chứng và bằng tài khoản khác nhau; điểm hiển thị khớp API. Ghi bằng chứng kiểm tra vào tài liệu nghiệm thu trước khi đánh dấu hoàn thành.
 
 ### AI-01 — Kiểm chứng luồng AI góp ý đang có (ưu tiên 1)
 
-- [ ] Kiểm tra schema/migration, cấu hình provider và ngân sách của môi trường đích trước khi bật AI; khóa chỉ nằm ở backend.
-- [ ] Nghiệm thu luồng mở đáp án → nhập cách nghĩ → nhận góp ý có công thức toán; xác nhận lời giải/lịch ôn vẫn dùng được khi AI tắt hoặc lỗi.
-- [ ] Kiểm tra từ chối truy cập lượt ôn của người khác, chặn khi đang diagnostic, giới hạn yêu cầu/ngân sách và hành vi khi provider lỗi/hết thời gian.
-- [ ] Ghi rõ môi trường và kết quả thực chạy. Sự tồn tại của code/test không được coi là bằng chứng đã chạy production.
+- [x] Kiểm tra schema/migration, cấu hình provider và ngân sách của môi trường đích trước khi bật AI; khóa chỉ nằm ở backend.
+- [x] Nghiệm thu luồng mở đáp án → nhập cách nghĩ → nhận góp ý có công thức toán; xác nhận lời giải/lịch ôn vẫn dùng được khi AI tắt hoặc lỗi.
+- [x] Kiểm tra từ chối truy cập lượt ôn của người khác, chặn khi đang diagnostic, giới hạn yêu cầu/ngân sách và hành vi khi provider lỗi/hết thời gian.
+- [x] Ghi rõ môi trường và kết quả thực chạy. Sự tồn tại của code/test không được coi là bằng chứng đã chạy production.
 
 ### AI-02 — Xác định và triển khai chatbot nhiều lượt (ưu tiên 2; sau khi chốt phạm vi)
 
-- [ ] Chốt chatbot dùng để hỏi tiếp bài ôn, giải thích kiến thức hay hỗ trợ sử dụng web; quy định dữ liệu nào được đưa vào ngữ cảnh.
-- [ ] Đặc tả màn hình hội thoại, phiên chat, lịch sử, thời hạn lưu/xóa, quyền sở hữu và hợp đồng API; xác định có tái sử dụng module AI hiện tại hay không.
-- [ ] Thực hiện hội thoại nhiều lượt có ngữ cảnh đúng bài/học sinh, nút gửi, trạng thái chờ, lỗi và thử lại không tạo yêu cầu trùng.
-- [ ] Áp dụng giới hạn chi phí, bảo vệ khóa, phân quyền dữ liệu và quy tắc hỗ trợ khi có bài kiểm tra đang diễn ra. Ghi rõ giới hạn hiện tại: cơ chế chặn diagnostic chưa chứng minh chặn được mọi phiên bài lớp.
-- [ ] Nghiệm thu ít nhất hai lượt hỏi tiếp, hai học sinh không đọc được lịch sử của nhau, lỗi provider, AI tắt và vượt hạn mức. Lưu bằng chứng trước khi đánh dấu hoàn thành.
+- [x] Chốt chatbot dùng để hỏi tiếp bài ôn, giải thích kiến thức hay hỗ trợ sử dụng web; quy định dữ liệu nào được đưa vào ngữ cảnh.
+- [x] Đặc tả màn hình hội thoại, phiên chat, lịch sử, thời hạn lưu/xóa, quyền sở hữu và hợp đồng API; xác định có tái sử dụng module AI hiện tại hay không.
+- [x] Thực hiện hội thoại nhiều lượt có ngữ cảnh đúng bài/học sinh, nút gửi, trạng thái chờ, lỗi và thử lại không tạo yêu cầu trùng.
+- [x] Áp dụng giới hạn chi phí, bảo vệ khóa, phân quyền dữ liệu và quy tắc hỗ trợ khi có bài kiểm tra đang diễn ra. Ghi rõ giới hạn hiện tại: cơ chế chặn diagnostic chưa chứng minh chặn được mọi phiên bài lớp.
+- [x] Nghiệm thu ít nhất hai lượt hỏi tiếp, hai học sinh không đọc được lịch sử của nhau, lỗi provider, AI tắt và vượt hạn mức. Lưu bằng chứng trước khi đánh dấu hoàn thành.
 
 ## 3. Vercel, Supabase và Resend
 
@@ -59,9 +61,9 @@ Người dùng xác nhận đã nhắc cả ba dịch vụ trong quá trình là
 
 ### INF-01 — Đối chiếu môi trường đã kết nối (ưu tiên 1, trước triển khai)
 
-- [ ] Xác định project Vercel, backend Render, project/database Supabase và tài khoản/domain Resend từ bằng chứng cấu hình hoặc tài khoản được kết nối.
-- [ ] Lưu tên môi trường và tham chiếu bằng chứng đã che bí mật; phân biệt chưa cấu hình, đã cấu hình và đã kiểm chứng chạy thật cho từng dịch vụ.
-- [ ] Ghi kết quả đối chiếu vào tài liệu triển khai; mọi thay đổi production/database và gửi email nằm ngoài phạm vi lần rà soát này.
+- [x] Xác định project Vercel, backend Render, project/database Supabase và tài khoản/domain Resend từ bằng chứng cấu hình hoặc tài khoản được kết nối.
+- [x] Lưu tên môi trường và tham chiếu bằng chứng đã che bí mật; phân biệt chưa cấu hình, đã cấu hình và đã kiểm chứng chạy thật cho từng dịch vụ.
+- [x] Ghi kết quả đối chiếu vào tài liệu triển khai; mọi thay đổi production/database và gửi email nằm ngoài phạm vi lần rà soát này.
 
 Vercel CLI chưa được cài theo thông tin phiên làm việc. Khuyến nghị cài `npm i -g vercel` khi bắt đầu công việc triển khai để dùng các chức năng quản lý môi trường, deploy và xem log; không cần cài để hoàn thành tài liệu rà soát này.
 
@@ -146,8 +148,39 @@ Thực hiện NL-01, AI-01 và INF-01 trước; sau đó NL-02 và AI-02 theo qu
 
 ### Phần còn lại trước khi nghiệm thu đầy đủ chatbot
 
-- AI production đang tắt vì chưa có khóa provider riêng. Đã hỏi người dùng chọn Anthropic hoặc MWAPI và nhập khóa trực tiếp ở Environment của service Math mới; không yêu cầu gửi khóa vào chat. MWAPI cần đơn giá hiệu dụng input/output để ledger tính phí.
+- Người dùng đã chọn MWAPI. Backend Math đã cấu hình `AI_PROVIDER=mwapi`, `AI_MODEL=claude-haiku-4-5-20251001`; AI production vẫn tắt. Sau lần kiểm duyệt tự động yêu cầu xác nhận đích nhận token, người dùng đã cho phép nhập token. Đã lưu `ANTHROPIC_AUTH_TOKEN` vào biến môi trường service Math riêng trên Render, không chạy installer và không lưu token trong tài liệu/Git. Đang chờ đơn giá hiệu dụng input/output của MWAPI để ledger tính phí; chưa gọi provider hoặc bật AI.
 - Database mới hiện có 0 câu hỏi PUBLISHED. Luồng chatbot theo bài ôn cần câu hỏi đã duyệt và lượt ôn đã mở đáp án. Không sao chép ngân hàng hoặc dữ liệu học sinh từ English; không tự xuất bản seed để tạo bằng chứng nghiệm thu.
 - Cần kiểm chứng hai lượt hội thoại bằng provider thật trên bài ôn đã duyệt và kiểm tra ledger chi phí, rồi mới đánh dấu hoàn thành AI production.
 - Resend vẫn chưa có domain trên tài khoản đã kết nối; chưa gửi email hoặc tự thêm luồng email không được xác định. Việc ghi nhận Resend trong stack đã hoàn thành, không coi là đã tích hợp gửi thư.
 - Goal vẫn active; việc phát hành site/database/backend riêng đã xong, phần AI thật và nội dung phục vụ luồng ôn còn chưa đạt.
+
+### Bảng giá MWAPI công khai đã đối chiếu
+
+- Đã đọc trang https://api.mwapi.dev/model-plaza bằng trình duyệt ngày 14/10/2026. Nhóm công khai `Claude Uptime 99%`, rate `5x`, model `claude-haiku-4-5-20251001` hiển thị giá 5 USD input / 25 USD output cho một triệu token. Cột giá official là 1 / 5, không phải giá MWAPI của nhóm này.
+- Trang ghi đăng nhập để xem exclusive groups/personal rates. Chưa xác nhận token người dùng thuộc nhóm công khai này hoặc có hệ số riêng; không suy diễn bảng giá official Anthropic thành đơn giá MWAPI của tài khoản.
+- Chưa thay đơn giá production hoặc bật AI dựa trên giá công khai. Cần xác nhận nhóm/giá của token trước khi nghiệm thu chi phí thực.
+
+## 8. Nghiệm thu MWAPI thật và phạm vi hoàn thành
+
+- Sau khi được thông báo giá công khai, người dùng đồng ý dùng mức 5 USD input / 25 USD output mỗi triệu token và cho phép tiếp tục. Backend Math được bật `AI_ENABLED=true` với hai đơn giá này; token chỉ nằm trong biến môi trường Render riêng.
+- Kiểm thử hai lượt qua trình duyệt production, Vercel proxy, backend Render và MWAPI thật đạt; ledger có hai bản ghi COMPLETED, số token dương, `reservedUsd=0` và chi phí khớp công thức đơn giá đã chọn. Lần kiểm chứng đầu ghi 0,060815 USD.
+- Câu hỏi kiểm chứng là fixture toán kiểm tra được bằng phép thế, thuộc khối QA 99 ngoài chương trình học sinh thật 6–9. Fixture/câu ôn/nội dung chat được xóa, tài khoản QA bị khóa, session bị thu hồi; accounting được giữ lại. Không dùng fixture để tuyên bố ngân hàng học liệu production đã sẵn sàng.
+- Phản hồi đầu có xu hướng suy diễn lỗ hổng từ câu hỏi “vì sao”; đã sửa chỉ dẫn để trả lời câu hỏi và chỉ xác định lỗi khi có bằng chứng từ đáp án/bước giải. Build API và 13 test chatbot đạt, bao gồm bài thi bắt đầu giữa lúc gọi AI và lỗi xác thực provider.
+- Biểu đồ production được kiểm chứng thêm trạng thái trống/tải/lỗi/thử lại. Lỗi tải chỉ được mô phỏng trong trình duyệt QA, không thay cấu hình hoặc gây lỗi backend thật. Dữ liệu tạm đã được dọn.
+- Các task NL-01, NL-02, AI-01, AI-02 và INF-01 được triển khai/đối chiếu theo bằng chứng ở `docs/evidence/math-tutor/`, `docs/evidence/math-tutor/live/`, test API và cấu hình dịch vụ riêng. Không triển khai gửi thư Resend vì chưa có domain hoặc mục đích email trong yêu cầu.
+- Giới hạn sản phẩm còn công khai: database Math mới chưa có câu hỏi chính thức PUBLISHED; chatbot này hỏi tiếp sau bài ôn, không phải chatbot tự do toàn website. Đưa ngân hàng học liệu qua quy trình duyệt là công việc nội dung riêng. Không thay đổi database hoặc backend Adaptive English.
+
+### Audit hoàn thành các task đã ghi nhận
+
+| Task | Bằng chứng quyết định/triển khai | Bằng chứng kiểm chứng |
+| --- | --- | --- |
+| NL-01 | Thanh theo từng kỹ năng; quyết định D-MATH-20261014; không tổng hợp chương nên điều kiện trọng số không áp dụng | Biểu đồ desktop/390px và bộ lọc/sắp xếp trong QA |
+| NL-02 | Catalog đúng lớp, null chưa đánh giá, nhãn trạng thái, bằng chứng và ngày cập nhật | Báo cáo production VERIFICATION.md: đăng nhập thật, giá trị/API, trống/tải/lỗi/thử lại và không tràn ngang |
+| AI-01 | Migration/schema riêng, giá MWAPI đã được người dùng chấp thuận, token chỉ ở backend, ledger ngân sách | Test lỗi/tắt/ngân sách/chủ sở hữu/diagnostic; MWAPI thật trả lời qua route bài ôn và ledger khớp token |
+| AI-02 | Hội thoại/lịch sử 6 lượt ngữ cảnh, tối đa 20 lượt, hiển thị 30 ngày, dọn khi đọc, xóa nội dung giữ accounting | Hai lượt liên tiếp thật sau bản sửa chỉ dẫn; QA khác học sinh 404, thi đang làm 403; test thi bắt đầu giữa request giữ accounting và chặn phản hồi |
+| INF-01 | Vercel Math, Render service mới, Supabase tài khoản/project/schema riêng; Resend đối chiếu không có domain | Health qua domain Vercel `ok/connected`, runtime math_app đúng schema, RLS/quyền, dữ liệu English không bị sửa |
+
+- Bản sửa gia sư `bf41a1c6cbabbf8e87cf1982244e2f8329083459` đã live trên Render trước vòng kiểm chứng cuối; phản hồi mới giải thích trực tiếp câu hỏi và không gán lỗi tiềm ẩn khi thiếu bằng chứng.
+- Vòng MWAPI cuối ghi 0,058265 USD. Cộng vòng đầu, ledger giữ tổng 0,119080 USD cho 4 request COMPLETED; `reservedUsd=0`.
+- `FINAL-AUDIT.json` xác nhận site khỏe, không còn tài khoản QA ACTIVE, không còn kỹ năng QA khối 99, giữ 8 kỹ năng tham chiếu và 0 câu hỏi chính thức PUBLISHED. Frontend production có cùng mã ứng dụng với nhánh phát hành hiện tại; thay đổi sau commit frontend chỉ ở API, tài liệu và script kiểm chứng.
+- Goal tính năng đủ bằng chứng để hoàn tất. Phần nội dung chính thức và email chỉ được ghi rõ trạng thái, không bị giả định là đã triển khai.

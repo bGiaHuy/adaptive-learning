@@ -2,12 +2,12 @@
 
 ### Quyết định triển khai D-MATH-20261014: biểu đồ và hội thoại gia sư
 
-- Trạng thái: IMPLEMENTED LOCALLY; chưa nghiệm thu production hoặc thay thế các sign-off phát hành hiện hữu.
+- Trạng thái: IMPLEMENTED AND TECHNICALLY VERIFIED ON MATH PRODUCTION; không thay thế sign-off nội dung hoặc phát hành pilot toàn sản phẩm.
 - Cơ sở: người dùng yêu cầu tự thực hiện các task biểu đồ năng lực và chatbot ngày 14/10/2026. Lựa chọn cụ thể dưới đây là quyết định triển khai của agent trong phạm vi đó, không giả định có người phê duyệt khác.
 - Biểu đồ: thanh ngang từng kỹ năng, lọc chương và sắp xếp điểm thấp trước; dùng catalog đúng lớp, giữ null cho kỹ năng chưa đánh giá. Không tổng hợp chương hoặc dựng khoảng tin cậy từ số câu bằng chứng.
 - Chatbot: hỏi tiếp theo bài ôn đã mở đáp án, ngữ cảnh server, 6 lượt gần nhất, 20 lượt/hội thoại. Hiển thị lịch sử 30 ngày; dọn nội dung quá hạn khi mở hội thoại. Xóa nội dung theo yêu cầu giữ nguyên sổ chi phí. Tái sử dụng ledger và provider hiện có; không tự đổi nhà cung cấp.
-- Kiểm chứng: build/typecheck, 69 test đạt và 1 bỏ qua trong QA Math, kiểm tra trình duyệt hai lượt/hồi phục lịch sử/phân quyền/gửi trùng/xóa nội dung trên desktop và 390px. Provider trình duyệt là bộ kiểm thử có kiểm soát, chưa phải AI production.
-- Tham chiếu: `docs/COMPETENCY-AND-CHATBOT-TASKS.md`, `docs/evidence/math-tutor/VERIFICATION.md`.
+- Kiểm chứng: build/typecheck, QA Math 70 test đạt và 1 bỏ qua, 13 test chatbot sau sửa chỉ dẫn; kiểm tra lịch sử/phân quyền/gửi trùng/xóa nội dung. Production kiểm chứng biểu đồ trên desktop/390px và trạng thái trống/tải/lỗi/thử lại; hai vòng, mỗi vòng hai lượt MWAPI thật. Bốn request COMPLETED, tổng chi phí ledger 0,119080 USD, không còn giữ chỗ hoặc dữ liệu QA hoạt động. Không nghiệm thu ngân hàng câu hỏi chính thức bằng fixture QA.
+- Tham chiếu: `docs/COMPETENCY-AND-CHATBOT-TASKS.md`, `docs/evidence/math-tutor/VERIFICATION.md`, `docs/evidence/math-tutor/live/MWAPI-VERIFICATION.md`, `docs/evidence/math-tutor/live/FINAL-AUDIT.json`.
 
 
 **Tài liệu:** Formal Product, Architecture & Governance Decision Log  

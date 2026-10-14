@@ -1,5 +1,7 @@
 # AdaptiveMath — Nền Tảng Học Toán Thích Ứng THCS GDPT 2018
 
+> **Math riêng đã phát hành 14/10/2026:** [Mở site Math](https://adaptivemath-blush.vercel.app). Biểu đồ năng lực và gia sư hỏi tiếp bài ôn đã kiểm chứng production với MWAPI thật; backend/database tách khỏi Adaptive English. Database mới có 8 kỹ năng tham chiếu, chưa có ngân hàng câu hỏi chính thức đã xuất bản. Xem [bằng chứng kỹ thuật](docs/evidence/math-tutor/live/FINAL-AUDIT.json); không đồng nghĩa đã đạt các sign-off nội dung/pilot toàn sản phẩm.
+
 > **Rà soát task 14/10/2026:** Xem [biểu đồ năng lực, chatbot/AI và đối chiếu Vercel–Supabase–Resend](docs/COMPETENCY-AND-CHATBOT-TASKS.md) để phân biệt phần đã có, backlog và tiêu chí nghiệm thu.
 
 > **Cập nhật Math 09/10/2026:** Đã bổ sung chẩn đoán 3PL/MAP, vòng luyện theo chủ đề, BKT và lộ trình theo ngày. Tham số còn tạm, chưa triển khai database đích; xem [bản sửa và giới hạn](docs/MATH-ADAPTIVE-UPDATE.md). Adaptive English được giữ nguyên.
