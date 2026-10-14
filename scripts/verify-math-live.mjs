@@ -21,13 +21,25 @@ try{
     await call('auth/login',{identifier:credentials.username,password:credentials.password});return registered.id;
   },{username,password});
   assert(userId);const cookies=await page.cookies();const session=cookies.find(cookie=>cookie.name==='__Host-am_math_session');assert(session?.httpOnly&&session.secure&&session.path==='/');
+  await page.reload({waitUntil:'networkidle0'});await page.waitForSelector('[data-tab="profile"]');await page.click('[data-tab="profile"]');await page.waitForSelector('.empty-state-card');
+  assert(await page.$eval('.empty-state-card',element=>element.textContent.includes('Chưa có kết quả')));
   const skills=await db.skillNode.findMany({where:{grade:9},orderBy:{orderIndex:'asc'},take:2});
   await db.skillMastery.createMany({data:[{studentId:userId,skillId:skills[0].id,masteryScore:92,evidenceCount:8},{studentId:userId,skillId:skills[1].id,masteryScore:48,evidenceCount:2}]});
-  await page.reload({waitUntil:'networkidle0'});await page.waitForSelector('[data-tab="profile"]');await page.click('[data-tab="profile"]');await page.waitForSelector('.competency-chart');
+  let masteryMode='delay';await page.setRequestInterception(true);
+  page.on('request',async request=>{
+    if(request.url().endsWith('/api/v1/student/mastery')){
+      if(masteryMode==='error'){await request.respond({status:503,contentType:'application/json',body:JSON.stringify({message:'QA lỗi tải hồ sơ'})});return;}
+      if(masteryMode==='delay')await new Promise(resolve=>setTimeout(resolve,900));
+    }
+    await request.continue();
+  });
+  await page.click('[data-tab="dashboard"]');await page.click('[data-tab="profile"]');await page.waitForFunction(()=>document.body.textContent.includes('Đang tải hồ sơ năng lực'));await page.waitForSelector('.competency-chart');
+  masteryMode='error';await page.click('[data-tab="dashboard"]');await page.click('[data-tab="profile"]');await page.waitForFunction(()=>document.body.textContent.includes('Không thể tải dữ liệu năng lực'));
+  masteryMode='live';await page.evaluate(()=>[...document.querySelectorAll('button')].find(button=>button.textContent.trim()==='Thử lại').click());await page.waitForSelector('.competency-chart');
   assert(await page.$eval('.competency-chart',element=>element.textContent.includes('92%')&&element.textContent.includes('Chưa đánh giá')&&element.textContent.includes('Chưa đủ bằng chứng')));
   await page.screenshot({path:path.join(output,'competency-desktop.png'),fullPage:true});await page.setViewport({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(output,'competency-mobile.png'),fullPage:true});
   assert.deepEqual(errors,[]);
-  fs.writeFileSync(path.join(output,'VERIFICATION.md'),`# Math production verification\n\nDate: ${new Date().toISOString()}\n\n- Frontend: ${origin}\n- Backend: https://adaptivemath-api.onrender.com\n- Database: project turjtcqkmjfkhqijjpdz, private math schema.\n- Real registration/login through Vercel proxy; secure HttpOnly Math-specific cookie.\n- Grade-scoped competency API and rendered chart: sufficient, provisional and unassessed skills.\n- Desktop and 390px mobile, no horizontal overflow or unhandled JavaScript errors.\n- Uses one explicitly temporary QA learner and synthetic mastery values; cleanup runs in finally.\n- Real AI provider and published question inventory are not verified; AI is currently disabled.\n`);
+  fs.writeFileSync(path.join(output,'VERIFICATION.md'),`# Math production verification\n\nDate: ${new Date().toISOString()}\n\n- Frontend: ${origin}\n- Backend: https://adaptivemath-api.onrender.com\n- Database: project turjtcqkmjfkhqijjpdz, private math schema.\n- Real registration/login through Vercel proxy; secure HttpOnly Math-specific cookie.\n- Grade-scoped competency API and rendered chart: sufficient, provisional and unassessed skills.\n- Desktop and 390px mobile, no horizontal overflow or unhandled JavaScript errors.\n- Uses one explicitly temporary QA learner and synthetic mastery values; cleanup runs in finally.\n- Empty, loading, failed request and retry states verified; errors injected only in the QA browser, not the live service.\n- AI provider verification is recorded separately in MWAPI-VERIFICATION.md; this chart test does not certify published question inventory.\n`);
   console.log('Live Math login, cookie and competency chart verification passed.');
 }finally{
   await browser?.close();

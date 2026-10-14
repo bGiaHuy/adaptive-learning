@@ -68,6 +68,16 @@ describe('Math tutor conversation', () => {
     budget.reserve.mockRejectedValue(new Error('budget exhausted'));
     await expect(service.feedback('alice',{reviewId:'review',reason:'Hi',requestId},'ip',true)).rejects.toThrow('budget exhausted');expect(fetch).not.toHaveBeenCalled();
   });
+  it('withholds the reply if an exam starts during the provider request but still accounts for its cost',async()=>{
+    db.diagnosticAttempt.findFirst.mockResolvedValueOnce(null).mockResolvedValueOnce(null).mockResolvedValue({id:'started-exam'});
+    await expect(service.feedback('alice',{reviewId:'review',reason:'Explain',requestId},'ip',true)).rejects.toThrow('Bài kiểm tra đã bắt đầu');
+    expect(budget.settle).toHaveBeenCalledWith('reservation',100,30,{withheld:true});
+  });
+  it('records a rejected non-billed request without releasing uncertain network requests',async()=>{
+    (fetch as any).mockResolvedValue({ok:false,status:401});
+    await expect(service.feedback('alice',{reviewId:'review',reason:'Explain',requestId},'ip',true)).rejects.toThrow('tạm thời');
+    expect(budget.fail).toHaveBeenCalledWith('reservation',true);expect(budget.settle).not.toHaveBeenCalled();
+  });
   it('clears conversation content without deleting usage accounting',async()=>{
     await service.clearChat('alice','review');
     expect(db.aiRequest.updateMany.mock.lastCall[0]).toMatchObject({where:{userId:'alice',conversationId:'review'},data:{message:null,result:{deleted:true},conversationId:null}});
