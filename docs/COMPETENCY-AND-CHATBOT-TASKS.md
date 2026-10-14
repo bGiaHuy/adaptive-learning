@@ -128,3 +128,26 @@ Thực hiện NL-01, AI-01 và INF-01 trước; sau đó NL-02 và AI-02 theo qu
 - Truy vấn chỉ đọc qua `supabase db query --linked --project-ref ...` xác nhận `public_table_count = 0`; chưa có bảng public để nhầm với schema Math/English cũ. Chưa áp dụng migration hoặc nạp dữ liệu.
 - Plugin Supabase và CLI có phiên đăng nhập độc lập. Các bước tiếp theo với project này phải dùng CLI đã xác minh; không dùng plugin cũ để suy ra quyền hoặc project đích.
 - Hạn mức của tài khoản cũ không còn là điều kiện chặn đích mới. Cần thiết lập schema/quyền, thông tin kết nối backend riêng, đối chiếu migration và triển khai service Math mới; AI thật vẫn cần khóa phía backend và kiểm chứng ngân sách.
+
+## 7. Math đã phát hành riêng ngày 14/10/2026
+
+- Repo: `bGiaHuy/math`, nhánh `codex/math-competency-tutor-release`. Commit tính năng `e6c5d5d`; commit chuyển API sang backend Math riêng `f5566e7`.
+- Frontend production: https://adaptivemath-blush.vercel.app, Vercel project `adaptivemath`, deployment `dpl_HEMZHjUQcqsqtjjVs3cgyhg4XVCu` READY ở commit `f5566e7989d1dc54d507787498d38f6bc88a6ce5`.
+- Backend mới: https://adaptivemath-api.onrender.com, service `srv-db7oia2vcj2c73eck8o0` trong `My Workspace`, gói free, Singapore. Nguồn là nhánh Math riêng; không cập nhật service cũ `Adaptivemath` đang phục vụ English.
+- Người dùng đã xác nhận rõ cho phép đưa DATABASE_URL của `math_app`, SESSION_SECRET và INVITE_CODE_HMAC_SECRET mới vào biến môi trường service Math mới sau khi kiểm duyệt tự động yêu cầu xác nhận đích nhận secret. Không đưa secret vào Git/frontend/tài liệu.
+- Database mới: project `turjtcqkmjfkhqijjpdz` thuộc `adaptivemath org`, schema riêng `math`. 7 migration được áp dụng, gồm migration tiến tới `20261014100000_schema_reconciliation` cho các bảng bài tập lớp còn thiếu và quan hệ author/reviewer cũ.
+- Đã chạy chuỗi migration từ đầu trong database QA và đối chiếu schema trước khi áp dụng cloud. Không reset hoặc migrate vào database English.
+- 30 bảng ứng dụng có RLS. `anon`/`authenticated` không có USAGE trên schema; runtime `math_app` không có CREATE, SUPERUSER hoặc BYPASSRLS. Chính sách RLS chỉ cho runtime backend; quyền sở hữu học sinh tiếp tục được kiểm tra ở API.
+- Prisma kết nối đúng role `math_app` và schema `math` qua pooler đã được CLI trả về. Secret riêng lưu cục bộ trong `.env.math-production.local` (Git bỏ qua); các SQL chuẩn bị chứa secret nằm trong thư mục QA bị Git bỏ qua.
+- Đã khởi tạo 8 kỹ năng tham chiếu từ danh mục canonical trong seed; không chạy seed demo, không tạo tài khoản demo hoặc tự xuất bản câu hỏi.
+- Kiểm tra domain frontend trả 200; `/api/v1/health` qua chính domain Vercel trả 200, `status=ok`, `database=connected`.
+- Kiểm tra trình duyệt production: đăng ký/đăng nhập, cookie `__Host-am_math_session` Secure + HttpOnly, biểu đồ có điểm/thiếu bằng chứng/chưa đánh giá ở desktop và 390px. Tài khoản QA tạm và dữ liệu năng lực tổng hợp đã được xóa trong finally. Báo cáo: `docs/evidence/math-tutor/live/VERIFICATION.md`.
+- Build frontend/API đạt; bộ QA Math mới nhất 70 test đạt, 1 bỏ qua. Secret scan đạt.
+
+### Phần còn lại trước khi nghiệm thu đầy đủ chatbot
+
+- AI production đang tắt vì chưa có khóa provider riêng. Đã hỏi người dùng chọn Anthropic hoặc MWAPI và nhập khóa trực tiếp ở Environment của service Math mới; không yêu cầu gửi khóa vào chat. MWAPI cần đơn giá hiệu dụng input/output để ledger tính phí.
+- Database mới hiện có 0 câu hỏi PUBLISHED. Luồng chatbot theo bài ôn cần câu hỏi đã duyệt và lượt ôn đã mở đáp án. Không sao chép ngân hàng hoặc dữ liệu học sinh từ English; không tự xuất bản seed để tạo bằng chứng nghiệm thu.
+- Cần kiểm chứng hai lượt hội thoại bằng provider thật trên bài ôn đã duyệt và kiểm tra ledger chi phí, rồi mới đánh dấu hoàn thành AI production.
+- Resend vẫn chưa có domain trên tài khoản đã kết nối; chưa gửi email hoặc tự thêm luồng email không được xác định. Việc ghi nhận Resend trong stack đã hoàn thành, không coi là đã tích hợp gửi thư.
+- Goal vẫn active; việc phát hành site/database/backend riêng đã xong, phần AI thật và nội dung phục vụ luồng ôn còn chưa đạt.
