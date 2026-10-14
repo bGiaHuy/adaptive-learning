@@ -3,6 +3,7 @@ import LandingPage from './components/LandingPage';
 import RegisterPage from './components/RegisterPage';
 import LoadingScreen from './components/LoadingScreen';
 import Sidebar from './components/Sidebar';
+import MathTutorWidget from './components/MathTutorWidget';
 import DashboardView from './components/DashboardView';
 import OnboardingWizard from './components/OnboardingWizard';
 import NotFoundView from './components/NotFoundView';
@@ -431,6 +432,7 @@ export default function App() {
       </div>
 
       {/* Session Management Modal */}
+      {currentUser?.role === 'STUDENT' && <MathTutorWidget key={currentUser.id} userId={currentUser.id}/>}
       {showSessionModal && (
         <Suspense fallback={null}>
           <SessionManagementModal

@@ -17,6 +17,22 @@ describe('Math tutor conversation', () => {
     vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:true,json:async()=>({content:[{type:'text',text:'Chia hai vế cho 2.'}],usage:{input_tokens:100,output_tokens:30},stop_reason:'end_turn'})}));
   });
   afterEach(()=>{vi.unstubAllEnvs();vi.unstubAllGlobals();vi.restoreAllMocks();});
+  it('allows the floating tutor without a review and scopes history to the learner',async()=>{
+    const conversation='12345678-1234-4234-8234-123456789abc';
+    await service.feedback('alice',{reviewId:conversation,reason:'Giải thích phương trình bậc nhất',requestId},'ip',true,true);
+    expect(db.mathReviewLog.findFirst).not.toHaveBeenCalled();expect(db.question.findFirst).not.toHaveBeenCalled();
+    expect(db.aiRequest.findMany.mock.calls[0][0].where).toMatchObject({userId:'alice',task:'MATH_TUTOR',conversationId:conversation});
+    expect(budget.reserve.mock.calls[0][0]).toMatchObject({task:'MATH_TUTOR',conversationId:conversation});
+  });
+  it('rejects malformed standalone conversations before provider calls',async()=>{
+    await expect(service.feedback('alice',{reviewId:'bad',reason:'Hi',requestId},'ip',true,true)).rejects.toThrow('hội thoại');
+    expect(fetch).not.toHaveBeenCalled();
+  });
+  it('blocks the floating tutor during diagnostics',async()=>{
+    db.diagnosticAttempt.findFirst.mockResolvedValue({id:'exam'});
+    await expect(service.chatHistory('alice','12345678-1234-4234-8234-123456789abc',true)).rejects.toThrow('tạm dừng');
+    expect(db.aiRequest.findMany).not.toHaveBeenCalled();
+  });
   it('sends server-owned earlier turns with the current question and stores a request identity',async()=>{
     db.aiRequest.findMany.mockResolvedValue([{lessonId:'older-request',message:'Vì sao chia?',result:{text:'Để tìm x.'}}]);
     const result=await service.feedback('alice',{reviewId:'review',reason:'Chia thế nào?',requestId},'127.0.0.1',true);

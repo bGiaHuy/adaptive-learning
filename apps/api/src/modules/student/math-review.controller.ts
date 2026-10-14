@@ -4,6 +4,9 @@ import {AuthGuard} from '../auth/guards/auth.guard';import {RolesGuard} from '..
 @Controller('student/review') @UseGuards(AuthGuard,RolesGuard) @Roles(UserRole.STUDENT)
 export class MathReviewController {
  constructor(private readonly review:MathReviewService){}
+ @Get('tutor/:conversationId') tutorHistory(@CurrentUser('id') id:string,@Param('conversationId') c:string){return this.review.chatHistory(id,c,true);}
+ @Post('tutor') tutor(@CurrentUser('id') id:string,@Body() b:any,@Req() req:any){return this.review.feedback(id,b,req.ip||'unknown',true,true);}
+ @Post('tutor/:conversationId/clear') tutorClear(@CurrentUser('id') id:string,@Param('conversationId') c:string){return this.review.clearChat(id,c,true);}
  @Get('summary') summary(@CurrentUser('id') id:string){return this.review.summary(id);}
  @Get('conversations') conversations(@CurrentUser('id') id:string){return this.review.conversations(id);}
  @Get('queue') queue(@CurrentUser('id') id:string){return this.review.queue(id);}

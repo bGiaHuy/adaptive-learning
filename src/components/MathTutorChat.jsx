@@ -3,7 +3,7 @@ import { studentApi } from '../lib/apiClient';
 import MathAiReply from './MathAiReply';
 import './math-tutor-chat.css';
 
-export default function MathTutorChat({ reviewId, enabled }) {
+export default function MathTutorChat({ reviewId, enabled, general = false }) {
   const [turns, setTurns] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -12,9 +12,9 @@ export default function MathTutorChat({ reviewId, enabled }) {
   const sending = useRef(false);
   useEffect(() => {
     let active = true;
-    studentApi.reviewChatHistory(reviewId).then(data => { if (active) setTurns(data.messages); }).catch(err => { if (active) setError(err.message); }).finally(() => { if (active) setBusy(false); });
+    (general ? studentApi.tutorHistory : studentApi.reviewChatHistory)(reviewId).then(data => { if (active) setTurns(data.messages); }).catch(err => { if (active) setError(err.message); }).finally(() => { if (active) setBusy(false); });
     return () => { active = false; };
-  }, [reviewId]);
+  }, [reviewId, general]);
   async function send(event) {
     event.preventDefault();
     if (sending.current || busy || !enabled || !message.trim()) return;
@@ -23,7 +23,7 @@ export default function MathTutorChat({ reviewId, enabled }) {
     if (!pending.current || pending.current.message !== text) pending.current = { message: text, requestId: crypto.randomUUID() };
     const submitted = pending.current;
     try {
-      const result = await studentApi.reviewChat(reviewId, text, pending.current.requestId);
+      const result = await (general ? studentApi.tutorSend : studentApi.reviewChat)(reviewId, text, pending.current.requestId);
       setTurns(current => current.some(turn => turn.requestId === submitted.requestId) ? current : [...current, { ...submitted, text: result.text }]);
       setMessage(''); pending.current = null;
     } catch (err) { setError(err.message); }
@@ -32,20 +32,20 @@ export default function MathTutorChat({ reviewId, enabled }) {
   async function clear() {
     if (sending.current || busy) return;
     setBusy(true); setError('');
-    try { await studentApi.reviewChatClear(reviewId); setTurns([]); pending.current = null; }
+    try { await (general ? studentApi.tutorClear : studentApi.reviewChatClear)(reviewId); setTurns([]); pending.current = null; }
     catch (err) { setError(err.message); }
     finally { setBusy(false); }
   }
   async function reloadHistory() {
     if (sending.current || busy) return;
     setBusy(true); setError('');
-    try { setTurns((await studentApi.reviewChatHistory(reviewId)).messages); }
+    try { setTurns((await (general ? studentApi.tutorHistory : studentApi.reviewChatHistory)(reviewId)).messages); }
     catch (err) { setError(err.message); }
     finally { setBusy(false); }
   }
   return <section className="math-tutor-chat" aria-labelledby={`tutor-${reviewId}`}>
-    <header><h3 id={`tutor-${reviewId}`}>Cùng gia sư hiểu bài này</h3><div className="math-tutor-actions"><button type="button" disabled={busy} onClick={reloadHistory}>Tải lịch sử</button><button type="button" disabled={busy || !turns.length} onClick={clear}>Xóa lịch sử</button></div></header>
-    <p>Viết cách bạn nghĩ hoặc hỏi tiếp chỗ chưa hiểu. Gia sư nhớ 6 lượt gần nhất trong bài ôn này. Lịch sử hiển thị trong 30 ngày, tối đa 20 lượt.</p>
+    <header><h3 id={`tutor-${reviewId}`}>{general ? 'Gia sư Toán AI' : 'Cùng gia sư hiểu bài này'}</h3><div className="math-tutor-actions"><button type="button" disabled={busy} onClick={reloadHistory}>Tải lịch sử</button><button type="button" disabled={busy || !turns.length} onClick={clear}>Xóa lịch sử</button></div></header>
+    <p>Viết cách bạn nghĩ hoặc hỏi tiếp chỗ chưa hiểu. Gia sư nhớ 6 lượt gần nhất trong cuộc trò chuyện này. Lịch sử hiển thị trong 30 ngày, tối đa 20 lượt.</p>
     {!enabled && <p role="status">Gia sư AI chưa được bật. Bạn vẫn có thể đọc lời giải và tiếp tục ôn.</p>}
     <div className="math-tutor-transcript" role="log" aria-label="Hội thoại với gia sư" aria-live="polite" aria-busy={busy}>
       {!turns.length && <p className="math-tutor-empty">Bắt đầu từ bước giải khiến bạn băn khoăn.</p>}
