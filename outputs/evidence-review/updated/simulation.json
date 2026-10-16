@@ -1,0 +1,680 @@
+{
+  "date": "2026-10-16",
+  "source": "apps/api/src/modules/student/math-adaptive.ts",
+  "seed": 20261016,
+  "learners": 1500,
+  "maxQuestions": 24,
+  "bank": {
+    "skills": 8,
+    "items": 256,
+    "a": 1.2,
+    "b": [
+      -1.5,
+      -0.5,
+      0.5,
+      1.5
+    ],
+    "c": 0.25
+  },
+  "truthDistribution": "N(0,1), Box-Muller, no truncation",
+  "design": "Shared Bernoulli outcomes per learner/item across strategies; eight synthetic skills; if staircase exhausts eligible skills, retain its last estimate through the remaining checkpoints.",
+  "baseline": "MLE implemented for this benchmark only, same 3PL gradient/Fisher update, no prior, theta bound ±4; not a production algorithm.",
+  "metrics": {
+    "staircase_map": [
+      {
+        "questions": 1,
+        "n": 1500,
+        "squaredError": 1750.9192216339177,
+        "boundary": 0,
+        "rmse": 1.0804070904475211,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 2,
+        "n": 1500,
+        "squaredError": 1621.6937987041888,
+        "boundary": 0,
+        "rmse": 1.0397736287943284,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 3,
+        "n": 1500,
+        "squaredError": 1504.7795009396937,
+        "boundary": 0,
+        "rmse": 1.0015918999072406,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 4,
+        "n": 1500,
+        "squaredError": 1350.5604317381583,
+        "boundary": 0,
+        "rmse": 0.948880193258755,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 5,
+        "n": 1500,
+        "squaredError": 1250.6450550554284,
+        "boundary": 0,
+        "rmse": 0.913106439598885,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 6,
+        "n": 1500,
+        "squaredError": 1170.6746654208362,
+        "boundary": 0,
+        "rmse": 0.8834306859891295,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 7,
+        "n": 1500,
+        "squaredError": 1089.2199649102063,
+        "boundary": 0,
+        "rmse": 0.8521423843897632,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 8,
+        "n": 1500,
+        "squaredError": 1022.9702541271474,
+        "boundary": 0,
+        "rmse": 0.825820906382309,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 9,
+        "n": 1500,
+        "squaredError": 976.6812627627353,
+        "boundary": 0,
+        "rmse": 0.8069205920298623,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 10,
+        "n": 1500,
+        "squaredError": 901.859570526573,
+        "boundary": 0,
+        "rmse": 0.7753964880526492,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 11,
+        "n": 1500,
+        "squaredError": 856.4566435915418,
+        "boundary": 0,
+        "rmse": 0.755626293697946,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 12,
+        "n": 1500,
+        "squaredError": 806.8224061450896,
+        "boundary": 0,
+        "rmse": 0.7334041205888651,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 13,
+        "n": 1500,
+        "squaredError": 754.8194497456849,
+        "boundary": 0,
+        "rmse": 0.7093750534781466,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 14,
+        "n": 1500,
+        "squaredError": 716.0787475273681,
+        "boundary": 0,
+        "rmse": 0.6909311338222588,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 15,
+        "n": 1500,
+        "squaredError": 689.9165170710482,
+        "boundary": 0,
+        "rmse": 0.6781919674502436,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 16,
+        "n": 1500,
+        "squaredError": 639.4256304880994,
+        "boundary": 0,
+        "rmse": 0.6529040922361667,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 17,
+        "n": 1500,
+        "squaredError": 586.5031002241125,
+        "boundary": 0,
+        "rmse": 0.6253015806921289,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 18,
+        "n": 1500,
+        "squaredError": 539.0675730259816,
+        "boundary": 0,
+        "rmse": 0.5994817612048936,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 19,
+        "n": 1500,
+        "squaredError": 509.2123047299,
+        "boundary": 0,
+        "rmse": 0.5826447200652669,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 20,
+        "n": 1500,
+        "squaredError": 466.366614762129,
+        "boundary": 0,
+        "rmse": 0.5575940068796347,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 21,
+        "n": 1500,
+        "squaredError": 445.68816640718165,
+        "boundary": 0,
+        "rmse": 0.5450921429184743,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 22,
+        "n": 1500,
+        "squaredError": 431.391935261191,
+        "boundary": 0,
+        "rmse": 0.5362784943548088,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 23,
+        "n": 1500,
+        "squaredError": 405.4555130637142,
+        "boundary": 0,
+        "rmse": 0.5199073719190846,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 24,
+        "n": 1500,
+        "squaredError": 387.7709646069088,
+        "boundary": 0,
+        "rmse": 0.508442697267456,
+        "boundaryPercent": 0
+      }
+    ],
+    "staircase_mle": [
+      {
+        "questions": 1,
+        "n": 1500,
+        "squaredError": 23112.71498182718,
+        "boundary": 1500,
+        "rmse": 3.9253632512866186,
+        "boundaryPercent": 100
+      },
+      {
+        "questions": 2,
+        "n": 1500,
+        "squaredError": 17944.32263674799,
+        "boundary": 1151,
+        "rmse": 3.4587399089599082,
+        "boundaryPercent": 76.73333333333333
+      },
+      {
+        "questions": 3,
+        "n": 1500,
+        "squaredError": 15110.062174710638,
+        "boundary": 981,
+        "rmse": 3.173858028195405,
+        "boundaryPercent": 65.4
+      },
+      {
+        "questions": 4,
+        "n": 1500,
+        "squaredError": 12884.568486661305,
+        "boundary": 920,
+        "rmse": 2.930821100722606,
+        "boundaryPercent": 61.333333333333336
+      },
+      {
+        "questions": 5,
+        "n": 1500,
+        "squaredError": 11113.997701213804,
+        "boundary": 803,
+        "rmse": 2.722008780443076,
+        "boundaryPercent": 53.53333333333333
+      },
+      {
+        "questions": 6,
+        "n": 1500,
+        "squaredError": 9899.372600768216,
+        "boundary": 727,
+        "rmse": 2.568965109503334,
+        "boundaryPercent": 48.46666666666667
+      },
+      {
+        "questions": 7,
+        "n": 1500,
+        "squaredError": 8639.704677164795,
+        "boundary": 649,
+        "rmse": 2.399958982589049,
+        "boundaryPercent": 43.266666666666666
+      },
+      {
+        "questions": 8,
+        "n": 1500,
+        "squaredError": 7717.895603944316,
+        "boundary": 608,
+        "rmse": 2.2683173799014273,
+        "boundaryPercent": 40.53333333333333
+      },
+      {
+        "questions": 9,
+        "n": 1500,
+        "squaredError": 6318.959717563204,
+        "boundary": 514,
+        "rmse": 2.0524716348122336,
+        "boundaryPercent": 34.266666666666666
+      },
+      {
+        "questions": 10,
+        "n": 1500,
+        "squaredError": 5029.1191667715175,
+        "boundary": 423,
+        "rmse": 1.8310505485051503,
+        "boundaryPercent": 28.2
+      },
+      {
+        "questions": 11,
+        "n": 1500,
+        "squaredError": 4241.177580651467,
+        "boundary": 367,
+        "rmse": 1.6815028160649363,
+        "boundaryPercent": 24.466666666666665
+      },
+      {
+        "questions": 12,
+        "n": 1500,
+        "squaredError": 3533.0787939242296,
+        "boundary": 312,
+        "rmse": 1.534726641006845,
+        "boundaryPercent": 20.8
+      },
+      {
+        "questions": 13,
+        "n": 1500,
+        "squaredError": 3033.60810977971,
+        "boundary": 272,
+        "rmse": 1.4221130076473552,
+        "boundaryPercent": 18.133333333333333
+      },
+      {
+        "questions": 14,
+        "n": 1500,
+        "squaredError": 2626.8154029154803,
+        "boundary": 237,
+        "rmse": 1.323333015008059,
+        "boundaryPercent": 15.8
+      },
+      {
+        "questions": 15,
+        "n": 1500,
+        "squaredError": 2417.454876610048,
+        "boundary": 219,
+        "rmse": 1.2695024948406752,
+        "boundaryPercent": 14.6
+      },
+      {
+        "questions": 16,
+        "n": 1500,
+        "squaredError": 2087.145951905262,
+        "boundary": 196,
+        "rmse": 1.1795891804367773,
+        "boundaryPercent": 13.066666666666666
+      },
+      {
+        "questions": 17,
+        "n": 1500,
+        "squaredError": 1542.8040151871278,
+        "boundary": 141,
+        "rmse": 1.0141676439942027,
+        "boundaryPercent": 9.4
+      },
+      {
+        "questions": 18,
+        "n": 1500,
+        "squaredError": 1192.1607449701423,
+        "boundary": 104,
+        "rmse": 0.8915008861353392,
+        "boundaryPercent": 6.933333333333334
+      },
+      {
+        "questions": 19,
+        "n": 1500,
+        "squaredError": 985.5853361950066,
+        "boundary": 79,
+        "rmse": 0.8105904581209127,
+        "boundaryPercent": 5.266666666666667
+      },
+      {
+        "questions": 20,
+        "n": 1500,
+        "squaredError": 820.5198546326116,
+        "boundary": 64,
+        "rmse": 0.7396034318617924,
+        "boundaryPercent": 4.266666666666667
+      },
+      {
+        "questions": 21,
+        "n": 1500,
+        "squaredError": 729.909674507308,
+        "boundary": 52,
+        "rmse": 0.6975718240235471,
+        "boundaryPercent": 3.466666666666667
+      },
+      {
+        "questions": 22,
+        "n": 1500,
+        "squaredError": 671.14853704998,
+        "boundary": 45,
+        "rmse": 0.668903848122673,
+        "boundaryPercent": 3
+      },
+      {
+        "questions": 23,
+        "n": 1500,
+        "squaredError": 591.7587957219052,
+        "boundary": 36,
+        "rmse": 0.6280970178361011,
+        "boundaryPercent": 2.4
+      },
+      {
+        "questions": 24,
+        "n": 1500,
+        "squaredError": 549.773822092898,
+        "boundary": 32,
+        "rmse": 0.6054055511764533,
+        "boundaryPercent": 2.1333333333333333
+      }
+    ],
+    "fisher_map": [
+      {
+        "questions": 1,
+        "n": 1500,
+        "squaredError": 1738.1819627148989,
+        "boundary": 0,
+        "rmse": 1.0764701459600567,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 2,
+        "n": 1500,
+        "squaredError": 1705.2607439539306,
+        "boundary": 0,
+        "rmse": 1.0662272252992262,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 3,
+        "n": 1500,
+        "squaredError": 1668.8775850472857,
+        "boundary": 0,
+        "rmse": 1.0547914754576804,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 4,
+        "n": 1500,
+        "squaredError": 1461.2351725417116,
+        "boundary": 0,
+        "rmse": 0.9869938103627978,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 5,
+        "n": 1500,
+        "squaredError": 1246.5791128707572,
+        "boundary": 0,
+        "rmse": 0.911620942011447,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 6,
+        "n": 1500,
+        "squaredError": 1078.0039573160993,
+        "boundary": 0,
+        "rmse": 0.8477436551678812,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 7,
+        "n": 1500,
+        "squaredError": 964.123631319175,
+        "boundary": 0,
+        "rmse": 0.8017163385799972,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 8,
+        "n": 1500,
+        "squaredError": 872.6676253082825,
+        "boundary": 0,
+        "rmse": 0.7627440048090763,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 9,
+        "n": 1500,
+        "squaredError": 806.731319108622,
+        "boundary": 0,
+        "rmse": 0.7333627202181386,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 10,
+        "n": 1500,
+        "squaredError": 733.4604280213858,
+        "boundary": 0,
+        "rmse": 0.6992664861702753,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 11,
+        "n": 1500,
+        "squaredError": 673.2904464878659,
+        "boundary": 0,
+        "rmse": 0.6699703707318535,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 12,
+        "n": 1500,
+        "squaredError": 621.4185692580016,
+        "boundary": 0,
+        "rmse": 0.6436451244062997,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 13,
+        "n": 1500,
+        "squaredError": 573.9131130109944,
+        "boundary": 0,
+        "rmse": 0.618553750297684,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 14,
+        "n": 1500,
+        "squaredError": 537.8022960705706,
+        "boundary": 0,
+        "rmse": 0.5987778085793153,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 15,
+        "n": 1500,
+        "squaredError": 508.97292629472577,
+        "boundary": 0,
+        "rmse": 0.582507754623476,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 16,
+        "n": 1500,
+        "squaredError": 480.93263183847364,
+        "boundary": 0,
+        "rmse": 0.566234716843627,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 17,
+        "n": 1500,
+        "squaredError": 451.55134335131083,
+        "boundary": 0,
+        "rmse": 0.5486658627077813,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 18,
+        "n": 1500,
+        "squaredError": 428.5885059390406,
+        "boundary": 0,
+        "rmse": 0.5345331333285404,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 19,
+        "n": 1500,
+        "squaredError": 408.2070879323405,
+        "boundary": 0,
+        "rmse": 0.5216685332867609,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 20,
+        "n": 1500,
+        "squaredError": 394.50712812094486,
+        "boundary": 0,
+        "rmse": 0.512839889322808,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 21,
+        "n": 1500,
+        "squaredError": 376.4400106200222,
+        "boundary": 0,
+        "rmse": 0.5009590872316968,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 22,
+        "n": 1500,
+        "squaredError": 357.9347631330578,
+        "boundary": 0,
+        "rmse": 0.48849071170498065,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 23,
+        "n": 1500,
+        "squaredError": 341.4476429264484,
+        "boundary": 0,
+        "rmse": 0.47710770477007136,
+        "boundaryPercent": 0
+      },
+      {
+        "questions": 24,
+        "n": 1500,
+        "squaredError": 324.0167576023826,
+        "boundary": 0,
+        "rmse": 0.4647700202626259,
+        "boundaryPercent": 0
+      }
+    ]
+  },
+  "bkt": [
+    {
+      "sequence": [
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D"
+      ],
+      "start": 0.1,
+      "values": [
+        0.1,
+        0.3928571428571429,
+        0.7446996466431095,
+        0.9260936277754377,
+        0.9815659323438971,
+        0.99,
+        0.99,
+        0.99,
+        0.99
+      ]
+    },
+    {
+      "sequence": [
+        "D",
+        "S",
+        "D",
+        "S",
+        "D",
+        "D",
+        "S",
+        "D"
+      ],
+      "start": 0.1,
+      "values": [
+        0.1,
+        0.3928571428571429,
+        0.21750902527075813,
+        0.5751470079557246,
+        0.2799665505707093,
+        0.6457990530406973,
+        0.8876214664728409,
+        0.5859985451767892,
+        0.8605556490515086
+      ]
+    },
+    {
+      "sequence": [
+        "S",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D",
+        "D"
+      ],
+      "start": 0.45,
+      "values": [
+        0.45,
+        0.23360655737704916,
+        0.5947220805711372,
+        0.8647098583087167,
+        0.9645973139103855,
+        0.99,
+        0.99,
+        0.99,
+        0.99
+      ]
+    }
+  ]
+}
