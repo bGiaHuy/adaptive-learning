@@ -1,0 +1,7 @@
+{
+  "deploymentId": "dpl_FXMSzLTJzduPXx4hKq3paPMRP9Uf",
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "alias": "adaptiveenglish.vercel.app",
+  "promotion": "API returned success; get_alias verified correct deployment",
+  "runtime_scan": "10 minutes error/fatal query returned no logs at 2026-10-12T14:47:29Z"
+}

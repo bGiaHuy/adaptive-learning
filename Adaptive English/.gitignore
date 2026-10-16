@@ -1,0 +1,28 @@
+# Git ignore rules for Adaptive English content pipeline
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+venv/
+
+# Content pipeline raw and bulky media data
+# (Raw responses and audio media can be reproduced via scripts/content_pipeline/crawl.py)
+data/raw/*
+!data/raw/.gitkeep
+data/media/*.mp3
+data/media/*.ogg
+data/media/*.wav
+!data/media/.gitkeep
+data/raw/.checkpoint*.json
+
+# Temporary / scratch
+.DS_Store
+Thumbs.db
+
+# Local server credentials
+.env.local
+.env.*.local
+**/.artifacts/

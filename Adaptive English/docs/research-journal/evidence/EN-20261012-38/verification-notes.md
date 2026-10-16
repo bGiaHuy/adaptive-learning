@@ -1,0 +1,9 @@
+# Phạm vi và lỗi giữ lại
+- Regression ban đầu FAIL 3/29: fixture MWAPI cũ thiếu strategy, preserve mode đã dùng provider, fixture ảnh không có câu hỏi. Sửa fixture theo contract hiện tại; không giảm validation sản phẩm. V2 FAIL 1/35 do còn kỳ vọng calls=1; sửa calls=2. Cuối PASS35/35.
+- Browser v1 FAIL đếm cả CSS transition trong reduced-motion; sửa kiểm tra animation lặp vô hạn. V2 PASS8 cases. V3 FAIL harness String.replace biến $$eval thành $eval; sửa harness. V4 quan sát thật lệch16px summary; sửa min-height120px. V5 FAIL CSS build từ sai cwd, không quét classes; build lại đúng app. V6 và release PASS8 cases. Geometry fixture first card x70,y1097,w1060,h320 before/after; regen giữ toàn bộ result rect. Không khẳng định mọi tài liệu dài không đổi chiều cao.
+- Một số lần đọc/sửa dùng prefix app trùng cwd và lỗi ENOENT trước mutation; sửa tại workspace root. Không mất dữ liệu.
+- Chỉ một spinner lặp trên nút, skeleton bars tĩnh; reduced-motion0 animation lặp. Không benchmark scroll FPS. Browser fixture timeout115000ms tăng tốc1200ms chỉ trong harness; không đổi timeout sản phẩm.
+- PDF decoder thật đọc PDF text1page thử, từ chối scan-only/giả định dạng; không OCR. MD/Markdown/HTML/HTM/TXT UTF8. Không fetch URL ảnh/link HTML, không thực thi script.
+- Xuất bản dùng difficulty snapshot ký HMAC gắn user/content/2h bằng khóa server, không gọi AI lại. Nếu sửa/bỏ câu làm snapshot không khớp hoặc hết hạn, vẫn xuất bản câu đã duyệt nhưng difficulty unavailable; không bịa rating. Chưa production authenticated upload/generation/publication E2E; không chỉnh điểm, bài nộp hoặc tạo lớp/bài thật trong kiểm thử.
+- Tham khảo primary docs: https://github.com/mehmet-kozan/pdf-parse ; https://github.com/mehmet-kozan/vercel-next-app-demo/blob/main/next.config.ts ; https://github.com/html-to-text/node-html-to-text . Node package README cũng đã đọc.
+- Word renderer trước đó lỗi3221225781; chưa xác minh phân trang trực quan.

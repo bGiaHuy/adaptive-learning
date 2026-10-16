@@ -1,0 +1,46 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict'),ts=require('typescript'),{spawnSync}=require('child_process');
+const {PrismaClient}=require('@prisma/client');
+const dir=fs.mkdtempSync(path.join(require('os').tmpdir(),'adaptive-otp-test-'));console.log('Isolated temporary database; no existing user data.');
+const schema=path.join(dir,'test.schema.prisma');fs.writeFileSync(schema,fs.readFileSync('prisma/schema.prisma','utf8').replace('file:./dev.db','file:./otp-test.db'));
+const pushed=spawnSync(process.execPath,['node_modules/prisma/build/index.js','db','push','--skip-generate','--schema',schema],{encoding:'utf8'});console.log(pushed.stdout,pushed.stderr);assert.equal(pushed.status,0);
+const db=new PrismaClient({datasources:{db:{url:'file:'+path.join(dir,'otp-test.db').replace(/\\/g,'/')}}});
+process.env.RESEND_API_KEY='test-only-key';process.env.AUTH_EMAIL_FROM='test@example.invalid';
+const cache={};let sent=[],deliveryFail=false;
+function load(file){ if(cache[file])return cache[file];const module={exports:{}};let code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText;
+const req=(name)=>name==='@/lib/prisma'?{__esModule:true,default:db}:name==='next/server'?{NextResponse:{json:(body,opts)=>({status:opts?.status||200,body})}}:name==='@/lib/registrationOtp'?load('src/lib/registrationOtp.ts'):name==='@/lib/auth'?{hashPassword:async()=> 'hashed-test-password',setAuthSession:async()=>{}}:require(name);
+vm.runInNewContext(code,{require:req,module,exports:module.exports,process,Buffer,AbortSignal,fetch:async(url,opts)=>{if(deliveryFail)return {ok:false};sent.push(JSON.parse(opts.body));return {ok:true};},console,Date},{filename:file});return cache[file]=module.exports;}
+const helpers=load('src/lib/registrationOtp.ts'),send=load('src/app/api/auth/register/otp/route.ts').POST,register=load('src/app/api/auth/register/route.ts').POST;
+const request=(body)=>({json:async()=>body,headers:new Headers()});let checks=0;function check(value,msg){assert.ok(value,msg);checks++;console.log('PASS',msg);}
+const email='otp-user@example.invalid',base={email,name:'Test only',password:'password123',confirmPassword:'password123',role:'student'};
+(async()=>{try{
+check(helpers.normalizeRegistrationEmail(' A@EXAMPLE.INVALID ')==='a@example.invalid','normalize email');check(helpers.normalizeRegistrationEmail({})===null,'reject non-string');
+check((await register(request({...base,otp:'123456'}))).status===400,'no OTP cannot create account');
+check((await send(request({email}))).status===200,'send OTP provider mocked');const code=sent.at(-1).text.match(/: (\d{6})/)[1];
+let record=await db.registrationOtp.findUnique({where:{email}});check(record.codeHash!==code && record.codeHash.length===64,'only HMAC stored');
+check((await send(request({email}))).status===429,'cooldown enforced');
+check((await register(request({...base,confirmPassword:'different',otp:code}))).status===400,'password mismatch');
+const wrong=code==='000000'?'111111':'000000';check((await register(request({...base,otp:wrong}))).status===400,'wrong OTP rejected');
+check((await db.registrationOtp.findUnique({where:{email}})).attempts===1,'wrong attempt persisted');
+check((await register(request({...base,otp:code}))).status===200,'correct OTP creates account');
+const user=await db.user.findUnique({where:{email}});check((await db.studentSkillProfile.count({where:{userId:user.id}}))===6,'six student profiles created');
+check((await register(request({...base,email:'different@example.invalid',otp:code}))).status===400,'OTP bound to email');
+check((await register(request({...base,otp:code}))).status===400,'replay rejected');
+const e2='resend@example.invalid';await send(request({email:e2}));const oldCode=sent.at(-1).text.match(/: (\d{6})/)[1];
+await db.registrationOtp.update({where:{email:e2},data:{sentAt:new Date(Date.now()-61000)}});await send(request({email:e2}));
+record=await db.registrationOtp.findUnique({where:{email:e2}});check(!helpers.matchesRegistrationOtp(e2,oldCode,record.codeHash),'resend invalidates previous code');
+await db.registrationOtp.update({where:{email:e2},data:{expiresAt:new Date(0)}});check((await register(request({...base,email:e2,otp:'123456'}))).status===400,'expired OTP rejected');
+await db.registrationOtp.update({where:{email:e2},data:{expiresAt:new Date(Date.now()+600000),attempts:5}});check((await register(request({...base,email:e2,otp:'123456'}))).status===400,'five attempts locks code');
+await db.registrationOtp.update({where:{email:e2},data:{sends:3,sentAt:new Date(Date.now()-61000)}});check((await send(request({email:e2}))).status===429,'send budget enforced');
+deliveryFail=true;check((await send(request({email:'failed@example.invalid'}))).status===502,'delivery failure explicit');check((await db.registrationOtp.findUnique({where:{email:'failed@example.invalid'}})).expiresAt.getTime()===0,'failed delivery invalidated');
+deliveryFail=false;
+const rateKey=helpers.hashRegistrationOtp('send-rate','shared-local');
+await db.authEmailRateLimit.update({where:{key:rateKey},data:{count:100}});
+check((await send(request({email:'limited@example.invalid'}))).status===429,'shared send budget enforced');
+await db.authEmailRateLimit.update({where:{key:rateKey},data:{count:0}});
+const teacherEmail='teacher@example.invalid';await send(request({email:teacherEmail}));const teacherCode=sent.at(-1).text.match(/: (\d{6})/)[1];
+const concurrent=await Promise.all([register(request({...base,email:teacherEmail,role:'teacher',otp:teacherCode})),register(request({...base,email:teacherEmail,role:'teacher',otp:teacherCode}))]);
+check(concurrent.filter(r=>r.status===200).length===1,'concurrent redemption creates one account');
+check(await db.studentSkillProfile.count({where:{user:{email:teacherEmail}}})===0,'teacher has no student profiles');
+delete process.env.RESEND_API_KEY;check((await send(request({email:'unconfigured@example.invalid'}))).status===503,'no configuration fails closed');
+console.log(`${checks} checks PASS; isolated SQLite; provider and session mocked; no live mail or production writes`);
+}finally{await db.$disconnect();}})().catch(e=>{console.error(e);process.exitCode=1});

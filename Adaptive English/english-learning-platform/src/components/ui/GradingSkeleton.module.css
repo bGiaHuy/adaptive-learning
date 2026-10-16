@@ -1,0 +1,21 @@
+.surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  background: #fff;
+  pointer-events: none;
+}
+.surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  animation: grading-pulse 1.8s ease-in-out infinite;
+}
+.line { height: 12px; border-radius: 6px; background: #e6edf7; }
+@keyframes grading-pulse { 50% { opacity: .6; } }
+@media (prefers-reduced-motion: reduce) {
+  .surface::after { animation: none; }
+}

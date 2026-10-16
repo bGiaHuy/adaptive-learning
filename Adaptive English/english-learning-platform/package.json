@@ -1,0 +1,42 @@
+{
+  "name": "adaptive-study",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:vercel": "node scripts/build-vercel.cjs",
+    "start": "next start",
+    "start:local": "node scripts/start-local.cjs",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "@prisma/client": "5.21.1",
+    "@types/adm-zip": "^0.5.8",
+    "@types/bcryptjs": "^2.4.6",
+    "@vercel/blob": "^2.8.2",
+    "adm-zip": "^0.6.1",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "html-to-text": "^9.0.5",
+    "lucide-react": "^0.447.0",
+    "next": "^14.2.15",
+    "pdf-parse": "^2.4.5",
+    "prisma": "5.21.1",
+    "puppeteer-core": "^25.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.5.2",
+    "ts-fsrs": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2"
+  }
+}

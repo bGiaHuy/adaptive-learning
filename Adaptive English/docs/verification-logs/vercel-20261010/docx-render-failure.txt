@@ -1,0 +1,8 @@
+Date: 2026-10-10 Asia/Saigon
+Artifact: docs/research-journal/NHAT_KY_NGHIEN_CUU_ADAPTIVE_ENGLISH.docx
+Renderer: bundled documents skill render_docx.py, bundled Python runtime
+Requested output: page PNGs and PDF, verbose mode
+Result: FAIL, exit code 1
+Error: FileNotFoundError: LibreOffice soffice.exe was not found on PATH
+Diagnosis: workspace dependency loader did not provide a LibreOffice path. A recursive file inventory search under the bundled dependencies found no soffice executable.
+Impact: journal JSON, Markdown, OOXML package and source checks pass, but Word pagination and visual layout remain unverified.

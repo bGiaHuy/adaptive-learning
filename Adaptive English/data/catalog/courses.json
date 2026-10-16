@@ -1,0 +1,177 @@
+[
+  {
+    "id": "course-reading-b1",
+    "title": "IELTS Academic Reading Foundation",
+    "skill": "reading",
+    "target_level": "B1-B2",
+    "description": "Develop critical skimming, scanning, and detail extraction skills through authentic scientific and academic texts.",
+    "unit_ids": [
+      "unit-rea-01",
+      "unit-rea-02",
+      "unit-rea-03",
+      "unit-rea-04",
+      "unit-rea-05",
+      "unit-rea-06",
+      "unit-rea-07",
+      "unit-rea-08",
+      "unit-rea-09",
+      "unit-rea-10",
+      "unit-rea-11",
+      "unit-rea-12",
+      "unit-rea-13",
+      "unit-rea-14",
+      "unit-rea-15",
+      "unit-rea-16",
+      "unit-rea-17",
+      "unit-rea-18",
+      "unit-rea-19",
+      "unit-rea-20",
+      "unit-rea-21",
+      "unit-rea-22",
+      "unit-rea-23",
+      "unit-rea-24",
+      "unit-rea-25",
+      "unit-rea-26",
+      "unit-rea-27",
+      "unit-rea-28",
+      "unit-rea-29",
+      "unit-rea-30",
+      "unit-rea-31",
+      "unit-rea-32",
+      "unit-rea-33",
+      "unit-rea-34",
+      "unit-rea-35",
+      "unit-rea-36",
+      "unit-rea-37",
+      "unit-rea-38",
+      "unit-rea-39",
+      "unit-rea-40",
+      "unit-rea-41",
+      "unit-rea-42",
+      "unit-rea-43",
+      "unit-rea-44",
+      "unit-rea-45",
+      "unit-rea-46",
+      "unit-rea-47",
+      "unit-rea-48",
+      "unit-rea-49",
+      "unit-rea-50",
+      "unit-rea-51",
+      "unit-rea-52",
+      "unit-rea-53",
+      "unit-rea-54",
+      "unit-rea-55",
+      "unit-rea-56",
+      "unit-rea-57",
+      "unit-rea-58",
+      "unit-rea-59",
+      "unit-rea-60",
+      "unit-rea-61",
+      "unit-rea-62",
+      "unit-rea-63",
+      "unit-rea-64",
+      "unit-rea-65",
+      "unit-rea-66",
+      "unit-rea-67"
+    ]
+  },
+  {
+    "id": "course-listening-b1",
+    "title": "IELTS Academic Listening Mastery",
+    "skill": "listening",
+    "target_level": "B1-B2",
+    "description": "Train auditory processing on natural spoken English lectures and encyclopedic audio recordings with verified transcripts.",
+    "unit_ids": [
+      "unit-lis-01",
+      "unit-lis-02",
+      "unit-lis-03",
+      "unit-lis-04"
+    ]
+  },
+  {
+    "id": "course-grammar-b1",
+    "title": "Grammatical Range & Accuracy Workshop",
+    "skill": "grammar",
+    "target_level": "B1-B2",
+    "description": "Master core grammatical structures, passive transformations, modal auxiliary verbs, and complex clauses for IELTS accuracy.",
+    "unit_ids": [
+      "unit-gra-01",
+      "unit-gra-02",
+      "unit-gra-03",
+      "unit-gra-04"
+    ]
+  },
+  {
+    "id": "course-writing-b2",
+    "title": "Academic Writing & Essay Construction",
+    "skill": "writing",
+    "target_level": "B2",
+    "description": "Craft coherent thesis statements, argumentative analyses, and cohesive paragraphs matching IELTS Task 1 & Task 2 standards.",
+    "unit_ids": [
+      "unit-wri-01",
+      "unit-wri-02",
+      "unit-wri-03"
+    ]
+  },
+  {
+    "id": "course-speaking-b2",
+    "title": "IELTS Spoken Fluency & Discourse Strategies",
+    "skill": "speaking",
+    "target_level": "B2",
+    "description": "Build confidence in Part 1 personal narratives, Part 2 structured long turns, and Part 3 abstract discussion questions.",
+    "unit_ids": [
+      "unit-spe-01",
+      "unit-spe-02"
+    ]
+  },
+  {
+    "id": "course-thcs-g6",
+    "title": "Tiếng Anh 6 - Global Success (Bộ Giáo Dục & Đào Tạo)",
+    "grade": 6,
+    "skill": "comprehensive",
+    "target_level": "A1-A2",
+    "description": "Chương trình Tiếng Anh lớp 6 theo bộ sách Global Success. Rèn luyện toàn diện 4 kỹ năng Nghe - Nói - Đọc - Viết, Ngữ âm (/ɑː/ và /ʌ/), Ngữ pháp (Hiện tại đơn, Động từ thường gặp) và đề ôn kiểm tra định kỳ.",
+    "unit_ids": [
+      "unit-g6-midterm",
+      "unit-g6-u1",
+      "unit-g6-u2",
+      "unit-g6-u7"
+    ]
+  },
+  {
+    "id": "course-thcs-g7",
+    "title": "Tiếng Anh 7 - Global Success (Bộ Giáo Dục & Đào Tạo)",
+    "grade": 7,
+    "skill": "comprehensive",
+    "target_level": "A2",
+    "description": "Chương trình Tiếng Anh lớp 7 Global Success. Trọng tâm: Phát âm (/ə/ và /ɜː/), Ngữ pháp (Hiện tại đơn & Động từ chỉ sự yêu thích + V-ing), các chủ đề Hobbies, Healthy Living, Community Service.",
+    "unit_ids": [
+      "unit-g7-u1",
+      "unit-g7-midterm"
+    ]
+  },
+  {
+    "id": "course-thcs-g8",
+    "title": "Tiếng Anh 8 - Global Success (Bộ Giáo Dục & Đào Tạo)",
+    "grade": 8,
+    "skill": "comprehensive",
+    "target_level": "A2-B1",
+    "description": "Chương trình Tiếng Anh lớp 8 Global Success. Trọng tâm: Phát âm (/ʊ/ và /uː/), Ngữ pháp (Động từ chỉ mức độ yêu thích: adore, fancy, detest... đi với Gerunds/To-infinitive), chủ đề Leisure Time, Life in the Countryside.",
+    "unit_ids": [
+      "unit-g8-u1",
+      "unit-g8-midterm"
+    ]
+  },
+  {
+    "id": "course-thcs-g9",
+    "title": "Tiếng Anh 9 - Global Success (Bộ Giáo Dục & Đào Tạo)",
+    "grade": 9,
+    "skill": "comprehensive",
+    "target_level": "B1",
+    "description": "Chương trình Tiếng Anh lớp 9 Global Success ôn thi vào lớp 10. Trọng tâm: Trọng âm từ 2 âm tiết, Cụm động từ (Phrasal Verbs), Wh-question words + To-infinitive, chủ đề Local Community, City Life, Healthy Living.",
+    "unit_ids": [
+      "unit-g9-u1",
+      "unit-g9-midterm"
+    ]
+  }
+]

@@ -1,0 +1,434 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                  String   @id @default(cuid())
+  email               String   @unique
+  passwordHash        String
+  name                String
+  role                String   @default("student") // "student" | "teacher" | "admin"
+  avatar              String?
+  cefrTarget          String?  @default("B2")
+  dailyMinutes        Int      @default(20)
+  vocabDailyLimit     Int      @default(10)
+  masteryIntervalDays Int      @default(21)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  classrooms          ClassroomMember[]
+  taughtClassrooms    Classroom[]
+  submissions         Submission[]
+  vocabProgress       UserVocab[]
+  vocabReviewHistory  VocabReviewHistory[]
+  skillProfiles       StudentSkillProfile[]
+  lessonAttempts      LessonAttempt[]
+  notifications       Notification[]
+  leafMessages        LeafChatMessage[]
+  leafMemories        LeafMemory[]
+  sessions            Session[]
+  passwordResetTokens PasswordResetToken[]
+  placementAttempts   PlacementAttempt[]
+}
+
+model LeafChatMessage {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String   @default("legacy")
+  role           String
+  content        String
+  mode           String   @default("learning")
+  sourcesJson    String   @default("[]")
+  searchText     String   @default("")
+  archived       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, conversationId, createdAt])
+}
+
+model LeafMemory {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String   @default("legacy")
+  key            String
+  content        String
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+}
+
+model LeafKnowledgeChunk {
+  id        String   @id
+  title     String
+  content   String
+  source    String
+  href      String
+  updatedAt DateTime @updatedAt
+}
+
+model Classroom {
+  id                String   @id @default(cuid())
+  code              String   @unique
+  name              String
+  teacherId         String
+  teacher           User     @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  room              String?
+  allowAiAssistance Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  members     ClassroomMember[]
+  assignments Assignment[]
+}
+
+model ClassroomMember {
+  id        String   @id @default(cuid())
+  classId   String
+  studentId String
+  joinedAt  DateTime @default(now())
+
+  classroom Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([classId, studentId])
+}
+
+model Course {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  level       String?
+
+  units Unit[]
+}
+
+model Unit {
+  id          String  @id @default(cuid())
+  courseId    String
+  order       Int
+  title       String
+  level       String
+  description String?
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+}
+
+model Lesson {
+  id              String @id @default(cuid())
+  unitId          String
+  order           Int
+  title           String
+  skill           String
+  durationMinutes Int    @default(15)
+  targetCefr      String @default("B1")
+
+  unit Unit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+}
+
+model ThematicPack {
+  id             String   @id @default(cuid())
+  title          String
+  cefrLevel      String
+  targetAudience String?
+  sourceFileName String?
+  createdAt      DateTime @default(now())
+
+  vocabulary  VocabularyItem[]
+  wordForms   WordFormFamily[]
+  grammar     GrammarTopic[]
+  exercises   Exercise[]
+  assignments Assignment[]
+}
+
+model VocabularyItem {
+  id                String        @id @default(cuid())
+  packId            String?
+  pack              ThematicPack? @relation(fields: [packId], references: [id], onDelete: Cascade)
+  no                Int?
+  word              String
+  type              String
+  ipa               String
+  meaning           String
+  example           String?
+  audioUrl          String?
+  imageUrl          String?
+  dictionarySenseId Int?          @unique
+  dictionaryWordId  Int?
+  source            String?
+  sourceUrl         String?
+  license           String?
+  definitionLang    String?
+
+  userProgress UserVocab[]
+}
+
+model WordFormFamily {
+  id              String @id @default(cuid())
+  packId          String
+  root            String
+  meaning         String
+  derivativesJson String // JSON string of { form, type, meaning }[]
+
+  pack ThematicPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+}
+
+model GrammarTopic {
+  id           String @id @default(cuid())
+  packId       String
+  title        String
+  description  String
+  patternsJson String // JSON string of { pattern, example }[]
+
+  pack ThematicPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+}
+
+model Exercise {
+  id                 String  @id @default(cuid())
+  packId             String
+  exerciseNumber     Int
+  title              String
+  category           String
+  type               String
+  instruction        String
+  questionCount      Int
+  hasImages          Boolean @default(false)
+  imageCount         Int     @default(0)
+  audioMissing       Boolean @default(false)
+  hasSourceError     Boolean @default(false)
+  sourceErrorNotes   String?
+  suggestedFix       String?
+  originalFormatNote String?
+  dataJson           String // JSON string containing detailed questions, items, bank, etc.
+
+  pack ThematicPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+}
+
+model UserVocab {
+  id             String    @id @default(cuid())
+  userId         String
+  vocabId        String
+  state          String    @default("saved") // "saved" | "learning" | "reviewing" | "relearning" | "mastered"
+  stability      Float     @default(0.0) // FSRS S
+  difficulty     Float     @default(0.0) // FSRS D
+  reps           Int       @default(0)
+  lapses         Int       @default(0)
+  intervalDays   Int       @default(0)
+  lastRating     String? // "again" | "hard" | "good" | "easy"
+  nextReviewDate DateTime?
+  lastReviewedAt DateTime?
+  activatedAt    DateTime?
+
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vocabItem     VocabularyItem       @relation(fields: [vocabId], references: [id], onDelete: Cascade)
+  reviewHistory VocabReviewHistory[]
+
+  @@unique([userId, vocabId])
+}
+
+model VocabReviewHistory {
+  id           String   @id @default(cuid())
+  userId       String
+  userVocabId  String
+  rating       Int // 1: Again, 2: Hard, 3: Good, 4: Easy
+  ratingLabel  String // "again" | "hard" | "good" | "easy"
+  stability    Float
+  difficulty   Float
+  intervalDays Int
+  state        String
+  reviewedAt   DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userVocab UserVocab @relation(fields: [userVocabId], references: [id], onDelete: Cascade)
+}
+
+model Assignment {
+  id                      String   @id @default(cuid())
+  classId                 String
+  title                   String
+  skill                   String
+  dueDate                 String
+  version                 Int      @default(1)
+  status                  String   @default("published") // "draft" | "published" | "closed"
+  maxScore                Float    @default(10.0)
+  allowAiTutor            Boolean  @default(true)
+  releaseGradesImmediately Boolean @default(false)
+  promptText              String
+  packId                  String?
+  selectedExerciseIdsJson String? // JSON array of selected exercise IDs
+  createdAt               DateTime @default(now())
+
+  classroom    Classroom           @relation(fields: [classId], references: [id], onDelete: Cascade)
+  thematicPack ThematicPack?       @relation(fields: [packId], references: [id])
+  submissions  Submission[]
+  attachments  AssignmentAttachment[]
+  versions     AssignmentVersion[]
+}
+
+model AssignmentVersion {
+  difficultyJson String?
+  id           String   @id @default(cuid())
+  assignmentId String
+  version      Int
+  title        String
+  promptText   String
+  dueDate      String
+  changeNotes  String?
+  createdAt    DateTime @default(now())
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, version])
+}
+
+model Submission {
+  abilityEvidenceJson String?
+  id              String    @id @default(cuid())
+  assignmentId    String
+  studentId       String
+  versionId       Int       @default(1)
+  status          String    @default("pending_grading") // "in_progress" | "pending_grading" | "graded"
+  content         String?
+  audioUrl        String?
+  answersJson     String? // JSON of student answers
+  teacherScore    Float?
+  teacherFeedback String?
+  aiPreGradeJson  String? // JSON of AI evaluation band, criteria, feedback
+  submittedAt     DateTime?
+  gradedAt        DateTime?
+
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student    User       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model StudentSkillProfile {
+  id              String @id @default(cuid())
+  userId          String
+  skill           String // "listening" | "reading" | "writing" | "speaking" | "vocabulary" | "grammar"
+  level           String // CEFR Level or "Chưa đánh giá"
+  scoreDisplay    String
+  confidence      Int    @default(50)
+  evidenceCount   Int    @default(0)
+  independentRate Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skill])
+}
+
+model LessonAttempt {
+  id               String   @id
+  userId           String
+  lessonId         String
+  lessonTitle      String
+  skill            String
+  score            Float?
+  total            Int
+  percentage       Float?
+  independentRate  Int      @default(0)
+  assessmentStatus String   @default("scored") // "scored" | "pending_review" | "completion_only"
+  completedAt      DateTime
+  updatedAt        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, skill, completedAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String // "assignment" | "grade" | "reminder" | "feedback"
+  unread    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// Server-side state for a placement test. Answers are intentionally kept with
+// the attempt so a student can resume on another device without relying on
+// browser localStorage.
+model PlacementAttempt {
+  id                   String   @id @default(cuid())
+  userId               String
+  version              Int
+  status               String   @default("in_progress") // "in_progress" | "completed"
+  currentStep          Int      @default(1)
+  readingAnswersJson   String   @default("{}")
+  listeningAnswersJson String   @default("{}")
+  grammarAnswersJson   String   @default("{}")
+  vocabAnswersJson     String   @default("{}")
+  writingAnswer        String?
+  aiWritingEvaluationJson String?
+  completedAt          DateTime?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, version])
+  @@index([userId, status])
+}
+
+model AssignmentAttachment {
+  id String @id @default(cuid())
+  assignmentId String
+  version Int
+  name String
+  mimeType String
+  size Int
+  data Bytes
+  createdAt DateTime @default(now())
+  assignment Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  @@index([assignmentId, version])
+}
+
+model RegistrationOtp {
+  email String @id
+  codeHash String
+  expiresAt DateTime
+  sentAt DateTime
+  windowAt DateTime
+  sends Int @default(1)
+  attempts Int @default(0)
+}
+
+model AuthEmailRateLimit {
+  key String @id
+  windowAt DateTime
+  count Int @default(0)
+}

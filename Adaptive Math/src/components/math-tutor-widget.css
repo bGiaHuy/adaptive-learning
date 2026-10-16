@@ -1,0 +1,13 @@
+.math-tutor-widget{position:fixed;right:24px;bottom:24px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.math-tutor-launcher{display:flex;align-items:center;gap:9px;background:#0f766e;color:white;border:0;border-radius:28px;padding:14px 20px;box-shadow:0 5px 22px #134e4a33;cursor:pointer;font-weight:700;font-size:14px}
+.math-tutor-launcher:focus-visible,.math-tutor-panel button:focus-visible{outline:3px solid #f59e0b;outline-offset:3px}
+.math-tutor-panel{width:390px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 110px);overflow:auto;background:white;border:1px solid #d6e5e2;border-radius:18px;box-shadow:0 12px 48px #0f172a26}
+.math-tutor-panel-heading{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;background:#f0fdfa;padding:14px 18px;border-bottom:1px solid #d6e5e2;color:#115e59}
+.math-tutor-panel-heading button{display:grid;place-items:center;border:0;background:transparent;padding:6px;cursor:pointer}
+.math-tutor-panel .math-tutor-chat{margin:0;border:0;border-radius:0;padding:16px}
+.math-tutor-panel .math-tutor-chat header{flex-wrap:wrap;gap:8px}
+.math-tutor-panel .math-tutor-transcript{max-height:240px;overflow:auto}
+.math-tutor-note{padding:0 16px 14px;margin:0;color:#64748b;font-size:12px}
+@media(max-width:600px){.math-tutor-widget{right:16px;bottom:16px}.math-tutor-panel{width:calc(100vw - 32px)}.math-tutor-launcher{padding:12px 16px}}
+
+.math-tutor-launcher{background:#fff3dc;color:#654627;border:1px solid #d7b88b;box-shadow:0 5px 22px #72513626;padding:6px 16px 6px 8px;transition:transform .2s}.math-tutor-launcher:hover{transform:translateY(-2px)}.math-tutor-launcher:active{transform:scale(.97)}.math-tutor-panel{background:#fffcf6;border-color:#e2d9c8}.math-tutor-panel-heading{background:#f6ecdc;color:#654627;border-color:#e2d9c8}.math-tutor-panel-heading strong{flex:1}.math-tutor-panel-sidebar{position:fixed;right:0;top:0;height:100dvh;max-height:100dvh;width:min(440px,100vw);max-width:100vw;border-radius:16px 0 0 16px;padding-bottom:80px;box-sizing:border-box}.math-tutor-panel-sidebar .math-tutor-transcript{max-height:calc(100dvh - 480px);min-height:120px}@media(prefers-reduced-motion:reduce){.math-tutor-launcher{transition:none;transform:none!important}}

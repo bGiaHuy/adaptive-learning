@@ -1,0 +1,17 @@
+{
+  "deploymentId": "dpl_421T89YCwv7wueADqLM2jULy6MpY",
+  "url": "https://adaptivelearning-fm4pl0abj-windowgamer11-7579s-projects.vercel.app",
+  "productionUrl": "https://adaptiveenglish.vercel.app",
+  "inspectorUrl": "https://vercel.com/windowgamer11-7579s-projects/adaptivelearning/421T89YCwv7wueADqLM2jULy6MpY",
+  "status": "READY",
+  "target": "production",
+  "timestamp": "2026-10-11T07:56:03Z",
+  "buildTime": "38s",
+  "staticPages": "54/54",
+  "changes": [
+    "Fixed placement test answer selection key mapping (vocabAnswers vs vocabularyAnswers)",
+    "Added OptionCard click indicator and pointer-events protection",
+    "Cleaned Vietnamese hints in placement test question options",
+    "Cleaned internal/tester texts across student and public UI"
+  ]
+}

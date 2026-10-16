@@ -1,0 +1,1 @@
+document.querySelector('#reduce').addEventListener('change',e=>{document.body.classList.toggle('reduce-motion',e.target.checked);document.querySelectorAll('[data-motion]').forEach(im=>{im.src=e.target.checked?'assets/mascot/frog.svg':im.dataset.motion})});

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="engBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#31104b"/>
+    </linearGradient>
+    <linearGradient id="engAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="50%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <filter id="engGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background tile -->
+  <rect width="64" height="64" rx="14" fill="url(#engBgGrad)" stroke="#818cf8" stroke-width="2" stroke-opacity="0.4"/>
+
+  <!-- Subtle acoustic sound wave lines in background -->
+  <path d="M12 32h6M46 32h6M18 24v16M46 24v16" stroke="#c084fc" stroke-opacity="0.2" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Stylized Letter 'A' with Speech Bubble / Adaptive Arc -->
+  <path d="M20 46 L32 16 L44 46" 
+        stroke="url(#engAccentGrad)" 
+        stroke-width="5.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        filter="url(#engGlow)"/>
+
+  <!-- Crossbar with speech arc -->
+  <path d="M24 35 C 28 32, 36 32, 40 35" 
+        stroke="#ffffff" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+
+  <!-- Glowing Phonetics / Sound Sparkle -->
+  <circle cx="32" cy="16" r="3.5" fill="#f43f5e" filter="url(#engGlow)"/>
+  <circle cx="32" cy="16" r="1.5" fill="#ffffff"/>
+  <circle cx="48" cy="22" r="2.5" fill="#c084fc"/>
+</svg>

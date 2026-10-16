@@ -1,0 +1,17 @@
+{
+  "store": "store_A6A0hFotHDoiAPLE",
+  "name": "adaptive-english-private",
+  "access": "private",
+  "region": "sin1",
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "connectedProjects": 1,
+  "environments": [
+    "production",
+    "preview",
+    "development"
+  ],
+  "status": "available",
+  "credentialKey": "BLOB_READ_WRITE_TOKEN",
+  "secretValuesRecorded": false,
+  "source": "Vercel connector create/get store and env-name inventory, observed 14/10/2026 Asia/Saigon; no deployed application changes"
+}

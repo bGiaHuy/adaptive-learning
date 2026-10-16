@@ -1,0 +1,7 @@
+Bộ minh chứng đối chiếu ngày 16/10/2026.
+7 file GD_*.docx dùng thay bản minh chứng cũ tại từng giai đoạn; file Nhat_ky_* gộp toàn bộ.
+Ảnh QA không phải dữ liệu thực nghiệm học sinh thật. Phần cần học sinh tô vàng.
+Mô phỏng: 1500 học sinh ảo; seed 20261016. Dữ liệu thô và cấu hình được kèm theo.
+Chạy lại từ thư mục gốc repo: dùng Node để chạy outputs/evidence-review/benchmark.mjs; cần dependency typescript của repo.
+6 kiểm thử math-adaptive.spec.ts đã đạt ngày 16/10/2026.
+Các file Google Drive gốc chưa bị sửa. Chưa kiểm tra bản in DOCX do môi trường thiếu trình dựng trang Word/LibreOffice.

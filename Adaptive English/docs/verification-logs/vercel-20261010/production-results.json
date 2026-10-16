@@ -1,0 +1,23 @@
+{
+  "environment": "Vercel production through authenticated CLI bypass where required; public URL checked separately without bypass",
+  "productionUrl": "https://adaptiveenglish.vercel.app",
+  "checks": [
+    {"check": "deployment status", "result": "READY"},
+    {"check": "public URL", "status": 200, "adaptiveStudyHtml": true, "vercelLoginHtml": false},
+    {"check": "production registration with synthetic student", "result": "PASS"},
+    {"check": "authenticated /api/auth/me via issued cookie", "result": "PASS", "role": "student"},
+    {"check": "explicit production login for synthetic student", "result": "PASS"},
+    {"check": "authenticated /student/home response", "result": "PASS", "bytes": 13860},
+    {"check": "dictionary hello", "status": 200, "word": "hello", "senseCount": 10},
+    {"check": "production password recovery", "status": 503, "resetLinkExposed": false},
+    {"check": "synthetic account cleanup", "deleted": 1, "remaining": 0},
+    {"check": "temporary database and cookie files", "removed": 3, "remaining": 0},
+    {"check": "public production registration UI", "result": "PASS", "confirmEmailField": true, "button": "Tiếp tục"}
+  ],
+  "limitations": [
+    "SMTP password recovery delivery is not implemented; production fails closed with HTTP 503.",
+    "Audio uploads and DOCX imports on Vercel fail clearly with HTTP 503 until durable object storage is connected.",
+    "The online PostgreSQL database starts empty; local users, assignments and imported content were not uploaded.",
+    "The Vercel install reported nine dependency audit findings; no automatic breaking dependency upgrade was applied in this deployment."
+  ]
+}

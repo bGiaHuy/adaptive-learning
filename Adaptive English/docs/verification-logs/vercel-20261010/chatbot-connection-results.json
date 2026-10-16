@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-10",
+  "checks": [
+    {
+      "name": "production-provider",
+      "http_status": 200,
+      "response": {
+        "success": true,
+        "providerInfo": {
+          "isConfigured": true,
+          "provider": "mwapi",
+          "model": "claude-sonnet-4-6",
+          "availableModes": [
+            "real",
+            "rule-based",
+            "demo"
+          ]
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "anonymous-chat-rejected",
+      "http_status": 401,
+      "pass": true
+    },
+    {
+      "name": "direct-upstream-synthetic-prompt",
+      "http_status": 403,
+      "model": "claude-sonnet-4-6",
+      "pass": false,
+      "reply": "",
+      "scope": "Direct provider request with the same local configuration pushed to production; not an authenticated production chatbot request."
+    }
+  ],
+  "production_database_access": false,
+  "production_data_mutation": false,
+  "authenticated_chat_test": "BLOCKED by automatic approval review before execution: production database credential access, record creation and deletion not covered by deployment authorization.",
+  "exit_code": 1
+}

@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-10",
+  "timezone": "Asia/Saigon",
+  "request": "GET https://adaptiveenglish.vercel.app/api/ai/tutor",
+  "command": "Invoke-RestMethod -Uri 'https://adaptiveenglish.vercel.app/api/ai/tutor' -Method Get | ConvertTo-Json -Depth 4",
+  "environment": "Windows PowerShell; public production endpoint",
+  "first_attempt": "BLOCKED: sandbox socket access denied; no response",
+  "retry_exit_code": 0,
+  "response": {
+    "success": true,
+    "providerInfo": {
+      "isConfigured": false,
+      "provider": "none",
+      "model": "none",
+      "availableModes": [
+        "rule-based",
+        "demo"
+      ]
+    }
+  },
+  "local_check": "MWAPI_API_KEY, MWAPI_BASE_URL, MWAPI_MODEL nonempty in local .env.local; values not recorded",
+  "limits": "No provider call, authenticated chatbot test, Vercel environment mutation or deployment performed."
+}

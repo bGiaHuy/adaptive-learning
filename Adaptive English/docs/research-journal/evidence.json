@@ -1,0 +1,3236 @@
+{
+  "items": [
+    {
+      "id": "MB404",
+      "path": "docs/research-journal/evidence/EN-20261014-04/export-check.log",
+      "scope": "Export/--check PASS exit0; JSON/Markdown/Word khớp và mẫu nguyên vẹn; giữ cảnh báo lịch sử, visual pagination NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "30a38e5558161eeb28e4d3a1f03117f3330cc8d159579e035ed6fda7c0963fab"
+    },
+    {
+      "id": "MB403",
+      "path": "docs/research-journal/evidence/EN-20261014-04/export.log",
+      "scope": "Export/--check PASS exit0; JSON/Markdown/Word khớp và mẫu nguyên vẹn; giữ cảnh báo lịch sử, visual pagination NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "30a38e5558161eeb28e4d3a1f03117f3330cc8d159579e035ed6fda7c0963fab"
+    },
+    {
+      "id": "MB402",
+      "path": "docs/research-journal/evidence/EN-20261014-04/verification.md",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "cc3759aca1a7a3624c35ba6489fa5b9175bc0400ce527bb0067bebbbab3071f1"
+    },
+    {
+      "id": "MB401",
+      "path": "docs/research-journal/evidence/EN-20261014-04/runtime-error-scan.md",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "f060d800fcfff7b5b5b8967c6adfda441d0e1b3843ac121bdf005be50c3b3846"
+    },
+    {
+      "id": "MB400",
+      "path": "docs/research-journal/evidence/EN-20261014-04/release-inventory.json",
+      "scope": "Inventory nguồn sạch/hash, có ghi phạm vi giữ registration live; không chứa env/DBghi âm.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "701ba72b14779cfc7fee00ca91791e3e5098a76e3c78887223d975f03d2bc116"
+    },
+    {
+      "id": "MB399",
+      "path": "docs/research-journal/evidence/EN-20261014-04/public-smoke.log",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "4d2833f129545f1d18655aa1ebe85b8da5ed24afc62f8964ca8fe28fc9701f39"
+    },
+    {
+      "id": "MB398",
+      "path": "docs/research-journal/evidence/EN-20261014-04/prepare-release.log",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "92f6848d664c1048ba08bc611e786763e2170f51abba270d555eec94f919e9b4"
+    },
+    {
+      "id": "MB397",
+      "path": "docs/research-journal/evidence/EN-20261014-04/operational-notes.md",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "a54a8adcee61482c60e150ee86b8f20592e652106ba04460abf88bf1362dfb89"
+    },
+    {
+      "id": "MB396",
+      "path": "docs/research-journal/evidence/EN-20261014-04/deploy.log",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "f7447406c58c8fc3682e7adda55085b9f00f6f095a2e656eba5cc1148f1cdcf7"
+    },
+    {
+      "id": "MB395",
+      "path": "docs/research-journal/evidence/EN-20261014-04/build-events.log",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "e437cc7842e879310186719b2b19c74908ab1a1b51d3ecd50bd3125dd9517542"
+    },
+    {
+      "id": "MB394",
+      "path": "docs/research-journal/evidence/EN-20261014-04/alias-confirmed.json",
+      "scope": "Minh chứng triển khai trực tiếp; xem verification.md cho phạm vi HTTP anonymous và giới hạn.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "9e46906eeec1a6b634f1dc16ae47f135e27468f4e920a68a81f2fbcdc908a94a"
+    },
+    {
+      "id": "MB393",
+      "path": "docs/research-journal/evidence/EN-20261014-03/export-check.log",
+      "scope": "Export/--check PASS exit0, JSON/Markdown/Word khớp, mẫu nguyên vẹn; giữ cảnh báo nguồn lịch sử, phân trang NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "4728a4cc6200d8e04d1a6cf7c41d0c1b6a8a058a72744a8c22f225723374d935"
+    },
+    {
+      "id": "MB392",
+      "path": "docs/research-journal/evidence/EN-20261014-03/export.log",
+      "scope": "Export/--check PASS exit0, JSON/Markdown/Word khớp, mẫu nguyên vẹn; giữ cảnh báo nguồn lịch sử, phân trang NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "4728a4cc6200d8e04d1a6cf7c41d0c1b6a8a058a72744a8c22f225723374d935"
+    },
+    {
+      "id": "MB391",
+      "path": "docs/research-journal/evidence/EN-20261014-03/verification.md",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "c8641ed9d3413cc742410905815654c6e761e6f9a48ad1961bac7e792054a21a"
+    },
+    {
+      "id": "MB390",
+      "path": "docs/research-journal/evidence/EN-20261014-03/typescript-initial.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "MB389",
+      "path": "docs/research-journal/evidence/EN-20261014-03/tests-initial.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "8c60dbb1e5252a0522e4ab995e8eab0458848713b078d2c9d60d7f83f9f2736f"
+    },
+    {
+      "id": "MB388",
+      "path": "docs/research-journal/evidence/EN-20261014-03/tests-final.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "9c21c37b563c67c099931c008dbb42af5e0cfa57266af8974f7f21e9baeaf1da"
+    },
+    {
+      "id": "MB387",
+      "path": "docs/research-journal/evidence/EN-20261014-03/student-browser.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "cdbb7648412aec9882c4d76f789d8ca00744371f24a6afa3b2ba771874c4344c"
+    },
+    {
+      "id": "MB386",
+      "path": "docs/research-journal/evidence/EN-20261014-03/store-config.json",
+      "scope": "Metadata private store và kết nối env; không chứa credential.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "4850f2fc2916d1cf428b09766bb266e68cfa0b2732596b19e12cb31bcfa9e837"
+    },
+    {
+      "id": "MB385",
+      "path": "docs/research-journal/evidence/EN-20261014-03/source-snapshot.json",
+      "scope": "Snapshot mã local, package và tài liệu, không chứng minh deploy.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "576dbcf99acbc7cc2cf9f680d34df48a89fabf5d6909f74e022b845532cf5e79"
+    },
+    {
+      "id": "MB384",
+      "path": "docs/research-journal/evidence/EN-20261014-03/recorder-private-review.png",
+      "scope": "Ảnh fixture không CSS, nội dung nhìn thấy.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "3bccb1ce0cbd4c7a4cc8829865bb796974103382f56eeeb290cfae4d77bbd083"
+    },
+    {
+      "id": "MB383",
+      "path": "docs/research-journal/evidence/EN-20261014-03/recorder-browser.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "4c718130ad50791acc6872c14584d3795fc46edf534d5307d1009ca7881cd139"
+    },
+    {
+      "id": "MB382",
+      "path": "docs/research-journal/evidence/EN-20261014-03/build.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "9aae00585a298d0d46db05adab403a48f874a90a82e0d1a81ae1bfe147e456d6"
+    },
+    {
+      "id": "MB381",
+      "path": "docs/research-journal/evidence/EN-20261014-03/blob-live-smoke.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "7edf9f4f75af76bb7f3611900690cce609c9fd58f98e5f77f62e7a62b5e3ad3a"
+    },
+    {
+      "id": "MB380",
+      "path": "docs/research-journal/evidence/EN-20261014-03/blob-live-smoke-retry.log",
+      "scope": "Log/quan sát trực tiếp với phạm vi mock/live phân biệt trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "c2a98b4da52ee22440ccc5be0fc1386d7ff4d78a157ac6141aadea936f34a51d"
+    },
+    {
+      "id": "MB379",
+      "path": "docs/research-journal/evidence/EN-20261014-02/export-check.log",
+      "scope": "Exporter và check exit0; nguồn chuẩn/bản xuất và mẫu PASS; cảnh báo nguồn lịch sử được giữ, visual pagination NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "bd92abcde478882bf735f13cc86dd197a47a11f30ae0eb26412eaaefdf950972"
+    },
+    {
+      "id": "MB378",
+      "path": "docs/research-journal/evidence/EN-20261014-02/export.log",
+      "scope": "Exporter và check exit0; nguồn chuẩn/bản xuất và mẫu PASS; cảnh báo nguồn lịch sử được giữ, visual pagination NOT_VERIFIED.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "bd92abcde478882bf735f13cc86dd197a47a11f30ae0eb26412eaaefdf950972"
+    },
+    {
+      "id": "MB377",
+      "path": "docs/research-journal/evidence/EN-20261014-02/verification.md",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "f6c4471fbbc8a0d941581605f8ee56ffcc29ae00521ea8b400f8bb52771d26fd"
+    },
+    {
+      "id": "MB376",
+      "path": "docs/research-journal/evidence/EN-20261014-02/typescript.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "MB375",
+      "path": "docs/research-journal/evidence/EN-20261014-02/typescript-final.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "MB374",
+      "path": "docs/research-journal/evidence/EN-20261014-02/typescript-audio-final.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "MB373",
+      "path": "docs/research-journal/evidence/EN-20261014-02/tests-final.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "f768c9eafd62a77ed065d57c70231193d4a8a3f607d1a0ca90ba1f77e13e8707"
+    },
+    {
+      "id": "MB372",
+      "path": "docs/research-journal/evidence/EN-20261014-02/teacher-create.png",
+      "scope": "Ảnh fixture không CSS; chỉ chứng minh nội dung nhìn thấy.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "ab7e0ffbe45a3b8e88dbb8de61db6c721c896a2fda52cab4b4681b02924ab7f9"
+    },
+    {
+      "id": "MB371",
+      "path": "docs/research-journal/evidence/EN-20261014-02/teacher-browser.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "2858e805fc90995d0ae29693ba0afc4c3ea29429add0fd1e8d637282493f7d50"
+    },
+    {
+      "id": "MB370",
+      "path": "docs/research-journal/evidence/EN-20261014-02/source-snapshot.json",
+      "scope": "Bản chụp mã local sau sửa; không chứng minh deploy.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "5f21ff22917fac82c9e685818a5d2405ef889c2a99657e57573d28d1689a284e"
+    },
+    {
+      "id": "MB369",
+      "path": "docs/research-journal/evidence/EN-20261014-02/regression.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "cb23f7e0f8fb1afe8da0c96b4bf48b4a3694d60981cd967858970c353f29915d"
+    },
+    {
+      "id": "MB368",
+      "path": "docs/research-journal/evidence/EN-20261014-02/recorder-review.png",
+      "scope": "Ảnh fixture không CSS; chỉ chứng minh nội dung nhìn thấy.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "8e9712c122fafad65e7913ecced98e2b84d411b11313eed17e4e344cecb45c92"
+    },
+    {
+      "id": "MB367",
+      "path": "docs/research-journal/evidence/EN-20261014-02/recorder-browser.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "1220789a68c20020359b80e841e0aaebc561fb7936c792bc32a21f301ee07b3f"
+    },
+    {
+      "id": "MB366",
+      "path": "docs/research-journal/evidence/EN-20261014-02/recorder-browser-retry.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "f12d146d162592313a7ef8d4df75eeaeca1600f5abf47d45ce7d880f3eb674f1"
+    },
+    {
+      "id": "MB365",
+      "path": "docs/research-journal/evidence/EN-20261014-02/recorder-browser-profile.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "c4ccd11a65cc2da90e804731ab0d616045488daba559144340f15b8c2b367089"
+    },
+    {
+      "id": "MB364",
+      "path": "docs/research-journal/evidence/EN-20261014-02/authoring-tests.log",
+      "scope": "Log/ghi nhận trực tiếp phiên; xem phạm vi và giới hạn trong verification.md.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "7c74ac230112ccf302a3f7ad5eb0cf16332b3be7ad7b88e96cc9bad67a603cb6"
+    },
+    {
+      "id": "MB153",
+      "path": "docs/research-journal/evidence/EN-20261012-27/deploy.log",
+      "scope": "Tests4/4, build55/55 và deploy READY; chưa authenticated E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "96b1187335877f4ecbe2c7ea15619f7489e848f3aa247d8e6b6c23416a258ab8"
+    },
+    {
+      "id": "MB152",
+      "path": "docs/research-journal/evidence/EN-20261012-26/local.log",
+      "scope": "Local Ready và GET200; chưa functional UI.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2837094b5e7b8a7b115507fd2bca0b7fd5cc7f79f179e988ef0e96134ad01b63"
+    },
+    {
+      "id": "MB151",
+      "path": "docs/research-journal/evidence/EN-20261012-25/verification.log",
+      "scope": "SVG radar cam và TypeScript PASS; chưa visual/deploy.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "487148038f74806029a2d460f6a021943f231ed3cbd854b83866ed7e98f2b44f"
+    },
+    {
+      "id": "MB150",
+      "path": "docs/research-journal/evidence/EN-20261012-24/verification.log",
+      "scope": "Migration Production và counts; local route với SELECT thật cho5 học sinh; không browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7c4bd99a4028bd634a94d6ced5fc4dfeb3621a8baec0a16bd666cdd7f60eb46a"
+    },
+    {
+      "id": "MB149",
+      "path": "docs/research-journal/evidence/EN-20261012-23/verification.log",
+      "scope": "Audit SELECT Production ẩn danh6 tài khoản, tái hiện missing table42P01; không chứng minh HTTP/E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d24695d3d171f496964de1a68d7809f116890da2f08f72437785af31fcd62006"
+    },
+    {
+      "id": "MB148",
+      "path": "docs/research-journal/evidence/EN-20261012-22/verification.log",
+      "scope": "Audit schema Production và additive migration/counts;5 tests local; không chứng minh học sinh hoàn tất thực tế.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f8ae138403e92875304dcf345691ca0d491c2e1d53430f90d72cc200e1fd91bd"
+    },
+    {
+      "id": "MB147",
+      "path": "docs/research-journal/evidence/EN-20261012-21/verification.log",
+      "scope": "Rà mã/tách lỗi, 3 tests, TypeScript và build local; chưa live trace hoặc browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7403d6846489cf0a6e8366b3f42a0e6995fafe7fcfdda4e8ed1031dbd124f525"
+    },
+    {
+      "id": "MB146",
+      "path": "docs/research-journal/evidence/EN-20261012-20/verification.log",
+      "scope": "Tests33/33, TypeScript, clean release, Production READY và HTTP200/401; không chứng minh browser E2E có xác thực.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2f85292b759758df6a84449896358fffccd1b8ea0fa6515a99e3a95912cf8b8c"
+    },
+    {
+      "id": "MB145",
+      "path": "docs/research-journal/evidence/EN-20261012-19/verification.log",
+      "scope": "Rà mã, thay đổi thẻ/kết quả, tests13/13 và build local; chưa chứng minh nguyên nhân Production, không xóa database.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f370d162d1794c868c491b436353f04eae1bb1261aba59eb1d85b8fa1a9ff111"
+    },
+    {
+      "id": "MB144",
+      "path": "docs/research-journal/evidence/EN-20261012-18/verification.log",
+      "scope": "Thay đổi notification, mock tests PASS/FAIL, TypeScript và build local; không chứng minh Production hoặc browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2b8ff8396ed7990339fcec9ae0d171d88c013a05296c61833c67eb375a2976c7"
+    },
+    {
+      "id": "MB143",
+      "path": "docs/research-journal/evidence/EN-20261012-17/verification.log",
+      "scope": "Tóm tắt migration bổ sung, counts bảo toàn, 20 tests và Production READY/HTTP 200; không chứng minh browser E2E có xác thực.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "fc68a1a97e3b556aabcc6dc912af5f1db4586440c17bd6f8e6fc240f7b1981c1"
+    },
+    {
+      "id": "MB142",
+      "path": "docs/research-journal/evidence/EN-20261012-16/verification.log",
+      "scope": "Chẩn đoán thiếu answersJson ở trang chấm, thay đổi auto-grade/release và kiểm thử PASS/FAIL; không chứng minh Production hay AI/audio thật.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d6ad78880bd90820caced1fb0daa76413751ca02d43c27f069b3b04b221f44be"
+    },
+    {
+      "id": "MB141",
+      "path": "docs/research-journal/evidence/EN-20261012-15/verification.log",
+      "scope": "Tóm tắt thay đổi radar, bổ sung từ hằng ngày, lỗi và kiểm thử đã chạy; chưa chứng minh browser E2E/deploy/database concurrency thật.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "ace726a786a947434be5d3fa70166e8e8c836cb12cc56f7c091c71229846d54c"
+    },
+    {
+      "id": "MB140",
+      "path": "docs/research-journal/evidence/EN-20261012-14/verification.log",
+      "scope": "Nguyên nhân trang học sinh dùng tự luận, thay đổi quiz, kiểm thử mock và deployment READY; không chứng minh browser E2E có xác thực.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "96a400e7322417532cfc68c9ff923366e652cb41162d5046809837172fefabef"
+    },
+    {
+      "id": "MB139",
+      "path": "docs/research-journal/evidence/EN-20261012-13/verification.log",
+      "scope": "Nguyên nhân stale classId, sửa lớp nguồn server, TypeScript/test và deploy; chưa publish live.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f50d1b34b5fca1bcf6fcb939d6e86e9e4ca2ecb66226e7be3c8b4225a32f010d"
+    },
+    {
+      "id": "MB138",
+      "path": "docs/research-journal/evidence/EN-20261012-12/publish-tests.log",
+      "scope": "Kiểm thử route publish với transaction mock độc lập: PASS 4/4; không chứng minh PostgreSQL hoặc Production write/read.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "cbf025c0153ecb8f4543830d1c2e3b625511be5859b23f6bf1b897c1721a01a1"
+    },
+    {
+      "id": "MB130",
+      "path": "docs/research-journal/evidence/EN-20261012-06/verification.log",
+      "scope": "Log xác nhận preflight Supabase bị chặn ở bước lấy giá và các kiểm thử thực chạy cho chấm Writing AI; không chứng minh migration/deploy hoặc chấm bài học sinh thật.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "73ef4e0d973c941af581b069cd35a780f1290779ac98b548685027279c87f5ce"
+    },
+    {
+      "id": "MB129",
+      "path": "docs/research-journal/evidence/EN-20261012-05/verification.log",
+      "scope": "Log kiểm thử Prisma generate, TypeScript, placement test và build; ghi riêng audit Supabase read-only, schema drift và giới hạn chưa áp migration/deploy.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b46fb706108df36320ac337c5759e90fed2065e18669524ada579f8f4c1eb25d"
+    },
+    {
+      "id": "MB128",
+      "path": "docs/research-journal/evidence/EN-20261012-04/database-audit.md",
+      "scope": "Báo cáo kiểm toán mã và schema, prisma validate thực chạy; nêu rõ chưa query database production, không phải xác nhận lưu đầy đủ.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a1b189e09c34d6138b00af45ea67db6a621f8f807d1d6c55e67c532f25de2d82"
+    },
+    {
+      "id": "MB127",
+      "path": "docs/research-journal/evidence/EN-20261012-03/verification.md",
+      "scope": "Tóm tắt kiểm thử trực tiếp DOCX, nguyên nhân và giới hạn; không phải log thô hoặc minh chứng upload production end-to-end.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "0c7e4b1bcda88835ceb8fb42d79dd354364ba1bd6d0cebbf70ca332ea5e04be0"
+    },
+    {
+      "id": "MB01",
+      "path": "docs/PRODUCT-SPEC.md",
+      "scope": "Mô tả mục tiêu và phạm vi sản phẩm; chưa chứng minh hiệu quả giáo dục.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "6dfe5cbd71873d361b6969fe5c9cc5aa41a00bbac6de2c7052fdfd30b0f1a441"
+    },
+    {
+      "id": "MB02",
+      "path": "english-learning-platform/docs/26-end-to-end-role-journeys.md",
+      "scope": "Đặc tả hành trình theo vai trò.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "740acb0f174d830c78655b87cf40c41c818cd4601f15c831ab57ab2bb73e606b"
+    },
+    {
+      "id": "MB03",
+      "path": "docs/content-data-contract.md",
+      "scope": "Quy ước dữ liệu và truy xuất nguồn học liệu.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "d363f60948f339690442dc65e11e71dd9c73ec612ef4b02a03b4658b0d701a58"
+    },
+    {
+      "id": "MB04",
+      "path": "data/reports/quality-report.md",
+      "scope": "Báo cáo chất lượng lịch sử; số liệu cần đối chiếu với dữ liệu app thực dùng.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "a1c8a57cf9986f53eb0f390aaa613bb932ba0c8f822ba1d36e70869a292654f6"
+    },
+    {
+      "id": "MB05",
+      "path": "english-learning-platform/public/audio/placement-test-dialogue.mp3",
+      "scope": "Tệp audio tồn tại; chưa đối chiếu nội dung nghe trong phiên này.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "83943c24b8ab7d2dc251b3a1f4c72f0fd3e77ce62406bc5620e0ae12fc08e1d2"
+    },
+    {
+      "id": "MB06",
+      "path": "english-learning-platform/src/app/student/placement-test/page.tsx",
+      "scope": "Mã nguồn bài kiểm tra đầu vào.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "f31affeffad6e70100da418a6b2bf2c6d3ded2870961ee92532bebd86ebdf67c"
+    },
+    {
+      "id": "MB07",
+      "path": "english-learning-platform/src/lib/learning.ts",
+      "scope": "Mã nguồn xử lý hoạt động học.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "050302cfe1823e2d0b43526242deca40c90c15ccbdbb2e77c74bd7210b8967ef"
+    },
+    {
+      "id": "MB08",
+      "path": "english-learning-platform/src/lib/fsrs.ts",
+      "scope": "Mã nguồn lập lịch ôn từ.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "0ba632b6e81e53dafcc2d101372a3f6697334e0292a8185fa2895a5207d25672"
+    },
+    {
+      "id": "MB09",
+      "path": "english-learning-platform/docs/DICTIONARY.md",
+      "scope": "Mô tả dữ liệu và luồng tra cứu từ điển.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "a99a449110bfa7c046a7c4acb611576ff6477eb3baec583dc57282dfe561fe49"
+    },
+    {
+      "id": "MB10",
+      "path": "english-learning-platform/src/app/api/classes/route.ts",
+      "scope": "Mã nguồn quản lý lớp học.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "358173abb6580b1d016985aac077c3c17f23044fa4d3e4115195d3660bb0ce64"
+    },
+    {
+      "id": "MB11",
+      "path": "english-learning-platform/src/app/api/grading/[submissionId]/route.ts",
+      "scope": "Mã nguồn chấm và trả bài.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "49ce61079b3dbe7310f6163a09d77810d427b9e7b7ddc9cb53d0a433917aefba"
+    },
+    {
+      "id": "MB12",
+      "path": "english-learning-platform/src/lib/docxParser.ts",
+      "scope": "Mã nguồn nhập học liệu Word.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "e9430354f29a1c10ae35658b8805bcebeacf4aaf8c72cbe43a1333a0c21a23da"
+    },
+    {
+      "id": "MB13",
+      "path": "english-learning-platform/src/lib/aiEngine.ts",
+      "scope": "Mã nguồn kết nối AI và các chế độ xử lý.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "f9ec341f923ae0389f7dec9934ca93d6a8dc842465c9b48abe52e94defa58091"
+    },
+    {
+      "id": "MB14",
+      "path": "english-learning-platform/src/components/ui/AudioRecorder.tsx",
+      "scope": "Mã nguồn ghi âm trên trình duyệt.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "c1531cf684bd1a8ad895ed1beff4179db01c773a4d905a8b820c100fd2d8d1eb"
+    },
+    {
+      "id": "MB15",
+      "path": "english-learning-platform/docs/LEAF_AI.md",
+      "scope": "Mô tả truy xuất tri thức và bộ nhớ hội thoại Leaf.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "4c79e020444d1288b72a38564893e1af5d75875f6d67ba540c8751f1a08143e6"
+    },
+    {
+      "id": "MB16",
+      "path": "english-learning-platform/src/lib/leafRetrieval.ts",
+      "scope": "Mã nguồn xếp hạng tài liệu cho Leaf.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "07645313b21590247e20014c72437ac87be23c49be155d5da172d921e5bcdc20"
+    },
+    {
+      "id": "MB17",
+      "path": "english-learning-platform/docs/29-design-system-and-ui-specifications.md",
+      "scope": "Đặc tả thiết kế giao diện.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "83f5db5cc29b79f937233eced4dfe325bcb71af96132c5b226c0e7cf1758f856"
+    },
+    {
+      "id": "MB18",
+      "path": "english-learning-platform/public/screenshots/06-mobile-learn-390px.png",
+      "scope": "Ảnh giao diện mobile đã lưu; không chứng minh backend.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "f6b16461b943bb1a4583c2bf24d392803652c8ce299b7018c4e095647abcea1a"
+    },
+    {
+      "id": "MB19",
+      "path": "docs/WORKLOG.md",
+      "scope": "Nhật ký tổng hợp cũ, gồm tuyên bố PASS cần đối chiếu log gốc.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "e2557f5a56b7efbed0048cb88fa5a61783095368a9b9afb368f96a9635ae37f5"
+    },
+    {
+      "id": "MB20",
+      "path": "docs/verification-logs/raw-tests.log",
+      "scope": "Log lịch sử ngày 08/10/2026: PASSED 5/10; không phải lần kiểm thử mới.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-08",
+      "sha256": "bdc4ddd87e1dd608a2b779127c0c40edf5fafe18c589a4e7bc20ec0a78dc45a6"
+    },
+    {
+      "id": "MB21",
+      "path": "docs/verification-logs/raw-browser.log",
+      "scope": "Log trình duyệt lịch sử có lỗi tải tài nguyên 404.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "7e8b8878faa680dd13ecb10e6332651213ae80b49dbe9c28c05cd1efcd6d22be"
+    },
+    {
+      "id": "MB22",
+      "path": "docs/verification-logs/raw-build.log",
+      "scope": "Log build lịch sử; không thay cho build bản hiện tại.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "08aa2075bd27a9990c8d164a94583d4218935d6b77644c6c640b8357a02ac40d"
+    },
+    {
+      "id": "MB23",
+      "path": "english-learning-platform/src/lib/auth.ts",
+      "scope": "Đọc mã thấy fallback tài khoản mẫu và cookie chứa userId.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "4e3e21609d2e27a036a7509e403e06c23d920aba706a617d362ac0cd194b0803"
+    },
+    {
+      "id": "MB24",
+      "path": "english-learning-platform/src/app/api/auth/switch-role/route.ts",
+      "scope": "Đọc mã thấy chuyển tài khoản mẫu theo role chưa có chặn production.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "f9161e3b80a3a207347973f919dcd596dcf0bfcc636a62662d61c7bb1f381e2d"
+    },
+    {
+      "id": "MB25",
+      "path": "english-learning-platform/src/app/auth/recover/page.tsx",
+      "scope": "Trang khôi phục hiện chỉ cập nhật state và thông báo mô phỏng.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "57405c507a4b4132af8c78355677555c963425b4132a3528b8cc1d0cc9134dc2"
+    },
+    {
+      "id": "MB26",
+      "path": "AGENTS.md",
+      "scope": "Quy định cập nhật nhật ký cho các phiên làm việc sau.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "254d5d240cf5c167a2c6a6fb715529e95e497a9cdd057fded1f5283b35cb67ba"
+    },
+    {
+      "id": "MB27",
+      "path": "english-learning-platform/AGENTS.md",
+      "scope": "Hướng dẫn trong ứng dụng dẫn về nhật ký ở workspace gốc.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "ccb1083509238736ced7fac8dba26574fb6c3b62d8b1cb33f1abba62b5920ee6"
+    },
+    {
+      "id": "MB28",
+      "path": "scripts/export_research_journal.py",
+      "scope": "Công cụ đồng bộ nhật ký Markdown và Word, kiểm tra cấu trúc.",
+      "inspected_on": "2026-10-10",
+      "event_date": null,
+      "sha256": "301b499fd6b09c668fe33e3ca01121e0e64b6c3400028b5d8e62d714876fe95d"
+    },
+    {
+      "id": "MB29",
+      "path": "docs/release/02-user-journeys.md",
+      "scope": "Báo cáo nghiệm thu và kiểm thử trọn luồng người dùng.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "4ab5b37b7aaf862874103532e86e95dfea6b6cc1e1688c78ffab3040ef37d21a"
+    },
+    {
+      "id": "MB30",
+      "path": "english-learning-platform/scripts/run-all-journeys.cjs",
+      "scope": "Kịch bản tự động hóa kiểm thử trình duyệt Chrome Headless 10 bước.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "29024269bda46f77cc46213aeeaedc266043a21bfa45422f0e9b1f2df80fd46d"
+    },
+    {
+      "id": "MB31",
+      "path": "english-learning-platform/public/screenshots/08-assignment-submission.png",
+      "scope": "Minh chứng học sinh nộp bài tự luận phiên bản 1.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "8d573d1ab371acbb73d0b73ff4eeb67c1793474d1d15de516012e7cd2c0ca0c8"
+    },
+    {
+      "id": "MB32",
+      "path": "english-learning-platform/public/screenshots/11-admin-dashboard.png",
+      "scope": "Minh chứng số liệu thống kê quản trị viên lấy từ cơ sở dữ liệu thực.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "2947f0f7fddd8d0542cee740e74319d5b60b516fc2bfd16c981ea6db9873dd32"
+    },
+    {
+      "id": "MB33",
+      "path": "docs/release/03-ai-content.md",
+      "scope": "Báo cáo kiểm tra AI, ghi âm, import DOCX và học liệu đang hiển thị.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "8ea38db89df6925fb18de5f25347ea1c5efcc3cfe65f9ade0a9bbbdba7b85f2a"
+    },
+    {
+      "id": "MB34",
+      "path": "docs/release/04-account-ux.md",
+      "scope": "Báo cáo nghiệm thu hoàn thiện khôi phục mật khẩu và rà soát giao diện.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "b57682c71d9487344f3271ead685ec5affb01bfefc9ae2cf996a1374220f7f6d"
+    },
+    {
+      "id": "MB35",
+      "path": "english-learning-platform/scripts/verify-password-reset.cjs",
+      "scope": "Kịch bản kiểm thử tự động vòng đời khôi phục và đặt lại mật khẩu an toàn.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "2f4945a3553df32b52736cceaaf68fd2fc64c20cfcd39a5a7056c66e99ce5d54"
+    },
+    {
+      "id": "MB36",
+      "path": "english-learning-platform/public/screenshots/14-reset-password-desktop.png",
+      "scope": "Minh chứng giao diện đặt lại mật khẩu an toàn trên desktop 1440px.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "ffe6c3d17ca1672015bebebc228aaeaa148374c5719f970481a871f38434fb6c"
+    },
+    {
+      "id": "MB37",
+      "path": "docs/release/05-release-report.md",
+      "scope": "Báo cáo tổng hợp phát hành và nghiệm thu cuối cùng.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "c7986b30a00267e18a3920b7a9db9e121d31ff7662d021abcb8e7e90107150c0"
+    },
+    {
+      "id": "MB38",
+      "path": "docs/release/DEPLOYMENT.md",
+      "scope": "Hướng dẫn triển khai máy chủ, cấu hình, sao lưu, phục hồi và rollback.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "efe3b4131cb169625558ecef96270659b6078656e51747c6a907bdfd72a8f7c1"
+    },
+    {
+      "id": "MB39",
+      "path": "docs/release/ACCEPTANCE-CHECKLIST.md",
+      "scope": "Bảng kiểm thử nghiệm thu độc lập 18 tiêu chí cho khách hàng.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "b1541ef2a7b20017f3a83f018edbb6fb78d166b6379bbf373f9c05df3bffe6c7"
+    },
+    {
+      "id": "MB40",
+      "path": "english-learning-platform/adaptive-english-clean-delivery.zip",
+      "scope": "Gói mã nguồn bàn giao sạch đã loại bỏ node_modules, .next, secret và test db.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "a12c3fb1a71b5bbe3d956b49ebe73145de1fad93d489e3000ba01deb53744c28"
+    },
+    {
+      "id": "MB41",
+      "path": "english-learning-platform/artifacts/tutorials/student-guide.mp4",
+      "scope": "Video hướng dẫn học sinh thao tác thật Full HD 1080p 30fps có phụ đề tiếng Việt.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "55751f0d7dfb723c7daf3c786253401a2f9022910a2d5c230238ebb0a12e0375"
+    },
+    {
+      "id": "MB42",
+      "path": "english-learning-platform/artifacts/tutorials/teacher-guide.mp4",
+      "scope": "Video hướng dẫn giáo viên thao tác thật Full HD 1080p 30fps có phụ đề tiếng Việt.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "06055b6442513e083c7d948d3776e8e2c37fefcd1c5782422b9bab43e2f25f8c"
+    },
+    {
+      "id": "MB43",
+      "path": "english-learning-platform/artifacts/tutorials/SCRIPT.md",
+      "scope": "Kịch bản phân cảnh chi tiết, mốc thời gian và lời bình cho học sinh và giáo viên.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "dd2fd4f03dfc9ec708cfb1b962436bd8594c7f44e26e445b393415684606361a"
+    },
+    {
+      "id": "MB44",
+      "path": "english-learning-platform/artifacts/tutorials/QA-REPORT.md",
+      "scope": "Báo cáo kiểm định giải mã FFmpeg, đối chiếu contact sheet và công bố giới hạn.",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "452da561b27551f262be66b05906016880fe381c7f7dee34244767e52b92ced2"
+    },
+    {
+      "id": "MB45",
+      "path": "english-learning-platform/artifacts/tutorials/contact_sheets/student_contact_sheet_01.png",
+      "scope": "Ảnh lưới kiểm định phân cảnh học sinh từ bản xuất FFmpeg (mẫu 10s/frame).",
+      "inspected_on": "2026-10-10",
+      "event_date": "10/10/2026",
+      "sha256": "291f2707cfd95988b2fb33aab9f51f9bbbc41dfe96d0ccdede7f8df30f70642c"
+    },
+    {
+      "id": "MB46",
+      "path": "docs/release/CODEX-ACCEPTANCE-2026-10-10.md",
+      "scope": "Báo cáo nghiệm thu độc lập, kết luận chưa đạt và tám nhóm lỗi cần sửa.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "ed493b3a8a2be3a61d6a13ffc0c6302a41781fcf6821f98df1383bfecc8c5c5a"
+    },
+    {
+      "id": "MB47",
+      "path": "docs/release/codex-acceptance-20261010/runtime-results.json",
+      "scope": "Kết quả request thật trên bản production cô lập; không chứa raw token.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "86c0359f3e7ddb6e762e80674078d4eda2416a5e8360d4af5e73a74fbea0dd02"
+    },
+    {
+      "id": "MB48",
+      "path": "docs/release/codex-acceptance-20261010/artifact-results.json",
+      "scope": "Thông số, giải mã, phụ đề và kiểm kê ZIP bàn giao.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "de46ecdc7e66ebfc094d6f0ce2b032bf0c36f3f38861e650ff805c3bc9a4c135"
+    },
+    {
+      "id": "MB49",
+      "path": "docs/release/codex-acceptance-20261010/restore-results.json",
+      "scope": "Thử hai archive giả: restore thiếu DB vẫn báo thành công và đường dẫn thoát vùng uploads.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "2477d714cbf9d64884e318816c7d520dd67514eef2fde47c5e9e82a739a7d448"
+    },
+    {
+      "id": "MB50",
+      "path": "docs/release/codex-acceptance-20261010/archive-comparison.json",
+      "scope": "ZIP thiếu từ điển và tài liệu cuối; src khớp workspace.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "69726b9e3b79748df660775df700072710fb6309496e1e3be26b35cba024a83b"
+    },
+    {
+      "id": "MB51",
+      "path": "docs/release/codex-acceptance-20261010/teacher-guide-20s.png",
+      "scope": "Frame video cuối tại 20 giây: phụ đề tạo lớp trong khi màn hình đăng nhập.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "cba9161f37770472412e6dd66d3d8fa7d23a1390332574c1c2e775f459ddeb7b"
+    },
+    {
+      "id": "MB52",
+      "path": "docs/release/codex-acceptance-20261010/student-guide-60s.png",
+      "scope": "Frame video cuối tại 60 giây: phụ đề flashcard nhưng ở trang chủ.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "4bc0b5200a117b9276b166f9624a5ec10ca3833b4b2139beecac4b05df792cc8"
+    },
+    {
+      "id": "MB53",
+      "path": "docs/release/codex-acceptance-20261010/verification-results.json",
+      "scope": "Tóm tắt kiểm tra TypeScript và 32 test độc lập thực chạy, không phải raw log.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "f6056ac9619c7dd00cc84529d120ee5dd6620579b3aacc4890018e849bfc4131"
+    },
+    {
+      "id": "MB54",
+      "path": "docs/verification-logs/auth-local-20261010/RESULTS.md",
+      "scope": "Quan sát, thay đổi và kết quả kiểm thử đăng nhập cục bộ; phân biệt giả thuyết cache/cookie với hai tiến trình đã xác minh.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "42255f1f4f2665ebf0bdb38946ae9d26a0dfa199722e1df5dfc2a3102db1fc73"
+    },
+    {
+      "id": "MB55",
+      "path": "docs/verification-logs/auth-local-20261010/api-results.json",
+      "scope": "Request thực trên bản production và database kiểm thử riêng; hai vai trò, cookie, API me, trang bảo vệ và sai mật khẩu.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "1ff74ec1388ec191ba2b5074cd09ec686a69edc0927f5233d0f46868a68c2253"
+    },
+    {
+      "id": "MB56",
+      "path": "docs/verification-logs/auth-local-20261010/register-updated.png",
+      "scope": "Ảnh form web chính sau sửa, không chứa nội dung ô tự điền: email xác nhận, nút Tiếp tục và bỏ giải thích vai trò.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "16b815d71fd160eb3f1e803b0b637203d0807803058e6aed80a26d8828458890"
+    },
+    {
+      "id": "MB57",
+      "path": "docs/verification-logs/auth-local-20261010/email-mismatch.png",
+      "scope": "Ảnh môi trường thử: email xác nhận không khớp bị chặn.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "30550c112cc07036b7b8d7baaeeca29d12322e55d7c71dcf37b4fcaca233ef3f"
+    },
+    {
+      "id": "MB58",
+      "path": "english-learning-platform/src/lib/authCookie.ts",
+      "scope": "Chính sách cookie: ngoại lệ HTTP loopback cấu hình rõ; giữ Secure trên origin công khai hoặc cấu hình lỗi.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "4f77c8f49e9d23dd248901d60ab3b903799be9057ef23b93be48a4056a260b03"
+    },
+    {
+      "id": "MB59",
+      "path": "english-learning-platform/tests/auth-cookie.test.cjs",
+      "scope": "Ba test đã chạy PASS trong phiên này về loopback, HTTPS, origin giả và cấu hình thiếu/lỗi.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "cdef278759f35d96a97bd5854e3b709c47aa5cb7c7f7dd7686d0f52099b1d862"
+    },
+    {
+      "id": "MB60",
+      "path": "english-learning-platform/scripts/start-local.cjs",
+      "scope": "Lệnh khởi động cục bộ đã chạy thành công, chỉ bind localhost:3008 và đặt BASE_URL tương ứng.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "b061973a2eea2a2a9daf399e2f4ab8d64c85e095665d361ce55741a23369e9cc"
+    },
+    {
+      "id": "MB61",
+      "path": "docs/verification-logs/vercel-20261010/RESULTS.md",
+      "scope": "Báo cáo chuẩn bị Vercel và PostgreSQL; chưa tạo DB hoặc deploy, ghi rõ auto-review từ chối tạo resource và giới hạn storage/SMTP.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "f47e22b2e597d150967c60718f713c301fe056135dff086b62c043e1b440b931"
+    },
+    {
+      "id": "MB62",
+      "path": "docs/verification-logs/vercel-20261010/build.log",
+      "scope": "Log build production cô lập dùng schema PostgreSQL: exit 0; URL giả, chưa kiểm tra kết nối database.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "3b45452af71b56940b4b89dbfa4f52ea07c60f3793a8797b276c0265258f6546"
+    },
+    {
+      "id": "MB63",
+      "path": "docs/verification-logs/vercel-20261010/build-first-type-error.log",
+      "scope": "Log FAIL TypeScript đầu tiên, đã sửa ở lần build tiếp theo; giữ lịch sử thất bại.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "0ba94e962769e940c5a4f4e6b691758cf0e3a45d78f097635d613111bc0f0247"
+    },
+    {
+      "id": "MB64",
+      "path": "docs/verification-logs/vercel-20261010/smoke-results.json",
+      "scope": "HTTP smoke thực chạy trong runtime VERCEL=1: trang/auth anonymous/recovery fail-closed/từ điển và trace.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "18b9bfee6d810170a55e80152cdb92f6aa6e1ef615cd6711791130c524ccbf47"
+    },
+    {
+      "id": "MB65",
+      "path": "docs/verification-logs/vercel-20261010/release-inventory.json",
+      "scope": "Danh mục/hash gói phát hành riêng không có env/DB tài khoản/uploads/recordings; node_modules và build output không nằm trong danh mục upload.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "44131ba1fa0da5d523eb161046beee2995173f9c1affde69b66e2b3e0b63c8bf"
+    },
+    {
+      "id": "MB66",
+      "path": "docs/verification-logs/vercel-20261010/postgres-initial.sql",
+      "scope": "SQL khởi tạo từ schema bằng Prisma migrate diff, chưa thực thi trên database.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "b74de1c0fc04879eff926ee2516a6c04579c17a45b72c69e5486f2b4816e5651"
+    },
+    {
+      "id": "MB67",
+      "path": "docs/verification-logs/vercel-20261010/RESULTS.md",
+      "scope": "Báo cáo hoàn tất triển khai: PostgreSQL, production smoke, cleanup và giới hạn SMTP/storage/dependency audit.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "d94fce32b366c42349d39fc1ad576b1954258896ffabddc089b509a4d1c18d3e"
+    },
+    {
+      "id": "MB68",
+      "path": "docs/verification-logs/vercel-20261010/deployment-result.json",
+      "scope": "Định danh deployment production READY, URL, dự án và cấu hình database; không chứa secret.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "e4aaa904c834367983fc973c1fe5cbc6fef5302f2825cf0f18863cb60ac4f126"
+    },
+    {
+      "id": "MB69",
+      "path": "docs/verification-logs/vercel-20261010/production-results.json",
+      "scope": "Tóm tắt các kiểm tra thực trên production và giới hạn còn lại.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "bbe8e23146e944fb4860269c2e5124a178dd0f22f973fb407f2b8fdaf38c4d6d"
+    },
+    {
+      "id": "MB70",
+      "path": "docs/verification-logs/vercel-20261010/prod-cleanup-result.json",
+      "scope": "Xác nhận xóa đúng một tài khoản production giả và không còn bản ghi với email thử.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "584a62ec9cc5843b7b7e6f304d7fa3355a4aa97cf4e71c6bd44576afd52a370b"
+    },
+    {
+      "id": "MB71",
+      "path": "docs/verification-logs/vercel-20261010/production-register.png",
+      "scope": "Ảnh trình duyệt công khai của form đăng ký production sau deploy.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "579dde0983411dd4367b769bd8e4b98f4e8dbd3e988e38f983f06fe9195845ed"
+    },
+    {
+      "id": "MB72",
+      "path": "docs/verification-logs/vercel-20261010/docx-render-failure.txt",
+      "scope": "Log FAIL của renderer Word: bundled dependencies không có soffice.exe; chưa xác minh phân trang trực quan.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "59fc7a48ac0f4077bcab452523729aa692a4148593f8483a049dd8fa447801cc"
+    },
+    {
+      "id": "MB73",
+      "path": "docs/verification-logs/vercel-20261010/alias-check.json",
+      "scope": "Kiểm tra ba URL: English production đạt; alias adaptivemath-two hiện trỏ English; Math chính adaptivemath-blush vẫn đạt.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "f31a1f440e9c8f3c267a930236fb2af76cf8d06547faf8fcab1a9445a7c4e1de"
+    },
+    {
+      "id": "MB74",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-config-check-20261010.json",
+      "scope": "Kiểm tra trực tiếp endpoint cấu hình AI production và trạng thái có cấu hình MWAPI local; không chứa secret.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "8eb46c2a794c08f7aed05c0f5cb0354bdc65f733a9ac4d4b9bb5d01ca4c49b5b"
+    },
+    {
+      "id": "MB75",
+      "path": "docs/verification-logs/vercel-20261010/CHATBOT-DEPLOYMENT.md",
+      "scope": "Báo cáo cấu hình, redeploy và giới hạn kiểm thử chatbot production.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "f96d32eb2b61911412dc80aba1a71261cd3ddd6818a808e2c8584d840f7154ca"
+    },
+    {
+      "id": "MB76",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-env-push.json",
+      "scope": "Ba lệnh thêm biến môi trường production exit 0; giá trị secret không được lưu.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "6632eb8021278aa0421239b6be14a70b3dadd4c123286fc41fa58aa3f0d4cf95"
+    },
+    {
+      "id": "MB77",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-redeploy.log",
+      "scope": "Lệnh redeploy production đã chạy exit 0; định danh URL deployment mới.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "e64be05383080ce1f5708c7e7cdddbad8b858fc17191f992d21f0f6c82652c81"
+    },
+    {
+      "id": "MB78",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-build-events.log",
+      "scope": "Log Vercel build/deploy hoàn thành Ready; giữ cảnh báo dependency.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "f7bebbd224e2413d9253a99f316cd541a4e49291dca46952b3c08004de090d09"
+    },
+    {
+      "id": "MB79",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-connection-results.json",
+      "scope": "GET provider production đạt, anonymous chat 401; Python upstream HTTP 403 FAIL; kiểm thử có truy cập DB bị chặn trước khi chạy.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "b592ebe2ef20a4537cb9c2290f204b48e1c8263fcc6751cfee0defdf67c4b795"
+    },
+    {
+      "id": "MB80",
+      "path": "docs/verification-logs/vercel-20261010/chatbot-node-upstream-results.json",
+      "scope": "Node fetch trực tiếp provider nhận HTTP 200 và văn bản giải nghĩa từ; không chứng minh toàn bộ chatbot đăng nhập hoặc parser JSON.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "1659f3e3e06b4f207ab7e4ab27d71494bed88ba08bf415e2c8d8c156ded56138"
+    },
+    {
+      "id": "MB81",
+      "path": "docs/verification-logs/ui-20261010/lesson-list-simplification.md",
+      "scope": "Báo cáo thay đổi và kiểm tra trực tiếp giao diện danh sách bài học trên desktop và viewport 390 x 844.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "67ae522d96bea8c9ba14e4c85998257b68f3921db75b298bd11c697ad1889db7"
+    },
+    {
+      "id": "MB82",
+      "path": "docs/verification-logs/ui-20261010/course-title-simplification.md",
+      "scope": "Báo cáo rút gọn và kiểm tra năm tiêu đề nhóm khóa học trên trang local.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "c34bad23eed8f762e39e4ca8e4eb7adc2864a0c69c6c893e7cd05ce229d82d99"
+    },
+    {
+      "id": "MB83",
+      "path": "docs/verification-logs/ui-20261010/vocabulary-rule-note-removal.md",
+      "scope": "Báo cáo xóa ghi chú quy tắc thành thạo khỏi trang từ vựng và kiểm tra local.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "c48c8565b0580e79b840b1ea0d90c7e8e11f61ee4964d0c8e3043a68b3eb56ae"
+    },
+    {
+      "id": "MB84",
+      "path": "docs/verification-logs/ui-20261010/progress-integrity-note-removal.md",
+      "scope": "Báo cáo xóa khối ghi chú toàn vẹn dữ liệu khỏi trang tiến độ và kiểm tra local.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "17003b0509a116e4ddb7e898536d76d43111a4beb2fff82e4e9bc6ffa0998ddd"
+    },
+    {
+      "id": "MB85",
+      "path": "docs/verification-logs/ui-20261010/progress-correct-rate-card.md",
+      "scope": "Báo cáo đổi tiêu đề và font Calibri cho thẻ tỷ lệ làm đúng trên trang tiến độ.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "d9bab26447b46b4c796db5db8e49ac0d9a1ebd7f2e2025671a7a1d5b558bcc44"
+    },
+    {
+      "id": "MB86",
+      "path": "docs/verification-logs/ui-20261010/grade-filter-labels.md",
+      "scope": "Báo cáo rút gọn nhãn bộ lọc Lớp 6-9 và kiểm tra local.",
+      "inspected_on": "2026-10-10",
+      "event_date": "2026-10-10",
+      "sha256": "7811f6355176758edee777ee4fb5d160423e7aa49ca275b1f7fd747662f31eb7"
+    },
+    {
+      "id": "MB87",
+      "path": "english-learning-platform/artifacts/student-review-20261011/adaptive-english-student-full-review-vi.mp4",
+      "scope": "Video cuối 42 cảnh review học sinh có voice tổng hợp tiếng Việt; môi trường local riêng.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "958753b8bb69cb035d3f35c67d665eed63e3faf1bc04f561ea4a57a9681a04a2"
+    },
+    {
+      "id": "MB88",
+      "path": "english-learning-platform/artifacts/student-review-20261011/QA-REPORT.md",
+      "scope": "Phạm vi quay, các kiểm tra thực, giới hạn và lịch sử các lần quay/dựng chưa đạt.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "54f0a52a6c37739d80d68ec450ae96def0f48ad2886ade72f27a53fc306e9699"
+    },
+    {
+      "id": "MB89",
+      "path": "english-learning-platform/artifacts/student-review-20261011/qa/results.json",
+      "scope": "Giải mã toàn bộ frame/audio, thời lượng và word boundaries của video cuối.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "0335ad8f0f09acdf15233e9ce65ddb83ded2e7767f84b6057ebbcaca8f2d234f"
+    },
+    {
+      "id": "MB90",
+      "path": "english-learning-platform/artifacts/student-review-20261011/timeline.json",
+      "scope": "Lời dẫn, route, thời lượng và mốc bắt đầu 42 cảnh.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "4d6d918fff6abcf121093342a32b5b858717c3e3a7afd97a9448278d8a8f23f0"
+    },
+    {
+      "id": "MB91",
+      "path": "english-learning-platform/artifacts/student-review-20261011/capture.json",
+      "scope": "Kết quả quan sát 42 cảnh cuối, không chứa token.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "52465b28be0eaa3e7a5a36af77141c6d78f20a0f706d773ee88294b461041a00"
+    },
+    {
+      "id": "MB92",
+      "path": "english-learning-platform/artifacts/student-review-20261011/logs/full-decode.log",
+      "scope": "Log FFmpeg giải mã/blackdetect/silencedetect/volumedetect trên toàn MP4 cuối.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "db56d4ad0b9296ee02a04a37742a6be0f8b854cdaff0caf446b4697b00475869"
+    },
+    {
+      "id": "MB93",
+      "path": "english-learning-platform/artifacts/student-review-20261011/capture-before-repair-1791653052.json",
+      "scope": "Capture ban đầu có partial do locator; giữ kết quả chưa đạt trước khi quay lại.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "eda52c9097d9997c0ae31500227ce3768abce7e0b10527f5a5144139222fa546"
+    },
+    {
+      "id": "MB94",
+      "path": "english-learning-platform/artifacts/student-review-20261011/qa/board-middle-1.jpg",
+      "scope": "Ảnh giữa cảnh 1–21 từ MP4 cuối, chỉ chứng minh nội dung nhìn thấy.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "f2c80df59cf9bd143ae64f80441f926cdcacf1f061cdfc15791b412e82fbee8a"
+    },
+    {
+      "id": "MB95",
+      "path": "english-learning-platform/artifacts/student-review-20261011/qa/board-middle-2.jpg",
+      "scope": "Ảnh giữa cảnh 22–42 từ MP4 cuối, chỉ chứng minh nội dung nhìn thấy.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "0fe67fc06ab7504151ead06ca007ba681a45e0cdb8d9f03741029f896cd0cea7"
+    },
+    {
+      "id": "MB96",
+      "path": "docs/verification-logs/ai-20261011/mwapi-reconnected.md",
+      "scope": "Báo cáo FAIL EACCES trong sandbox, khôi phục tiến trình và POST tutor 200 trực tiếp.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "ff3694ab21ea58f0e3b7073e80bea4040953e52c49fd8e5cb9f2d90b475e5e82"
+    },
+    {
+      "id": "MB97",
+      "path": "docs/verification-logs/ai-20261011/tutor-reconnected.png",
+      "scope": "Ảnh drawer gợi ý AI thành công trên bài Writing sau khởi động lại.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "0eada1e971f6aa0a88d36532d136f53397bd4bb5a3d2609babc20d39e16286cb"
+    },
+    {
+      "id": "MB98",
+      "path": "docs/verification-logs/ai-20261011/student-writing-grading.md",
+      "scope": "Báo cáo thay đổi chấm Writing trực tiếp, TypeScript, 8 test, 401 và browser persistence; giữ lần chạy sai thư mục.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "76415fa5f5f5c7f5b6a068be316b0e8b0e09fbf9e37f36c0a225413f7656f075"
+    },
+    {
+      "id": "MB99",
+      "path": "docs/verification-logs/ai-20261011/student-writing-score.png",
+      "scope": "Ảnh khung điểm AI và nhận xét bài email trên local sau tải lại.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "77288de2dde9fc09d755329042d54f1463306cbf4d176d47cc1e33939e4528e4"
+    },
+    {
+      "id": "MB100",
+      "path": "docs/verification-logs/ai-20261011/writing-card-redesign.md",
+      "scope": "Báo cáo thiết kế thẻ Writing, TypeScript, DOM và computed animation; giữ lỗi hot reload CSS.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "deb6d83d8d8c87bfc77c6b0e600d768bf34666565beaf580e250360926a4e72c"
+    },
+    {
+      "id": "MB101",
+      "path": "docs/verification-logs/ai-20261011/writing-card-redesign.png",
+      "scope": "Ảnh thẻ Writing mới: điểm, thanh tiến độ, vùng nhận xét xanh lam/xanh lá/đỏ nhạt.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "9f993ff712ab5359ac8ccaff37c197d930b584a6e3ae82e902c43ab32f9a0935"
+    },
+    {
+      "id": "MB102",
+      "path": "docs/verification-logs/ai-20261011/summary-question-card-cleanup.md",
+      "scope": "Báo cáo bỏ nút chấm lại, xóa trạng thái kỹ thuật, tạo thẻ câu hỏi và kiểm tra desktop/mobile.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "e1f71b2a4cc35598f1a084fe3b5a243e6447763b31a987985b9b3616d2fc3a3a"
+    },
+    {
+      "id": "MB103",
+      "path": "docs/verification-logs/ai-20261011/summary-question-card-cleanup.png",
+      "scope": "Ảnh desktop trang kết quả với thẻ Câu 1 và không còn nút chấm lại hay dòng trạng thái kỹ thuật.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "f2018b9def42dee775a6b9454660af0cea3f14de3c0ecbab75e569a82c7eda07"
+    },
+    {
+      "id": "MB104",
+      "path": "docs/verification-logs/ai-20261011/review-details-redesign.md",
+      "scope": "Báo cáo thiết kế lại phần xem chi tiết với đề bài, câu trả lời và giải thích tách biệt; kiểm tra desktop/mobile.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "84e5938169f821efa797dcdf91268d14aca92648c518421d2820f055579aca48"
+    },
+    {
+      "id": "MB105",
+      "path": "docs/verification-logs/ai-20261011/review-details-redesign.png",
+      "scope": "Ảnh desktop phần xem lại Writing với câu trả lời nền vàng và giải thích nền tím.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "b4a2a5fdd12f84a185b2a49d017cedcd850f7648b2e8f796ac239f4f2a745aed"
+    },
+    {
+      "id": "MB106",
+      "path": "docs/verification-logs/ai-20261011/notification-progress-audit.md",
+      "scope": "Báo cáo triển khai cửa sổ thông báo, kiểm thử desktop/mobile và rà soát cơ chế lưu tiến trình theo tài khoản.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "181a3e80c978624caad00eb2f4d7c7c3264e9b08a46f00d2342f2ff073fea05e"
+    },
+    {
+      "id": "MB107",
+      "path": "docs/verification-logs/ai-20261011/notification-popover-desktop.png",
+      "scope": "Ảnh desktop cửa sổ xem nhanh thông báo và nút Xem tất cả thông báo.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "88b62430c1dc48b39c77ac380df9d781b6fa64e3b1a5fc6d797a7f352e7ea4b8"
+    },
+    {
+      "id": "MB108",
+      "path": "docs/verification-logs/ai-20261011/notification-popover-mobile.png",
+      "scope": "Ảnh mobile 390×844 sau khi sửa cửa sổ thông báo không còn tràn khỏi viewport.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "24eca72271cabe27270b877e8aa463410f2869682b9eb44ebd3bde6f9ccc004f"
+    },
+    {
+      "id": "MB109",
+      "path": "docs/verification-logs/ai-20261011/writing-skeleton-parser-fix.md",
+      "scope": "Báo cáo skeleton có annotation, nguyên nhân phản hồi MWAPI bị loại, lần test FAIL trung gian và lần PASS cuối.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "61c31117e605d69700c0384e0a8eec80587fa6992635647897132dbd0e6a8a76"
+    },
+    {
+      "id": "MB110",
+      "path": "docs/verification-logs/ai-20261011/writing-ai-valid-result.png",
+      "scope": "Ảnh browser sau sửa: bài sắp xếp câu nhận điểm AI 9.0/9 và hiển thị đầy đủ nhận xét thay vì cảnh báo không hợp lệ.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "e12ebf947c7bf95f82eb3d6dc8e3fa9e547157f2490f850417d4a9143ce7164c"
+    },
+    {
+      "id": "MB111",
+      "path": "docs/verification-logs/progress-20261011/lesson-progress-chart-diagnosis.md",
+      "scope": "Báo cáo tái hiện và đối chiếu mã về việc bài tự học không cập nhật biểu đồ tiến độ; gồm kết quả test skill chart hiện tại.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "8e92e8a769a67c142e5ce5a5c46f8afb3a69cb5c3d435b7dc0b30caf682d030c"
+    },
+    {
+      "id": "MB112",
+      "path": "docs/verification-logs/dev-annotator-20261011/dev-agent-annotator-report.md",
+      "scope": "Báo cáo kiểm thử tự động tính năng Dev Agent Annotator: tự động inject data-component, data-file, data-line vào DOM và thanh công cụ Inspector.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "64248a10a872d3d61af454a67d92f687e3fa17acfaf33ea12bc023a90b96b828"
+    },
+    {
+      "id": "MB113",
+      "path": "docs/verification-logs/dev-annotator-20261011/dev-agent-annotator.png",
+      "scope": "Ảnh chụp màn hình Chrome headless minh chứng thanh công cụ Dev Agent Annotator và các visual badge định vị component trên giao diện.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "78cd9fd8cbb0185e7bb41de36301fbea2438fa2161d42e966efcb13db2a090a7"
+    },
+    {
+      "id": "MB114",
+      "path": "screenshots_tester_texts/01_landing_page_fsrs_text.png",
+      "scope": "Thư mục minh chứng 15 ảnh chụp màn hình rà soát câu từ kỹ thuật/tester và đối chiếu kết quả sau khi xoá/sửa 7 vị trí theo yêu cầu.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "e2bfb2fd65cabd31a39ebc13ebccecbd578f871c33968f44e725199bd2a77aab"
+    },
+    {
+      "id": "MB115",
+      "path": "english-learning-platform/public/screenshots/04-placement-vocab-selection-fixed.png",
+      "scope": "Ảnh chụp màn hình Chrome headless minh chứng đã sửa lỗi không bấm được đáp án bài test đầu vào (Placement Test): bấm chọn thành công, hiển thị badge tích xanh đã chọn và nút 'Câu tiếp theo' được kích hoạt.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "888df2d1660a3bc7e941eae469aa1d14385b5c22bbe7ffd370f8c167c54cfd29"
+    },
+    {
+      "id": "MB116",
+      "path": "english-learning-platform/public/screenshots/05-placement-clean-options.png",
+      "scope": "Ảnh chụp màn hình Chrome headless minh chứng các phương án lựa chọn trong Placement Test đã được làm sạch hoàn toàn: chỉ hiển thị từ vựng tiếng Anh chuẩn, không còn kèm nghĩa tiếng Việt trong dấu ngoặc đơn.",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "28a219218907eeff9d3649a2d9adf9d108a59cebd647e0e2dffc782f131e5b62"
+    },
+    {
+      "id": "MB117",
+      "path": "docs/verification-logs/vercel-20261011/deploy-result.json",
+      "scope": "Log xác nhận build và deploy thành công bản mới nhất lên Vercel Production (adaptiveenglish.vercel.app, deployment dpl_421T89YCwv7wueADqLM2jULy6MpY).",
+      "inspected_on": "2026-10-11",
+      "event_date": "2026-10-11",
+      "sha256": "4d5bb873a6fbc01bc9333b75a33e78eac4350bf771fe2d93f549f15e3ed825e1"
+    },
+    {
+      "id": "MB118",
+      "path": "docs/research-journal/evidence/EN-20261012-01/server-startup.snapshot.log",
+      "scope": "Bản chụp log khởi động máy chủ Next.js local tại cổng 3008, ghi nhận phiên bản và trạng thái Ready.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "401bfd2d30a2ea56c2e69b287fe6b79958452dca94a8e98c983930e0c0bebff9"
+    },
+    {
+      "id": "MB119",
+      "path": "docs/research-journal/evidence/EN-20261012-01/http-check.log",
+      "scope": "Log kiểm tra trực tiếp GET http://localhost:3008/ với HTTP 200 OK, 25.542 bytes và exit 0.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3df2cbd69e358427cc8eb622a2a277138d239ca0b6e2a7d96faa3eab05a8e959"
+    },
+    {
+      "id": "MB120",
+      "path": "docs/research-journal/evidence/EN-20261012-01/journal-render-failure.log",
+      "scope": "Log lần thử render NHAT_KY_NGHIEN_CUU_ADAPTIVE_ENGLISH.docx bằng renderer đóng gói; thất bại vì không tìm thấy soffice.exe, exit 1. Chứng minh giới hạn kiểm tra, không chứng minh bố cục Word đạt yêu cầu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "26dbaab03a0ba7ea27e0bf8510a98fa3b74c32fda068470f70fb61a6bd3c84c7"
+    },
+    {
+      "id": "MB121",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/chatbox-ui.png",
+      "scope": "Ảnh Chrome headless kiểm tra composer Leaf AI sau sửa: một vùng focus ngoài, textarea có padding và nút gửi disabled rõ ràng.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2219d51eb41aff86b88bc96c84fa463e99755e9e08a11e3cf38c9c31d3091ece"
+    },
+    {
+      "id": "MB122",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/verification.log",
+      "scope": "Bản tóm tắt mã thoát kiểm tra TypeScript, unit test và build; không chứa toàn bộ đầu ra build. Đầu ra build được lưu riêng tại MB126.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5566ccdecbdd8e22840eabf53b26849f9ef6371e6f65a6927ff50b719eb0f7e8"
+    },
+    {
+      "id": "MB123",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/mwapi-unit.log",
+      "scope": "Log node --test tests/mwapi.test.cjs: PASS 11/11, exit 0.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "1bdc31a3bf77ffe5426c066e9309ff83e79e5767a39c7ec72541e436bb49a2a7"
+    },
+    {
+      "id": "MB124",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/vercel-deploy.log",
+      "scope": "Log triển khai Vercel Production dpl_53gL2S9tfYotAzSMPNZMmas64wfn, trạng thái READY và alias adaptiveenglish.vercel.app.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "0b3111b7c6889c1e7320e67cef539aa4da41556a741a86e52539f839d97f93ab"
+    },
+    {
+      "id": "MB125",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/production-ai-check.log",
+      "scope": "GET /api/ai/evaluate trên Production: HTTP 200, provider mwapi, configured true, model claude-sonnet-4-6; không chứa khóa API.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c80288005e23a35e8e6e6ab95c8f07a10b2489eca19ec7b5ef8d365f09c14d6d"
+    },
+    {
+      "id": "MB126",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-02/build.log",
+      "scope": "Đầu ra npm run build: hoàn thành 54/54 routes; có cảnh báo tải stylesheet Google Fonts.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "24c8acc0ebff41253be99489b7f5e70de6bedaec0c8303bdbdedbee3e5527390"
+    },
+    {
+      "id": "MB131",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-07/supabase-schema-check.log",
+      "scope": "Kiểm tra read-only project Supabase adaptivestudy và số bảng public trước chuyển database Production.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3cc3d4acf94301cd7a5cd6b0f36b4752369aa46ac616f2a826e39b6f771c4b11"
+    },
+    {
+      "id": "MB132",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-07/migration-copy-verification.log",
+      "scope": "Migration Supabase và đối chiếu số bản ghi đã copy từ database Production cũ.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8ec1225e1615407ae25e040304f0d32e16d855d22efacc77c2bfd198c23dfeda"
+    },
+    {
+      "id": "MB133",
+      "path": "english-learning-platform/docs/research-journal/evidence/EN-20261012-08/chat-build.log",
+      "scope": "Bản vá log an toàn và kết quả build Leaf AI chat.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7e2cea1e274f3cf48b286bed8b225344b62d352416c0221f8fc187aec4f1826f"
+    },
+    {
+      "id": "MB134",
+      "path": "docs/research-journal/evidence/EN-20261012-09/verification.log",
+      "scope": "Kết quả TypeScript, parser DOCX, build và giới hạn kiểm thử AI/skeleton của phiên sửa DOCX.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2f7934a4b07e7702ad653c2af263cc91df3cae2bf5ad2617e22ade07f37501fc"
+    },
+    {
+      "id": "MB135",
+      "path": "docs/research-journal/evidence/EN-20261012-10/deployment.log",
+      "scope": "Lệnh và kết quả deploy Vercel Production, trạng thái READY và kiểm tra HTTP sau phát hành.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e65030ec958487b546fa6747ffd0f15d2c0e28d5f209304d415aeb75a3ca9ace"
+    },
+    {
+      "id": "MB136",
+      "path": "docs/research-journal/evidence/EN-20261012-11/verification-and-deploy.log",
+      "scope": "Kết quả TypeScript, build và deploy Production của chỉnh sửa thẻ duyệt câu hỏi DOCX.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c75be988fe20606c38aa831215ea2875b6ee01b13312f46addfbe54f3775c9d3"
+    },
+    {
+      "id": "MB137",
+      "path": "docs/research-journal/evidence/EN-20261012-12/verification-and-deploy.log",
+      "scope": "Kiểm thử build, deploy và giới hạn kiểm thử publish DOCX Production.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3e0a4de4f49ae38d065a74dc43d1451747c2e2a49e23e0fff486aa8af04780fd"
+    },
+    {
+      "id": "MB154",
+      "path": "docs/research-journal/evidence/EN-20261012-28/verification.md",
+      "scope": "Phương pháp, lệnh thực chạy, FAIL/BLOCKED và giới hạn",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "0b12451ccc7776917332ba06bfc3fdc00ae9b02eb7c95d2555cd361aff7d60de"
+    },
+    {
+      "id": "MB155",
+      "path": "english-learning-platform/artifacts/showcase-20261012/adaptive-english-showcase-vi.mp4",
+      "scope": "Video review cuối có giọng tổng hợp và phụ đề; tài khoản minh họa",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "766b52145a455d425e8aa9f071ea03b78eb8cf972bed51de874c07b44ec47ed5"
+    },
+    {
+      "id": "MB156",
+      "path": "english-learning-platform/artifacts/showcase-20261012/qa/results.json",
+      "scope": "Kết quả giải mã, âm lượng và thông số video",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "016cdbff2db98681654f33c7322de402a35c8025b1374509340a3cd8263abcf5"
+    },
+    {
+      "id": "MB157",
+      "path": "english-learning-platform/artifacts/showcase-20261012/capture.json",
+      "scope": "Manifest9 cảnh quay mới cuối",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b93696d443d3b5c02ef29bfe1269a79b84c38d7ca09941bb9bbc51d5e52ca391"
+    },
+    {
+      "id": "MB158",
+      "path": "english-learning-platform/artifacts/showcase-20261012/SCRIPT.md",
+      "scope": "Payload lời dẫn được chủ dự án cho phép dùng TTS",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "100ad6b2f999a41f992ce3cf03707fb65a968cd8a831e260b793f69d625f233f"
+    },
+    {
+      "id": "MB159",
+      "path": "english-learning-platform/artifacts/showcase-20261012/timeline.json",
+      "scope": "Nguồn cảnh, lời dẫn và timeline17 chương",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8c5d055b409d07cd2d2d5feeeb3c6552e5f85e1acf946af162d50c8068011cfe"
+    },
+    {
+      "id": "MB160",
+      "path": "english-learning-platform/artifacts/showcase-20261012/qa/contact-sheet.jpg",
+      "scope": "Ảnh giữa17 chương để đối chiếu trực quan",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "647e47aa678f658999cddb6b2479120fbc63c3e1d101371a0dc8ac66dd4131a3"
+    },
+    {
+      "id": "MB161",
+      "path": "docs/research-journal/evidence/EN-20261012-28/export-check.log",
+      "scope": "Exporter --check exit0:76 entries/160 evidence tại thời điểm kiểm tra; XML, đồng bộ và mẫu PASS, giữ cảnh báo nguồn lịch sử, Word pagination NOT_VERIFIED.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "eb279a100585a859bd209217d80136aeb0892e8ded41d4a008165319248763c1"
+    },
+    {
+      "id": "MB162",
+      "path": "docs/research-journal/evidence/EN-20261012-29/verification.md",
+      "scope": "Tổng hợp thao tác trực tiếp, FAIL/PASS và giới hạn",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2d2bf3277d924c5331e97c53e84ff16760b74b2d594a92955a605e0566c2c2fe"
+    },
+    {
+      "id": "MB163",
+      "path": "docs/research-journal/evidence/EN-20261012-29/tests-initial.log",
+      "scope": "32 tests ban đầu",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7463a52dd4717d4b99134c4e2a6cf2b8c38d2c00aad8e4efb2a408d0e4dfd1ad"
+    },
+    {
+      "id": "MB164",
+      "path": "docs/research-journal/evidence/EN-20261012-29/tests-confirmed.log",
+      "scope": "35 tests cuối exit0",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f0c2af9d3b6ed0ae6bf1e2541ffa8514c6b1eaac0cac226694fd355a8c5626c"
+    },
+    {
+      "id": "MB165",
+      "path": "docs/research-journal/evidence/EN-20261012-29/typecheck-final.log",
+      "scope": "TypeScript cuối exit0",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2095d5302e465922147e220c0389f7a923ea0c1509a23097f04b3c220798aef8"
+    },
+    {
+      "id": "MB166",
+      "path": "docs/research-journal/evidence/EN-20261012-29/build.log",
+      "scope": "Next build55/55 exit0, cảnh báo Fonts",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7d47154f1e644ff8fb09710b5ecd356f9d6bef868b9ca1b1c8739a28e76822af"
+    },
+    {
+      "id": "MB167",
+      "path": "docs/research-journal/evidence/EN-20261012-29/persistence.log",
+      "scope": "Prisma SQLite thật cô lập: idempotence/regrade/version/rollback",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "087229bdf691d90c7df3a24bbc444c2c853585ac2b626b8c5efadc249115238e"
+    },
+    {
+      "id": "MB168",
+      "path": "docs/research-journal/evidence/EN-20261012-29/local-additive-migration.json",
+      "scope": "Counts trước/sau local, thêm2 cột, không Production",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c11675b4c700d4c4eb23b489278e204026dc128c60f9245ae36757e144e8ed41"
+    },
+    {
+      "id": "MB169",
+      "path": "docs/research-journal/evidence/EN-20261012-29/isolated-client.log",
+      "scope": "Generate client riêng PASS; không bỏ dấu vết EPERM root",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b05c687462db2a16ffe742313c7e61d1aae2770b26221d4e824992238127c1fb"
+    },
+    {
+      "id": "MB170",
+      "path": "docs/research-journal/evidence/EN-20261012-29/root-client-metadata.log",
+      "scope": "DMMF root chứa2 trường mới",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5039c9abb49d93c627f827ff52212d0ca858a4a36d84cf721e8da840825c2eae"
+    },
+    {
+      "id": "MB171",
+      "path": "docs/research-journal/evidence/EN-20261012-29/isolated-db-setup.log",
+      "scope": "Schema DB cô lập, không DB người dùng",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "00e7e82ac134983ee3e6941154dedf41afb7e40534dd2c24e64799f9a5cabf9e"
+    },
+    {
+      "id": "MB172",
+      "path": "docs/assignment-ability.md",
+      "scope": "Quy tắc tính điểm, baseline, giới hạn và triển khai",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "9483c49ded88b834cda281a32f23848e36c00d1a24350668205fa0e692fdf310"
+    },
+    {
+      "id": "MB173",
+      "path": "english-learning-platform/prisma/migrations/20261012_assignment_ability/migration.sql",
+      "scope": "Migration additive2 cột metadata",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "9814309f673c99a37ebca2b55ec44e75526d8b301561b10bf7fd126cd03069be"
+    },
+    {
+      "id": "MB174",
+      "path": "docs/research-journal/compact/NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.docx",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "cf6514a4b72a0c2ea9846b1900e0ddf5c3f55ab29b909ec1cdc6cca85f94f402"
+    },
+    {
+      "id": "MB175",
+      "path": "docs/research-journal/compact/NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.md",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "03edbdc94530f67a2972003ddd14a68fe0722574374792dabbe7ee2d748afaa4"
+    },
+    {
+      "id": "MB176",
+      "path": "docs/research-journal/compact/journal-compact.json",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e899b40dfeab3c0945d463ea42533a401c0a3d7e0fc34aa70db8a6c62b04249b"
+    },
+    {
+      "id": "MB177",
+      "path": "docs/research-journal/evidence/EN-20261012-30/verification.md",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2b03655c210465f4efd5f19126b64ef0f2098bbd2d2b8d2093c1e71ab9433624"
+    },
+    {
+      "id": "MB178",
+      "path": "docs/research-journal/evidence/EN-20261012-30/original/journal.json",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "aeb0c0f51b5c5be8abbda96005d2b25c7380c6e4ceb32d9eae9c3594251027e8"
+    },
+    {
+      "id": "MB179",
+      "path": "docs/research-journal/evidence/EN-20261012-30/original/NHAT_KY_NGHIEN_CUU.md",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "ddacd43c636e7a8d2bfe38782e4451d5a6dbe5ebfad2e22f11483fc76c6d1944"
+    },
+    {
+      "id": "MB180",
+      "path": "docs/research-journal/evidence/EN-20261012-30/original/NHAT_KY_NGHIEN_CUU_ADAPTIVE_ENGLISH.docx",
+      "scope": "Bản rút gọn riêng và kiểm tra biên tập; snapshot gốc bảo toàn lịch sử. Không chứng minh kiểm thử sản phẩm mới hoặc phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "23f6778976557c579e4711b201a4fd7adc9a97bb057abebdfd30da58a72e233a"
+    },
+    {
+      "id": "MB181",
+      "path": "docs/research-journal/evidence/EN-20261012-30/export-check.log",
+      "scope": "Exporter --check PASS exit0; giữ cảnh báo nguồn lịch sử; phân trang NOT_VERIFIED.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "86aa2092e24dc3c794cf3aac6809eb9219d3b6f5c567457fffe3a10091612f4b"
+    },
+    {
+      "id": "MB182",
+      "path": "docs/research-journal/evidence/EN-20261012-31/before-journal-compact.json",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e899b40dfeab3c0945d463ea42533a401c0a3d7e0fc34aa70db8a6c62b04249b"
+    },
+    {
+      "id": "MB183",
+      "path": "docs/research-journal/evidence/EN-20261012-31/before-NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.docx",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "cf6514a4b72a0c2ea9846b1900e0ddf5c3f55ab29b909ec1cdc6cca85f94f402"
+    },
+    {
+      "id": "MB184",
+      "path": "docs/research-journal/evidence/EN-20261012-31/before-NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.md",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "03edbdc94530f67a2972003ddd14a68fe0722574374792dabbe7ee2d748afaa4"
+    },
+    {
+      "id": "MB185",
+      "path": "docs/research-journal/evidence/EN-20261012-31/artifact.md",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c2bd727dec6bb89b95a59b770667e2247c6d0508dc50a98269a05e44df22ffee"
+    },
+    {
+      "id": "MB186",
+      "path": "docs/research-journal/evidence/EN-20261012-31/format-check.log",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "742a552048e12a2e8f859f56fe764df0c5d3ff644c760e6c252892c86c68ae76"
+    },
+    {
+      "id": "MB187",
+      "path": "docs/research-journal/evidence/EN-20261012-31/render.log",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "222347916ec1bf42adadcb35ba2cc75cdcd5a9d882f9c5b26200c6e81e0bf586"
+    },
+    {
+      "id": "MB188",
+      "path": "docs/research-journal/compact/NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.docx",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "46db4900dde4256788b067e2f1269eb2cf78dd0d8d50d8627a585a93205338c4"
+    },
+    {
+      "id": "MB189",
+      "path": "docs/research-journal/compact/NHAT_KY_NGHIEN_CUU_RUT_GON_10_TRANG.md",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "38004202bd9d5d4f12267654c939cafced928d17c6fd294e59cf937646e72579"
+    },
+    {
+      "id": "MB190",
+      "path": "docs/research-journal/compact/journal-compact.json",
+      "scope": "Khôi phục đúng mẫu nhật ký cũ hoặc giữ snapshot bản trước sửa; kiểm tra XML không thay thế kiểm tra phân trang trực quan.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3d0c40dfc6efe67f0a5e0a27e89addebe2d686371db1b29af22d772bc266867c"
+    },
+    {
+      "id": "MB191",
+      "path": "docs/research-journal/evidence/EN-20261012-32/tests.log",
+      "scope": "Lần đầu 30/30 PASS; kiểm thử route dùng mocks.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7363f3e54120c52b01b7ef1e6393fbd20c516aeda9dd0d13c1c965ee25569d17"
+    },
+    {
+      "id": "MB192",
+      "path": "docs/research-journal/evidence/EN-20261012-32/tests-final.log",
+      "scope": "FAIL 1/31 sau thêm kiểm thử conflict; giữ nguyên thất bại.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c9c5b764ba69b414b362e600655f34e196edfb8946715de8d9a10ee5a7b2ed47"
+    },
+    {
+      "id": "MB193",
+      "path": "docs/research-journal/evidence/EN-20261012-32/tests-repaired.log",
+      "scope": "Sửa mã phản hồi conflict; 31/31 PASS exit0; chưa browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "4bf5822a838e6593792a5c055c0d5cfbeae71df7cfc7c09660926fb8e577b8f8"
+    },
+    {
+      "id": "MB194",
+      "path": "docs/research-journal/evidence/EN-20261012-32/typescript-repaired.log",
+      "scope": "TypeScript noEmit PASS exit0 sau sửa cuối.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB195",
+      "path": "docs/research-journal/evidence/EN-20261012-32/build.log",
+      "scope": "Next build PASS exit0 trước tinh chỉnh vị trí tệp và conflict; thay đổi cuối đã test/tsc.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f5751c7433cab6a96ef63a1954b6470beba36666f56a7874f356080e6e0c38cf"
+    },
+    {
+      "id": "MB196",
+      "path": "docs/research-journal/evidence/EN-20261012-32/migration.log",
+      "scope": "SQLite cô lập binary/version PASS; additive local giữ Assignment21/Submission47; production chưa áp dụng.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "eb2980d21ea892fb51e89441361bdc1d50d7172571a0083d25385b1abb2501cd"
+    },
+    {
+      "id": "MB197",
+      "path": "docs/research-journal/evidence/EN-20261012-32/source-snapshot.zip",
+      "scope": "Snapshot mã nguồn của phiên; không chứa database hoặc secrets.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d803bf67e663911d8e23a5c99a0d0855e77a16074955189a75c24a48fadaba22"
+    },
+    {
+      "id": "MB198",
+      "path": "docs/research-journal/evidence/EN-20261012-33/tests.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: tests.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7f3a6deeba5983d14fbcf3e7bb18d394430d9da3cb6b376b81591cdef0bcadc9"
+    },
+    {
+      "id": "MB199",
+      "path": "docs/research-journal/evidence/EN-20261012-33/migration.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: migration.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "9b19319ff8d58a616ad61ee5d2d5b24e364eb82f3f3b2d2556b0d712329d31ab"
+    },
+    {
+      "id": "MB200",
+      "path": "docs/research-journal/evidence/EN-20261012-33/migration-repaired.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: migration-repaired.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "cf278aba309eda9d72d29619f675f49ccc0e84ca05ecc47e59bb067f3a655ad9"
+    },
+    {
+      "id": "MB201",
+      "path": "docs/research-journal/evidence/EN-20261012-33/postgres-binary.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: postgres-binary.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "81c673170c37290440559ccdab3b813a4f5cb9d7039b53a3d2a1c0daca23d3d6"
+    },
+    {
+      "id": "MB202",
+      "path": "docs/research-journal/evidence/EN-20261012-33/deploy.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: deploy.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "85b2c0f650181efdcbae4a56144ed014a9f66f0faabab27ff239156128f475e9"
+    },
+    {
+      "id": "MB203",
+      "path": "docs/research-journal/evidence/EN-20261012-33/staged-http.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: staged-http.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "69bd2cce0eca75215b50a52df9200ed7a22d98cae0edadcc75e143d697d016b2"
+    },
+    {
+      "id": "MB204",
+      "path": "docs/research-journal/evidence/EN-20261012-33/production-http.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: production-http.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "02c17beab85d199b04bf7da24e54b89fb7bdcb09459b668e77bc147572c508f6"
+    },
+    {
+      "id": "MB205",
+      "path": "docs/research-journal/evidence/EN-20261012-33/production-http-corrected.log",
+      "scope": "Minh chứng phát hành EN-20261012-33: production-http-corrected.log. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "faa6baa8a56d215233e0aa2038661f840584495bba4b5f66a66a981fc7add13f"
+    },
+    {
+      "id": "MB206",
+      "path": "docs/research-journal/evidence/EN-20261012-33/verification.txt",
+      "scope": "Minh chứng phát hành EN-20261012-33: verification.txt. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a3409be2fd91f59823c550278e37c4fe68fdf1d9feff73b0d99d0ca32c0c3e36"
+    },
+    {
+      "id": "MB207",
+      "path": "docs/research-journal/evidence/EN-20261012-33/deployment.json",
+      "scope": "Minh chứng phát hành EN-20261012-33: deployment.json. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "ebf060d5996d245ae5420615a11b8507ebec7d047012c51d9c5d13b8ddd37f5d"
+    },
+    {
+      "id": "MB208",
+      "path": "docs/verification-logs/vercel-20261012-33/release-inventory.json",
+      "scope": "Minh chứng phát hành EN-20261012-33: release-inventory.json. Giữ riêng FAIL và lần sửa; không chứng minh authenticated browser E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "0641b1f34ba848e0dbaac1fc330a61139f0ca3bf1b0775a9b346ccf30031eb78"
+    },
+    {
+      "id": "MB209",
+      "path": "docs/research-journal/evidence/EN-20261012-34/audit.log",
+      "scope": "Phiên EN-20261012-34: audit.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5a8e67c3ab3ce6d6ed7d39b9aa02d5460d8a6b6af69d4f156bfe348d107508db"
+    },
+    {
+      "id": "MB210",
+      "path": "docs/research-journal/evidence/EN-20261012-34/audit-repaired.log",
+      "scope": "Phiên EN-20261012-34: audit-repaired.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "31d5f1f1a290008b24cc5ea7bebad71ac8f051740381040cfe5f073c0f4db097"
+    },
+    {
+      "id": "MB211",
+      "path": "docs/research-journal/evidence/EN-20261012-34/tests.log",
+      "scope": "Phiên EN-20261012-34: tests.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "397fbefc06e26801855b9c58be683d0fe82646c2b78e1c01ab2a8fe71a3157d9"
+    },
+    {
+      "id": "MB212",
+      "path": "docs/research-journal/evidence/EN-20261012-34/typescript.log",
+      "scope": "Phiên EN-20261012-34: typescript.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB213",
+      "path": "docs/research-journal/evidence/EN-20261012-34/browser.log",
+      "scope": "Phiên EN-20261012-34: browser.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "234d0081c1abd70b6229dfdc7ed5331c2275866aa1013b67661018632ce942cd"
+    },
+    {
+      "id": "MB214",
+      "path": "docs/research-journal/evidence/EN-20261012-34/browser-visual.log",
+      "scope": "Phiên EN-20261012-34: browser-visual.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "234d0081c1abd70b6229dfdc7ed5331c2275866aa1013b67661018632ce942cd"
+    },
+    {
+      "id": "MB215",
+      "path": "docs/research-journal/evidence/EN-20261012-34/browser-fixture-initial.png",
+      "scope": "Phiên EN-20261012-34: browser-fixture-initial.png. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "fb463f84fb14ea9a20f1a20d89cafbe09f56f8450bc37b6bcf907ba9a5bbcd69"
+    },
+    {
+      "id": "MB216",
+      "path": "docs/research-journal/evidence/EN-20261012-34/browser-fixture.png",
+      "scope": "Phiên EN-20261012-34: browser-fixture.png. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "28ec9f7769b4ca9aa19c6c858f0a2e3abd52523ed36febe4c2f883d2319ed342"
+    },
+    {
+      "id": "MB217",
+      "path": "docs/research-journal/evidence/EN-20261012-34/deploy.log",
+      "scope": "Phiên EN-20261012-34: deploy.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c125d1d82c525f4c21dca1b16a1902aeb17651a08d06341f23dd7abb543e21ef"
+    },
+    {
+      "id": "MB218",
+      "path": "docs/research-journal/evidence/EN-20261012-34/staged-http.log",
+      "scope": "Phiên EN-20261012-34: staged-http.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "cba3302ecea8be9d554dadfa3b1f782bc34c84700abf938d42b1b2dbd3efb62b"
+    },
+    {
+      "id": "MB219",
+      "path": "docs/research-journal/evidence/EN-20261012-34/production-http.log",
+      "scope": "Phiên EN-20261012-34: production-http.log. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a38d86a25a6a5053ca36430f702f19a6ce6e882623c6da8295b98cc577c1a72d"
+    },
+    {
+      "id": "MB220",
+      "path": "docs/research-journal/evidence/EN-20261012-34/deployment.json",
+      "scope": "Phiên EN-20261012-34: deployment.json. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5a9d709c4707bb8019f45954317ffe68d0cf0fa62e357d2c7cf950cb7913e2fd"
+    },
+    {
+      "id": "MB221",
+      "path": "docs/research-journal/evidence/EN-20261012-34/verification.txt",
+      "scope": "Phiên EN-20261012-34: verification.txt. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c2c674d54e8178a587bd24316c2ff4f51b31132bca8545886367428ea0132725"
+    },
+    {
+      "id": "MB222",
+      "path": "docs/research-journal/evidence/EN-20261012-34/source-snapshot.zip",
+      "scope": "Phiên EN-20261012-34: source-snapshot.zip. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f2f5e0f81a22b7857d2934b16325dde542f2a3b52c38ecdf2942405d2036f43c"
+    },
+    {
+      "id": "MB223",
+      "path": "docs/verification-logs/vercel-20261012-34/release-inventory.json",
+      "scope": "Phiên EN-20261012-34: release-inventory.json. Phân biệt audit chỉ đọc production, browser component fixture và HTTP không đăng nhập; chưa authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e30fed88f29036ca4ea0cda1090d448a915e69e6a521e0bc400d088e16faf03b"
+    },
+    {
+      "id": "MB224",
+      "path": "docs/research-journal/evidence/EN-20261012-35/typescript.log",
+      "scope": "EN-20261012-35: typescript.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB225",
+      "path": "docs/research-journal/evidence/EN-20261012-35/typescript-final.log",
+      "scope": "EN-20261012-35: typescript-final.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB226",
+      "path": "docs/research-journal/evidence/EN-20261012-35/regression.log",
+      "scope": "EN-20261012-35: regression.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "efc516149a54e32f5474774ae03c3e60e935374bb1810cac5f3e01ea94abfd47"
+    },
+    {
+      "id": "MB227",
+      "path": "docs/research-journal/evidence/EN-20261012-35/browser.log",
+      "scope": "EN-20261012-35: browser.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "219aac505939b88a6f05529bae9d4ec23c87a9dc09a548c42975c9f187cf1372"
+    },
+    {
+      "id": "MB228",
+      "path": "docs/research-journal/evidence/EN-20261012-35/browser-repaired.log",
+      "scope": "EN-20261012-35: browser-repaired.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "31261920e1da52cb84f51e29da4f7b624fe690bb0a5075595171ccc380853f2f"
+    },
+    {
+      "id": "MB229",
+      "path": "docs/research-journal/evidence/EN-20261012-35/browser-final.log",
+      "scope": "EN-20261012-35: browser-final.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "9272f175ed068ef8d89ae7559dcf8c9373fe9870c1838821eab0758f2722eb8a"
+    },
+    {
+      "id": "MB230",
+      "path": "docs/research-journal/evidence/EN-20261012-35/skeleton.png",
+      "scope": "EN-20261012-35: skeleton.png. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "aac200769c24cbad4d2c1994ad18a34e8cfdab9d5a7d78aa21c4faeac0e524b3"
+    },
+    {
+      "id": "MB231",
+      "path": "docs/research-journal/evidence/EN-20261012-35/deploy.log",
+      "scope": "EN-20261012-35: deploy.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "327169e997d7741f42a1c0b97afade2101daefde42395c8f6b9389009610a2e4"
+    },
+    {
+      "id": "MB232",
+      "path": "docs/research-journal/evidence/EN-20261012-35/staged-http.log",
+      "scope": "EN-20261012-35: staged-http.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "1b23b7e45d0df7d32d6a8eb4f2b209132ccb014ad87abea27e4f5dfd27cd40bd"
+    },
+    {
+      "id": "MB233",
+      "path": "docs/research-journal/evidence/EN-20261012-35/production-http.log",
+      "scope": "EN-20261012-35: production-http.log. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "1a73ad69e50a314c14779df89dbba336f131cc8de47f8dd02f27c0a0a1364cc8"
+    },
+    {
+      "id": "MB234",
+      "path": "docs/research-journal/evidence/EN-20261012-35/deployment.json",
+      "scope": "EN-20261012-35: deployment.json. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "842f284b45e2f59ac8dd87b8ea5c2de810743808d249e326de345dc559ecdb95"
+    },
+    {
+      "id": "MB235",
+      "path": "docs/research-journal/evidence/EN-20261012-35/verification.txt",
+      "scope": "EN-20261012-35: verification.txt. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8be62b2649d136db72d583d38d4dc1b9b02cb15286801bdc0b08c30433b6040f"
+    },
+    {
+      "id": "MB236",
+      "path": "docs/research-journal/evidence/EN-20261012-35/source-snapshot.zip",
+      "scope": "EN-20261012-35: source-snapshot.zip. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "ad6f7a7142ec61bffe458ecc57f65431de2e4b292faa72e0991565c434cae76d"
+    },
+    {
+      "id": "MB237",
+      "path": "docs/verification-logs/vercel-20261012-35/release-inventory.json",
+      "scope": "EN-20261012-35: release-inventory.json. Browser dùng fixture API và adapters, không chứng minh authenticated AI production E2E; giữ FAIL và lần sửa.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "727484d00aa674d01bb867e6d332c41441d9e597ccdfb160d65275f50e4d9587"
+    },
+    {
+      "id": "MB238",
+      "path": "docs/research-journal/evidence/EN-20261012-36/browser.log",
+      "scope": "EN-20261012-36: browser.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "4cc3fbb8559c3b0075ea91f52821786071368d51a6f2d43a63b3c546e0bbb07f"
+    },
+    {
+      "id": "MB239",
+      "path": "docs/research-journal/evidence/EN-20261012-36/deploy.log",
+      "scope": "EN-20261012-36: deploy.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d4414b3cc87487ba6e3984fe74222cdd3266677afd87ece87301a020d7197744"
+    },
+    {
+      "id": "MB240",
+      "path": "docs/research-journal/evidence/EN-20261012-36/deployment-alias.json",
+      "scope": "EN-20261012-36: deployment-alias.json. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f3e56b766696d8b5c6f277d07acb20a85206353d9a9b9a852f87d6f4c44ed9da"
+    },
+    {
+      "id": "MB241",
+      "path": "docs/research-journal/evidence/EN-20261012-36/operational-notes.txt",
+      "scope": "EN-20261012-36: operational-notes.txt. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7cc05c52e7edc0cfb13a730aa4970b2087edb4059023269240587e324e44033b"
+    },
+    {
+      "id": "MB242",
+      "path": "docs/research-journal/evidence/EN-20261012-36/public-smoke.log",
+      "scope": "EN-20261012-36: public-smoke.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c97758f36b693c4d24037e867d1a519ba1582b342528c0be06e6658dde10bbd6"
+    },
+    {
+      "id": "MB243",
+      "path": "docs/research-journal/evidence/EN-20261012-36/regression.log",
+      "scope": "EN-20261012-36: regression.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f74f04e24a0bbecdaaebe8e06764b559b5a5ff3d2ffdffd26e5009159de199be"
+    },
+    {
+      "id": "MB244",
+      "path": "docs/research-journal/evidence/EN-20261012-36/roster-desktop.png",
+      "scope": "EN-20261012-36: roster-desktop.png. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e5ed951691448aeff56c5a1e0e5caed1b2f91e34c2d2eda5b6855e667d79ae02"
+    },
+    {
+      "id": "MB245",
+      "path": "docs/research-journal/evidence/EN-20261012-36/roster-mobile.png",
+      "scope": "EN-20261012-36: roster-mobile.png. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e19fe88c0f650b516744896ec8b488434404a780bb10325452fe72af68d1b5fa"
+    },
+    {
+      "id": "MB246",
+      "path": "docs/research-journal/evidence/EN-20261012-36/source-snapshot.zip",
+      "scope": "EN-20261012-36: source-snapshot.zip. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "4c4d2dca086985d01b664a653252a29400937d16919136d39e4506679649de01"
+    },
+    {
+      "id": "MB247",
+      "path": "docs/research-journal/evidence/EN-20261012-36/staged-smoke.log",
+      "scope": "EN-20261012-36: staged-smoke.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "6989920540a02d2f74f7ffed38c47d6814c3557b3f9f30fa533bb7d488f2a631"
+    },
+    {
+      "id": "MB248",
+      "path": "docs/research-journal/evidence/EN-20261012-36/tests-final.log",
+      "scope": "EN-20261012-36: tests-final.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8baecf2108bfe13a713fe883e0a15997cb5699b5cb608668401ff6c1f5c8576b"
+    },
+    {
+      "id": "MB249",
+      "path": "docs/research-journal/evidence/EN-20261012-36/tests-release.log",
+      "scope": "EN-20261012-36: tests-release.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "74b07229f085f7157035dbc3b291be2d102f7366a78446e04d293ab8c2eda1b4"
+    },
+    {
+      "id": "MB250",
+      "path": "docs/research-journal/evidence/EN-20261012-36/tsc-final.log",
+      "scope": "EN-20261012-36: tsc-final.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB251",
+      "path": "docs/research-journal/evidence/EN-20261012-36/tsc-release.log",
+      "scope": "EN-20261012-36: tsc-release.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB252",
+      "path": "docs/research-journal/evidence/EN-20261012-36/tsc.log",
+      "scope": "EN-20261012-36: tsc.log. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB253",
+      "path": "docs/verification-logs/vercel-20261012-36/release-inventory.json",
+      "scope": "EN-20261012-36: release-inventory.json. Tests use isolated fixtures; no collection/publication of real class grades; screenshots prove visible UI only.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "68ad454d8d04872757866109ce4eae0e3d8c2c7fcedcc7cbb799b642cd7ad40c"
+    },
+    {
+      "id": "MB254",
+      "path": "docs/research-journal/evidence/EN-20261012-36/export.log",
+      "scope": "Đồng bộ và kiểm tra journal trước bổ sung minh chứng export; PASS, giữ source warnings lịch sử.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b0161df00344d7b8bce4b671f098ddcd3b50811d776e33820d1a0f6bf521aeec"
+    },
+    {
+      "id": "MB255",
+      "path": "docs/research-journal/evidence/EN-20261012-36/export-check.log",
+      "scope": "Đồng bộ và kiểm tra journal trước bổ sung minh chứng export; PASS, giữ source warnings lịch sử.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b0161df00344d7b8bce4b671f098ddcd3b50811d776e33820d1a0f6bf521aeec"
+    },
+    {
+      "id": "MB256",
+      "path": "docs/research-journal/evidence/EN-20261012-37/alias.json",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d8c1354d38e7af61f8c030719c66034f67524539a1b9ad263958cd057e7046b0"
+    },
+    {
+      "id": "MB257",
+      "path": "docs/research-journal/evidence/EN-20261012-37/deploy.log",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e1d34a0b20ea77a14c5ab06a7b9aa265310a46ec2ba76b0061ff74be44aa03fd"
+    },
+    {
+      "id": "MB258",
+      "path": "docs/research-journal/evidence/EN-20261012-37/label-check.log",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a094ae9e54494481447074cb2a1dd8ed303d4ba2daf7abaf507e575f8b62faf3"
+    },
+    {
+      "id": "MB259",
+      "path": "docs/research-journal/evidence/EN-20261012-37/source-snapshot.zip",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "35776e19cc14b8fb37e662f7da0bf98b40726d7a76ccc6f1b5bdd41ffecac853"
+    },
+    {
+      "id": "MB260",
+      "path": "docs/research-journal/evidence/EN-20261012-37/staged.log",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "940f07447cf0725f4ed8a18daaeefaa488d4f163385a78ccfd665901e824888d"
+    },
+    {
+      "id": "MB261",
+      "path": "docs/research-journal/evidence/EN-20261012-37/tsc.log",
+      "scope": "Sửa nhãn Bài tập; source/check/build/staged/alias trực tiếp, không thay đổi dữ liệu.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB262",
+      "path": "docs/research-journal/evidence/EN-20261012-38/alias.json",
+      "scope": "EN-20261012-38: alias.json. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8d9a0be4995e2517adb9ade7d78a5d59fe81f5d0cbc50d7541e9545cf3935674"
+    },
+    {
+      "id": "MB263",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-release.log",
+      "scope": "EN-20261012-38: browser-release.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "dc28cbc855a91fa9647e525a3692f3edf15abd50eccc784abfb5b97673b81db2"
+    },
+    {
+      "id": "MB264",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v1.log",
+      "scope": "EN-20261012-38: browser-v1.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "523181cfc53351b03af272e2a57e99c3ea20f3c98f867f898257377a13475baa"
+    },
+    {
+      "id": "MB265",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v2.log",
+      "scope": "EN-20261012-38: browser-v2.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "bb11b4ab580bd9d7c87dab6316ea1a1a666455686694b57a37193d322c791355"
+    },
+    {
+      "id": "MB266",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v3.log",
+      "scope": "EN-20261012-38: browser-v3.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b37746eb8e65b3784faf489bc9d5e60d28389d577692ac63cfe70fe9c7096e4e"
+    },
+    {
+      "id": "MB267",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v4.log",
+      "scope": "EN-20261012-38: browser-v4.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a31f90f0050a3e9ea770764c786866a82d56541fb1832373465dbdf8dfdbdfd0"
+    },
+    {
+      "id": "MB268",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v5.log",
+      "scope": "EN-20261012-38: browser-v5.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "62aa268f09b12e3722ad291de246c6c1c6de35fd546bb0d9f738e6d76b10d3c6"
+    },
+    {
+      "id": "MB269",
+      "path": "docs/research-journal/evidence/EN-20261012-38/browser-v6.log",
+      "scope": "EN-20261012-38: browser-v6.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "dc28cbc855a91fa9647e525a3692f3edf15abd50eccc784abfb5b97673b81db2"
+    },
+    {
+      "id": "MB270",
+      "path": "docs/research-journal/evidence/EN-20261012-38/css-final.log",
+      "scope": "EN-20261012-38: css-final.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "6e10eceefcc17aae4b957315c09e8a744d34e360681f05ab40af532eaef2f479"
+    },
+    {
+      "id": "MB271",
+      "path": "docs/research-journal/evidence/EN-20261012-38/css-v2.log",
+      "scope": "EN-20261012-38: css-v2.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f649fa1c4cde5e86c233d57db3c0f796735e24596eb78b72e01848a52bbbd5a2"
+    },
+    {
+      "id": "MB272",
+      "path": "docs/research-journal/evidence/EN-20261012-38/css.log",
+      "scope": "EN-20261012-38: css.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "dbcb255e4fb9cb63775e59ef47a7f87fece922f2999ded168ec33af07895f76b"
+    },
+    {
+      "id": "MB273",
+      "path": "docs/research-journal/evidence/EN-20261012-38/deploy-runtime-fix.log",
+      "scope": "EN-20261012-38: deploy-runtime-fix.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "0b32560a534e86c0cefecdff680ac72951a768857803b8db783ab6d3be03a3ea"
+    },
+    {
+      "id": "MB274",
+      "path": "docs/research-journal/evidence/EN-20261012-38/deploy.log",
+      "scope": "EN-20261012-38: deploy.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d7522bfc15aa423a59e1f23e934613fe32a958e7ced39c74e22a27061e9a822c"
+    },
+    {
+      "id": "MB275",
+      "path": "docs/research-journal/evidence/EN-20261012-38/generation-skeleton.png",
+      "scope": "EN-20261012-38: generation-skeleton.png. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2187a5d257df1a8cc5bc2e1bca1c3156508ce46b757d028b265767bb7750becc"
+    },
+    {
+      "id": "MB276",
+      "path": "docs/research-journal/evidence/EN-20261012-38/install-canvas.log",
+      "scope": "EN-20261012-38: install-canvas.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "2315001fac210cf2079b134ef5ac5464f4e79049c40106d909881436996bf33a"
+    },
+    {
+      "id": "MB277",
+      "path": "docs/research-journal/evidence/EN-20261012-38/install.log",
+      "scope": "EN-20261012-38: install.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a05ebcacb6879d5018a0a1bf3944198fa1d8eb73c96c82aa2556d492a3a5cd40"
+    },
+    {
+      "id": "MB278",
+      "path": "docs/research-journal/evidence/EN-20261012-38/public-smoke.log",
+      "scope": "EN-20261012-38: public-smoke.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d92b1068774fb3b00059edcb5ce08b7e6a82286f6b2f0a37b6ed6f801293084f"
+    },
+    {
+      "id": "MB279",
+      "path": "docs/research-journal/evidence/EN-20261012-38/publish-success.png",
+      "scope": "EN-20261012-38: publish-success.png. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f6ff1bd1e314508568ae193debe43eaad634f48a18492a16ea28a99240140204"
+    },
+    {
+      "id": "MB280",
+      "path": "docs/research-journal/evidence/EN-20261012-38/regression.log",
+      "scope": "EN-20261012-38: regression.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c8f7ea24f17053f5cabc727485ecb371cb29e61dbb5c70d24be9e5c10a07f8aa"
+    },
+    {
+      "id": "MB281",
+      "path": "docs/research-journal/evidence/EN-20261012-38/runtime-failure.txt",
+      "scope": "EN-20261012-38: runtime-failure.txt. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3b90aac2ea8e962195b4ac6b13c01fc7694a3ab09894ba60eed8a81018c7b9ff"
+    },
+    {
+      "id": "MB282",
+      "path": "docs/research-journal/evidence/EN-20261012-38/runtime-scan-final.log",
+      "scope": "EN-20261012-38: runtime-scan-final.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e1c24c105bcd7d7efb728e13bc3610532250ac363ea36fdb884f6f9533b17648"
+    },
+    {
+      "id": "MB283",
+      "path": "docs/research-journal/evidence/EN-20261012-38/source-runtime-fix.zip",
+      "scope": "EN-20261012-38: source-runtime-fix.zip. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5cae9f2dcda104e1743d7a4eeb60c6e3f578595794fff2cf8b870b4b58d88992"
+    },
+    {
+      "id": "MB284",
+      "path": "docs/research-journal/evidence/EN-20261012-38/source-snapshot.zip",
+      "scope": "EN-20261012-38: source-snapshot.zip. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d3f715a3df4ac7cad43c7ac01fd1b9fe5f29fbffcabb135c26362f6f8d783f4c"
+    },
+    {
+      "id": "MB285",
+      "path": "docs/research-journal/evidence/EN-20261012-38/staged-runtime-fix.log",
+      "scope": "EN-20261012-38: staged-runtime-fix.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "86dcc2997163bec3b8ebba2d344c35728eced094ebdbfa74d4b3b06970c50f86"
+    },
+    {
+      "id": "MB286",
+      "path": "docs/research-journal/evidence/EN-20261012-38/staged-smoke.log",
+      "scope": "EN-20261012-38: staged-smoke.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "37a0564992c82c11f9600f43fc757fd61f69bc08e6f8091b4de7be63ddaaf0fc"
+    },
+    {
+      "id": "MB287",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tests-final.log",
+      "scope": "EN-20261012-38: tests-final.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7598852994312c3d06c454c485c96ec39f9d064df9186b38438e94bef69b0007"
+    },
+    {
+      "id": "MB288",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tests-release.log",
+      "scope": "EN-20261012-38: tests-release.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3642eed273277f5ab43dc5fbaffddbf66935be0b930b3be1a688bae49548a8c5"
+    },
+    {
+      "id": "MB289",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tests-runtime-fix.log",
+      "scope": "EN-20261012-38: tests-runtime-fix.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "8ca16a9474c1001acf2e09e8a521a92ab5882b3eae52e48104ce3d5477e4b35b"
+    },
+    {
+      "id": "MB290",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tests-v2.log",
+      "scope": "EN-20261012-38: tests-v2.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5efd8dbecbcecfcf0b51671a75ccd2844be6a658fd99678c7424c6223acb0be0"
+    },
+    {
+      "id": "MB291",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tsc-final.log",
+      "scope": "EN-20261012-38: tsc-final.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB292",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tsc-release.log",
+      "scope": "EN-20261012-38: tsc-release.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB293",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tsc-runtime-fix.log",
+      "scope": "EN-20261012-38: tsc-runtime-fix.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB294",
+      "path": "docs/research-journal/evidence/EN-20261012-38/tsc.log",
+      "scope": "EN-20261012-38: tsc.log. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f2bb1b52b93ecda505bbe52c3470fb3ba89a943d156701d1d69f04b248cfda0"
+    },
+    {
+      "id": "MB295",
+      "path": "docs/research-journal/evidence/EN-20261012-38/verification-notes.md",
+      "scope": "EN-20261012-38: verification-notes.md. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "4900a9a063526a43f8f48eea0d19d0a00b124bcd168e928ce39335ce16bad945"
+    },
+    {
+      "id": "MB296",
+      "path": "docs/verification-logs/vercel-20261012-38/release-inventory.json",
+      "scope": "EN-20261012-38: release-inventory.json. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "e0da552d0bc7e6ff1dd7c51c04ba01a48c9c92baf662512f25c126c4ceeb2217"
+    },
+    {
+      "id": "MB297",
+      "path": "docs/verification-logs/vercel-20261012-38-2/release-inventory.json",
+      "scope": "EN-20261012-38: release-inventory.json. Giữ FAIL và kết quả sửa; browser fixture không chứng minh authenticated production E2E.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "930ece55d16c50fa5589bf5831a57809544b8dbf184b7e85b2d62e2b4b126cd8"
+    },
+    {
+      "id": "MB298",
+      "path": "docs/research-journal/evidence/EN-20261012-38/export.log",
+      "scope": "Export/check trực tiếp PASS trước bổ sung minh chứng export; giữ cảnh báo nguồn lịch sử, visual pagination chưa verified.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "dfc33ae7c87a083c5703a9057bc15e0a6cc1cd39254d9fcf4d13cd06f80664a5"
+    },
+    {
+      "id": "MB299",
+      "path": "docs/research-journal/evidence/EN-20261012-38/export-check.log",
+      "scope": "Export/check trực tiếp PASS trước bổ sung minh chứng export; giữ cảnh báo nguồn lịch sử, visual pagination chưa verified.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "dfc33ae7c87a083c5703a9057bc15e0a6cc1cd39254d9fcf4d13cd06f80664a5"
+    },
+    {
+      "id": "MB300",
+      "path": "docs/research-journal/evidence/EN-20261012-39/check-invite.cjs",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f62a52fc343d53dc04c0562df3db9fe611edd49e6d7e1d6b343893aa89d50fd"
+    },
+    {
+      "id": "MB301",
+      "path": "docs/research-journal/evidence/EN-20261012-39/dns.log",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "4af228ce001452b455b6fab546f6244abd104952f8fe19283f8673e0eb9c3246"
+    },
+    {
+      "id": "MB302",
+      "path": "docs/research-journal/evidence/EN-20261012-39/record-session.py",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "d460032f4267ddde0b6d43bd44fc6b361db81481bb9af925ecb72489b306ffba"
+    },
+    {
+      "id": "MB303",
+      "path": "docs/research-journal/evidence/EN-20261012-39/redirect-check-v2.log",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "1feb57483e296bdf2639e72487913a3007165bc6cdec2137982e99f6fd408af5"
+    },
+    {
+      "id": "MB304",
+      "path": "docs/research-journal/evidence/EN-20261012-39/redirect-check-v3.log",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "749e73003f96ee252cd2a13c99b353840ba8840ee36f3edc3ec7939ec321c437"
+    },
+    {
+      "id": "MB305",
+      "path": "docs/research-journal/evidence/EN-20261012-39/redirect-check.log",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3eecc26cf50352f6a9a6b19e52d924651bb2040e2835fa18beb0e705dd5769dd"
+    },
+    {
+      "id": "MB306",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/app/auth/login/page.tsx",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "1ea3012b0448e77275bed5973b7c81cbe471a9c22741d7821bf5d1c32ce10162"
+    },
+    {
+      "id": "MB307",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/app/auth/register/page.tsx",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "66e25ec7e37089ef8d809966ed6f907a35f7523ad5adf06fa5fbe877513f9766"
+    },
+    {
+      "id": "MB308",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/app/join/page.tsx",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "78fc0d543128ffac3373a3f42bb90301192b5249988be9046e553d5b3cc39bb3"
+    },
+    {
+      "id": "MB309",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/app/student/classroom/page.tsx",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7add76ccedd3a357f451f6e876065288a5e08c1f66f401b01844e7d4a84895ff"
+    },
+    {
+      "id": "MB310",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/app/teacher/classes/[id]/page.tsx",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "3c51e75efe230877994026e7298370d94e81ed56aa15cf44e4268507cba83cbf"
+    },
+    {
+      "id": "MB311",
+      "path": "docs/research-journal/evidence/EN-20261012-39/source/src/middleware.ts",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c803f11906f957920e9dce0e9364ee7358e287e4e536342a418068ca4bad991e"
+    },
+    {
+      "id": "MB312",
+      "path": "docs/research-journal/evidence/EN-20261012-39/typecheck.log",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a9f58776a09b5dac438049683f24bf85764e0ff8e7455952456165c68c158627"
+    },
+    {
+      "id": "MB313",
+      "path": "docs/research-journal/evidence/EN-20261012-39/verification.md",
+      "scope": "Minh chứng phiên sửa link mời; phạm vi và giới hạn trong verification.md, giữ FAIL của harness.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "fa517c62cb513c6b0851807cff61ff0ec0dab3847d6fdd0045bd7c547777b2b7"
+    },
+    {
+      "id": "MB314",
+      "path": "docs/research-journal/evidence/EN-20261012-40/build-events.json",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f"
+    },
+    {
+      "id": "MB315",
+      "path": "docs/research-journal/evidence/EN-20261012-40/build-inspect.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "5f26d95feda47d347bb674db1f4f5ae048822b9e9478a598fbba692519ab8b6f"
+    },
+    {
+      "id": "MB316",
+      "path": "docs/research-journal/evidence/EN-20261012-40/deploy.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a9354dffa1f2b11c0d8d0f37502f7f220968e227c4e1000958157af5d0a6be62"
+    },
+    {
+      "id": "MB317",
+      "path": "docs/research-journal/evidence/EN-20261012-40/deployment-state.json",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "58307fa83ee9d7f1ac014a11c5f24cf7b86f73a880b387ed69f10828fcf95a08"
+    },
+    {
+      "id": "MB318",
+      "path": "docs/research-journal/evidence/EN-20261012-40/operational-notes.md",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "be4e7233c5522c791c8759957cdc3aa8b7b47cfd7134ecdb11a6e244344bd462"
+    },
+    {
+      "id": "MB319",
+      "path": "docs/research-journal/evidence/EN-20261012-40/public-smoke-v2.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "433b15b1ea45e3ffe7e088bc10b3f20c45c9646fb2fae0a95c02b5f9c8d624eb"
+    },
+    {
+      "id": "MB320",
+      "path": "docs/research-journal/evidence/EN-20261012-40/public-smoke.cjs",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "c3f54f4fb46a2f40662f7af981c2b659d8a793f0c366e1fbc8c53d9e22ed1dfc"
+    },
+    {
+      "id": "MB321",
+      "path": "docs/research-journal/evidence/EN-20261012-40/public-smoke.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "91d6522301ccf27ca215c8a6f7d7e82dd070c6c9e20c14bc9a6955c2103a99a4"
+    },
+    {
+      "id": "MB322",
+      "path": "docs/research-journal/evidence/EN-20261012-40/redirect-check.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "749e73003f96ee252cd2a13c99b353840ba8840ee36f3edc3ec7939ec321c437"
+    },
+    {
+      "id": "MB323",
+      "path": "docs/research-journal/evidence/EN-20261012-40/release-result.json",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "026c93dbdc257bde63efbcc08168e1a242a1f69edb832301396fe9e307492824"
+    },
+    {
+      "id": "MB324",
+      "path": "docs/research-journal/evidence/EN-20261012-40/release-source.zip",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "35be78fcd068f751e5453b1a3cd5be3f5370caca0cd05500c7d0d9e3805bdbd8"
+    },
+    {
+      "id": "MB325",
+      "path": "docs/research-journal/evidence/EN-20261012-40/source-diff.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "ea4b1abfdabe464af1883e938e97f0233f7c6ee490ae5bc6b1424b161017875a"
+    },
+    {
+      "id": "MB326",
+      "path": "docs/research-journal/evidence/EN-20261012-40/staged-auth.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "eccef460985496ac3b605a6f5ae41a978255259c77965d342c98051fdae595b4"
+    },
+    {
+      "id": "MB327",
+      "path": "docs/research-journal/evidence/EN-20261012-40/staged-join.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "7efcc3411d24c361e28667949e2cc76140c76f2de90e4c5d298f78b5ba8c037b"
+    },
+    {
+      "id": "MB328",
+      "path": "docs/research-journal/evidence/EN-20261012-40/typecheck.log",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "a9f58776a09b5dac438049683f24bf85764e0ff8e7455952456165c68c158627"
+    },
+    {
+      "id": "MB329",
+      "path": "docs/research-journal/evidence/EN-20261012-40/verification.md",
+      "scope": "Phiên phát hành link mời; giữ log FAIL/BLOCKED và PASS, giới hạn trong verification.md.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "14ff35a02048e5373e52d33a276bf7a63850465b05335be6d28ec1334b53785b"
+    },
+    {
+      "id": "MB330",
+      "path": "docs/research-journal/evidence/EN-20261012-40/export.log",
+      "scope": "Export và --check PASS exit0; mẫu/package/nội dung khớp, giữ cảnh báo nguồn lịch sử; phân trang NOT_VERIFIED.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b1132ecba0a7b957089694dac1398506ee0e87b799b891e7ee3d4aeef4905375"
+    },
+    {
+      "id": "MB331",
+      "path": "docs/research-journal/evidence/EN-20261012-40/export-check.log",
+      "scope": "Export và --check PASS exit0; mẫu/package/nội dung khớp, giữ cảnh báo nguồn lịch sử; phân trang NOT_VERIFIED.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "b1132ecba0a7b957089694dac1398506ee0e87b799b891e7ee3d4aeef4905375"
+    },
+    {
+      "id": "MB332",
+      "path": "docs/research-journal/evidence/EN-20261012-41/verification.md",
+      "scope": "Kết quả truy vấn chỉ đọc đã lược bỏ dữ liệu cá nhân; không chứng minh nguyên nhân UI.",
+      "inspected_on": "2026-10-12",
+      "event_date": "2026-10-12",
+      "sha256": "f8c428ea1b4ce0b37b77c35bb733b325878321b93dc319705ffd4b82c9c5bfd5"
+    },
+    {
+      "id": "MB333",
+      "path": "docs/research-journal/evidence/EN-20261013-01/guide-snapshot.md",
+      "scope": "Nguồn đầy đủ trước tổng hợp hoặc bản hướng dẫn và đối chiếu nội dung; không chứng minh kiểm thử sản phẩm.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "be5a42cccb724982288845747397a276ab35f3af75a71f7add51c0229af1417d"
+    },
+    {
+      "id": "MB334",
+      "path": "docs/research-journal/evidence/EN-20261013-01/source-full.docx",
+      "scope": "Nguồn đầy đủ trước tổng hợp hoặc bản hướng dẫn và đối chiếu nội dung; không chứng minh kiểm thử sản phẩm.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "d0db50833dd411f643b598b486fb8f245a9688fad6b8ebd57b2840117da78514"
+    },
+    {
+      "id": "MB335",
+      "path": "docs/research-journal/evidence/EN-20261013-01/source-journal.json",
+      "scope": "Nguồn đầy đủ trước tổng hợp hoặc bản hướng dẫn và đối chiếu nội dung; không chứng minh kiểm thử sản phẩm.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "c42a03deae377eaba843f0e76f8d12e2ad9fd03429817f2c28352d00d7af7245"
+    },
+    {
+      "id": "MB336",
+      "path": "docs/research-journal/evidence/EN-20261013-01/verification.log",
+      "scope": "Nguồn đầy đủ trước tổng hợp hoặc bản hướng dẫn và đối chiếu nội dung; không chứng minh kiểm thử sản phẩm.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "d181ad765ac0d528a75e1762571c73581e0efe25b3a7f940fa745f484b8d44c3"
+    },
+    {
+      "id": "MB337",
+      "path": "docs/ADAPTIVE-STUDY-TO-MATH.md",
+      "scope": "Bản đồ hiện trạng và thiết kế Math; chưa triển khai.",
+      "inspected_on": "2026-10-13T11:14:22.692447+07:00",
+      "event_date": "2026-10-13",
+      "sha256": "b3fcfd34069c956e292f28079f7a3f903282e778cc55b3648d8d68775506c051"
+    },
+    {
+      "id": "MB338",
+      "path": "docs/research-journal/evidence/EN-20261013-02/verification.log",
+      "scope": "Kiểm tra cấu trúc tài liệu; không kiểm thử ứng dụng.",
+      "inspected_on": "2026-10-13T11:14:22.692447+07:00",
+      "event_date": "2026-10-13",
+      "sha256": "0abcfa9c56a46afefbf2efa371f718b7e2fef15d5e13a72f4bd120484d1f68ce"
+    },
+    {
+      "id": "MB339",
+      "path": "docs/research-journal/evidence/EN-20261013-02/source-inventory.json",
+      "scope": "Mã băm nguồn mã tại thời điểm đối chiếu; không phải snapshot nội dung nguồn.",
+      "inspected_on": "2026-10-13T11:14:22.692447+07:00",
+      "event_date": "2026-10-13",
+      "sha256": "79c2e769eb7ec8578d1d1ae5503f4f480db9f97fa349aa7a5d13f7d292f63a7a"
+    },
+    {
+      "id": "MB340",
+      "path": "docs/research-journal/evidence/EN-20261013-01/render.log",
+      "scope": "Renderer exit1 chưa có kiểm tra trang; hoặc exporter --check PASS exit0, giữ cảnh báo nguồn lịch sử.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "5b59d450de5ccae44564e2c2e965f6b212a23deef807089c4c3366d9dd506fc7"
+    },
+    {
+      "id": "MB341",
+      "path": "docs/research-journal/evidence/EN-20261013-01/export-check.log",
+      "scope": "Renderer exit1 chưa có kiểm tra trang; hoặc exporter --check PASS exit0, giữ cảnh báo nguồn lịch sử.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "f10db70d63c9ac471bb9f8b99ff2d41f66cc3fbcfe75de631541a98b5275f07f"
+    },
+    {
+      "id": "MB342",
+      "path": "docs/research-journal/evidence/EN-20261013-03/verification.md",
+      "scope": "Kết quả trực tiếp kiểm tra OTP local; không email/DB production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "8c12899cbdc87b847f62093c07c0dab2481aa9def804f1622999b9e87f1d86e9"
+    },
+    {
+      "id": "MB343",
+      "path": "docs/research-journal/evidence/EN-20261013-03/tests.log",
+      "scope": "Kết quả trực tiếp kiểm tra OTP local; không email/DB production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "75fdbfcefe7ee6e4d8c0366ef9dab3f48a8fa3bbd3a6757ae6109e4aba092a7d"
+    },
+    {
+      "id": "MB344",
+      "path": "docs/research-journal/evidence/EN-20261013-03/tests-v2.log",
+      "scope": "Kết quả trực tiếp kiểm tra OTP local; không email/DB production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "bd6d740797d67c4cf945d90bab37b29a7e8b960e7246288f657061d6a1eee134"
+    },
+    {
+      "id": "MB345",
+      "path": "docs/research-journal/evidence/EN-20261013-03/typecheck.log",
+      "scope": "Kết quả trực tiếp kiểm tra OTP local; không email/DB production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "MB346",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/src/lib/registrationOtp.ts",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "4428b13ae372090990b8c2b66abe7416894df59fd0f0b3a619df233c0813a925"
+    },
+    {
+      "id": "MB347",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/src/app/api/auth/register/route.ts",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "4115cc8e1ac1c4db02d3ae2211844ffc5af371e705546d15ab62621279b317cb"
+    },
+    {
+      "id": "MB348",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/src/app/api/auth/register/otp/route.ts",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "4cad25d5052320ce673b4a0c8c1daeb791a25488db54995ccb6152444d4c1fec"
+    },
+    {
+      "id": "MB349",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/src/app/auth/register/page.tsx",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "a6d436a402c5f342eff9e4a1caf289ecfc085b8e500fe3e6d6293816d7dd4da3"
+    },
+    {
+      "id": "MB350",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/prisma/schema.prisma",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "343b2c29f53ea417d5d41399f1fff045e1a8c600afc506bed64eed2e60ba4d8b"
+    },
+    {
+      "id": "MB351",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/prisma/schema.vercel.prisma",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "0279d5be24223a0fe7ae6cbdd2a52acd47181b9eae55160e0f483e69b4bade13"
+    },
+    {
+      "id": "MB352",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/prisma/migrations/20261013090000_registration_otp/migration.sql",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "91681c3b8d3903d6d408d201e4ed9833aea3281b867244dba5334f9081a12daa"
+    },
+    {
+      "id": "MB353",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/tests/registration-otp.test.cjs",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "b4ba8845e36e3f85b1b3a545c0baa006a8dd9a59a2126f6d490e588368437126"
+    },
+    {
+      "id": "MB354",
+      "path": "docs/research-journal/evidence/EN-20261013-03/source/docs/EMAIL-OTP.md",
+      "scope": "Snapshot mã nguồn OTP đăng ký; không chứng minh chạy production.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "64f9c8c11529a9275a6b39cabdab9b6f8e87fb3653bd2ec3931f4f8ebff9f7be"
+    },
+    {
+      "id": "MB355",
+      "path": "docs/research-journal/evidence/EN-20261013-03/export.log",
+      "scope": "Exporter và --check exit0; nội dung/package PASS, cảnh báo nguồn lịch sử giữ nguyên; visual NOT_VERIFIED.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "f38921be2dcc68f94f8872936eadf0b009a0f09bd1906a1bb81daf7d982f6d15"
+    },
+    {
+      "id": "MB356",
+      "path": "docs/research-journal/evidence/EN-20261013-03/check.log",
+      "scope": "Exporter và --check exit0; nội dung/package PASS, cảnh báo nguồn lịch sử giữ nguyên; visual NOT_VERIFIED.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "f38921be2dcc68f94f8872936eadf0b009a0f09bd1906a1bb81daf7d982f6d15"
+    },
+    {
+      "id": "MB357",
+      "path": "docs/research-journal/evidence/EN-20261013-04/verification.md",
+      "scope": "Phiên cấu hình production OTP; migration/khóa HMAC thành công, email chưa cấu hình, không deploy. Không chứa secret.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "ed2591d5b5437b35d262e19b51f32faa555214a6f07e2454cd7e6f46c2def588"
+    },
+    {
+      "id": "MB358",
+      "path": "docs/research-journal/evidence/EN-20261013-04/source/scripts/configure-registration-otp-db.cjs",
+      "scope": "Phiên cấu hình production OTP; migration/khóa HMAC thành công, email chưa cấu hình, không deploy. Không chứa secret.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "9c4c9880f529085073d79a78fb7cf6288df4fcd1fbc6ca10273d2f5ec6f6769e"
+    },
+    {
+      "id": "MB359",
+      "path": "docs/research-journal/evidence/EN-20261013-04/source/.env.example",
+      "scope": "Phiên cấu hình production OTP; migration/khóa HMAC thành công, email chưa cấu hình, không deploy. Không chứa secret.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "9b4328297a58dd4f0f4d4e8951ed8591943e01d666ab8e8bba6761cc1e6731ad"
+    },
+    {
+      "id": "MB360",
+      "path": "docs/research-journal/evidence/EN-20261013-04/source/docs/EMAIL-OTP.md",
+      "scope": "Phiên cấu hình production OTP; migration/khóa HMAC thành công, email chưa cấu hình, không deploy. Không chứa secret.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "cdb5eb0e816a60c5952ebf71b21b7a6087c7eb742e957235ae095bc54337b542"
+    },
+    {
+      "id": "MB361",
+      "path": "docs/research-journal/evidence/EN-20261013-04/export.log",
+      "scope": "Export và --check exit0; nguồn/package PASS, giữ cảnh báo lịch sử; chưa visual pagination.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "002345ef046664e61cc1854efdd284b4437bfcab81df91df78b6b995974a8a0f"
+    },
+    {
+      "id": "MB362",
+      "path": "docs/research-journal/evidence/EN-20261013-04/check.log",
+      "scope": "Export và --check exit0; nguồn/package PASS, giữ cảnh báo lịch sử; chưa visual pagination.",
+      "inspected_on": "2026-10-13",
+      "event_date": "2026-10-13",
+      "sha256": "002345ef046664e61cc1854efdd284b4437bfcab81df91df78b6b995974a8a0f"
+    },
+    {
+      "id": "MB363",
+      "path": "docs/research-journal/evidence/EN-20261014-01/verification.md",
+      "scope": "Trực tiếp kiểm tra Resend không có domain; không chứng minh OTP đã hoạt động.",
+      "inspected_on": "2026-10-14",
+      "event_date": "2026-10-14",
+      "sha256": "02734290e4546a2e4f5c176ce6356d68e8262252c14128e5b90d0be09760cc1b"
+    }
+  ]
+}

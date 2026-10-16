@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-10-08T03:35:34Z",
+  "total_activities": 389,
+  "total_vocabulary_entries": 1022,
+  "total_courses": 5,
+  "total_units": 80,
+  "total_lessons": 389,
+  "skills_breakdown": {
+    "reading": 335,
+    "grammar": 16,
+    "writing": 13,
+    "listening": 16,
+    "speaking": 9
+  },
+  "activity_types_breakdown": {
+    "reading_comprehension": 327,
+    "grammar_drill": 12,
+    "essay_prompt": 10,
+    "audio_comprehension": 14,
+    "speaking_task": 5,
+    "reading_practice": 8,
+    "listening_practice": 2,
+    "grammar_practice": 4,
+    "writing_practice": 3,
+    "speaking_practice": 4
+  },
+  "cefr_levels_breakdown": {
+    "B2": 335,
+    "B1": 38,
+    "A1": 6,
+    "A2": 10
+  },
+  "activities_with_audio": 14,
+  "activities_with_questions": 383,
+  "quarantined_activities": 0,
+  "quarantined_vocabulary": 0,
+  "pipeline_status": "VALIDATED_AND_CATALOGED"
+}

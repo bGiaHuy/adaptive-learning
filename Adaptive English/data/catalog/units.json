@@ -1,0 +1,1242 @@
+[
+  {
+    "id": "unit-rea-01",
+    "course_id": "course-reading-b1",
+    "title": "Unit 1: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 1,
+    "lesson_ids": [
+      "lesson-rea-01-01",
+      "lesson-rea-01-02",
+      "lesson-rea-01-03",
+      "lesson-rea-01-04",
+      "lesson-rea-01-05"
+    ]
+  },
+  {
+    "id": "unit-rea-02",
+    "course_id": "course-reading-b1",
+    "title": "Unit 2: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 2,
+    "lesson_ids": [
+      "lesson-rea-02-01",
+      "lesson-rea-02-02",
+      "lesson-rea-02-03",
+      "lesson-rea-02-04",
+      "lesson-rea-02-05"
+    ]
+  },
+  {
+    "id": "unit-rea-03",
+    "course_id": "course-reading-b1",
+    "title": "Unit 3: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 3,
+    "lesson_ids": [
+      "lesson-rea-03-01",
+      "lesson-rea-03-02",
+      "lesson-rea-03-03",
+      "lesson-rea-03-04",
+      "lesson-rea-03-05"
+    ]
+  },
+  {
+    "id": "unit-rea-04",
+    "course_id": "course-reading-b1",
+    "title": "Unit 4: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 4,
+    "lesson_ids": [
+      "lesson-rea-04-01",
+      "lesson-rea-04-02",
+      "lesson-rea-04-03",
+      "lesson-rea-04-04",
+      "lesson-rea-04-05"
+    ]
+  },
+  {
+    "id": "unit-rea-05",
+    "course_id": "course-reading-b1",
+    "title": "Unit 5: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 5,
+    "lesson_ids": [
+      "lesson-rea-05-01",
+      "lesson-rea-05-02",
+      "lesson-rea-05-03",
+      "lesson-rea-05-04",
+      "lesson-rea-05-05"
+    ]
+  },
+  {
+    "id": "unit-rea-06",
+    "course_id": "course-reading-b1",
+    "title": "Unit 6: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 6,
+    "lesson_ids": [
+      "lesson-rea-06-01",
+      "lesson-rea-06-02",
+      "lesson-rea-06-03",
+      "lesson-rea-06-04",
+      "lesson-rea-06-05"
+    ]
+  },
+  {
+    "id": "unit-rea-07",
+    "course_id": "course-reading-b1",
+    "title": "Unit 7: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 7,
+    "lesson_ids": [
+      "lesson-rea-07-01",
+      "lesson-rea-07-02",
+      "lesson-rea-07-03",
+      "lesson-rea-07-04",
+      "lesson-rea-07-05"
+    ]
+  },
+  {
+    "id": "unit-rea-08",
+    "course_id": "course-reading-b1",
+    "title": "Unit 8: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 8,
+    "lesson_ids": [
+      "lesson-rea-08-01",
+      "lesson-rea-08-02",
+      "lesson-rea-08-03",
+      "lesson-rea-08-04",
+      "lesson-rea-08-05"
+    ]
+  },
+  {
+    "id": "unit-rea-09",
+    "course_id": "course-reading-b1",
+    "title": "Unit 9: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 9,
+    "lesson_ids": [
+      "lesson-rea-09-01",
+      "lesson-rea-09-02",
+      "lesson-rea-09-03",
+      "lesson-rea-09-04",
+      "lesson-rea-09-05"
+    ]
+  },
+  {
+    "id": "unit-rea-10",
+    "course_id": "course-reading-b1",
+    "title": "Unit 10: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 10,
+    "lesson_ids": [
+      "lesson-rea-10-01",
+      "lesson-rea-10-02",
+      "lesson-rea-10-03",
+      "lesson-rea-10-04",
+      "lesson-rea-10-05"
+    ]
+  },
+  {
+    "id": "unit-rea-11",
+    "course_id": "course-reading-b1",
+    "title": "Unit 11: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 11,
+    "lesson_ids": [
+      "lesson-rea-11-01",
+      "lesson-rea-11-02",
+      "lesson-rea-11-03",
+      "lesson-rea-11-04",
+      "lesson-rea-11-05"
+    ]
+  },
+  {
+    "id": "unit-rea-12",
+    "course_id": "course-reading-b1",
+    "title": "Unit 12: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 12,
+    "lesson_ids": [
+      "lesson-rea-12-01",
+      "lesson-rea-12-02",
+      "lesson-rea-12-03",
+      "lesson-rea-12-04",
+      "lesson-rea-12-05"
+    ]
+  },
+  {
+    "id": "unit-rea-13",
+    "course_id": "course-reading-b1",
+    "title": "Unit 13: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 13,
+    "lesson_ids": [
+      "lesson-rea-13-01",
+      "lesson-rea-13-02",
+      "lesson-rea-13-03",
+      "lesson-rea-13-04",
+      "lesson-rea-13-05"
+    ]
+  },
+  {
+    "id": "unit-rea-14",
+    "course_id": "course-reading-b1",
+    "title": "Unit 14: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 14,
+    "lesson_ids": [
+      "lesson-rea-14-01",
+      "lesson-rea-14-02",
+      "lesson-rea-14-03",
+      "lesson-rea-14-04",
+      "lesson-rea-14-05"
+    ]
+  },
+  {
+    "id": "unit-rea-15",
+    "course_id": "course-reading-b1",
+    "title": "Unit 15: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 15,
+    "lesson_ids": [
+      "lesson-rea-15-01",
+      "lesson-rea-15-02",
+      "lesson-rea-15-03",
+      "lesson-rea-15-04",
+      "lesson-rea-15-05"
+    ]
+  },
+  {
+    "id": "unit-rea-16",
+    "course_id": "course-reading-b1",
+    "title": "Unit 16: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 16,
+    "lesson_ids": [
+      "lesson-rea-16-01",
+      "lesson-rea-16-02",
+      "lesson-rea-16-03",
+      "lesson-rea-16-04",
+      "lesson-rea-16-05"
+    ]
+  },
+  {
+    "id": "unit-rea-17",
+    "course_id": "course-reading-b1",
+    "title": "Unit 17: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 17,
+    "lesson_ids": [
+      "lesson-rea-17-01",
+      "lesson-rea-17-02",
+      "lesson-rea-17-03",
+      "lesson-rea-17-04",
+      "lesson-rea-17-05"
+    ]
+  },
+  {
+    "id": "unit-rea-18",
+    "course_id": "course-reading-b1",
+    "title": "Unit 18: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 18,
+    "lesson_ids": [
+      "lesson-rea-18-01",
+      "lesson-rea-18-02",
+      "lesson-rea-18-03",
+      "lesson-rea-18-04",
+      "lesson-rea-18-05"
+    ]
+  },
+  {
+    "id": "unit-rea-19",
+    "course_id": "course-reading-b1",
+    "title": "Unit 19: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 19,
+    "lesson_ids": [
+      "lesson-rea-19-01",
+      "lesson-rea-19-02",
+      "lesson-rea-19-03",
+      "lesson-rea-19-04",
+      "lesson-rea-19-05"
+    ]
+  },
+  {
+    "id": "unit-rea-20",
+    "course_id": "course-reading-b1",
+    "title": "Unit 20: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 20,
+    "lesson_ids": [
+      "lesson-rea-20-01",
+      "lesson-rea-20-02",
+      "lesson-rea-20-03",
+      "lesson-rea-20-04",
+      "lesson-rea-20-05"
+    ]
+  },
+  {
+    "id": "unit-rea-21",
+    "course_id": "course-reading-b1",
+    "title": "Unit 21: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 21,
+    "lesson_ids": [
+      "lesson-rea-21-01",
+      "lesson-rea-21-02",
+      "lesson-rea-21-03",
+      "lesson-rea-21-04",
+      "lesson-rea-21-05"
+    ]
+  },
+  {
+    "id": "unit-rea-22",
+    "course_id": "course-reading-b1",
+    "title": "Unit 22: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 22,
+    "lesson_ids": [
+      "lesson-rea-22-01",
+      "lesson-rea-22-02",
+      "lesson-rea-22-03",
+      "lesson-rea-22-04",
+      "lesson-rea-22-05"
+    ]
+  },
+  {
+    "id": "unit-rea-23",
+    "course_id": "course-reading-b1",
+    "title": "Unit 23: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 23,
+    "lesson_ids": [
+      "lesson-rea-23-01",
+      "lesson-rea-23-02",
+      "lesson-rea-23-03",
+      "lesson-rea-23-04",
+      "lesson-rea-23-05"
+    ]
+  },
+  {
+    "id": "unit-rea-24",
+    "course_id": "course-reading-b1",
+    "title": "Unit 24: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 24,
+    "lesson_ids": [
+      "lesson-rea-24-01",
+      "lesson-rea-24-02",
+      "lesson-rea-24-03",
+      "lesson-rea-24-04",
+      "lesson-rea-24-05"
+    ]
+  },
+  {
+    "id": "unit-rea-25",
+    "course_id": "course-reading-b1",
+    "title": "Unit 25: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 25,
+    "lesson_ids": [
+      "lesson-rea-25-01",
+      "lesson-rea-25-02",
+      "lesson-rea-25-03",
+      "lesson-rea-25-04",
+      "lesson-rea-25-05"
+    ]
+  },
+  {
+    "id": "unit-rea-26",
+    "course_id": "course-reading-b1",
+    "title": "Unit 26: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 26,
+    "lesson_ids": [
+      "lesson-rea-26-01",
+      "lesson-rea-26-02",
+      "lesson-rea-26-03",
+      "lesson-rea-26-04",
+      "lesson-rea-26-05"
+    ]
+  },
+  {
+    "id": "unit-rea-27",
+    "course_id": "course-reading-b1",
+    "title": "Unit 27: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 27,
+    "lesson_ids": [
+      "lesson-rea-27-01",
+      "lesson-rea-27-02",
+      "lesson-rea-27-03",
+      "lesson-rea-27-04",
+      "lesson-rea-27-05"
+    ]
+  },
+  {
+    "id": "unit-rea-28",
+    "course_id": "course-reading-b1",
+    "title": "Unit 28: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 28,
+    "lesson_ids": [
+      "lesson-rea-28-01",
+      "lesson-rea-28-02",
+      "lesson-rea-28-03",
+      "lesson-rea-28-04",
+      "lesson-rea-28-05"
+    ]
+  },
+  {
+    "id": "unit-rea-29",
+    "course_id": "course-reading-b1",
+    "title": "Unit 29: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 29,
+    "lesson_ids": [
+      "lesson-rea-29-01",
+      "lesson-rea-29-02",
+      "lesson-rea-29-03",
+      "lesson-rea-29-04",
+      "lesson-rea-29-05"
+    ]
+  },
+  {
+    "id": "unit-rea-30",
+    "course_id": "course-reading-b1",
+    "title": "Unit 30: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 30,
+    "lesson_ids": [
+      "lesson-rea-30-01",
+      "lesson-rea-30-02",
+      "lesson-rea-30-03",
+      "lesson-rea-30-04",
+      "lesson-rea-30-05"
+    ]
+  },
+  {
+    "id": "unit-rea-31",
+    "course_id": "course-reading-b1",
+    "title": "Unit 31: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 31,
+    "lesson_ids": [
+      "lesson-rea-31-01",
+      "lesson-rea-31-02",
+      "lesson-rea-31-03",
+      "lesson-rea-31-04",
+      "lesson-rea-31-05"
+    ]
+  },
+  {
+    "id": "unit-rea-32",
+    "course_id": "course-reading-b1",
+    "title": "Unit 32: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 32,
+    "lesson_ids": [
+      "lesson-rea-32-01",
+      "lesson-rea-32-02",
+      "lesson-rea-32-03",
+      "lesson-rea-32-04",
+      "lesson-rea-32-05"
+    ]
+  },
+  {
+    "id": "unit-rea-33",
+    "course_id": "course-reading-b1",
+    "title": "Unit 33: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 33,
+    "lesson_ids": [
+      "lesson-rea-33-01",
+      "lesson-rea-33-02",
+      "lesson-rea-33-03",
+      "lesson-rea-33-04",
+      "lesson-rea-33-05"
+    ]
+  },
+  {
+    "id": "unit-rea-34",
+    "course_id": "course-reading-b1",
+    "title": "Unit 34: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 34,
+    "lesson_ids": [
+      "lesson-rea-34-01",
+      "lesson-rea-34-02",
+      "lesson-rea-34-03",
+      "lesson-rea-34-04",
+      "lesson-rea-34-05"
+    ]
+  },
+  {
+    "id": "unit-rea-35",
+    "course_id": "course-reading-b1",
+    "title": "Unit 35: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 35,
+    "lesson_ids": [
+      "lesson-rea-35-01",
+      "lesson-rea-35-02",
+      "lesson-rea-35-03",
+      "lesson-rea-35-04",
+      "lesson-rea-35-05"
+    ]
+  },
+  {
+    "id": "unit-rea-36",
+    "course_id": "course-reading-b1",
+    "title": "Unit 36: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 36,
+    "lesson_ids": [
+      "lesson-rea-36-01",
+      "lesson-rea-36-02",
+      "lesson-rea-36-03",
+      "lesson-rea-36-04",
+      "lesson-rea-36-05"
+    ]
+  },
+  {
+    "id": "unit-rea-37",
+    "course_id": "course-reading-b1",
+    "title": "Unit 37: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 37,
+    "lesson_ids": [
+      "lesson-rea-37-01",
+      "lesson-rea-37-02",
+      "lesson-rea-37-03",
+      "lesson-rea-37-04",
+      "lesson-rea-37-05"
+    ]
+  },
+  {
+    "id": "unit-rea-38",
+    "course_id": "course-reading-b1",
+    "title": "Unit 38: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 38,
+    "lesson_ids": [
+      "lesson-rea-38-01",
+      "lesson-rea-38-02",
+      "lesson-rea-38-03",
+      "lesson-rea-38-04",
+      "lesson-rea-38-05"
+    ]
+  },
+  {
+    "id": "unit-rea-39",
+    "course_id": "course-reading-b1",
+    "title": "Unit 39: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 39,
+    "lesson_ids": [
+      "lesson-rea-39-01",
+      "lesson-rea-39-02",
+      "lesson-rea-39-03",
+      "lesson-rea-39-04",
+      "lesson-rea-39-05"
+    ]
+  },
+  {
+    "id": "unit-rea-40",
+    "course_id": "course-reading-b1",
+    "title": "Unit 40: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 40,
+    "lesson_ids": [
+      "lesson-rea-40-01",
+      "lesson-rea-40-02",
+      "lesson-rea-40-03",
+      "lesson-rea-40-04",
+      "lesson-rea-40-05"
+    ]
+  },
+  {
+    "id": "unit-rea-41",
+    "course_id": "course-reading-b1",
+    "title": "Unit 41: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 41,
+    "lesson_ids": [
+      "lesson-rea-41-01",
+      "lesson-rea-41-02",
+      "lesson-rea-41-03",
+      "lesson-rea-41-04",
+      "lesson-rea-41-05"
+    ]
+  },
+  {
+    "id": "unit-rea-42",
+    "course_id": "course-reading-b1",
+    "title": "Unit 42: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 42,
+    "lesson_ids": [
+      "lesson-rea-42-01",
+      "lesson-rea-42-02",
+      "lesson-rea-42-03",
+      "lesson-rea-42-04",
+      "lesson-rea-42-05"
+    ]
+  },
+  {
+    "id": "unit-rea-43",
+    "course_id": "course-reading-b1",
+    "title": "Unit 43: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 43,
+    "lesson_ids": [
+      "lesson-rea-43-01",
+      "lesson-rea-43-02",
+      "lesson-rea-43-03",
+      "lesson-rea-43-04",
+      "lesson-rea-43-05"
+    ]
+  },
+  {
+    "id": "unit-rea-44",
+    "course_id": "course-reading-b1",
+    "title": "Unit 44: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 44,
+    "lesson_ids": [
+      "lesson-rea-44-01",
+      "lesson-rea-44-02",
+      "lesson-rea-44-03",
+      "lesson-rea-44-04",
+      "lesson-rea-44-05"
+    ]
+  },
+  {
+    "id": "unit-rea-45",
+    "course_id": "course-reading-b1",
+    "title": "Unit 45: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 45,
+    "lesson_ids": [
+      "lesson-rea-45-01",
+      "lesson-rea-45-02",
+      "lesson-rea-45-03",
+      "lesson-rea-45-04",
+      "lesson-rea-45-05"
+    ]
+  },
+  {
+    "id": "unit-rea-46",
+    "course_id": "course-reading-b1",
+    "title": "Unit 46: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 46,
+    "lesson_ids": [
+      "lesson-rea-46-01",
+      "lesson-rea-46-02",
+      "lesson-rea-46-03",
+      "lesson-rea-46-04",
+      "lesson-rea-46-05"
+    ]
+  },
+  {
+    "id": "unit-rea-47",
+    "course_id": "course-reading-b1",
+    "title": "Unit 47: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 47,
+    "lesson_ids": [
+      "lesson-rea-47-01",
+      "lesson-rea-47-02",
+      "lesson-rea-47-03",
+      "lesson-rea-47-04",
+      "lesson-rea-47-05"
+    ]
+  },
+  {
+    "id": "unit-rea-48",
+    "course_id": "course-reading-b1",
+    "title": "Unit 48: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 48,
+    "lesson_ids": [
+      "lesson-rea-48-01",
+      "lesson-rea-48-02",
+      "lesson-rea-48-03",
+      "lesson-rea-48-04",
+      "lesson-rea-48-05"
+    ]
+  },
+  {
+    "id": "unit-rea-49",
+    "course_id": "course-reading-b1",
+    "title": "Unit 49: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 49,
+    "lesson_ids": [
+      "lesson-rea-49-01",
+      "lesson-rea-49-02",
+      "lesson-rea-49-03",
+      "lesson-rea-49-04",
+      "lesson-rea-49-05"
+    ]
+  },
+  {
+    "id": "unit-rea-50",
+    "course_id": "course-reading-b1",
+    "title": "Unit 50: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 50,
+    "lesson_ids": [
+      "lesson-rea-50-01",
+      "lesson-rea-50-02",
+      "lesson-rea-50-03",
+      "lesson-rea-50-04",
+      "lesson-rea-50-05"
+    ]
+  },
+  {
+    "id": "unit-rea-51",
+    "course_id": "course-reading-b1",
+    "title": "Unit 51: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 51,
+    "lesson_ids": [
+      "lesson-rea-51-01",
+      "lesson-rea-51-02",
+      "lesson-rea-51-03",
+      "lesson-rea-51-04",
+      "lesson-rea-51-05"
+    ]
+  },
+  {
+    "id": "unit-rea-52",
+    "course_id": "course-reading-b1",
+    "title": "Unit 52: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 52,
+    "lesson_ids": [
+      "lesson-rea-52-01",
+      "lesson-rea-52-02",
+      "lesson-rea-52-03",
+      "lesson-rea-52-04",
+      "lesson-rea-52-05"
+    ]
+  },
+  {
+    "id": "unit-rea-53",
+    "course_id": "course-reading-b1",
+    "title": "Unit 53: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 53,
+    "lesson_ids": [
+      "lesson-rea-53-01",
+      "lesson-rea-53-02",
+      "lesson-rea-53-03",
+      "lesson-rea-53-04",
+      "lesson-rea-53-05"
+    ]
+  },
+  {
+    "id": "unit-rea-54",
+    "course_id": "course-reading-b1",
+    "title": "Unit 54: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 54,
+    "lesson_ids": [
+      "lesson-rea-54-01",
+      "lesson-rea-54-02",
+      "lesson-rea-54-03",
+      "lesson-rea-54-04",
+      "lesson-rea-54-05"
+    ]
+  },
+  {
+    "id": "unit-rea-55",
+    "course_id": "course-reading-b1",
+    "title": "Unit 55: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 55,
+    "lesson_ids": [
+      "lesson-rea-55-01",
+      "lesson-rea-55-02",
+      "lesson-rea-55-03",
+      "lesson-rea-55-04",
+      "lesson-rea-55-05"
+    ]
+  },
+  {
+    "id": "unit-rea-56",
+    "course_id": "course-reading-b1",
+    "title": "Unit 56: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 56,
+    "lesson_ids": [
+      "lesson-rea-56-01",
+      "lesson-rea-56-02",
+      "lesson-rea-56-03",
+      "lesson-rea-56-04",
+      "lesson-rea-56-05"
+    ]
+  },
+  {
+    "id": "unit-rea-57",
+    "course_id": "course-reading-b1",
+    "title": "Unit 57: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 57,
+    "lesson_ids": [
+      "lesson-rea-57-01",
+      "lesson-rea-57-02",
+      "lesson-rea-57-03",
+      "lesson-rea-57-04",
+      "lesson-rea-57-05"
+    ]
+  },
+  {
+    "id": "unit-rea-58",
+    "course_id": "course-reading-b1",
+    "title": "Unit 58: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 58,
+    "lesson_ids": [
+      "lesson-rea-58-01",
+      "lesson-rea-58-02",
+      "lesson-rea-58-03",
+      "lesson-rea-58-04",
+      "lesson-rea-58-05"
+    ]
+  },
+  {
+    "id": "unit-rea-59",
+    "course_id": "course-reading-b1",
+    "title": "Unit 59: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 59,
+    "lesson_ids": [
+      "lesson-rea-59-01",
+      "lesson-rea-59-02",
+      "lesson-rea-59-03",
+      "lesson-rea-59-04",
+      "lesson-rea-59-05"
+    ]
+  },
+  {
+    "id": "unit-rea-60",
+    "course_id": "course-reading-b1",
+    "title": "Unit 60: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 60,
+    "lesson_ids": [
+      "lesson-rea-60-01",
+      "lesson-rea-60-02",
+      "lesson-rea-60-03",
+      "lesson-rea-60-04",
+      "lesson-rea-60-05"
+    ]
+  },
+  {
+    "id": "unit-rea-61",
+    "course_id": "course-reading-b1",
+    "title": "Unit 61: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 61,
+    "lesson_ids": [
+      "lesson-rea-61-01",
+      "lesson-rea-61-02",
+      "lesson-rea-61-03",
+      "lesson-rea-61-04",
+      "lesson-rea-61-05"
+    ]
+  },
+  {
+    "id": "unit-rea-62",
+    "course_id": "course-reading-b1",
+    "title": "Unit 62: Academic Reading & Academic Application",
+    "description": "Mastery of Academic Reading concepts and targeted practice.",
+    "order": 62,
+    "lesson_ids": [
+      "lesson-rea-62-01",
+      "lesson-rea-62-02",
+      "lesson-rea-62-03",
+      "lesson-rea-62-04",
+      "lesson-rea-62-05"
+    ]
+  },
+  {
+    "id": "unit-rea-63",
+    "course_id": "course-reading-b1",
+    "title": "Unit 63: General Science & Academic Application",
+    "description": "Mastery of General Science concepts and targeted practice.",
+    "order": 63,
+    "lesson_ids": [
+      "lesson-rea-63-01",
+      "lesson-rea-63-02",
+      "lesson-rea-63-03",
+      "lesson-rea-63-04",
+      "lesson-rea-63-05"
+    ]
+  },
+  {
+    "id": "unit-rea-64",
+    "course_id": "course-reading-b1",
+    "title": "Unit 64: General Science & Academic Application",
+    "description": "Mastery of General Science concepts and targeted practice.",
+    "order": 64,
+    "lesson_ids": [
+      "lesson-rea-64-01",
+      "lesson-rea-64-02",
+      "lesson-rea-64-03",
+      "lesson-rea-64-04",
+      "lesson-rea-64-05"
+    ]
+  },
+  {
+    "id": "unit-rea-65",
+    "course_id": "course-reading-b1",
+    "title": "Unit 65: General Science & Academic Application",
+    "description": "Mastery of General Science concepts and targeted practice.",
+    "order": 65,
+    "lesson_ids": [
+      "lesson-rea-65-01",
+      "lesson-rea-65-02",
+      "lesson-rea-65-03",
+      "lesson-rea-65-04",
+      "lesson-rea-65-05"
+    ]
+  },
+  {
+    "id": "unit-rea-66",
+    "course_id": "course-reading-b1",
+    "title": "Unit 66: General Science & Academic Application",
+    "description": "Mastery of General Science concepts and targeted practice.",
+    "order": 66,
+    "lesson_ids": [
+      "lesson-rea-66-01",
+      "lesson-rea-66-02",
+      "lesson-rea-66-03",
+      "lesson-rea-66-04",
+      "lesson-rea-66-05"
+    ]
+  },
+  {
+    "id": "unit-rea-67",
+    "course_id": "course-reading-b1",
+    "title": "Unit 67: Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3) & Academic Application",
+    "description": "Mastery of Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3) concepts and targeted practice.",
+    "order": 67,
+    "lesson_ids": [
+      "lesson-rea-67-01",
+      "lesson-rea-67-02",
+      "lesson-rea-67-03",
+      "lesson-rea-67-04",
+      "lesson-rea-67-05"
+    ]
+  },
+  {
+    "id": "unit-lis-01",
+    "course_id": "course-listening-b1",
+    "title": "Unit 1: Listening Comprehension & Academic Application",
+    "description": "Mastery of Listening Comprehension concepts and targeted practice.",
+    "order": 1,
+    "lesson_ids": [
+      "lesson-lis-01-01",
+      "lesson-lis-01-02",
+      "lesson-lis-01-03",
+      "lesson-lis-01-04",
+      "lesson-lis-01-05"
+    ]
+  },
+  {
+    "id": "unit-lis-02",
+    "course_id": "course-listening-b1",
+    "title": "Unit 2: Listening Comprehension & Academic Application",
+    "description": "Mastery of Listening Comprehension concepts and targeted practice.",
+    "order": 2,
+    "lesson_ids": [
+      "lesson-lis-02-01",
+      "lesson-lis-02-02",
+      "lesson-lis-02-03",
+      "lesson-lis-02-04",
+      "lesson-lis-02-05"
+    ]
+  },
+  {
+    "id": "unit-lis-03",
+    "course_id": "course-listening-b1",
+    "title": "Unit 3: Listening Comprehension & Academic Application",
+    "description": "Mastery of Listening Comprehension concepts and targeted practice.",
+    "order": 3,
+    "lesson_ids": [
+      "lesson-lis-03-01",
+      "lesson-lis-03-02",
+      "lesson-lis-03-03",
+      "lesson-lis-03-04",
+      "lesson-lis-03-05"
+    ]
+  },
+  {
+    "id": "unit-lis-04",
+    "course_id": "course-listening-b1",
+    "title": "Unit 4: Unit 1: Hobbies & Academic Application",
+    "description": "Mastery of Unit 1: Hobbies concepts and targeted practice.",
+    "order": 4,
+    "lesson_ids": [
+      "lesson-lis-04-01"
+    ]
+  },
+  {
+    "id": "unit-gra-01",
+    "course_id": "course-grammar-b1",
+    "title": "Unit 1: Grammar & Academic Application",
+    "description": "Mastery of Grammar concepts and targeted practice.",
+    "order": 1,
+    "lesson_ids": [
+      "lesson-gra-01-01",
+      "lesson-gra-01-02",
+      "lesson-gra-01-03",
+      "lesson-gra-01-04",
+      "lesson-gra-01-05"
+    ]
+  },
+  {
+    "id": "unit-gra-02",
+    "course_id": "course-grammar-b1",
+    "title": "Unit 2: Grammar & Academic Application",
+    "description": "Mastery of Grammar concepts and targeted practice.",
+    "order": 2,
+    "lesson_ids": [
+      "lesson-gra-02-01",
+      "lesson-gra-02-02",
+      "lesson-gra-02-03",
+      "lesson-gra-02-04",
+      "lesson-gra-02-05"
+    ]
+  },
+  {
+    "id": "unit-gra-03",
+    "course_id": "course-grammar-b1",
+    "title": "Unit 3: Grammar & Academic Application",
+    "description": "Mastery of Grammar concepts and targeted practice.",
+    "order": 3,
+    "lesson_ids": [
+      "lesson-gra-03-01",
+      "lesson-gra-03-02",
+      "lesson-gra-03-03",
+      "lesson-gra-03-04",
+      "lesson-gra-03-05"
+    ]
+  },
+  {
+    "id": "unit-gra-04",
+    "course_id": "course-grammar-b1",
+    "title": "Unit 4: Unit 1: Local Community & Academic Application",
+    "description": "Mastery of Unit 1: Local Community concepts and targeted practice.",
+    "order": 4,
+    "lesson_ids": [
+      "lesson-gra-04-01"
+    ]
+  },
+  {
+    "id": "unit-wri-01",
+    "course_id": "course-writing-b2",
+    "title": "Unit 1: Academic Writing & Academic Application",
+    "description": "Mastery of Academic Writing concepts and targeted practice.",
+    "order": 1,
+    "lesson_ids": [
+      "lesson-wri-01-01",
+      "lesson-wri-01-02",
+      "lesson-wri-01-03",
+      "lesson-wri-01-04",
+      "lesson-wri-01-05"
+    ]
+  },
+  {
+    "id": "unit-wri-02",
+    "course_id": "course-writing-b2",
+    "title": "Unit 2: Academic Writing & Academic Application",
+    "description": "Mastery of Academic Writing concepts and targeted practice.",
+    "order": 2,
+    "lesson_ids": [
+      "lesson-wri-02-01",
+      "lesson-wri-02-02",
+      "lesson-wri-02-03",
+      "lesson-wri-02-04",
+      "lesson-wri-02-05"
+    ]
+  },
+  {
+    "id": "unit-wri-03",
+    "course_id": "course-writing-b2",
+    "title": "Unit 3: Unit 1: My New School & Academic Application",
+    "description": "Mastery of Unit 1: My New School concepts and targeted practice.",
+    "order": 3,
+    "lesson_ids": [
+      "lesson-wri-03-01",
+      "lesson-wri-03-02",
+      "lesson-wri-03-03"
+    ]
+  },
+  {
+    "id": "unit-spe-01",
+    "course_id": "course-speaking-b2",
+    "title": "Unit 1: IELTS Speaking & Academic Application",
+    "description": "Mastery of IELTS Speaking concepts and targeted practice.",
+    "order": 1,
+    "lesson_ids": [
+      "lesson-spe-01-01",
+      "lesson-spe-01-02",
+      "lesson-spe-01-03",
+      "lesson-spe-01-04",
+      "lesson-spe-01-05"
+    ]
+  },
+  {
+    "id": "unit-spe-02",
+    "course_id": "course-speaking-b2",
+    "title": "Unit 2: Unit 1: My New School & Academic Application",
+    "description": "Mastery of Unit 1: My New School concepts and targeted practice.",
+    "order": 2,
+    "lesson_ids": [
+      "lesson-spe-02-01",
+      "lesson-spe-02-02",
+      "lesson-spe-02-03",
+      "lesson-spe-02-04"
+    ]
+  },
+  {
+    "id": "unit-g6-u1",
+    "course_id": "course-thcs-g6",
+    "grade": 6,
+    "title": "Unit 1: My New School",
+    "description": "Khám phá trường học mới, dụng cụ học tập, bạn bè, thầy cô và các hoạt động học tập hằng ngày.",
+    "order": 1,
+    "lesson_ids": [
+      "g6-u1-les-01",
+      "g6-u1-les-02",
+      "g6-u1-les-03",
+      "g6-u1-les-04",
+      "g6-u1-les-05"
+    ]
+  },
+  {
+    "id": "unit-g6-midterm",
+    "course_id": "course-thcs-g6",
+    "grade": 6,
+    "title": "Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3)",
+    "description": "Đề kiểm tra chuẩn 45 phút tổng hợp kiến thức Unit 1 (My New School), Unit 2 (My House), Unit 3 (My Friends). Đầy đủ ma trận 4 kỹ năng có lời giải chi tiết.",
+    "order": 2,
+    "lesson_ids": [
+      "g6-midterm-exam-01"
+    ]
+  },
+  {
+    "id": "unit-g7-u1",
+    "course_id": "course-thcs-g7",
+    "grade": 7,
+    "title": "Unit 1: Hobbies",
+    "description": "Tìm hiểu các sở thích thú vị (làm vườn, làm mô hình, cưỡi ngựa, làm nhà búp bê) và lợi ích đối với sức khỏe, trí tuệ.",
+    "order": 1,
+    "lesson_ids": [
+      "g7-u1-les-01",
+      "g7-u1-les-02",
+      "g7-u1-les-03",
+      "g7-u1-les-04",
+      "g7-u1-les-05"
+    ]
+  },
+  {
+    "id": "unit-g7-midterm",
+    "course_id": "course-thcs-g7",
+    "grade": 7,
+    "title": "Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3)",
+    "description": "Đề thi kiểm tra định kỳ 45 phút tổng hợp Unit 1 (Hobbies), Unit 2 (Healthy Living), Unit 3 (Community Service).",
+    "order": 2,
+    "lesson_ids": [
+      "g7-midterm-exam-01"
+    ]
+  },
+  {
+    "id": "unit-g8-u1",
+    "course_id": "course-thcs-g8",
+    "grade": 8,
+    "title": "Unit 1: Leisure Time",
+    "description": "Khám phá các hoạt động thư giãn lành mạnh, tự làm đồ thủ công (DIY), sử dụng mạng xã hội hợp lý và cân bằng cuộc sống.",
+    "order": 1,
+    "lesson_ids": [
+      "g8-u1-les-01",
+      "g8-u1-les-02",
+      "g8-u1-les-03"
+    ]
+  },
+  {
+    "id": "unit-g8-midterm",
+    "course_id": "course-thcs-g8",
+    "grade": 8,
+    "title": "Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3)",
+    "description": "Đề kiểm tra 45 phút tổng hợp Unit 1 (Leisure Time), Unit 2 (Life in the Countryside), Unit 3 (Teenagers). Có đáp án và biểu điểm.",
+    "order": 2,
+    "lesson_ids": [
+      "g8-midterm-exam-01"
+    ]
+  },
+  {
+    "id": "unit-g9-u1",
+    "course_id": "course-thcs-g9",
+    "grade": 9,
+    "title": "Unit 1: Local Community",
+    "description": "Tìm hiểu về cộng đồng địa phương, các làng nghề truyền thống (artisan, pottery village), người phục vụ cộng đồng và các dịch vụ thiết yếu.",
+    "order": 1,
+    "lesson_ids": [
+      "g9-u1-les-01",
+      "g9-u1-les-02",
+      "g9-u1-les-03",
+      "g9-u1-les-04"
+    ]
+  },
+  {
+    "id": "unit-g9-midterm",
+    "course_id": "course-thcs-g9",
+    "grade": 9,
+    "title": "Đề Ôn Kiểm Tra Giữa Kỳ I (Units 1 - 3)",
+    "description": "Đề kiểm tra 45 phút chuẩn format đề thi vào lớp 10: Ngữ âm, Trọng âm, Phrasal verbs, So sánh tính từ/trạng từ, Đọc hiểu và Viết lại câu.",
+    "order": 2,
+    "lesson_ids": [
+      "g9-midterm-exam-01"
+    ]
+  },
+  {
+    "id": "unit-g6-u2",
+    "course_id": "course-thcs-g6",
+    "grade": 6,
+    "title": "Unit 2: My House",
+    "description": "Khám phá các kiểu nhà ở (town house, country house, flat, villa), các phòng trong nhà, đồ dùng nội thất, sở hữu cách và giới từ chỉ vị trí.",
+    "order": 2,
+    "lesson_ids": [
+      "g6-u2-les-01",
+      "g6-u2-les-02",
+      "g6-u2-les-03",
+      "g6-u2-les-04",
+      "g6-u2-les-05"
+    ]
+  },
+  {
+    "id": "unit-g6-u7",
+    "course_id": "course-thcs-g6",
+    "grade": 6,
+    "title": "Unit 7: Television",
+    "description": "Khám phá thế giới truyền hình, các thể loại chương trình (animated film, comedy, game show, wildlife), từ để hỏi Wh-questions và liên từ kết hợp (and, but, so).",
+    "order": 7,
+    "lesson_ids": [
+      "g6-u7-les-01",
+      "g6-u7-les-02",
+      "g6-u7-les-03",
+      "g6-u7-les-04",
+      "g6-u7-les-05"
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "title": "15-Minute English Grammar Quiz - Verb Tenses",
+  "description": "Kiểm tra kiến thức thì quá khứ đơn và hiện tại hoàn thành theo chuẩn GDPT 2018.",
+  "durationMinutes": 15,
+  "questions": [
+    {
+      "content": "Choose the correct answer: By the time we arrived at the cinema, the movie _____ already.",
+      "options": [
+        { "key": "A", "content": "started" },
+        { "key": "B", "content": "had started" },
+        { "key": "C", "content": "has started" },
+        { "key": "D", "content": "starts" }
+      ],
+      "correctOption": "B",
+      "explanation": "Hành động xem phim đã bắt đầu trước một hành động khác trong quá khứ (arrived), nên dùng thì Quá khứ hoàn thành (Past Perfect: had + V3/ed).",
+      "cognitiveLevel": "UNDERSTANDING"
+    },
+    {
+      "content": "She has lived in this city _____ 2018.",
+      "options": [
+        { "key": "A", "content": "for" },
+        { "key": "B", "content": "since" },
+        { "key": "C", "content": "in" },
+        { "key": "D", "content": "from" }
+      ],
+      "correctOption": "B",
+      "explanation": "'Since' được dùng trước mốc thời gian xác định trong quá khứ (năm 2018) với thì Hiện tại hoàn thành.",
+      "cognitiveLevel": "REMEMBERING"
+    },
+    {
+      "content": "If I _____ his phone number, I would have called him yesterday.",
+      "options": [
+        { "key": "A", "content": "had had" },
+        { "key": "B", "content": "have had" },
+        { "key": "C", "content": "had" },
+        { "key": "D", "content": "would have" }
+      ],
+      "correctOption": "A",
+      "explanation": "Câu điều kiện loại 3 diễn tả giả định trái ngược với quá khứ: Mệnh đề If dùng Past Perfect (had + had).",
+      "cognitiveLevel": "APPLYING"
+    }
+  ]
+}

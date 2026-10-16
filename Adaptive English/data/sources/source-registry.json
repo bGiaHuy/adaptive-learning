@@ -1,0 +1,365 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-10-08T10:51:43Z",
+  "description": "Registry of content sources evaluated for Adaptive Study English learning repository with intellectual property and licensing classification.",
+  "sources": [
+    {
+      "id": "squad_v2",
+      "name": "Stanford Question Answering Dataset (SQuAD 2.0)",
+      "domain": "rajpurkar.github.io",
+      "homepage": "https://rajpurkar.github.io/SQuAD-explorer/",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "High quality reading passages sourced from Wikipedia on academic, science, history, and geographical topics with human-generated comprehension questions, exact answer spans, and multi-annotator consensus.",
+      "skills": [
+        "reading"
+      ],
+      "allowed_content_types": [
+        "reading_comprehension",
+        "short_answer"
+      ],
+      "rate_limit_delay_seconds": 0.5,
+      "requires_auth": false
+    },
+    {
+      "id": "wikimedia_simple_en",
+      "name": "Simple English Wikipedia",
+      "domain": "simple.wikipedia.org",
+      "homepage": "https://simple.wikipedia.org",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "Articles specifically written in clear, graded English vocabulary for language learners, ideal for CEFR A2-B1-B2 academic reading comprehension on general IELTS topics (climate, technology, culture).",
+      "skills": [
+        "reading",
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "reading_comprehension",
+        "vocab_in_context"
+      ],
+      "rate_limit_delay_seconds": 1.0,
+      "requires_auth": false
+    },
+    {
+      "id": "wikibooks_english_grammar",
+      "name": "Wikibooks: English Grammar & English Grammar Worksheets",
+      "domain": "en.wikibooks.org",
+      "homepage": "https://en.wikibooks.org/wiki/English_Grammar",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "Open educational textbook chapters providing explicit grammar rule explanations, illustrative example sentences, and fill-in-the-blank / sentence transformation exercises with verified grammar keys.",
+      "skills": [
+        "grammar"
+      ],
+      "allowed_content_types": [
+        "grammar_drill",
+        "gap_fill",
+        "sentence_transformation"
+      ],
+      "rate_limit_delay_seconds": 1.0,
+      "requires_auth": false
+    },
+    {
+      "id": "wikibooks_rhetoric_composition",
+      "name": "Wikibooks: Rhetoric and Composition & Saylor OER",
+      "domain": "en.wikibooks.org",
+      "homepage": "https://en.wikibooks.org/wiki/Rhetoric_and_Composition",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "Open-access curriculum covering academic writing modes (argumentative, expository, cause-and-effect, descriptive analysis) directly matching IELTS Academic Task 1 and Task 2 structures.",
+      "skills": [
+        "writing"
+      ],
+      "allowed_content_types": [
+        "essay_prompt",
+        "writing_guidance",
+        "rubric"
+      ],
+      "rate_limit_delay_seconds": 1.0,
+      "requires_auth": false
+    },
+    {
+      "id": "wikimedia_spoken_articles",
+      "name": "Wikimedia Commons Spoken Wikipedia Project",
+      "domain": "commons.wikimedia.org",
+      "homepage": "https://en.wikipedia.org/wiki/Wikipedia:Spoken_articles",
+      "license": "CC BY-SA 4.0 / CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "High quality spoken audio files recorded by native English speakers with exact matching Wikipedia revisions as verbatim transcripts, allowing legitimate listening comprehension exercises without copyright violation.",
+      "skills": [
+        "listening"
+      ],
+      "allowed_content_types": [
+        "audio_comprehension",
+        "dictation",
+        "transcript"
+      ],
+      "rate_limit_delay_seconds": 1.5,
+      "requires_auth": false
+    },
+    {
+      "id": "free_dictionary_api",
+      "name": "Free Dictionary API (English Wiktionary)",
+      "domain": "api.dictionaryapi.dev",
+      "homepage": "https://dictionaryapi.dev/",
+      "license": "CC BY-SA 3.0 / GFDL",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "status": "approved",
+      "rationale": "Structured open REST API providing IPA phonetics, part of speech breakdown, multiple senses/definitions, contextual example sentences, and direct Wikimedia Commons pronunciation audio links.",
+      "skills": [
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "lexical_entry",
+        "pronunciation_audio"
+      ],
+      "rate_limit_delay_seconds": 0.5,
+      "requires_auth": false
+    },
+    {
+      "id": "wiktionary_official_rest",
+      "name": "Official English Wiktionary REST API",
+      "domain": "en.wiktionary.org",
+      "homepage": "https://en.wiktionary.org",
+      "license": "CC BY-SA 4.0 / CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "High-availability Wikimedia Foundation official endpoint providing comprehensive multi-sense lexical definitions, etymologies, and usage examples under Creative Commons Attribution-ShareAlike.",
+      "skills": [
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "lexical_entry",
+        "definitions"
+      ],
+      "rate_limit_delay_seconds": 0.2,
+      "requires_auth": false
+    },
+    {
+      "id": "public_speaking_oer",
+      "name": "Public Speaking & Communication OER Collection",
+      "domain": "en.wikibooks.org",
+      "homepage": "https://en.wikibooks.org/wiki/Rhetoric_and_Composition/Oral_Presentations",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "status": "approved",
+      "rationale": "Open educational speech topics, communicative tasks, impromptu prompts, and speaking evaluation rubrics inspired by structured spoken communication.",
+      "skills": [
+        "speaking"
+      ],
+      "allowed_content_types": [
+        "speaking_task",
+        "communicative_prompt",
+        "rubric"
+      ],
+      "rate_limit_delay_seconds": 1.0,
+      "requires_auth": false
+    },
+    {
+      "id": "cefr_companion_volume",
+      "name": "Council of Europe CEFR Companion Volume",
+      "domain": "coe.int",
+      "homepage": "https://www.coe.int/en/web/common-european-framework-reference-languages",
+      "license": "Reference Only / Council of Europe Copyright",
+      "license_url": "https://www.coe.int",
+      "status": "reference-only",
+      "rationale": "Used strictly as a standard reference for proficiency band descriptors (A1 to C2) and syllabus level mapping. No direct textual duplication or scraping permitted.",
+      "skills": [
+        "reading",
+        "listening",
+        "speaking",
+        "writing",
+        "grammar",
+        "vocabulary"
+      ],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "ielts_public_band_descriptors",
+      "name": "IELTS Public Band Descriptors",
+      "domain": "ielts.org",
+      "homepage": "https://takeielts.britishcouncil.org/",
+      "license": "Reference Only / British Council, IDP, Cambridge",
+      "license_url": "https://www.ielts.org",
+      "status": "reference-only",
+      "rationale": "Used strictly as conceptual reference for writing and speaking assessment dimensions (Task Achievement, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy). No test materials may be copied.",
+      "skills": [
+        "writing",
+        "speaking"
+      ],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "academic_word_list_coxhead",
+      "name": "Averil Coxhead Academic Word List (AWL) Sublists",
+      "domain": "victoria.ac.nz",
+      "homepage": "https://www.wgtn.ac.nz/lals/resources/academicwordlist",
+      "license": "Reference Only / Academic Research",
+      "license_url": "https://www.wgtn.ac.nz",
+      "status": "reference-only",
+      "rationale": "Used strictly as a list of lemmas/headwords for curriculum targeting in vocabulary crawling. Lexical definitions are retrieved exclusively from open dictionary APIs.",
+      "skills": [
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "lemma_list"
+      ],
+      "requires_auth": false
+    },
+    {
+      "id": "british_council_learnenglish",
+      "name": "British Council LearnEnglish",
+      "domain": "learnenglish.britishcouncil.org",
+      "homepage": "https://learnenglish.britishcouncil.org",
+      "license": "All Rights Reserved",
+      "license_url": null,
+      "status": "rejected",
+      "rationale": "Commercial copyright. Content is strictly proprietary; automated scraping and republication without a commercial license is prohibited.",
+      "skills": [],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "cambridge_dictionary_and_esl",
+      "name": "Cambridge University Press Assessment & Dictionaries",
+      "domain": "cambridge.org",
+      "homepage": "https://dictionary.cambridge.org",
+      "license": "All Rights Reserved",
+      "license_url": null,
+      "status": "rejected",
+      "rationale": "Strict proprietary terms of service prohibiting automated data extraction, bot scraping, and redistributing dictionary or exam prep content.",
+      "skills": [],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "official_ielts_exam_papers",
+      "name": "Official IELTS Past Papers & Audio Recordings",
+      "domain": "ielts.org",
+      "homepage": "https://www.ielts.org",
+      "license": "Strictly Copyrighted (Cambridge Assessment)",
+      "license_url": null,
+      "status": "rejected",
+      "rationale": "Actual IELTS test papers, listening audio tracks, and test passages are proprietary intellectual property. Unlicensed distribution is illegal.",
+      "skills": [],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "commercial_ielts_blogs",
+      "name": "Commercial IELTS Preparation Blogs (IELTS Liz, IELTS Advantage, etc.)",
+      "domain": "various",
+      "homepage": null,
+      "license": "All Rights Reserved",
+      "license_url": null,
+      "status": "rejected",
+      "rationale": "Proprietary personal and commercial educational content. Free to read online does not permit automated collection or commercial product reuse.",
+      "skills": [],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "google_search_scraper",
+      "name": "Google Search SERP Scraping",
+      "domain": "google.com",
+      "homepage": "https://google.com",
+      "license": "Google Terms of Service Violation",
+      "license_url": null,
+      "status": "rejected",
+      "rationale": "Scraping search engine results is strictly prohibited by Google Terms of Service and violates project specifications.",
+      "skills": [],
+      "allowed_content_types": [],
+      "requires_auth": false
+    },
+    {
+      "id": "moet_global_success_thcs",
+      "name": "Chương trình GDPT 2018 - Tiếng Anh 6-9 Global Success (NXB Giáo Dục Việt Nam & Pearson)",
+      "domain": "giaoduc.net.vn",
+      "homepage": "https://nxbgd.vn",
+      "license": "Curriculum Standard Alignment",
+      "license_url": "https://moet.gov.vn",
+      "status": "approved",
+      "rationale": "Official Vietnamese secondary education English curriculum blueprint. Used to calibrate skills, learning objectives, vocabulary collocations, phonetics, grammar drills, and standardized midterm/final examinations.",
+      "skills": [
+        "reading",
+        "listening",
+        "speaking",
+        "writing",
+        "grammar",
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "curriculum_lesson",
+        "reading_comprehension",
+        "listening_dialogue",
+        "grammar_drill",
+        "writing_task",
+        "speaking_prompt",
+        "exam_test"
+      ],
+      "rate_limit_delay_seconds": 0.5,
+      "requires_auth": false
+    },
+    {
+      "id": "sgk_tieng_anh_6_tap_1",
+      "name": "SGK Tiếng Anh 6 Tập 1 - Global Success (NXB Giáo Dục Việt Nam & Pearson)",
+      "domain": "nxbgd.vn",
+      "homepage": "https://nxbgd.vn",
+      "license": "Curriculum Standard Alignment",
+      "license_url": "https://moet.gov.vn",
+      "status": "approved",
+      "rationale": "Sách giáo khoa Tiếng Anh 6 Tập 1 chính thống theo Chương trình GDPT 2018. Khai thác bài tập Unit 2 (My House), bài đọc Crazy House Hotel, bài nghe ngôi nhà của Mai, ngữ pháp sở hữu cách và giới từ chỉ vị trí.",
+      "skills": [
+        "reading",
+        "listening",
+        "speaking",
+        "writing",
+        "grammar",
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "reading_comprehension",
+        "listening_dialogue",
+        "grammar_drill",
+        "writing_task",
+        "speaking_prompt"
+      ],
+      "rate_limit_delay_seconds": 0.5,
+      "requires_auth": false
+    },
+    {
+      "id": "sgk_tieng_anh_6_tap_2",
+      "name": "SGK Tiếng Anh 6 Tập 2 - Global Success (NXB Giáo Dục Việt Nam & Pearson)",
+      "domain": "nxbgd.vn",
+      "homepage": "https://nxbgd.vn",
+      "license": "Curriculum Standard Alignment",
+      "license_url": "https://moet.gov.vn",
+      "status": "approved",
+      "rationale": "Sách giáo khoa Tiếng Anh 6 Tập 2 chính thống theo Chương trình GDPT 2018. Khai thác bài tập Unit 7 (Television), lịch phát sóng TV guide, các kênh truyền hình, từ để hỏi Wh-questions, và liên từ câu ghép (and, but, so).",
+      "skills": [
+        "reading",
+        "listening",
+        "speaking",
+        "writing",
+        "grammar",
+        "vocabulary"
+      ],
+      "allowed_content_types": [
+        "reading_comprehension",
+        "listening_dialogue",
+        "grammar_drill",
+        "writing_task",
+        "speaking_prompt"
+      ],
+      "rate_limit_delay_seconds": 0.5,
+      "requires_auth": false
+    }
+  ]
+}

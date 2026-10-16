@@ -1,0 +1,38 @@
+export const tokens = {
+  colors: {
+    primary: "#3478F6",
+    primaryDark: "#2456AE",
+    primaryLight: "#EAF2FF",
+    primarySubtle: "#F0F5FF",
+    ink: "#122044",
+    inkMuted: "#53627E",
+    canvas: "#F6F9FF",
+    surface: "#FFFFFF",
+    line: "#DFE8F5",
+    lineSubtle: "#EDF3FA",
+    success: "#247A45",
+    successSoft: "#EAF7EF",
+    error: "#B83949",
+    errorSoft: "#FFF0F2",
+    warning: "#D97706",
+    warningSoft: "#FEF3C7",
+    mascot: {
+      green: "#83C768",
+      leaf: "#8BD46D",
+      cheek: "#FF9290",
+      belly: "#FFF6DF",
+      scarf: "#3478F6",
+    },
+  },
+  radius: {
+    sm: "12px",
+    md: "20px",
+    lg: "32px",
+    pill: "999px",
+  },
+  motion: {
+    fast: "140ms",
+    panel: "260ms",
+    celebration: "1200ms",
+  },
+};

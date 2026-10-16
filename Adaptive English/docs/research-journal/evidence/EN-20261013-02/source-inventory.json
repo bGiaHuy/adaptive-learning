@@ -1,0 +1,33 @@
+{
+  "inspected_on": "2026-10-13T11:14:22.692447+07:00",
+  "sources": [
+    {
+      "path": "english-learning-platform/package.json",
+      "sha256": "5ad4f327c47767f871142f76c789972f5d6f1722c6617f8fdd7903f91473578b"
+    },
+    {
+      "path": "english-learning-platform/prisma/schema.prisma",
+      "sha256": "fbdcaf9de169e65cdd3f41dae397f2addb22d5204e93e01d4a68e444c22055b0"
+    },
+    {
+      "path": "english-learning-platform/prisma/schema.vercel.prisma",
+      "sha256": "a080adf3a0526460043a50fc0a6ac37d6aaca11762db92b4c1d916cd1390f18f"
+    },
+    {
+      "path": "english-learning-platform/src/lib/learning.ts",
+      "sha256": "5d8d0228630202b87dd64515f195577c5b46b8da439290ec734a3e5870e12786"
+    },
+    {
+      "path": "english-learning-platform/src/lib/assignmentAbility.ts",
+      "sha256": "31974d37d9e40d591722cceaaeb020fe21ae10f6ca0f372985d1fd52c6899d9c"
+    },
+    {
+      "path": "english-learning-platform/src/app/api/student/progress/route.ts",
+      "sha256": "48e8a5c04f0e711238097c7279d74790bb2eabae5ad4518b733e577225af6d3b"
+    },
+    {
+      "path": "english-learning-platform/src/types/index.ts",
+      "sha256": "11a6c02ac63bf1af5fbd482a829e14151ac5c610a901ba5770f9428157c3b4f0"
+    }
+  ]
+}

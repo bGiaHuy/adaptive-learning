@@ -1,0 +1,23 @@
+{
+  "checkedOn": "2026-10-10",
+  "results": [
+    {
+      "url": "https://adaptiveenglish.vercel.app",
+      "status": 200,
+      "title": "Adaptive study — Nền tảng học tiếng Anh thích ứng",
+      "purpose": "English production"
+    },
+    {
+      "url": "https://adaptivemath-two.vercel.app",
+      "status": 200,
+      "title": "Adaptive study — Nền tảng học tiếng Anh thích ứng",
+      "purpose": "Existing alias on adaptivelearning; potentially stale and left unchanged"
+    },
+    {
+      "url": "https://adaptivemath-blush.vercel.app",
+      "status": 200,
+      "title": "AdaptiveMath - Học Toán THCS đúng chỗ bạn còn yếu",
+      "purpose": "Current Math production remains operational"
+    }
+  ]
+}

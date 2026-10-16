@@ -1,0 +1,44 @@
+.fill {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #dce6f5;
+}
+
+.skeleton::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+  animation: skeleton-shimmer 1400ms ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+
+.visible .fill {
+  animation: fill-score 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--score-delay, 0ms);
+}
+
+@keyframes fill-score {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(var(--score-ratio)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill, .visible .fill {
+    animation: none;
+    transform: scaleX(var(--score-ratio));
+  }
+
+  .skeleton::after {
+    animation: none;
+  }
+}

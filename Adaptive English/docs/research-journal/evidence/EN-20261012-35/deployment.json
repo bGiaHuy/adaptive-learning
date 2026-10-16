@@ -1,0 +1,10 @@
+{
+  "alias": "adaptiveenglish.vercel.app",
+  "deploymentId": "dpl_7UxGvyRjzkHmna9saLLV1RvxWqGK",
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "expected": "dpl_7UxGvyRjzkHmna9saLLV1RvxWqGK",
+  "pass": true,
+  "state": "READY",
+  "target": "production",
+  "buildSeconds": 53
+}

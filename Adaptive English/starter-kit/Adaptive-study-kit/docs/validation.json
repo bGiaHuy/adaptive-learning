@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "All SVG sources parsed as XML",
+    "All local HTML links resolve",
+    "8 GIFs verified as multiframe animations"
+  ],
+  "limitations": [
+    "Browser screenshot and end-to-end interaction verification unavailable in this environment. JS syntax was checked separately.",
+    "GIFs are sampled vector motion previews; CSS SVG timing may differ slightly."
+  ]
+}

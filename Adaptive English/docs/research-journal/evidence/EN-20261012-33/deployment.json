@@ -1,0 +1,13 @@
+{
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "teamId": "team_BFuskOgZyfIXiFep0LuDnMfh",
+  "deploymentId": "dpl_9bLxEUzxzeHbmteFUakbiGzHGTB7",
+  "target": "production",
+  "state": "READY",
+  "frameworkBuilt": "Next.js14",
+  "buildSeconds": 54,
+  "domain": "adaptiveenglish.vercel.app",
+  "aliasDeploymentVerified": true,
+  "source": "current local workspace; no Git commit available",
+  "productionEnvTemporaryFileRemoved": true
+}

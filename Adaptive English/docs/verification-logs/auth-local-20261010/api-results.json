@@ -1,0 +1,17 @@
+{
+  "environment": "Isolated production build, HTTP loopback; synthetic accounts only",
+  "results": [
+    {
+      "test": "Anonymous identity rejected",
+      "status": 401
+    },
+    {
+      "test": "student registration, login, authenticated page and wrong password",
+      "result": "PASS"
+    },
+    {
+      "test": "teacher registration, login, authenticated page and wrong password",
+      "result": "PASS"
+    }
+  ]
+}

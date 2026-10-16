@@ -1,0 +1,15 @@
+Session EN-20261012-33, 2026-10-12 Asia/Saigon.
+Target verified by Vercel MCP get_project and CLI project inspect: adaptivelearning / prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki / team_BFuskOgZyfIXiFep0LuDnMfh, production, adaptiveenglish.vercel.app.
+Source: current local workspace (no Git repository/commit available); clean release inventory stored separately. Includes assignment attachments and current assignment ability code, whose two missing nullable columns were added.
+Initial sandbox npx vercel --version failed EACCES reaching registry; approved external execution found CLI63.1.2.
+Initial deploy command did not execute: log redirect had one too many parent directory segments. Corrected to workspace evidence path, then deployed.
+Initial migration transaction FAIL PostgreSQL42601 because a semicolon in a SQL comment was split as code. Fixed migration runner to strip SQL comments before splitting, reran successfully; counts before/after4 assignments/5 submissions/8 users. No reset, seed or delete.
+Tests executed: node --test tests/assignment-attachments.test.cjs tests/assignment-questions.test.cjs tests/grading-flow.test.cjs tests/assignment-ability.test.cjs,31/31 PASS exit0.
+Production migration also added AssignmentVersion.difficultyJson and Submission.abilityEvidenceJson because deployed source needs these fields. Both nullable additive; old scores and submissions preserved.
+No authenticated browser upload/download E2E in this session. Word pagination not visually verified; prior LibreOffice renderer repeatedly failed3221225781.
+
+Staged CLI curl homeHTTP200; attachmentAPI401 with app body Chưa đăng nhập. MCP protected fetch could not bypass access and was not used as application evidence.
+Vercel deployment dpl_9bLxEUzxzeHbmteFUakbiGzHGTB7 READY; build55/55 PASS54s; deployment CLI exit0. Promoted by Vercel MCP request_promote; get_alias verified adaptiveenglish.vercel.app points to exact deployment.
+Initial public smoke FAIL exit1 because /easy returned404; source has no /easy route. Corrected targets: home200,auth/login200,attachmentsGET401,assignmentPUT401,teacher redirect307; PASS exit0.
+Nine dependency vulnerabilities reported by npm ci remain (2 moderate,6 high,1 critical); not remediated by this release.
+Temporary production env file removed after migration and binary checks. No user data seeded, reset or deleted. No runtime error-log scan or authenticated browser E2E performed.

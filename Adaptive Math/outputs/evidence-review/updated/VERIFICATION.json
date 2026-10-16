@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-16",
+  "documents": [
+    "GD_1_minh_chung_cap_nhat.docx",
+    "GD_2_minh_chung_cap_nhat.docx",
+    "GD_3_minh_chung_cap_nhat.docx",
+    "GD_4_minh_chung_cap_nhat.docx",
+    "GD_5_minh_chung_cap_nhat.docx",
+    "GD_6_minh_chung_cap_nhat.docx",
+    "GD_7_minh_chung_cap_nhat.docx",
+    "Nhat_ky_minh_chung_doi_chieu_7_giai_doan.docx"
+  ],
+  "rawRows": 108000,
+  "metricsIndependentlyRecomputed": true,
+  "algorithmTests": "math-adaptive.spec.ts: 6 passed",
+  "sourceSha256": "e16f081c9526c1d37f407b3a02c24b7570e2bca9a3870288808492b89ba81339",
+  "docxLayoutRendered": false,
+  "layoutBlocker": "Bundled Word/LibreOffice renderer unavailable"
+}

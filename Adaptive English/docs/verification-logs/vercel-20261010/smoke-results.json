@@ -1,0 +1,35 @@
+{
+  "environment": "Isolated production build, VERCEL=1, placeholder PostgreSQL URL. No DB was connected.",
+  "findings": [
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/auth/login",
+      "status": 200
+    },
+    {
+      "route": "/auth/register",
+      "status": 200
+    },
+    {
+      "route": "/api/auth/me",
+      "status": 401
+    },
+    {
+      "route": "/api/auth/recover",
+      "status": 503,
+      "reset_link_exposed": false
+    },
+    {
+      "route": "/api/dictionary?q=hello",
+      "status": 200,
+      "senses": 10
+    },
+    {
+      "test": "dictionary included in Next.js function trace",
+      "result": "PASS"
+    }
+  ]
+}

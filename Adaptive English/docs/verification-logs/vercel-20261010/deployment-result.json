@@ -1,0 +1,20 @@
+{
+  "status": "READY",
+  "target": "production",
+  "project": "adaptivelearning",
+  "deploymentId": "dpl_GktLNdJuhGs3zCnwNYo2DQQRvCpF",
+  "productionUrl": "https://adaptiveenglish.vercel.app",
+  "deploymentUrl": "https://adaptivelearning-fhhj1tyzr-windowgamer11-7579s-projects.vercel.app",
+  "inspectorUrl": "https://vercel.com/windowgamer11-7579s-projects/adaptivelearning/GktLNdJuhGs3zCnwNYo2DQQRvCpF",
+  "database": {
+    "provider": "Neon PostgreSQL",
+    "resource": "adaptive-english-db",
+    "plan": "free_v3",
+    "region": "sin1",
+    "connectedEnvironment": "production",
+    "schemaInitialized": true,
+    "localDataMigrated": false
+  },
+  "observedAt": "2026-10-10",
+  "secretsIncluded": false
+}

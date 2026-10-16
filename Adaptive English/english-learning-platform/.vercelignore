@@ -1,0 +1,16 @@
+.env*
+.next/
+node_modules/
+.artifacts/
+artifacts/
+backups/
+docs/
+tests/
+*.zip
+*.db
+*.db-*
+prisma/*.db
+prisma/*.db-*
+public/uploads/
+public/screenshots/
+*.tsbuildinfo

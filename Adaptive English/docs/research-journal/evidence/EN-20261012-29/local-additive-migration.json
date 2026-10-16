@@ -1,0 +1,23 @@
+{
+  "database": "local prisma/dev.db only",
+  "added": [
+    "AssignmentVersion.difficultyJson",
+    "Submission.abilityEvidenceJson"
+  ],
+  "counts_before": {
+    "User": 56,
+    "Classroom": 23,
+    "Assignment": 21,
+    "AssignmentVersion": 52,
+    "Submission": 47
+  },
+  "counts_after": {
+    "User": 56,
+    "Classroom": 23,
+    "Assignment": 21,
+    "AssignmentVersion": 52,
+    "Submission": 47
+  },
+  "status": "PASS",
+  "production_changed": false
+}

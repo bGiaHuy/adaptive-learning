@@ -1,0 +1,63 @@
+{
+  "environment": "Copied .next production build; fresh empty SQLite schema; no .env or provider credentials copied; copied generated Prisma client points only at audit DB.",
+  "findings": [
+    {
+      "test": "Register synthetic student on production build",
+      "status": 200,
+      "secureCookie": true
+    },
+    {
+      "test": "Authenticated me",
+      "status": 200
+    },
+    {
+      "test": "Anonymous /api/auth/me",
+      "status": 401
+    },
+    {
+      "test": "Anonymous /api/classes",
+      "status": 401
+    },
+    {
+      "test": "Anonymous /api/admin/users",
+      "status": 401
+    },
+    {
+      "test": "Student calls admin users",
+      "status": 403
+    },
+    {
+      "test": "Production role switching",
+      "status": 403
+    },
+    {
+      "test": "Session stored as hash, not raw token",
+      "passed": true
+    },
+    {
+      "test": "Anonymous production recovery exposes reset link with SMTP absent and simulation false",
+      "status": 200,
+      "hasLiveEmailService": false,
+      "resetLinkExposed": true
+    },
+    {
+      "test": "Reset without mailbox access then login with attacker-chosen password",
+      "resetStatus": 200,
+      "loginStatus": 200,
+      "oldSessionStatus": 401
+    },
+    {
+      "test": "Same reset token used by two simultaneous requests",
+      "statuses": [
+        200,
+        200
+      ],
+      "expected": "Exactly one succeeds"
+    },
+    {
+      "test": "Anonymous access to synthetic file in recording storage",
+      "status": 200,
+      "bytes": 1040
+    }
+  ]
+}

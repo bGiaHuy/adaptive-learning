@@ -1,0 +1,13 @@
+{
+  "alias": "adaptiveenglish.vercel.app",
+  "deploymentId": "dpl_m6CuxiCxzMrbK1Bz2y7G6hfVVJEw",
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "expected": "dpl_m6CuxiCxzMrbK1Bz2y7G6hfVVJEw",
+  "pass": true,
+  "state": "READY",
+  "target": "production",
+  "buildSeconds": 58,
+  "staticPages": "55/55",
+  "source": "current local workspace; no Git commit available",
+  "authenticatedProductionE2E": "NOT_RUN"
+}

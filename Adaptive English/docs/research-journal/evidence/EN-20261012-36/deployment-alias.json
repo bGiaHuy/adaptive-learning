@@ -1,0 +1,13 @@
+{
+  "alias": "adaptiveenglish.vercel.app",
+  "deploymentId": "dpl_B2R4cjQeKBjaLozrhvdD2zQ85uig",
+  "projectId": "prj_QXiyKxQ88Bp8Rpcb0BY06V06iGki",
+  "expected": "dpl_B2R4cjQeKBjaLozrhvdD2zQ85uig",
+  "pass": true,
+  "deployment": {
+    "id": "dpl_B2R4cjQeKBjaLozrhvdD2zQ85uig",
+    "url": "adaptivelearning-9fj00v4ng-windowgamer11-7579s-projects.vercel.app",
+    "state": "READY",
+    "readyState": "READY"
+  }
+}

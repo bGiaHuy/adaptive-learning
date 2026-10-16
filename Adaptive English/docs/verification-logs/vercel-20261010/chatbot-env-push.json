@@ -1,0 +1,17 @@
+[
+  {
+    "variable": "MWAPI_API_KEY",
+    "exit_code": 0,
+    "output": "Vercel CLI 63.1.2 (Node.js 24.19.0)\nRetrieving projectâ€¦\nSavingâ€¦\n\nâœ“ Overrode        MWAPI_API_KEY\n  Project         windowgamer11-7579s-projects/adaptivelearning\n  Environments    Production\n  Type            Secret\nNext steps:\n- List Environment Variables:\n  vercel env ls\n- Pull Development Environment Variables into .env.local:\n  vercel env pull\n"
+  },
+  {
+    "variable": "MWAPI_BASE_URL",
+    "exit_code": 0,
+    "output": "Vercel CLI 63.1.2 (Node.js 24.19.0)\nRetrieving projectâ€¦\nSavingâ€¦\n\nâœ“ Overrode        MWAPI_BASE_URL\n  Project         windowgamer11-7579s-projects/adaptivelearning\n  Environments    Production\n  Type            Config\nNext steps:\n- List Environment Variables:\n  vercel env ls\n- Pull Development Environment Variables into .env.local:\n  vercel env pull\n"
+  },
+  {
+    "variable": "MWAPI_MODEL",
+    "exit_code": 0,
+    "output": "Vercel CLI 63.1.2 (Node.js 24.19.0)\nRetrieving projectâ€¦\nSavingâ€¦\n\nâœ“ Overrode        MWAPI_MODEL\n  Project         windowgamer11-7579s-projects/adaptivelearning\n  Environments    Production\n  Type            Config\nNext steps:\n- List Environment Variables:\n  vercel env ls\n- Pull Development Environment Variables into .env.local:\n  vercel env pull\n"
+  }
+]

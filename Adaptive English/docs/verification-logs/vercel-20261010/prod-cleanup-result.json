@@ -1,0 +1,8 @@
+{
+  "target": "synthetic account only",
+  "email": "codex-prod-check-20261010@example.invalid",
+  "before": 1,
+  "deleted": 1,
+  "after": 0,
+  "cascades": "schema relations"
+}

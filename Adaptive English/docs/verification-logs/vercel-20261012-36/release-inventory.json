@@ -1,0 +1,943 @@
+{
+  "directory": "english-learning-platform/.artifacts/vercel-release-20261012-36",
+  "files": [
+    {
+      "path": ".vercelignore",
+      "bytes": 166,
+      "sha256": "98bf092b3df86b105bd8cd809ed4908c01a9e581fe3f82bca36ab2794b96ef60"
+    },
+    {
+      "path": "next-env.d.ts",
+      "bytes": 233,
+      "sha256": "e462a655754db9df18b4a657454a7b6a88717ffded4e89403b2b3a47c6603fc3"
+    },
+    {
+      "path": "next.config.js",
+      "bytes": 229,
+      "sha256": "09142cfa917684e01431a888da1d9b7430575e5456ce08269f7f951d597a042c"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 72288,
+      "sha256": "b561b53c04f3e44835a8c8be0bab390577df1d9d3ef94e9dbff1d50b3215f3d4"
+    },
+    {
+      "path": "package.json",
+      "bytes": 956,
+      "sha256": "bbcb889732de38d1356103aa4159f9e7730c42c97c5f560d214fa90aad446828"
+    },
+    {
+      "path": "postcss.config.js",
+      "bytes": 83,
+      "sha256": "fa650b380adfabb151a0b352f7135e107e6352345f899060f1c5c231228f94bf"
+    },
+    {
+      "path": "tailwind.config.ts",
+      "bytes": 1829,
+      "sha256": "fa06454dd7232678a49ea21759701c266885bdff283e6b0ca687c2fe0a1b430d"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 591,
+      "sha256": "9269e2ada3b639959933790cc824c60f72c1b1c0d97ffdc17efd3afe35fb0b45"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 207,
+      "sha256": "a21e6922f40a1d46abc522223c6c3476c51ca89e4155b15eeb3ac0bd7b6c0cdf"
+    },
+    {
+      "path": ".vercel/project.json",
+      "bytes": 121,
+      "sha256": "a62cc7fb9c7053c3cf34833edba9e0f5143a8acb83210a330732486ae74ea295"
+    },
+    {
+      "path": "data/dictionary.db.gz",
+      "bytes": 68400050,
+      "sha256": "b775ab6b178d016c2df5260e2cde6c5628378ec892bcb08c3dcb398551d241a6"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "bytes": 12877,
+      "sha256": "fbdcaf9de169e65cdd3f41dae397f2addb22d5204e93e01d4a68e444c22055b0"
+    },
+    {
+      "path": "scripts/build-vercel.cjs",
+      "bytes": 1453,
+      "sha256": "7edab150c5162c4e4505386c459139230e98287cf1a76c2b55a07278cbe3fcf3"
+    },
+    {
+      "path": "src/middleware.ts",
+      "bytes": 654,
+      "sha256": "dd959e24ca876f6bbe563eefea4e39015384181be1fc764b08aaa13232bcc962"
+    },
+    {
+      "path": "public/audio/g6-u1-school-clubs.mp3",
+      "bytes": 140832,
+      "sha256": "6878695c58af6b2d2215614fadcba25e712dc6b7966d2ede35ae11253a335489"
+    },
+    {
+      "path": "public/audio/g6-u2-mai-house.mp3",
+      "bytes": 246960,
+      "sha256": "3d73cf71102c7c6c381a6f30efb1a0c7f3da5c75a47d91a8ecb46af6346c0e7f"
+    },
+    {
+      "path": "public/audio/g6-u7-tv-programmes.mp3",
+      "bytes": 281088,
+      "sha256": "be700d03a89ed235dd4adaf36edf951c6df771d816e7c525525087b36b779e1f"
+    },
+    {
+      "path": "public/audio/g7-u1-unusual-hobbies.mp3",
+      "bytes": 165888,
+      "sha256": "5e2b20d6ecbabff1f5b5eda87b849cf839fb9412399a5868c6cbe77216bf19a9"
+    },
+    {
+      "path": "public/audio/g7-u2-healthy-habits.mp3",
+      "bytes": 515088,
+      "sha256": "a50acd67c252657a076232be72edd54742a037d94885766dab8bed3dedbd5c06"
+    },
+    {
+      "path": "public/audio/g7-u2-skin-care-tips.mp3",
+      "bytes": 436608,
+      "sha256": "01a9e83198f4b4e670167ce024f389dd88953a3500fec27f3d8a3dabd273b8cc"
+    },
+    {
+      "path": "public/audio/g8-u1-leisure-habits.mp3",
+      "bytes": 185184,
+      "sha256": "802086e723ee8152a5091f7c7939ed391a1531d1c6a620de5c768855d575892a"
+    },
+    {
+      "path": "public/audio/g9-u1-craft-villages.mp3",
+      "bytes": 207072,
+      "sha256": "231c410426c9bbdc01a4dcc17fe704c0704d15bd7420a08fe6fe49ee28afb095"
+    },
+    {
+      "path": "public/audio/library-appointment.mp3",
+      "bytes": 324000,
+      "sha256": "ce7b17b3215fcd0b780db570985be8d9570b6b323bc2eaa1fe06252c4cf5e536"
+    },
+    {
+      "path": "public/audio/placement-test-dialogue.mp3",
+      "bytes": 364032,
+      "sha256": "83943c24b8ab7d2dc251b3a1f4c72f0fd3e77ce62406bc5620e0ae12fc08e1d2"
+    },
+    {
+      "path": "public/audio/study-room-dialogue.mp3",
+      "bytes": 267696,
+      "sha256": "fbab96c29c7e4a42613b35ef494af097e19d31f9670f003c61fddd21b75dea7d"
+    },
+    {
+      "path": "public/assets/icons/arrow.svg",
+      "bytes": 193,
+      "sha256": "85ebdbe1d3fefdb7865ecf0c159b439b290e780c3642799bc4bc17c8b41442ca"
+    },
+    {
+      "path": "public/assets/icons/audio.svg",
+      "bytes": 206,
+      "sha256": "21466ed91ad769091ee41897b1e58f892c6faab8ed1d22aa519cdc28237f9817"
+    },
+    {
+      "path": "public/assets/icons/check.svg",
+      "bytes": 185,
+      "sha256": "efe21ae82421769b932bcb5ec5070e5190176f7a3711359fa5a0333bd7ed59fa"
+    },
+    {
+      "path": "public/assets/icons/classroom.svg",
+      "bytes": 217,
+      "sha256": "8757d60d3f678a681027978557ba8fd345c9997d79bab94f2c9ec3e101b9684e"
+    },
+    {
+      "path": "public/assets/icons/close.svg",
+      "bytes": 192,
+      "sha256": "485b752ad21501dfa295d9b543d849bee6f4e6305c1cae2e3cad52dfbb1174c0"
+    },
+    {
+      "path": "public/assets/icons/hint.svg",
+      "bytes": 215,
+      "sha256": "8626487e519c8b03b0faea47ca31ec87a160426c4c7d17818a0127690feeda1d"
+    },
+    {
+      "path": "public/assets/icons/leaf.svg",
+      "bytes": 208,
+      "sha256": "31f5294faf8ec52165d6f1d7e17cd00012f60652f705d3e9289afeaed3387d4e"
+    },
+    {
+      "path": "public/assets/icons/listening.svg",
+      "bytes": 230,
+      "sha256": "18fcb200ee9eab0304d43eafc93936e3dc9e3d07900d837db485ccd2b1642466"
+    },
+    {
+      "path": "public/assets/icons/reading.svg",
+      "bytes": 227,
+      "sha256": "0cfc1aaeae757ab6798f0d2e6a11e20afd2117702d994e30e1561966705d412a"
+    },
+    {
+      "path": "public/assets/icons/repeat.svg",
+      "bytes": 213,
+      "sha256": "fcf6c51704ab491a594fb991791335f318ae56b00b4e6f619b8c9032373658b0"
+    },
+    {
+      "path": "public/assets/icons/speaking.svg",
+      "bytes": 266,
+      "sha256": "ea5c3270fa5f94c1af71047f54370304762570932c606a0d3f9bfddda940e8a4"
+    },
+    {
+      "path": "public/assets/icons/upload.svg",
+      "bytes": 206,
+      "sha256": "a2fa4dbdeaa278b8d4485eecdcaa7274dd87e96b6c675c890e6a4abce91f4b40"
+    },
+    {
+      "path": "public/assets/icons/writing.svg",
+      "bytes": 206,
+      "sha256": "792d713e78754d132ee2fa3a4b660c46280350c91be245344e99c37bb4fe1222"
+    },
+    {
+      "path": "public/assets/mascot/avatar.svg",
+      "bytes": 1883,
+      "sha256": "f400f788b88026d6100ab3c198163260bd3858badf4fda98f60fc834b608b24d"
+    },
+    {
+      "path": "public/assets/mascot/concept-reference.png",
+      "bytes": 1372442,
+      "sha256": "fff33405aa1433dec6b24546fd44c3791d742eee063ec9de714b36bbffe22792"
+    },
+    {
+      "path": "public/assets/mascot/frog.png",
+      "bytes": 41785,
+      "sha256": "fc5c7c36bd1f11ada5ef38b92939bd3d4d314dd0c98d0849f42dedc6cff25bdf"
+    },
+    {
+      "path": "public/assets/mascot/frog.svg",
+      "bytes": 1925,
+      "sha256": "16d2a926731b2776bc244e048ac920a0b39b3f217c2dd4c8ee0f19989ec92d55"
+    },
+    {
+      "path": "public/motion/gif/celebrate.gif",
+      "bytes": 247439,
+      "sha256": "b9f4a194333f2734320e8723edf2cba6597d1a51e593781a400a53e27df1c124"
+    },
+    {
+      "path": "public/motion/gif/encouraging.gif",
+      "bytes": 245750,
+      "sha256": "963a03d11891475df92ff89b386307b573dc1a64c0ec5027f707c2ebf64ff959"
+    },
+    {
+      "path": "public/motion/gif/explaining.gif",
+      "bytes": 243989,
+      "sha256": "cf531fabe132a55e01d5db751d6c59d1b44ab5b930bce3fb03055efbff938485"
+    },
+    {
+      "path": "public/motion/gif/goodbye.gif",
+      "bytes": 243989,
+      "sha256": "a3c3b38b806f508878bcfe3ba009d5aef7ede42e3201c5c2e7ecd5e606af953e"
+    },
+    {
+      "path": "public/motion/gif/hello.gif",
+      "bytes": 243774,
+      "sha256": "112a458897e23a316efe2fa8b25d65376a7118570ed728732a9372f0dcdf9012"
+    },
+    {
+      "path": "public/motion/gif/idle.gif",
+      "bytes": 245077,
+      "sha256": "301495ced7881cbb57375bfeb62610bb3c00179d12c3edf9312ec9691584f9e5"
+    },
+    {
+      "path": "public/motion/gif/listening.gif",
+      "bytes": 246051,
+      "sha256": "40f839a00dd7d29c57c1addf32ba65534f8eacaeea258c9c16021664dbff026c"
+    },
+    {
+      "path": "public/motion/gif/thinking.gif",
+      "bytes": 246252,
+      "sha256": "5e81214c525b50cafc846fc06552f5c028c2e363f095077e2cf3345db0fd441f"
+    },
+    {
+      "path": "public/motion/svg/celebrate.svg",
+      "bytes": 3044,
+      "sha256": "9a0224926a8d445524ea0b3843fc8a426faf2fa7635b512f6eee049fcbed2808"
+    },
+    {
+      "path": "public/motion/svg/encouraging.svg",
+      "bytes": 3045,
+      "sha256": "f49c1fd12bb668d86cda47f3e242e8cac0a78fc30c18e92bcbc6f7eebbc89716"
+    },
+    {
+      "path": "public/motion/svg/explaining.svg",
+      "bytes": 3044,
+      "sha256": "7b1a25b23f2efeae217688ff57fe2cdcaee8113b135c77eb2ec3cedff7723aac"
+    },
+    {
+      "path": "public/motion/svg/goodbye.svg",
+      "bytes": 3025,
+      "sha256": "2fd925ddcff67a3ffe06bf608b0f3ff93afb7c5a8df057d4ed8caffb23ae9395"
+    },
+    {
+      "path": "public/motion/svg/hello.svg",
+      "bytes": 3040,
+      "sha256": "0083f6d5b9c48bf03be858387f3f3fe4c210c035f973420f4566a65519fb1ab8"
+    },
+    {
+      "path": "public/motion/svg/idle.svg",
+      "bytes": 3069,
+      "sha256": "d160c90ef390994ac7237668522ace335af5a29f3fe0b5d386bc4a4044685eba"
+    },
+    {
+      "path": "public/motion/svg/listening.svg",
+      "bytes": 3031,
+      "sha256": "576ad47226bb49c699077ac3f374d3540ffbd1faac0870c64245d8fe4f578616"
+    },
+    {
+      "path": "public/motion/svg/thinking.svg",
+      "bytes": 3031,
+      "sha256": "d66ce9c1adad70911c1ab2f510cab3a828079848ccedd1e39663e95585e7941c"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "bytes": 1682,
+      "sha256": "994870eb1eeaabb7a062ff4d329ad18afe8e1aa4f8a550282e70b9dcdaa33624"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "bytes": 13108,
+      "sha256": "c9591a347a9236a01806c3784e0093760d9134036c816f0f74d5660200693972"
+    },
+    {
+      "path": "src/components/AssignmentAttachments.tsx",
+      "bytes": 3308,
+      "sha256": "961c96aa3c09285eaa1a6f5bf672b76ecaab68131752d166812b5aa2bab3b032"
+    },
+    {
+      "path": "src/lib/aiEngine.ts",
+      "bytes": 32220,
+      "sha256": "477bfe30ba522d518df5b1b4f27076fe2ef6bfb0c7e97b8b923bc3a8a5844fde"
+    },
+    {
+      "path": "src/lib/assignmentAbility.ts",
+      "bytes": 4961,
+      "sha256": "31974d37d9e40d591722cceaaeb020fe21ae10f6ca0f372985d1fd52c6899d9c"
+    },
+    {
+      "path": "src/lib/assignmentAttachments.ts",
+      "bytes": 1403,
+      "sha256": "a0e985b6da016d7280c864e9c51dd3adb57bcb33150d576da63ce88219d4cb30"
+    },
+    {
+      "path": "src/lib/assignmentGrading.ts",
+      "bytes": 2019,
+      "sha256": "a96a56905b6cdb2c7dce723e41d3ae062227db8b2da5020883b612b6cf96da48"
+    },
+    {
+      "path": "src/lib/assignmentRoster.ts",
+      "bytes": 1002,
+      "sha256": "c8ba12ba7dee0f745f97eca97ffa8b9acf90c85ffe2a428385ceb8936cc70198"
+    },
+    {
+      "path": "src/lib/auth.ts",
+      "bytes": 5424,
+      "sha256": "f9edf5a9626a50188f85f990f86fcdcfdb64040bcda809382188cce2aca8f5b4"
+    },
+    {
+      "path": "src/lib/authCookie.ts",
+      "bytes": 532,
+      "sha256": "4f77c8f49e9d23dd248901d60ab3b903799be9057ef23b93be48a4056a260b03"
+    },
+    {
+      "path": "src/lib/cardQuality.ts",
+      "bytes": 575,
+      "sha256": "b814db9d0878856119ea8d9cca2f83cc52686e46a6370283bd017bf7f2911b58"
+    },
+    {
+      "path": "src/lib/chatSafety.ts",
+      "bytes": 2722,
+      "sha256": "fc0802559306e334b0e8f27df29951599e8c5e82c24dae0018e5f77747d7eb3a"
+    },
+    {
+      "path": "src/lib/dailyVocabulary.ts",
+      "bytes": 6922,
+      "sha256": "c073c1e091e32b12016ad443718c652d06bd2b373761adf83df5f464b65e84b1"
+    },
+    {
+      "path": "src/lib/dictionary.ts",
+      "bytes": 5511,
+      "sha256": "115137578079e2af3262c72685ec7aa7649bc94219380650eb13daf1bf89aa50"
+    },
+    {
+      "path": "src/lib/docxParser.ts",
+      "bytes": 22022,
+      "sha256": "067b5ed023e6d93015d61961ab7e766f1cdf95a72783f0b686ec973c2f872801"
+    },
+    {
+      "path": "src/lib/fsrs.ts",
+      "bytes": 5918,
+      "sha256": "df076272f7d0d982c1ace828a1be824978804bf036eb3b3f8aa9176f2c0c5fde"
+    },
+    {
+      "path": "src/lib/leafKnowledge.ts",
+      "bytes": 4494,
+      "sha256": "0bf5ba23d41dee42799e82b415c0acff93ecf883e726933b367806d2245b011f"
+    },
+    {
+      "path": "src/lib/leafMemory.ts",
+      "bytes": 2371,
+      "sha256": "49b8aae0085cfe45ddd3989e6cd7449af71a5f54cd7cdea52be341c69dbe68f0"
+    },
+    {
+      "path": "src/lib/leafRetrieval.ts",
+      "bytes": 3740,
+      "sha256": "07645313b21590247e20014c72437ac87be23c49be155d5da172d921e5bcdc20"
+    },
+    {
+      "path": "src/lib/learning.ts",
+      "bytes": 11734,
+      "sha256": "5d8d0228630202b87dd64515f195577c5b46b8da439290ec734a3e5870e12786"
+    },
+    {
+      "path": "src/lib/mockData.ts",
+      "bytes": 220790,
+      "sha256": "50a65a3339e974e7fd07e987165e62fae429273d06720d160055f3e5d292ab78"
+    },
+    {
+      "path": "src/lib/notifications.ts",
+      "bytes": 1463,
+      "sha256": "2bb2bb78c2106a5b029bf5cd4eb4e8563cd467f10ae1bfbe2f941e8fac426c6d"
+    },
+    {
+      "path": "src/lib/placementQuestions.ts",
+      "bytes": 18193,
+      "sha256": "c9a09385ed7b4943c72ef662c5c4b1a2a3b7090619ba1e7d6a97d12a4c8b24a5"
+    },
+    {
+      "path": "src/lib/placementSync.ts",
+      "bytes": 408,
+      "sha256": "c2aac1664bfa4b4fdf95c7ad3d88d029e36530964c72bdd57087d6281a6b4444"
+    },
+    {
+      "path": "src/lib/prisma.ts",
+      "bytes": 379,
+      "sha256": "18d1f9d6365bb52659be30565e4b8ec3573a3d9ec818f782d0a8279c1afb97e5"
+    },
+    {
+      "path": "src/lib/skillChart.ts",
+      "bytes": 2469,
+      "sha256": "c6de02a3470523a98320d2564a2ee67b9cac5a30bd7c0e1bfdd206b0f3f552ab"
+    },
+    {
+      "path": "src/lib/store.tsx",
+      "bytes": 31128,
+      "sha256": "47b824dbb6f9b2a9ff2c7cec6a5995991aa139d8a61c2157a3d07482634faefe"
+    },
+    {
+      "path": "src/lib/studyChat.ts",
+      "bytes": 4890,
+      "sha256": "fabbcf76d8e51ffc93f38a573a923af95f2374a88dd41f1a9a1816a35f3f73e7"
+    },
+    {
+      "path": "src/lib/thematicPackUnit2.ts",
+      "bytes": 22741,
+      "sha256": "735c641091bb43c375e8ef5e3a15d9c30ec5108679d40947e7011390bb3857fe"
+    },
+    {
+      "path": "src/lib/useDelayedLoading.ts",
+      "bytes": 413,
+      "sha256": "fc0415bab8c3ed210d29333557cd47659ca2f3d25688483e043fb847ea518b5f"
+    },
+    {
+      "path": "src/lib/useLocalDraft.ts",
+      "bytes": 790,
+      "sha256": "1e4a4c358646defd2afc56c1abf8669fb640df56862f58e45a9e9b648af34b03"
+    },
+    {
+      "path": "src/lib/vocabulary.ts",
+      "bytes": 1879,
+      "sha256": "0e142671ae9fa59b9968e59565e19837bf230082e83747ec6df396e9508df67d"
+    },
+    {
+      "path": "src/styles/globals.css",
+      "bytes": 2599,
+      "sha256": "4d17499183c9dd555f8779fc500ed33ae8d4214eb659adc06c80da608301009f"
+    },
+    {
+      "path": "src/styles/tokens.ts",
+      "bytes": 754,
+      "sha256": "d69ca8cf66a8b44972ff2c0d38f1e0da8975c91c7e39bfc96d91bc085416ff58"
+    },
+    {
+      "path": "src/types/index.ts",
+      "bytes": 5354,
+      "sha256": "11a6c02ac63bf1af5fbd482a829e14151ac5c610a901ba5770f9428157c3b4f0"
+    },
+    {
+      "path": "src/app/admin/layout.tsx",
+      "bytes": 458,
+      "sha256": "0100c00d28d2ffb51f6dcfb46d917dbfd439c058aa410252bfc147602aa30393"
+    },
+    {
+      "path": "src/app/admin/page.tsx",
+      "bytes": 8281,
+      "sha256": "29d0ac45c7a82f57d5554690f68844274a8f3c8f7634117f518c5acb8061088e"
+    },
+    {
+      "path": "src/app/student/layout.tsx",
+      "bytes": 540,
+      "sha256": "1506d22d37d4bf4da27493e4ee0a4a0b917af52a6f535471d67ec5db7eac9177"
+    },
+    {
+      "path": "src/app/student/StudentClientLayout.tsx",
+      "bytes": 2114,
+      "sha256": "cd5b6726114b45b0e088d1ceb6fc3c1da120b180901c8a2cbc1ebb5dc86663fb"
+    },
+    {
+      "path": "src/app/teacher/layout.tsx",
+      "bytes": 450,
+      "sha256": "926710f44f937086ded07aaaf198f00e97c2f29058152a5da4e559f3d7168b6e"
+    },
+    {
+      "path": "src/app/admin/content/page.tsx",
+      "bytes": 5167,
+      "sha256": "281930c3e60d299fb2d8261c8e453fa250418863643314bd562331f3c159b307"
+    },
+    {
+      "path": "src/app/admin/users/page.tsx",
+      "bytes": 10255,
+      "sha256": "cf9b436c084ec274bf01a517e83b6cfadcd9ddee65fe0ccc04b215306099e3f3"
+    },
+    {
+      "path": "src/app/api/assignments/route.ts",
+      "bytes": 7346,
+      "sha256": "cbe4d2dfd361d5aa600a8592c7b7326f87add2dcd281851d123481bde28afc32"
+    },
+    {
+      "path": "src/app/api/classes/route.ts",
+      "bytes": 3343,
+      "sha256": "268981022f863a0a0f2c7a5c015c623aabfa704003c9c2c0b68d29c9c33585ad"
+    },
+    {
+      "path": "src/app/api/dictionary/route.ts",
+      "bytes": 1600,
+      "sha256": "edbb4020d79a438fe48ea07200d89f1169d1dc9cf3351531b01087c6bdab2858"
+    },
+    {
+      "path": "src/app/api/notifications/route.ts",
+      "bytes": 2161,
+      "sha256": "e54c165fb28fb256020d57af5d5da6b4ec69b6b93e27941e2031a9c92cb2e9cc"
+    },
+    {
+      "path": "src/app/api/placement/route.ts",
+      "bytes": 9848,
+      "sha256": "3d88394798c2ff5a1a9eaa077816611b55d6c50292f7fa903e0399044acd8fbf"
+    },
+    {
+      "path": "src/app/api/submissions/route.ts",
+      "bytes": 13030,
+      "sha256": "430c25d316f7771984569de26111d2e7e1dc2e1acdbc1ff4bbb2f16760403959"
+    },
+    {
+      "path": "src/app/api/vocab/route.ts",
+      "bytes": 14346,
+      "sha256": "fcb3e27efa652e65f6db95c6dc25ef05373c2534745f9d45de3df6c47f10c31b"
+    },
+    {
+      "path": "src/app/api/admin/stats/route.ts",
+      "bytes": 1331,
+      "sha256": "aceb05e61caed707b99f392d7238cf2ee6eab6d0fd34da45194c8e6522d7de54"
+    },
+    {
+      "path": "src/app/api/admin/users/route.ts",
+      "bytes": 1713,
+      "sha256": "ee2f1c6fd2b1621b7fb5a9515132857221da37f520a7167a9cb416b1cbb00388"
+    },
+    {
+      "path": "src/app/api/ai/chat/route.ts",
+      "bytes": 6953,
+      "sha256": "0da60378e6d34b4bc3dd9c78ab061868fb46a006fce0384bcf681da83c86f930"
+    },
+    {
+      "path": "src/app/api/ai/evaluate/route.ts",
+      "bytes": 4300,
+      "sha256": "68367aa0f9cae4ce679d1baf88ab9f804f35e12c4c8d7d46800f85f40e535842"
+    },
+    {
+      "path": "src/app/api/ai/tutor/route.ts",
+      "bytes": 3522,
+      "sha256": "fb563f2fdca4810beb94e61696a571aa52ddc0af3ddfeff3f004b8d3ee422767"
+    },
+    {
+      "path": "src/app/api/assignments/[id]/route.ts",
+      "bytes": 10764,
+      "sha256": "a5aadcd50941c5c5d77d271ad07f425228869fef90f71612b8e50f1265e4b6f6"
+    },
+    {
+      "path": "src/app/api/assignments/[id]/attachments/route.ts",
+      "bytes": 2363,
+      "sha256": "a942c58e72e052f88d8bf12176a4ea12fef3e6c66e9c00b0954996415e47aaaa"
+    },
+    {
+      "path": "src/app/api/assignments/[id]/submissions/route.ts",
+      "bytes": 4180,
+      "sha256": "215125573ec72762c474e2d961efc163c28ae4bca542463d2cf5eac0b1fd1904"
+    },
+    {
+      "path": "src/app/api/audio/upload/route.ts",
+      "bytes": 2494,
+      "sha256": "d66eb8231471895c3525fa92d875f3c671befad5044a315eeac9db89d0f8185e"
+    },
+    {
+      "path": "src/app/api/auth/login/route.ts",
+      "bytes": 1261,
+      "sha256": "2b81ce1a595500ad962f58ec225f942c59831dd13f340df73a54cb0d9cf37d8a"
+    },
+    {
+      "path": "src/app/api/auth/logout/route.ts",
+      "bytes": 207,
+      "sha256": "2f1cc034a7c884e2c16b122bbd185fb8726eef02f6ccb8684cd50689bd821704"
+    },
+    {
+      "path": "src/app/api/auth/me/route.ts",
+      "bytes": 1780,
+      "sha256": "04e949debfcba9181071f150de765c86be8a4910c0b4ee233782fe45294461c4"
+    },
+    {
+      "path": "src/app/api/auth/recover/route.ts",
+      "bytes": 2895,
+      "sha256": "60c79ad8939510d84edce925761f410f83d0805700fe1bcf140ea7ac18d2a8ff"
+    },
+    {
+      "path": "src/app/api/auth/register/route.ts",
+      "bytes": 2268,
+      "sha256": "b2154e662bd6bf7fea8c3047f3d42e266a22bb7e460425cc1587f3c16aa00d00"
+    },
+    {
+      "path": "src/app/api/auth/reset-password/route.ts",
+      "bytes": 2191,
+      "sha256": "b9b0d86f863b92db004fe75104304de0e1f9cb45fc3aba81e0ba751e6bae273b"
+    },
+    {
+      "path": "src/app/api/auth/switch-role/route.ts",
+      "bytes": 1432,
+      "sha256": "f9161e3b80a3a207347973f919dcd596dcf0bfcc636a62662d61c7bb1f381e2d"
+    },
+    {
+      "path": "src/app/api/classes/join/route.ts",
+      "bytes": 2378,
+      "sha256": "2f5b3c41b7183e562e5666d3761bd678f1004c37994e6101951e3b1765af806a"
+    },
+    {
+      "path": "src/app/api/classes/[id]/route.ts",
+      "bytes": 5119,
+      "sha256": "9ccb5b35ed3bedda663c2c12447cf1bdccdb8c16e0b569d8037de742dd77420f"
+    },
+    {
+      "path": "src/app/api/grading/[submissionId]/route.ts",
+      "bytes": 10921,
+      "sha256": "74bd8a11a1286961c39bddbefe78c7532e0e5fd83da04148669aaf6e709ab264"
+    },
+    {
+      "path": "src/app/api/student/progress/route.ts",
+      "bytes": 9951,
+      "sha256": "48e8a5c04f0e711238097c7279d74790bb2eabae5ad4518b733e577225af6d3b"
+    },
+    {
+      "path": "src/app/api/teacher/import-docx/route.ts",
+      "bytes": 8429,
+      "sha256": "249c60c29da5037d79c811f31cfe0a666cc7ef2fbab7947a0bae34e64a7bf693"
+    },
+    {
+      "path": "src/app/api/vocab/review/route.ts",
+      "bytes": 4099,
+      "sha256": "fd7eccdd7e410665772fbdc1340f6aa36544c36b374cbe35537fd3bf75b27aab"
+    },
+    {
+      "path": "src/app/api/vocab/settings/route.ts",
+      "bytes": 2236,
+      "sha256": "1d3a3611a9041fd51543e32b03712f573aed7d5a8eee8d765e29b567eda185c7"
+    },
+    {
+      "path": "src/app/auth/login/page.tsx",
+      "bytes": 6482,
+      "sha256": "bcb78268df204f120f26396c4d34e0535ed11f4de3f3ac19b46438ad9bf6c24d"
+    },
+    {
+      "path": "src/app/auth/recover/page.tsx",
+      "bytes": 4896,
+      "sha256": "d3c27963240ac9f6a5cebc958001731989503f74406713a457939d62f869bd72"
+    },
+    {
+      "path": "src/app/auth/register/page.tsx",
+      "bytes": 6913,
+      "sha256": "48cc0112dbdc3f75fe739f1959c80be464e5dd7bac00f13e09815a5c6f6c03a4"
+    },
+    {
+      "path": "src/app/auth/reset-password/page.tsx",
+      "bytes": 7554,
+      "sha256": "7f520b3fe149d4e755b4022be30f9a45a5549d37b24a3c4365f8608e8104f920"
+    },
+    {
+      "path": "src/app/student/classroom/page.tsx",
+      "bytes": 10446,
+      "sha256": "7f7b187d67ff44f8b803caa8430892c090c03702dc99040c73d699ccda9d41c1"
+    },
+    {
+      "path": "src/app/student/home/page.tsx",
+      "bytes": 11292,
+      "sha256": "24f59c1f3bcef5fa5256288a32dd6fd7011d195ad6f872c21222403237ddf325"
+    },
+    {
+      "path": "src/app/student/learn/page.tsx",
+      "bytes": 12443,
+      "sha256": "12135d92aba9700fe78ea222867203baa1f2262af568e893ec922db72bb12720"
+    },
+    {
+      "path": "src/app/student/notifications/page.tsx",
+      "bytes": 6234,
+      "sha256": "2287b917d9788ef31e71134d83a3e628ab23af84e0c1d4714dc55e734d5912eb"
+    },
+    {
+      "path": "src/app/student/onboarding/page.tsx",
+      "bytes": 7690,
+      "sha256": "e2752232dac0ad825b778409a319a2c1e7792259206dedb4d01d27cfac476600"
+    },
+    {
+      "path": "src/app/student/placement-test/page.tsx",
+      "bytes": 17840,
+      "sha256": "d98c172e8404a9d7b3cd14205cabaf3c3cad475c809f8063974cc216cbf9fc50"
+    },
+    {
+      "path": "src/app/student/progress/page.tsx",
+      "bytes": 5064,
+      "sha256": "971231ee5d9455d13073d98e67fa144ad15ecd5840dbe0011efdcc5e8125319a"
+    },
+    {
+      "path": "src/app/student/session-summary/page.tsx",
+      "bytes": 16154,
+      "sha256": "043385b174951e8fd37c15229dd64d7bee7691e4e6f6f5bc107985cff9acaaf9"
+    },
+    {
+      "path": "src/app/student/settings/page.tsx",
+      "bytes": 3967,
+      "sha256": "5ddd4a3fd585d66616f805b55c896c230a8df2f1321e41517adcece8302f9bef"
+    },
+    {
+      "path": "src/app/student/vocabulary/page.tsx",
+      "bytes": 16070,
+      "sha256": "fc8b49827bb463d05dbcd9f15f5941362e910e9e8df05e5004d0be00490db19e"
+    },
+    {
+      "path": "src/app/student/classroom/[classId]/assignment/[assignmentId]/page.tsx",
+      "bytes": 17997,
+      "sha256": "330762281d40b774bec436f4704548f5a60fe3bce04202989f9ebda306b7ab58"
+    },
+    {
+      "path": "src/app/student/learn/[skill]/[lessonId]/page.tsx",
+      "bytes": 39049,
+      "sha256": "5e3eb51a68f4fed777c82a1005aa1e8a2b708266620ec121b7ed9b1ca2eacb3a"
+    },
+    {
+      "path": "src/app/student/placement-test/result/page.tsx",
+      "bytes": 13876,
+      "sha256": "99366c2c95bac931337495d5186dcd3d57adf9b76498bb5f5fd311a0a5c1ef98"
+    },
+    {
+      "path": "src/app/student/vocabulary/flashcard/page.tsx",
+      "bytes": 10666,
+      "sha256": "16bb705c53d41a1fbe8bea0a1f7055ac2a7618dca1b8cedd0f02739f5926902c"
+    },
+    {
+      "path": "src/app/student/workspace/listening/[id]/page.tsx",
+      "bytes": 5447,
+      "sha256": "9aea4675f267699132015c0d435322e3c5f626feab1747a4fdeb97546bc79f94"
+    },
+    {
+      "path": "src/app/student/workspace/reading/[id]/page.tsx",
+      "bytes": 9683,
+      "sha256": "fbaffd8bf0973bac810338fefd6b99a6b3b0c9875b7a09be6e8106d68a2f51da"
+    },
+    {
+      "path": "src/app/student/workspace/speaking/[id]/page.tsx",
+      "bytes": 2221,
+      "sha256": "ea136c6b16f6a08716d5dc751db4ea982dadcb9322125134eac8a9a6b509b326"
+    },
+    {
+      "path": "src/app/student/workspace/thematic-pack/[packId]/page.tsx",
+      "bytes": 23224,
+      "sha256": "60dc8d0666785c19fb0091d8478c3fedee45d716797899133870d0b04305b0ec"
+    },
+    {
+      "path": "src/app/student/workspace/writing/[id]/page.tsx",
+      "bytes": 11934,
+      "sha256": "3453f6eeee9c968b07a4c9d6f44fa6fd1dc9589041405cde255d1178eca75403"
+    },
+    {
+      "path": "src/app/teacher/assignments/page.tsx",
+      "bytes": 3553,
+      "sha256": "9b05e8b21efd479d0f1a95bc88f6c128a831fdf9bd17d4058ad194cc480ce63f"
+    },
+    {
+      "path": "src/app/teacher/classes/page.tsx",
+      "bytes": 5588,
+      "sha256": "001761a29575be1cd8c9a43d692c9970f7c285c7893514fcbbc4303906d6a8f4"
+    },
+    {
+      "path": "src/app/teacher/dashboard/page.tsx",
+      "bytes": 6522,
+      "sha256": "61d7518231ceb5141b147923d2062a50bcc50e80e5f597b83e9e37d03f8c89ab"
+    },
+    {
+      "path": "src/app/teacher/grading/page.tsx",
+      "bytes": 3985,
+      "sha256": "6af1ce1e40c6c27b2f7413d6306759b63015f0706388c1d8f3e57e1452192705"
+    },
+    {
+      "path": "src/app/teacher/notifications/page.tsx",
+      "bytes": 60,
+      "sha256": "24829586f85f23a5a364e35309b93087aaf5c355bd326832645a01bd0a77dd62"
+    },
+    {
+      "path": "src/app/teacher/settings/page.tsx",
+      "bytes": 10182,
+      "sha256": "ad255d307775589f66864ef748b512a96912e752b85d2aa4a89747f4e01db019"
+    },
+    {
+      "path": "src/app/teacher/assignments/create/page.tsx",
+      "bytes": 9311,
+      "sha256": "a356809530f98f44d021324522a35ceaa3700fb1e8d31cf5cce0a9ae22f5606b"
+    },
+    {
+      "path": "src/app/teacher/assignments/import-docx/page.tsx",
+      "bytes": 36374,
+      "sha256": "2a9b780ef93b1a23007cea312c73747eb4b327b2c1b8410ddfa362a8b8580a15"
+    },
+    {
+      "path": "src/app/teacher/assignments/[id]/submissions/page.tsx",
+      "bytes": 5531,
+      "sha256": "8b432f6dfbccc68c3e034fba28be7de4100f2049f3607ce1569e4062f052cf5f"
+    },
+    {
+      "path": "src/app/teacher/assignments/[id]/versions/page.tsx",
+      "bytes": 16153,
+      "sha256": "69c84e4ac6f8200caab3bd85780b37c38b66cabbf8430a86c1ea417cdfa6f1b2"
+    },
+    {
+      "path": "src/app/teacher/classes/[id]/page.tsx",
+      "bytes": 12422,
+      "sha256": "58c28d42e8467661a8f5602547097291cc5cdad158a77318ccdc7338f5556c91"
+    },
+    {
+      "path": "src/app/teacher/grading/[submissionId]/page.tsx",
+      "bytes": 11690,
+      "sha256": "27e7e38b5180ea3d42217100f7bf41ae0476a6977d43692b7f0653b74c8fd87d"
+    },
+    {
+      "path": "src/components/dev/DevAgentAnnotator.tsx",
+      "bytes": 24999,
+      "sha256": "5daad748a723506ce0d83bb6dba268cdfe9a454755e5dd3c039e2e0744ae5e7e"
+    },
+    {
+      "path": "src/components/exercise/InlineWordSelector.tsx",
+      "bytes": 5797,
+      "sha256": "3c56f06b55c1809b8fb3b2e14f09057045d831162b4a94a73850e2194980f3f9"
+    },
+    {
+      "path": "src/components/exercise/TrueFalseTable.tsx",
+      "bytes": 4354,
+      "sha256": "dbfa25cdaa815891d2a52c5c4aad9fa4b83957ae99ccc012375de3e6f30aff21"
+    },
+    {
+      "path": "src/components/exercise/WordBankFill.tsx",
+      "bytes": 5447,
+      "sha256": "9136261dc0a9b2edb397e5756ba9c0a21d4f31edf0c4706461403820a5f27a5d"
+    },
+    {
+      "path": "src/components/ui/AITutorDrawer.tsx",
+      "bytes": 9176,
+      "sha256": "d7c9a3eeca63b461fc3a9e4f514e57b19513298205a52cd875c20be0cd87e33d"
+    },
+    {
+      "path": "src/components/ui/AudioPlayer.tsx",
+      "bytes": 7847,
+      "sha256": "9b2f0d63c9d3f6deedd66572f2b2610733025e84ba3bd6fc7c60235b1fa2dc58"
+    },
+    {
+      "path": "src/components/ui/AudioRecorder.tsx",
+      "bytes": 18553,
+      "sha256": "f6cbf84039a7cee7c4d62e3532f8d362d7b10adaf58ee97c727b7189dfe3c334"
+    },
+    {
+      "path": "src/components/ui/Badge.tsx",
+      "bytes": 1094,
+      "sha256": "f31069000dc977ccabfb83f18e36133028d4f5280f632c0e8554eb5acd75599d"
+    },
+    {
+      "path": "src/components/ui/Button.tsx",
+      "bytes": 2562,
+      "sha256": "a0d607a6ac8ba8de4e4c1da72a632bd0d56988be572c71e5aa47ec3b6ae87a46"
+    },
+    {
+      "path": "src/components/ui/Card.tsx",
+      "bytes": 1621,
+      "sha256": "2c1680b132a1e8340337a1e92ceca13c289e178c44ee4122db12cc82b9ef04e1"
+    },
+    {
+      "path": "src/components/ui/DictionaryLookup.tsx",
+      "bytes": 6707,
+      "sha256": "c1193ecd24d74fa87fb2770fd50fcb1ea1ee101bb352c0414d401512a59cb2b7"
+    },
+    {
+      "path": "src/components/ui/Footer.tsx",
+      "bytes": 1875,
+      "sha256": "813644b0cda4f07ae7ae1fe9df4909eb3ab01495490e68f4b01b9b0276c58e3b"
+    },
+    {
+      "path": "src/components/ui/GradingSkeleton.module.css",
+      "bytes": 492,
+      "sha256": "37b9dd3f8821b53890fd7b9682c6fb4dbcc6961d5d9724cec9d2e4d5bd57fedd"
+    },
+    {
+      "path": "src/components/ui/GradingSkeleton.tsx",
+      "bytes": 609,
+      "sha256": "ee73ff9794aeaa5f464f2416eb84ad29528e70dfac507d7ab4c09a7ed563afdf"
+    },
+    {
+      "path": "src/components/ui/Header.tsx",
+      "bytes": 16340,
+      "sha256": "5a327e718498f30b8db2bab62e2605cd033f1def9622ef21faf0217287fccb6e"
+    },
+    {
+      "path": "src/components/ui/Mascot.tsx",
+      "bytes": 3986,
+      "sha256": "42922274d598a52afd27cb1136853c930079ab6074ac23009966b33c52c50035"
+    },
+    {
+      "path": "src/components/ui/OptionCard.tsx",
+      "bytes": 3001,
+      "sha256": "57d684aecd7088881436976d47aeaf9370b8e7cb70ab7aad4dbe1922f403e4ea"
+    },
+    {
+      "path": "src/components/ui/RoleSwitcher.tsx",
+      "bytes": 4366,
+      "sha256": "11150141cd5fb4478407b32acfb0eacef1445d5d2bb730afffa4854c088bbbc3"
+    },
+    {
+      "path": "src/components/ui/SkillRadar.tsx",
+      "bytes": 6250,
+      "sha256": "5c1477253df8a2776029c5958e582973b1dbdfe5a187c7749fca3802eaa9239e"
+    },
+    {
+      "path": "src/components/ui/StudyChatbot.tsx",
+      "bytes": 15775,
+      "sha256": "7c7a357db68552a37f62506d3b956e540d2643166af9074677962b8efcbadc0b"
+    },
+    {
+      "path": "src/components/ui/WritingEvaluation.module.css",
+      "bytes": 890,
+      "sha256": "b64ffc832c9522c0f166f78b1a19b883f5278bec9d6ba8942304caaf858d04f4"
+    },
+    {
+      "path": "src/components/ui/WritingEvaluation.tsx",
+      "bytes": 8891,
+      "sha256": "225ce2d1a902176b2202de2b8c3c391ee76b301e74f1b0cd8f337fddb509d3b7"
+    }
+  ],
+  "includes_user_database": false,
+  "includes_env_files": false,
+  "includes_recordings": false
+}

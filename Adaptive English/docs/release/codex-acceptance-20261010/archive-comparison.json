@@ -1,0 +1,11 @@
+{
+  "missing_release_files": [
+    "docs/release/DEPLOYMENT.md",
+    "docs/release/USER-GUIDE.md",
+    "docs/release/ACCEPTANCE-CHECKLIST.md",
+    "docs/release/05-release-report.md",
+    "data/dictionary.db"
+  ],
+  "source_differences_vs_current_workspace": [],
+  "dictionary_size_in_workspace": 178987008
+}

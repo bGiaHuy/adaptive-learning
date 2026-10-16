@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-10",
+  "runtime": "v24.19.0",
+  "http_status": 200,
+  "pass": true,
+  "body": "{\"content\":[{\"text\":\"```json\\n{\\\"reply\\\": \\\"Resilient (kiên cường) có nghĩa là có khả năng phục hồi nhanh chóng sau khó khăn hoặc thử thách.\\\"}\\n```\",\"type\":\"text\"}],\"id\":\"msg_cca4d90f1c454f4ab189e2b04809e4ef\",\"model\":\"[REDACTED]\",\"role\":\"assistant\",\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"type\":\"message\",\"usage\":{\"input_tokens\":4311,\"output_tokens\":45}}",
+  "scope": "Synthetic prompt directly to upstream with Node fetch matching app runtime; no production database access or data mutation",
+  "exit_code": 0
+}

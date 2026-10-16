@@ -1,0 +1,1 @@
+synthetic audit canary; no real file overwritten
