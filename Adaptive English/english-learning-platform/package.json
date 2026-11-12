@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/generate-cloudflare-prisma.cjs",
     "dev": "next dev",
+    "prebuild": "node scripts/generate-cloudflare-prisma.cjs",
     "build": "next build",
     "build:vercel": "node scripts/build-vercel.cjs",
     "start": "next start",
@@ -19,6 +21,7 @@
     "adm-zip": "^0.6.1",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
+    "google-auth-library": "^10.9.1",
     "html-to-text": "^9.0.5",
     "lucide-react": "^0.447.0",
     "next": "^14.2.15",

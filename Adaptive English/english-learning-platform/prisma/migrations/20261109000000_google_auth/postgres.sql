@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS "GoogleAccount" (
+  "subject" TEXT PRIMARY KEY,
+  "userId" TEXT NOT NULL UNIQUE REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS "GoogleOAuthState" (
+  "stateHash" TEXT PRIMARY KEY,
+  "nonce" TEXT NOT NULL,
+  "codeVerifier" TEXT NOT NULL,
+  "role" TEXT NOT NULL DEFAULT 'student',
+  "returnTo" TEXT NOT NULL DEFAULT '',
+  "linkUserId" TEXT,
+  "expiresAt" TIMESTAMP(3) NOT NULL,
+  "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS "GoogleOAuthState_expiresAt_idx" ON "GoogleOAuthState"("expiresAt");

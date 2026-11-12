@@ -21,6 +21,7 @@ model User {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
+  googleAccount       GoogleAccount?
   classrooms          ClassroomMember[]
   taughtClassrooms    Classroom[]
   submissions         Submission[]
@@ -430,4 +431,23 @@ model AuthEmailRateLimit {
   key String @id
   windowAt DateTime
   count Int @default(0)
+}
+
+model GoogleAccount {
+  subject String @id
+  userId String @unique
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GoogleOAuthState {
+  stateHash String @id
+  nonce String
+  codeVerifier String
+  role String @default("student")
+  returnTo String @default("")
+  linkUserId String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  @@index([expiresAt])
 }

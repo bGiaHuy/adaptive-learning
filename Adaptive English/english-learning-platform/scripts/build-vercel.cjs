@@ -18,6 +18,7 @@ if (schema === source || !schema.includes('provider = "postgresql"') || !schema.
 fs.writeFileSync('prisma/schema.vercel.prisma', schema);
 if (process.argv.includes('--schema-only')) process.exit(0);
 for (const [file, args] of [
+  ['../scripts/generate-cloudflare-prisma.cjs', []],
   ['prisma/build/index.js', ['generate', '--schema', 'prisma/schema.vercel.prisma']],
   ['next/dist/bin/next', ['build']],
 ]) {

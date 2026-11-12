@@ -1,5 +1,6 @@
 "use client";
 
+import { GoogleSignIn } from "@/components/ui/GoogleSignIn";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/store";
@@ -124,6 +125,8 @@ export default function LoginPage() {
             ⚠️ {errorMsg}
           </div>
         )}
+
+        <GoogleSignIn />
 
         {/* Standard Form */}
         <form onSubmit={handleLogin} className="space-y-4">

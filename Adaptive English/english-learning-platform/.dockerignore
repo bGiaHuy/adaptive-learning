@@ -1,0 +1,10 @@
+**
+!.artifacts/
+!.artifacts/cloudflare-build/
+!.artifacts/cloudflare-build/app/
+!.artifacts/cloudflare-build/app/**
+**/.env*
+**/node_modules
+**/.vercel
+**/*.db
+**/*.log

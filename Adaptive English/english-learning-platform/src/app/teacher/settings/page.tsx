@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { GoogleSignIn } from '@/components/ui/GoogleSignIn';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -21,6 +22,7 @@ export default function TeacherSettingsPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="mb-6"><GoogleSignIn connect /></div>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>

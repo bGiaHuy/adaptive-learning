@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "adaptive-english",
+  "account_id": "dd2f7a1c403332569d3a1058ab9dd3d2",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-09",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "BASE_URL": "https://adaptive-english.adaptive-learning-c3.workers.dev",
+    "NEXTAUTH_URL": "https://adaptive-english.adaptive-learning-c3.workers.dev",
+    "ENABLE_ROLE_SWITCHER": "false",
+    "APP_INSTANCE_KEY": "english-google-20261110-v1",
+    "MIGRATION_MAINTENANCE": "false",
+    "CLOUDFLARE_DATA_URL": "https://adaptive-english-data.adaptive-learning-c3.workers.dev/v1/data",
+    "CLOUDFLARE_MEDIA_URL": "https://adaptive-english-data.adaptive-learning-c3.workers.dev/v1/media"
+  },
+  "containers": [
+    {
+      "class_name": "EnglishApp",
+      "scheduling_policy": "durable_object",
+      "images": {
+        "base": {
+          "dockerfile": "Dockerfile",
+          "build_context": "../.."
+        }
+      }
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "APP",
+        "class_name": "EnglishApp"
+      }
+    ]
+  },
+  "exports": {
+    "EnglishApp": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "MIGRATION_ARCHIVE",
+      "database_name": "adaptive-english-archive",
+      "database_id": "6f9e478b-804a-42fd-b4e6-362c9f6c6b66"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "AUTH_LIMITER",
+      "namespace_id": "2026110903",
+      "simple": {
+        "limit": 60,
+        "period": 60
+      }
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": false
+    }
+  }
+}

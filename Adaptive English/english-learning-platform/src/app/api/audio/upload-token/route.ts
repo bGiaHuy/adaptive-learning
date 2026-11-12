@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { cloudflareAudioReady } from '@/lib/privateAudio';
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { getCurrentUser } from '@/lib/auth';
 import { audioStorageReady,parseAudioPath,authorizeAudioUpload,MAX_AUDIO_SIZE,AUDIO_TYPES } from '@/lib/audioStorage';
 export async function POST(request: Request) {try {
+ if(cloudflareAudioReady())return NextResponse.json({error:'Vui lòng tải lại trang để dùng kho ghi âm mới.'},{status:409});
  if(!audioStorageReady())return NextResponse.json({error:'Kho ghi âm chưa được cấu hình.'},{status:503});
  const body=await request.json() as HandleUploadBody;
  const result=await handleUpload({request,body,onBeforeGenerateToken:async pathname=>{

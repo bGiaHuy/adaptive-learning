@@ -2,3 +2,5 @@
 .env*
 
 .npm-cache/
+src/generated/cloudflarePrisma/
+prisma/schema.cloudflare.prisma

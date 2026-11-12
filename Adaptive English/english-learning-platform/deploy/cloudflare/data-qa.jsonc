@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
+  "name": "adaptive-english-data-qa",
+  "account_id": "dd2f7a1c403332569d3a1058ab9dd3d2",
+  "main": "data-worker.mjs",
+  "compatibility_date": "2026-11-09",
+  "workers_dev": true,
+  "preview_urls": false,
+  "durable_objects": {"bindings":[{"name":"MEDIA","class_name":"PrivateAudio"}]},
+  "exports": {"PrivateAudio":{"type":"durable-object","storage":"sqlite"}},
+  "d1_databases": [{"binding":"DB","database_name":"adaptive-english-qa","database_id":"93087af3-d504-4f51-a5b9-2702fd5c891f"}],
+  "observability": {"enabled":true,"logs":{"enabled":true,"invocation_logs":false}}
+}

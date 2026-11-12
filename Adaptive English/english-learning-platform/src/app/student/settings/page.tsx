@@ -1,5 +1,6 @@
 "use client";
 
+import { GoogleSignIn } from "@/components/ui/GoogleSignIn";
 import React from "react";
 import { useApp } from "@/lib/store";
 import { Button } from "@/components/ui/Button";
@@ -23,6 +24,8 @@ export default function StudentSettingsPage() {
         </h1>
         <p className="text-xs md:text-sm text-ink-muted">Tùy chỉnh trải nghiệm học tập, chuyển động và âm thanh.</p>
       </div>
+
+      <GoogleSignIn connect />
 
       <div className="bg-white border-2 border-line rounded-lg p-6 space-y-6 shadow-soft">
         {/* Vocab Limit Setting */}

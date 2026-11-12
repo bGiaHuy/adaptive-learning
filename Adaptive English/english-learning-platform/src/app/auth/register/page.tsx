@@ -1,5 +1,6 @@
 "use client";
 
+import { GoogleSignIn } from "@/components/ui/GoogleSignIn";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/store";
@@ -139,6 +140,8 @@ export default function RegisterPage() {
         )}
 
         {/* Form */}
+        <GoogleSignIn role={selectedRole} />
+
         <form onSubmit={handleRegister} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-ink">Họ và Tên</label>

@@ -1,0 +1,10 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
+const source = fs.readFileSync('prisma/schema.prisma', 'utf8');
+if (!source.includes('provider = "sqlite"')) throw new Error('Cloudflare planner must use the canonical SQLite schema');
+const output = source.replace('provider = "prisma-client-js"', 'provider = "prisma-client-js"\n  output = "../src/generated/cloudflarePrisma"');
+const destination = 'prisma/schema.cloudflare.prisma';
+fs.writeFileSync(destination, output);
+const result = spawnSync(process.execPath, [path.join(process.cwd(), 'node_modules/prisma/build/index.js'), 'generate', '--schema', destination], { stdio: 'inherit', env: process.env });
+if (result.status !== 0) process.exit(result.status || 1);

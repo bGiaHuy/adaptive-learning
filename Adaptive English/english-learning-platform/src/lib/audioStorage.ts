@@ -1,5 +1,5 @@
 import prisma from './prisma';
-import { head } from '@vercel/blob';
+import { headPrivateAudio, privateAudioReady } from './privateAudio';
 import { randomUUID } from 'crypto';
 export const MAX_AUDIO_SIZE = 20 * 1024 * 1024;
 export const AUDIO_TYPES = ['audio/webm','audio/mp4','audio/ogg','audio/wav','audio/x-wav','audio/mpeg'];
@@ -10,7 +10,7 @@ export function validateAudio(type: string, size: number) {
  if (!AUDIO_TYPES.includes(mime) || !Number.isInteger(size) || size < 500 || size > MAX_AUDIO_SIZE) throw Object.assign(new Error('Chọn bản ghi âm hợp lệ, từ 500 bytes đến 20 MB.'),{status:400});
  return mime;
 }
-export function audioStorageReady() { return Boolean(process.env.BLOB_READ_WRITE_TOKEN || (process.env.BLOB_STORE_ID && process.env.VERCEL_OIDC_TOKEN)); }
+export function audioStorageReady() { return privateAudioReady(); }
 export function parseAudioPath(pathname: string) {
  const parts=pathname.split('/');
  const assignment=parts.length===5 && parts[2]==='assignments';
@@ -44,7 +44,7 @@ export function audioPathFromUrl(url: unknown) {
 export async function validateSubmissionAudio(url: unknown,user: Actor,assignmentId: string) {
  const pathname=audioPathFromUrl(url);const scope=parseAudioPath(pathname);
  if(scope.ownerId!==user.id||scope.assignmentId!==assignmentId)throw Object.assign(new Error('Bản ghi không thuộc học sinh hoặc bài tập này.'),{status:403});
- const blob=await head(pathname);validateAudio(blob.contentType,blob.size);return audioPlaybackUrl(pathname);
+ const blob=await headPrivateAudio(pathname);validateAudio(blob.contentType,blob.size);return audioPlaybackUrl(pathname);
 }
 export async function authorizeAudioRead(user: Actor,pathname: string) {
  const scope=parseAudioPath(pathname);
